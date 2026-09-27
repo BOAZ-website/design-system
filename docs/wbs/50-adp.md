@@ -14,9 +14,9 @@
 
 ## ADP-01 frontend 토큰 연결
 
-| 규모 | 선행 | 차단 결정 | Phase | 대상 저장소 |
-| --- | --- | --- | --- | --- |
-| 하루이틀 | DS-06 | 없음 | 4 | `BOAZ-website/frontend` |
+| 규모 | 선행 | Phase | 대상 저장소 |
+| --- | --- | --- | --- |
+| 하루이틀 | DS-06 | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -26,24 +26,24 @@
 
 ## ADP-02 frontend_admin 토큰 연결
 
-| 규모 | 선행 | 차단 결정 | Phase | 대상 저장소 |
-| --- | --- | --- | --- | --- |
-| 몇 시간 | DS-06 | 없음 | 4 | `BOAZ-website/frontend_admin` |
+| 규모 | 선행 | Phase | 대상 저장소 |
+| --- | --- | --- | --- |
+| 몇 시간 | DS-06 | 4 | `BOAZ-website/frontend_admin` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | ADP-02-01 | `npm install github:BOAZ-website/design-system#v0.1.0`, `theme.css`에서 `tailwind-theme.css` import | 빌드 성공 |
 | ADP-02-02 | `--primary`·`--ring`을 보라(`--boaz-color-palette-purple-100`)로 바꿈. `--destructive`는 빨강 유지 | primary와 destructive 값이 다름 |
-| ADP-02-03 | 쓰지 않는 `.dark` 블록 삭제(D-08) | `theme.css`에 `.dark` 없음 |
+| ADP-02-03 | 쓰지 않는 `.dark` 블록 삭제(관리자 콘솔은 다크 모드를 켜는 코드가 없음) | `theme.css`에 `.dark` 없음 |
 | ADP-02-04 | 새 코드·수정 파일은 `slate-*` 대신 shadcn 시맨틱 클래스 사용 규칙을 CLAUDE.md에 추가. 기존 `slate-*` 전면 치환은 하지 않음 | 규칙 문서 |
 
 ## ADP-03 frontend 값 불일치 정리
 
 **목적:** 조사에서 찾은 Figma와 다른 값을 고침
 
-| 규모 | 선행 | 차단 결정 | Phase | 대상 저장소 |
-| --- | --- | --- | --- | --- |
-| 하루이틀 | ADP-01, CMP-01 | 없음 | 4 | `BOAZ-website/frontend` |
+| 규모 | 선행 | Phase | 대상 저장소 |
+| --- | --- | --- | --- |
+| 하루이틀 | ADP-01, CMP-01 | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -56,9 +56,9 @@
 
 ## ADP-04 frontend `alert()` → 모달 교체
 
-| 규모 | 선행 | 차단 결정 | Phase | 대상 저장소 |
-| --- | --- | --- | --- | --- |
-| 하루이틀 | CMP-07, PAT-01 | D-06 | 4 | `BOAZ-website/frontend` |
+| 규모 | 선행 | Phase | 대상 저장소 |
+| --- | --- | --- | --- |
+| 하루이틀 | CMP-07, PAT-01 | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
