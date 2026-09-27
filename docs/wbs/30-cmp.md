@@ -202,7 +202,7 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | CMP-15-01 | 부문 선택 버튼 253×80, radius 8, 1px #666666, selected 보라 배경. 라디오 그룹 의미 | `components/selection-card.md`(4266:7628·7629) |
-| CMP-15-02 | radius 8은 radius 토큰에 없음 → FND-03에 추가할지 기록 | 명세의 확인 필요 절 |
+| CMP-15-02 | radius 8은 radius 토큰에 없어 명세에 수치로 기재 | `components/selection-card.md` |
 
 ## CMP-16 form-add-button (P1)
 
@@ -214,10 +214,3 @@
 | --- | --- | --- |
 | CMP-16-01 | "+ 항목 추가"·"− 삭제" 행, 상태 default·hover·active_focus, 삭제 hover 빨강 | `components/form-add-button.md`(2009:4216, 5775:9707) |
 
----
-
-## 확인 필요 사항
-
-- 부문 선택 버튼 radius 8을 토큰으로 둘지(CMP-15-02) [확인 필요]
-- 데스크톱 underline 탭이 실제로 쓰이는지(모바일 프레임에서만 확인됨) [확인 필요]
-- 아코디언(FAQ 질문·약관 전문)과 캐러셀은 P2로 두고 이번 범위에서 제외
