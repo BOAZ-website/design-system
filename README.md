@@ -1,3 +1,5 @@
+![BOAZ Design System](./cover.png)
+
 # BOAZ Design System
 
 BOAZ 공개 홈페이지와 관리자 콘솔이 함께 쓰는 디자인 언어입니다. 디자인 토큰과 컴포넌트·패턴 명세를 단일 원천(Single Source of Truth)으로 관리하고, Style Dictionary로 빌드해 CSS 변수와 Tailwind 테마로 배포합니다.
