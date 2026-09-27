@@ -62,7 +62,8 @@ BOAZ 공통 규약을 따릅니다.
 
 - `dev` → `main` 모델. 기능 PR의 base는 `dev`입니다.
 - base가 `main`이면 워크플로가 경고 코멘트를 남깁니다. (`hotfix/*`, `release/*`, `dev` → `main`은 예외)
-- `dev`·`main`은 ruleset으로 보호됩니다: PR 필수, `Tokens Build` 통과 필수, force push·삭제 금지, merge commit만 허용. `main`은 승인 1명이 추가로 필요합니다.
+- 서버 쪽 브랜치 규칙(ruleset)은 두지 않습니다. 변경은 PR로 올리고, CI `Tokens Build`가 통과한 뒤 merge commit으로 머지합니다.
+- 리뷰어는 PR 담당자(assignee)가 직접 지정합니다. 자동 지정(CODEOWNERS)은 쓰지 않습니다.
 
 ### 이슈 / PR 제목
 
