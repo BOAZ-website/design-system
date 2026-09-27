@@ -1,0 +1,18 @@
+:root {
+  --boaz-color-palette-purple-100: #7a64f9;
+  --boaz-color-palette-purple-200: #6250c7;
+  --boaz-color-palette-purple-300: #493c95;
+  --boaz-color-palette-lightblue-100: #68cbec;
+  --boaz-color-palette-gray-100: #e6e6e6;
+  --boaz-color-palette-gray-200: #cccccc;
+  --boaz-color-palette-gray-300: #b3b3b3;
+  --boaz-color-palette-gray-400: #999999;
+  --boaz-color-palette-gray-600: #666666;
+  --boaz-color-palette-gray-800: #333333;
+  --boaz-color-palette-gray-900: #1a1a1a;
+  --boaz-color-palette-gray-950: #0d0d0d;
+  --boaz-color-palette-gray-white: #ffffff;
+  --boaz-color-palette-gray-black: #000000;
+  --boaz-color-palette-red-100: #f96466;
+  --boaz-color-palette-red-200: #190a0a;
+}

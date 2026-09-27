@@ -1,0 +1,13 @@
+node_modules/
+
+# 로컬 티켓/작업 메모 (저장소 추적 제외)
+TICKET-*.md
+
+# OS / 편집기
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# 로컬 AI 도구 상태 (oh-my-claudecode)
+.omc/

@@ -1,0 +1,57 @@
+name: Auto Labeler
+
+# 이슈 / PR 제목의 `[Type]` 을 보고 라벨을 붙입니다.
+# 라벨 7종은 저장소에 미리 만들어 두어야 합니다(없는 라벨은 조용히 건너뜀).
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened, reopened]
+    branches: [dev]
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Auto Labeling based on title
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const payload = context.payload;
+            const target = payload.pull_request ?? payload.issue;
+            const title = target.title || '';
+
+            // 제목 맨 앞 `[Type]` 만 본다. 본문 단어(design 등)로 오분류하지 않기 위함
+            const match = title.match(/^\[(\w+)\]/);
+            if (!match) return;
+
+            const labels = {
+              feat: '⭐️ FEAT',
+              fix: '🐛 FIX',
+              hotfix: '🐛 FIX',
+              docs: '✏️ DOCS',
+              style: '🧁 STYLE',
+              refactor: '🛠️ REFACTOR',
+              test: '🔎 TEST',
+              chore: '🧹 CHORE',
+            };
+            const label = labels[match[1].toLowerCase()];
+            if (!label) return;
+
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: target.number,
+                labels: [label],
+              });
+            } catch (error) {
+              core.warning(`라벨 추가 실패: ${error.message}`);
+            }

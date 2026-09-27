@@ -1,0 +1,21 @@
+/* 이 파일은 npm run build 로 생성됩니다. 직접 수정하지 마세요. */
+@import "./tokens.css";
+
+@theme inline {
+  --color-boaz-palette-purple-100: var(--boaz-color-palette-purple-100);
+  --color-boaz-palette-purple-200: var(--boaz-color-palette-purple-200);
+  --color-boaz-palette-purple-300: var(--boaz-color-palette-purple-300);
+  --color-boaz-palette-lightblue-100: var(--boaz-color-palette-lightblue-100);
+  --color-boaz-palette-gray-100: var(--boaz-color-palette-gray-100);
+  --color-boaz-palette-gray-200: var(--boaz-color-palette-gray-200);
+  --color-boaz-palette-gray-300: var(--boaz-color-palette-gray-300);
+  --color-boaz-palette-gray-400: var(--boaz-color-palette-gray-400);
+  --color-boaz-palette-gray-600: var(--boaz-color-palette-gray-600);
+  --color-boaz-palette-gray-800: var(--boaz-color-palette-gray-800);
+  --color-boaz-palette-gray-900: var(--boaz-color-palette-gray-900);
+  --color-boaz-palette-gray-950: var(--boaz-color-palette-gray-950);
+  --color-boaz-palette-gray-white: var(--boaz-color-palette-gray-white);
+  --color-boaz-palette-gray-black: var(--boaz-color-palette-gray-black);
+  --color-boaz-palette-red-100: var(--boaz-color-palette-red-100);
+  --color-boaz-palette-red-200: var(--boaz-color-palette-red-200);
+}

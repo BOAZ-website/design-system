@@ -1,0 +1,46 @@
+name: CI
+
+# 토큰을 빌드하고, 커밋된 dist/ 가 빌드 결과와 같은지 확인한다.
+# 소비 앱은 git 태그로 dist/ 를 그대로 가져가므로 dist/ 가 낡으면 안 된다.
+# job 이름 "Tokens Build" 는 ruleset 의 required status check 이름이다. 바꾸면 ruleset 도 함께 바꾼다.
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Tokens Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build tokens
+        run: npm run build
+
+      - name: dist 최신 여부 확인
+        run: |
+          if [ -n "$(git status --porcelain -- dist)" ]; then
+            echo "::error::dist/ 가 빌드 결과와 다릅니다. 로컬에서 npm run build 후 dist/ 를 커밋하세요."
+            git status --porcelain -- dist
+            git diff -- dist
+            exit 1
+          fi
