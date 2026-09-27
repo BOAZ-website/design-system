@@ -6,7 +6,7 @@
 
 - Figma에 등록된 색 스타일 17종·텍스트 스타일 12종을 DTCG 토큰으로 옮김
 - 팔레트 → 시맨틱 2계층으로 두고, 앱은 시맨틱을 우선 참조하게 함
-- Figma에 없는 값(radius 정본, spacing, focus)은 결정 대기로 관리하고 기본 제안값으로 진행할 수 있게 함
+- Figma에 없는 값(radius 정본, spacing, focus)은 결정 D-01~D-04로 확정한 값을 씀
 
 **범위:** `tokens/**/*.json`, `build/build.mjs`, `dist/` 3종
 **범위 밖:** z-index·breakpoint·glass(Figma에 대응 개념 없음, 앱 로컬 유지), 라이트 모드 시맨틱(D-08), elevation·motion(근거 없음, 필요할 때 추가)
@@ -64,7 +64,7 @@
 
 | 규모 | 선행 | 차단 결정 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- | --- |
-| 하루이틀 | DS-04 | D-04 | 1 | 없음 |
+| 하루이틀 | DS-04 | 없음(D-04 확정) | 1 | 없음 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -72,13 +72,13 @@
 | FND-02-02 | 12종을 `typography.{display, headline-1, headline-2, headline-3, body-1, body-2, body-2-regular, body-3, body-4, body-4-paragraph, body-5, text-1}.{size,weight,line-height}`로 정의하고 원시 스케일을 참조 | `dist/tokens.css`에 `--boaz-typography-headline-3-size` 등 36개 |
 | FND-02-03 | DTCG 복합 `typography` 타입은 쓰지 않음(Style Dictionary css 변환이 `font` 단축 문자열로 합치고 자간을 버림) | 토큰 파일에 `"$type": "typography"` 없음 |
 | FND-02-04 | 크기 단위는 rem, frontend 기준(html 62.5%, 1rem = 10px)을 README에 명시 | `dist/tokens.css`의 size 값이 rem |
-| FND-02-05 | 코드 전용 17종(8·10·12·22·28·32·36·38·80px, 굵기 500·600 등)은 토큰에 넣지 않음(D-04 기본안) | 토큰에 12종만 존재 |
+| FND-02-05 | 코드 전용 17종(8·10·12·22·28·32·36·38·80px, 굵기 500·600 등)은 토큰에 넣지 않음(D-04) | 토큰에 12종만 존재 |
 
 ## FND-03 radius 토큰
 
 | 규모 | 선행 | 차단 결정 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- | --- |
-| 몇 시간 | DS-04 | D-02 | 1 | 없음 |
+| 몇 시간 | DS-04 | 없음(D-02 확정) | 1 | 없음 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -92,7 +92,7 @@
 
 | 규모 | 선행 | 차단 결정 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- | --- |
-| 몇 시간 | DS-04 | D-03 | 1 | 없음 |
+| 몇 시간 | DS-04 | 없음(D-03 확정) | 1 | 없음 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -105,13 +105,13 @@
 
 | 규모 | 선행 | 차단 결정 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- | --- |
-| 하루이틀 | FND-01 | D-01, D-10 | 1 | 없음 |
+| 하루이틀 | FND-01 | D-10(확인 전까지 보라) | 1 | 없음 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | FND-05-01 | 배경: `bg.canvas`(#000000), `bg.layer`(#1A1A1A), `bg.surface-inverse`(#FFFFFF, 모달), `bg.brand-solid`·`-hover`·`-press`(purple 100·300·400), `bg.neutral-solid`·`-hover`·`-press`(white·gray 400·600), `bg.disabled`(gray 600) | `tokens/color/semantic.json` |
 | FND-05-02 | 글자: `fg.default`(white), `fg.neutral`(gray 200), `fg.muted`(gray 400), `fg.disabled`(gray 400), `fg.on-brand`(white), `fg.on-inverse`(black), `fg.brand`(purple 100), `fg.accent`(lightblue 100), `fg.critical`(red 100) | 같은 파일 |
-| FND-05-03 | 선: `stroke.neutral`(gray 400), `stroke.weak`(gray 800), `stroke.brand`(purple 100), `stroke.focus`(D-01, 기본안 lightblue 100), `stroke.critical`(red 100) | 같은 파일 |
+| FND-05-03 | 선: `stroke.neutral`(gray 400), `stroke.weak`(gray 800), `stroke.brand`(purple 100), `stroke.focus`(lightblue 100, D-01), `stroke.critical`(red 100) | 같은 파일 |
 | FND-05-04 | 모든 시맨틱은 팔레트 참조(hex 직접 기재 없음), `tokens.css`에 `var()` 참조로 출력 | `--boaz-color-bg-brand-solid: var(--boaz-color-palette-purple-100)` |
 | FND-05-05 | 주요 글자·배경 조합 대비표(WCAG AA) 기재. `fg.brand` #7A64F9는 #1A1A1A 위 4.16:1로 큰 글자 전용 | 명세의 대비표 |
 
