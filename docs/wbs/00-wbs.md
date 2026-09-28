@@ -4,8 +4,8 @@
 | --- | --- | --- |
 | 2026-09-28 | Figma 원본(TF팀 디자인 파일, Components·FE 회의용 페이지) MCP 조회, `frontend`·`frontend_admin` 코드 조사, daangn/seed-design 참고 | 실행 계획. 일정은 다른 우선순위보다 낮아 적지 않음. 담당자는 노션에서 배정 |
 
-> BOAZ 공개 홈페이지(`frontend`)와 관리자 콘솔(`frontend_admin`)이 함께 쓰는 디자인 토큰과 컴포넌트·패턴 명세를 이 저장소 하나에 모으는 작업 전체를 명세서(Epic) 5개, 티켓 38개로 나눈 문서.
-> 목표는 **기준을 만드는 것**이며 앱 코드 수정은 ADP 명세서에서 각 앱 저장소 이슈로 따로 진행함
+> BOAZ 공개 홈페이지(`frontend`)와 관리자 콘솔(`frontend_admin`)이 함께 쓰는 디자인 토큰과 컴포넌트·패턴 명세를 이 저장소 하나에 모으는 작업 전체를 명세서(Epic) 5개, 티켓 39개로 나눈 문서.
+> 목표는 **기준을 만드는 것**이며 앱 코드 수정은 ADOPT 명세서에서 각 앱 저장소 이슈로 따로 진행함
 
 ---
 
@@ -23,9 +23,9 @@
 
 | 구분 | 형식 | 위치 | 예시 |
 | --- | --- | --- | --- |
-| 명세서(Epic) | 영문 대문자 2~3글자 접두사 | 문서 1개 | `FND` 파운데이션 명세서 |
-| 티켓 키 | `접두사-두 자리` | 명세서의 절 | `FND-01` |
-| 기능 ID | `티켓 키-두 자리` | 절 안의 표 행 | `FND-01-01` |
+| 명세서(Epic) | 명세서 범위를 나타내는 영문 대문자 단어 | 문서 1개 | `TOKEN` 파운데이션 토큰 명세서 |
+| 티켓 키 | `접두사-두 자리` | 명세서의 절 | `TOKEN-01` |
+| 기능 ID | `티켓 키-두 자리` | 절 안의 표 행 | `TOKEN-01-01` |
 
 - 티켓 1개 = GitHub 이슈 1개 = 노션 엔지니어링 작업 1개. PR 1개 정도로 닫을 수 있는 단위
 - 기능 ID마다 "완료 확인 방법"이 있음. 명령 결과나 파일로 확인할 수 있어야 완료로 봄
@@ -43,13 +43,13 @@
 
 | 접두사 | 명세서 | 범위 | Phase | 티켓 | 남은 규모 | 페이지 |
 | --- | --- | --- | --- | --- | --- | --- |
-| DS | 저장소·규칙 | 저장소 생성, 협업 규칙, CI, 릴리스 | 0, 1, 3 | 8 | 약 1일(릴리스 2개) | 10-ds.md |
-| FND | 파운데이션 | 색(팔레트·시맨틱), 타이포, radius, spacing, 빌드 | 1 | 6 | 약 4.5~7.5일 | 20-fnd.md |
-| CMP | 컴포넌트 명세 | P0 8종, P1 8종 | 2, 3 | 16 | 약 10~14일(P0 6~10, P1 4) | 30-cmp.md |
-| PAT | 패턴·가이드라인 | 피드백, 폼, 접근성, 보이스 앤 톤 | 3 | 4 | 약 3~5일 | 40-pat.md |
-| ADP | 앱 적용 | frontend·frontend_admin 토큰 연결, 불일치 정리 | 4 | 4 | 약 3.5~6.5일 | 50-adp.md |
+| REPO | 저장소·규칙 | 저장소 생성, 협업 규칙, CI, 릴리스 | 0, 1, 3 | 9 | 약 1일(릴리스 2개) | 10-repo.md |
+| TOKEN | 파운데이션 | 색(팔레트·시맨틱), 타이포, radius, spacing, 빌드 | 1 | 6 | 약 4.5~7.5일 | 20-token.md |
+| COMPONENT | 컴포넌트 명세 | P0 8종, P1 8종 | 2, 3 | 16 | 약 10~14일(P0 6~10, P1 4) | 30-component.md |
+| PATTERN | 패턴·가이드라인 | 피드백, 폼, 접근성, 보이스 앤 톤 | 3 | 4 | 약 3~5일 | 40-pattern.md |
+| ADOPT | 앱 적용 | frontend·frontend_admin 토큰 연결, 불일치 정리 | 4 | 4 | 약 3.5~6.5일 | 50-adopt.md |
 
-- 티켓 38개 중 DS-00~05 6개는 완료. 남은 32개 규모 합계 약 22~34일(1인 기준)
+- 티켓 39개 중 REPO-00~05·REPO-08 7개는 완료. 남은 32개 규모 합계 약 22~34일(1인 기준)
 - 남은 규모는 몇 시간 = 0.5일, 하루이틀 = 1~2일로 환산한 작업량이며 일정이 아님
 
 ### 용어
@@ -69,13 +69,13 @@
 
 | Phase | 목표 | 완료 기준 | 티켓 |
 | --- | --- | --- | --- |
-| Phase 0 저장소·규칙 | 공개 저장소와 협업 규칙 | CI `Tokens Build` 통과, 이슈 #1 종료 | DS-00~05 (완료) |
-| Phase 1 파운데이션 | 토큰 v0.1 | 팔레트·시맨틱·타이포·radius·spacing 토큰과 dist 3종, `v0.1.0` 태그 | FND-01~06, DS-06 |
-| Phase 2 핵심 컴포넌트 | P0 명세 8종 | `components/*.md` 8개 `status: review` 이상 | CMP-01~08 |
-| Phase 3 패턴·확장 | 패턴 4종, P1 명세 8종, v0.2 | `patterns/*.md` 4개, P1 8개 `draft` 이상, `v0.2.0` 태그 | PAT-01~04, CMP-09~16, DS-07 |
-| Phase 4 앱 적용 | 두 앱이 토큰 사용 | 각 앱 저장소 PR 머지 | ADP-01~04 |
+| Phase 0 저장소·규칙 | 공개 저장소와 협업 규칙 | CI `Tokens Build` 통과, 이슈 #1·#4·#17~#21 종료 | REPO-00~05, REPO-08 (완료) |
+| Phase 1 파운데이션 | 토큰 v0.1 | 팔레트·시맨틱·타이포·radius·spacing 토큰과 dist 3종, `v0.1.0` 태그 | TOKEN-01~06, REPO-06 |
+| Phase 2 핵심 컴포넌트 | P0 명세 8종 | `components/*.md` 8개 `status: review` 이상 | COMPONENT-01~08 |
+| Phase 3 패턴·확장 | 패턴 4종, P1 명세 8종, v0.2 | `patterns/*.md` 4개, P1 8개 `draft` 이상, `v0.2.0` 태그 | PATTERN-01~04, COMPONENT-09~16, REPO-07 |
+| Phase 4 앱 적용 | 두 앱이 토큰 사용 | 각 앱 저장소 PR 머지 | ADOPT-01~04 |
 
-- Phase 4는 Phase 1(v0.1)만 끝나면 시작할 수 있음. 관리자 콘솔 적용(ADP-02)은 컴포넌트 명세를 기다리지 않음
+- Phase 4는 Phase 1(v0.1)만 끝나면 시작할 수 있음. 관리자 콘솔 적용(ADOPT-02)은 컴포넌트 명세를 기다리지 않음
 
 ---
 
@@ -84,7 +84,7 @@
 | 구분 | 내용 | 근거 | 상태 |
 | --- | --- | --- | --- |
 | 저장소 초기 구성 | 공개 저장소(Apache-2.0), 커밋 훅, 가드·라벨·배정 워크플로, CI, CodeRabbit, AGENTS.md, Style Dictionary 최소 빌드 | #1 | 완료 |
-| 브랜치 규칙 삭제·리뷰어 수동 지정 | ruleset 삭제, CODEOWNERS 삭제 | #2, PR #3 | 진행 중 |
+| 브랜치 규칙 삭제·리뷰어 수동 지정 | ruleset 삭제, CODEOWNERS 삭제 | #17·#19, PR #3 | 완료 |
 | Figma 원본 조사 | 색 스타일 17종·텍스트 스타일 12종·버튼 상태값·radius 실측 | 이 문서 | 완료 |
 
 ---
@@ -93,44 +93,45 @@
 
 | 티켓 | 제목 | 명세서 | Phase | 규모 | 선행 | 상태 |
 | --- | --- | --- | --- | --- | --- | --- |
-| DS-00 | 저장소 생성·브랜치 구성 | DS | 0 | 몇 시간 | 없음 | 완료 |
-| DS-01 | 커밋 훅·템플릿 이식 | DS | 0 | 몇 시간 | DS-00 | 완료 |
-| DS-02 | 라벨·자동 라벨·자동 배정 | DS | 0 | 몇 시간 | DS-00 | 완료 |
-| DS-03 | 저장소 서버 설정 | DS | 0 | 몇 시간 | DS-00 | 완료(ruleset은 #2에서 삭제) |
-| DS-04 | CI `Tokens Build` | DS | 0 | 몇 시간 | DS-00 | 완료 |
-| DS-05 | CodeRabbit·AGENTS.md·README | DS | 0 | 몇 시간 | DS-00 | 완료 |
-| FND-01 | 팔레트 토큰 확정 | FND | 1 | 몇 시간 | DS-04 | 대기 |
-| FND-02 | 타이포 토큰 12종 | FND | 1 | 하루이틀 | DS-04 | 대기 |
-| FND-03 | radius 토큰 | FND | 1 | 몇 시간 | DS-04 | 대기 |
-| FND-04 | spacing 토큰 | FND | 1 | 몇 시간 | DS-04 | 대기 |
-| FND-05 | 시맨틱 색 토큰 | FND | 1 | 하루이틀 | FND-01 | 대기 |
-| FND-06 | 빌드 보강(타이포·spacing 출력) | FND | 1 | 하루이틀 | FND-02, FND-04 | 대기 |
-| DS-06 | `v0.1.0` 릴리스 | DS | 1 | 몇 시간 | FND-01~06 | 대기 |
-| CMP-01 | button | CMP | 2 | 하루이틀 | DS-06 | 대기 |
-| CMP-02 | text-field | CMP | 2 | 하루이틀 | DS-06 | 대기 |
-| CMP-03 | select(dropdown) | CMP | 2 | 몇 시간 | DS-06 | 대기 |
-| CMP-04 | checkbox | CMP | 2 | 몇 시간 | DS-06 | 대기 |
-| CMP-05 | radio | CMP | 2 | 몇 시간 | DS-06 | 대기 |
-| CMP-06 | tab | CMP | 2 | 하루이틀 | DS-06 | 대기 |
-| CMP-07 | modal | CMP | 2 | 몇 시간 | DS-06 | 대기 |
-| CMP-08 | card | CMP | 2 | 하루이틀 | DS-06 | 대기 |
-| PAT-01 | feedback | PAT | 3 | 몇 시간 | CMP-07 | 대기 |
-| PAT-02 | form | PAT | 3 | 하루이틀 | CMP-02 | 대기 |
-| PAT-03 | accessibility | PAT | 3 | 하루이틀 | FND-05 | 대기 |
-| PAT-04 | voice & tone | PAT | 3 | 몇 시간 | 없음 | 대기 |
-| CMP-09 | filter-chip | CMP | 3 | 몇 시간 | CMP-06 | 대기 |
-| CMP-10 | tag-chip | CMP | 3 | 몇 시간 | CMP-09 | 대기 |
-| CMP-11 | search-autocomplete | CMP | 3 | 몇 시간 | CMP-02 | 대기 |
-| CMP-12 | pagination | CMP | 3 | 몇 시간 | DS-06 | 대기 |
-| CMP-13 | tag | CMP | 3 | 몇 시간 | DS-06 | 대기 |
-| CMP-14 | progress-bar | CMP | 3 | 몇 시간 | DS-06 | 대기 |
-| CMP-15 | selection-card | CMP | 3 | 몇 시간 | CMP-05 | 대기 |
-| CMP-16 | form-add-button | CMP | 3 | 몇 시간 | CMP-02 | 대기 |
-| DS-07 | `v0.2.0` 릴리스 | DS | 3 | 몇 시간 | PAT-01~04, CMP-09~16 | 대기 |
-| ADP-01 | frontend 토큰 연결 | ADP | 4 | 하루이틀 | DS-06 | 대기 |
-| ADP-02 | frontend_admin 토큰 연결 | ADP | 4 | 몇 시간 | DS-06 | 대기 |
-| ADP-03 | frontend 값 불일치 정리 | ADP | 4 | 하루이틀 | ADP-01, CMP-01 | 대기 |
-| ADP-04 | frontend `alert()` → 모달 교체 | ADP | 4 | 하루이틀 | CMP-07, PAT-01 | 대기 |
+| REPO-00 | 저장소 생성·브랜치 구성 | 저장소·규칙 | 0 | 몇 시간 | 없음 | 완료 |
+| REPO-01 | 커밋 훅·템플릿 이식 | 저장소·규칙 | 0 | 몇 시간 | REPO-00 | 완료 |
+| REPO-02 | 라벨·자동 라벨·자동 배정 | 저장소·규칙 | 0 | 몇 시간 | REPO-00 | 완료 |
+| REPO-03 | 저장소 서버 설정 | 저장소·규칙 | 0 | 몇 시간 | REPO-00 | 완료(ruleset은 PR #3에서 삭제) |
+| REPO-04 | CI `Tokens Build` | 저장소·규칙 | 0 | 몇 시간 | REPO-00 | 완료 |
+| REPO-05 | CodeRabbit·AGENTS.md·README | 저장소·규칙 | 0 | 몇 시간 | REPO-00 | 완료 |
+| REPO-08 | WBS·명세서 작성 | 저장소·규칙 | 0 | 하루이틀 | REPO-00 | 완료 |
+| TOKEN-01 | 팔레트 토큰 확정 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
+| TOKEN-02 | 타이포 토큰 12종 | 파운데이션 | 1 | 하루이틀 | REPO-04 | 대기 |
+| TOKEN-03 | radius 토큰 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
+| TOKEN-04 | spacing 토큰 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
+| TOKEN-05 | 시맨틱 색 토큰 | 파운데이션 | 1 | 하루이틀 | TOKEN-01 | 대기 |
+| TOKEN-06 | 빌드 보강(타이포·spacing 출력) | 파운데이션 | 1 | 하루이틀 | TOKEN-02, TOKEN-04 | 대기 |
+| REPO-06 | `v0.1.0` 릴리스 | 저장소·규칙 | 1 | 몇 시간 | TOKEN-01~06 | 대기 |
+| COMPONENT-01 | button | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 대기 |
+| COMPONENT-02 | text-field | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 대기 |
+| COMPONENT-03 | select(dropdown) | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 대기 |
+| COMPONENT-04 | checkbox | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 대기 |
+| COMPONENT-05 | radio | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 대기 |
+| COMPONENT-06 | tab | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 대기 |
+| COMPONENT-07 | modal | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 대기 |
+| COMPONENT-08 | card | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 대기 |
+| PATTERN-01 | feedback | 패턴·가이드라인 | 3 | 몇 시간 | COMPONENT-07 | 대기 |
+| PATTERN-02 | form | 패턴·가이드라인 | 3 | 하루이틀 | COMPONENT-02 | 대기 |
+| PATTERN-03 | accessibility | 패턴·가이드라인 | 3 | 하루이틀 | TOKEN-05 | 대기 |
+| PATTERN-04 | voice & tone | 패턴·가이드라인 | 3 | 몇 시간 | 없음 | 대기 |
+| COMPONENT-09 | filter-chip | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-06 | 대기 |
+| COMPONENT-10 | tag-chip | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-09 | 대기 |
+| COMPONENT-11 | search-autocomplete | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 대기 |
+| COMPONENT-12 | pagination | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 대기 |
+| COMPONENT-13 | tag | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 대기 |
+| COMPONENT-14 | progress-bar | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 대기 |
+| COMPONENT-15 | selection-card | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-05 | 대기 |
+| COMPONENT-16 | form-add-button | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 대기 |
+| REPO-07 | `v0.2.0` 릴리스 | 저장소·규칙 | 3 | 몇 시간 | PATTERN-01~04, COMPONENT-09~16 | 대기 |
+| ADOPT-01 | frontend 토큰 연결 | 앱 적용 | 4 | 하루이틀 | REPO-06 | 대기 |
+| ADOPT-02 | frontend_admin 토큰 연결 | 앱 적용 | 4 | 몇 시간 | REPO-06 | 대기 |
+| ADOPT-03 | frontend 값 불일치 정리 | 앱 적용 | 4 | 하루이틀 | ADOPT-01, COMPONENT-01 | 대기 |
+| ADOPT-04 | frontend `alert()` → 모달 교체 | 앱 적용 | 4 | 하루이틀 | COMPONENT-07, PATTERN-01 | 대기 |
 
 ---
 

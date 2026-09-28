@@ -38,5 +38,5 @@
 
 ## 이슈 / Milestone
 
-- 작업 기준은 노션 WBS입니다(티켓 키 `DS-`, `FND-`, `CMP-`, `PAT-`, `ADP-`). GitHub 이슈는 티켓과 1:1입니다.
+- 작업 기준은 노션 WBS입니다(티켓 키 `REPO-`, `TOKEN-`, `COMPONENT-`, `PATTERN-`, `ADOPT-`). GitHub 이슈는 티켓과 1:1입니다.
 - Milestone과 이슈는 Phase를 시작할 때 사용자 승인을 받고 그 Phase 것만 만듭니다.
