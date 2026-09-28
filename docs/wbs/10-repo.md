@@ -40,7 +40,7 @@
 | REPO-01-01 | `.githooks/commit-msg`: `type: 설명 (#이슈)` 강제(product-infra 원본) | 대문자 type·이슈 번호 누락·설명 누락 메시지가 거부됨 |
 | REPO-01-02 | 이슈·PR 템플릿: 영향 토큰·dist 재생성·breaking·소비 앱 영향 체크 | `.github/` 파일 존재 |
 | REPO-01-03 | `.editorconfig`(frontend), `.gitattributes`(LF, dist 생성물 표시), `.gitignore` | 파일 존재 |
-| REPO-01-04 | CODEOWNERS는 두지 않음. 리뷰어는 PR 담당자가 지정 | `.github/CODEOWNERS` 없음(#2) |
+| REPO-01-04 | CODEOWNERS는 두지 않음. 리뷰어는 PR 담당자가 지정 | `.github/CODEOWNERS` 없음(PR #3) |
 
 ## REPO-02 라벨·자동 라벨·자동 배정
 
@@ -64,7 +64,7 @@
 | --- | --- | --- |
 | REPO-03-01 | 팀 권한: `2nd-frontend`·`2nd-pm` write | `gh api repos/BOAZ-website/design-system/teams` |
 | REPO-03-02 | Actions 기본 토큰 read, secret scanning·push protection·Dependabot alerts 켬 | 저장소 보안 설정 |
-| REPO-03-03 | 서버 브랜치 규칙(ruleset) 없음 | `gh api repos/BOAZ-website/design-system/rulesets` = `[]`(#2) |
+| REPO-03-03 | 서버 브랜치 규칙(ruleset) 없음 | `gh api repos/BOAZ-website/design-system/rulesets` = `[]`(PR #3) |
 
 ## REPO-04 CI `Tokens Build`
 
@@ -89,7 +89,7 @@
 | REPO-05-01 | `.coderabbit.yaml`: 한국어, `dist/` 제외, DTCG·이름 규칙·breaking·대비·공개 저장소 지침 | 첫 PR에 CodeRabbit 리뷰 코멘트 |
 | REPO-05-02 | `AGENTS.md`: 토큰 작업 절차, 이름 규칙, breaking·릴리스 규칙. `CLAUDE.md`는 `@AGENTS.md` | 파일 존재 |
 | REPO-05-03 | README: 소개, 구성(폴더·문서 색인), 사용, 라이선스(seed-design 방식) | 파일 존재 |
-| REPO-05-04 | CONTRIBUTING.md: 개발 환경, 토큰 변경 절차, 브랜치·이슈·PR·커밋 규약, 언어 | 파일 존재(#6) |
+| REPO-05-04 | CONTRIBUTING.md: 개발 환경, 토큰 변경 절차, 브랜치·이슈·PR·커밋 규약, 언어 | 파일 존재(PR #7) |
 
 ## REPO-06 `v0.1.0` 릴리스
 
@@ -126,7 +126,7 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | REPO-08-01 | WBS·명세서 v2: 읽는 법, 명세서 5개, Phase 0~4, 기능 ID별 완료 확인 방법, Figma 원본 조사 결과 | `docs/wbs/` 파일 6개(PR #5) |
-| REPO-08-02 | 결정 D-01·D-02·D-03·D-04·D-08 확정 반영 | 명세서 본문의 확정값(#8, PR #9) |
-| REPO-08-03 | 남은 결정 5건 확정과 결정 섹션 정리 | `00-wbs.md`에 결정 대기 섹션 없음(#10, PR #11) |
-| REPO-08-04 | 명세서의 확인 필요 사항 절 삭제 | 명세서에 "확인 필요 사항" 절 없음(#12, PR #13) |
-| REPO-08-05 | 티켓 규모 재산정과 Epic 규모 합계 | `00-wbs.md` Epic 표의 "남은 규모" 열(#14, PR #15) |
+| REPO-08-02 | 결정 D-01·D-02·D-03·D-04·D-08 확정 반영 | 명세서 본문의 확정값(PR #9) |
+| REPO-08-03 | 남은 결정 5건 확정과 결정 섹션 정리 | `00-wbs.md`에 결정 대기 섹션 없음(PR #11) |
+| REPO-08-04 | 명세서의 확인 필요 사항 절 삭제 | 명세서에 "확인 필요 사항" 절 없음(PR #13) |
+| REPO-08-05 | 티켓 규모 재산정과 Epic 규모 합계 | `00-wbs.md` Epic 표의 "남은 규모" 열(PR #15) |
