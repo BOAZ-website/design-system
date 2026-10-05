@@ -19,13 +19,17 @@
 
 | 계층 | 경로 | 예 | CSS 변수 |
 | --- | --- | --- | --- |
-| 팔레트 | `color.palette.{group}.{step}` | `color.palette.purple.100` | `--boaz-color-palette-purple-100` |
+| 팔레트(원시) | `color.palette.{group}.{step}` | `color.palette.purple.100` | `--boaz-color-palette-purple-100` |
 | 시맨틱 | `color.{fg\|bg\|stroke}.{role}[-state]` | `color.bg.brand-solid-hover` | `--boaz-color-bg-brand-solid-hover` |
-| 그 외 | `{radius\|spacing\|typography}.{scale}` | `radius.md` | `--boaz-radius-md` |
+| 글꼴 원시 | `font.{size\|weight\|line-height\|family}.{scale}` | `font.size.18` | `--boaz-font-size-18` |
+| 타이포 스타일 | `typography.{style}.{size\|weight\|line-height}` | `typography.body-3.size` | `--boaz-typography-body-3-size` |
+| 그 외 | `{radius\|spacing}.{scale}` | `radius.md` | `--boaz-radius-md` |
 
-- 2계층(팔레트 → 시맨틱)만 둡니다. 컴포넌트 전용 토큰 계층은 만들지 않습니다.
-- 앱 코드는 시맨틱 토큰을 우선 참조합니다. 팔레트 직접 참조는 시맨틱이 없을 때만 씁니다.
-- state: `hover`, `press`, `focus`, `disabled`, `selected`.
+- 원시 → 용도 2계층만 둡니다. 색은 팔레트 → 시맨틱, 글꼴은 `font.*` → `typography.*`입니다. 컴포넌트 전용 토큰 계층은 만들지 않습니다.
+- 앱 코드는 용도 계층(시맨틱·`typography.*`)을 우선 참조합니다. 원시 계층 직접 참조는 용도 토큰이 없을 때만 씁니다.
+- 팔레트 `{step}`은 숫자만 씁니다. 숫자가 클수록 어둡고, 결번(예: gray 500·700)은 허용합니다. 흰색·검정은 `gray.0`·`gray.1000`입니다.
+- state: `hover`, `press`, `focus`, `disabled`, `selected`. 경로의 마지막 조각이 이 목록에 있으면 state로 봅니다(`brand-solid-hover`의 state는 `hover`, role은 `brand-solid`).
+- state 단어를 role 자리에 단독으로 쓸 수 있습니다: `stroke.focus`(포커스 링), `bg.disabled`·`fg.disabled`(비활성). 이때는 기본 상태의 색이 따로 없다는 뜻입니다.
 
 ## breaking 변경
 
