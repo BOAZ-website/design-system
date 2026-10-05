@@ -60,7 +60,7 @@
 | 팔레트 토큰 | 원래 색 값 그 자체(`color.palette.purple.100` = #7A64F9) |
 | 시맨틱 토큰 | 용도로 붙인 이름(`color.bg.brand-solid`). 값은 팔레트를 참조함 |
 | DTCG | 디자인 토큰 JSON 표준 형식(`$value`, `$type`) |
-| dist | `npm run build`로 만든 생성물(`tokens.css`, `tokens.ts`, `tailwind-theme.css`). 앱은 이 파일을 가져감 |
+| dist | `npm run build`로 만든 생성물(`tokens.css`, `tokens.js`·`tokens.d.ts`, `tailwind-theme.css`. TOKEN-06 전까지는 `tokens.ts`). 앱은 이 파일을 가져감 |
 | breaking | 토큰 이름을 지우거나 바꿔 앱이 깨지는 변경 |
 
 ---

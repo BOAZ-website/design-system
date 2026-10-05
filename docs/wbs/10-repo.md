@@ -101,7 +101,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| REPO-06-01 | `dev` → `main` 머지, `package.json` version `0.1.0` | `main`의 package.json |
+| REPO-06-01 | `dev` → `main` 머지, `package.json` version `0.1.0`. `engines` 필드 삭제(소비 앱 설치에 불필요하고 frontend CI의 Node 20에서 설치 경고를 냄. 빌드용 Node 24는 `.nvmrc`로 유지) | `main`의 package.json에 version `0.1.0`, `engines` 없음 |
 | REPO-06-02 | `v0.1.0` 태그와 GitHub Release(변경 토큰 목록) | `gh release view v0.1.0` |
 | REPO-06-03 | 빈 프로젝트에서 git 태그 설치 확인 | `npm install github:BOAZ-website/design-system#v0.1.0` 후 `node_modules/@boaz/design-system/dist/tokens.css` 존재 |
 
@@ -130,3 +130,4 @@
 | REPO-08-03 | 남은 결정 5건 확정과 결정 섹션 정리 | `00-wbs.md`에 결정 대기 섹션 없음(PR #11) |
 | REPO-08-04 | 명세서의 확인 필요 사항 절 삭제 | 명세서에 "확인 필요 사항" 절 없음(PR #13) |
 | REPO-08-05 | 티켓 규모 재산정과 Epic 규모 합계 | `00-wbs.md` Epic 표의 "남은 규모" 열(PR #15) |
+| REPO-08-06 | Phase 1 착수 전 토큰 명세 보강: 크기 단위 px 확정, `tokens.js`·`tokens.d.ts` 출력, 이름 규칙 표에 `font`·`typography` 행과 state 예외 추가, Tailwind 타이포 변환 규칙, 중복 이름 빌드 실패 설정, 대비표, 팔레트 이름 정리, 완료 확인 방법 수치 수정 | `20-token.md`에 "대비표" 절, AGENTS.md 표에 `typography.{style}` 행 |

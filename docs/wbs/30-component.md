@@ -40,8 +40,8 @@
 | --- | --- | --- |
 | COMPONENT-01-01 | variant: brand(보라), neutral(흰색), glass(탭바 `rgba(208,207,249,0.1)`), text-link(이전·다음 페이지 + 화살표) | `components/button.md` Variants 표 |
 | COMPONENT-01-02 | size: 800×68(폼 제출), 250×68·200×68(사각), 250×56·180×56(pill), 154×44·130×44(소형), mini(검색 Tag) | Sizes 표 |
-| COMPONENT-01-03 | 상태값: brand #7A64F9 → hover #493C95 → press #2C2459(글자 #999999, 대비 4.9:1로 AA 통과), neutral #FFFFFF → #999999 → #666666, disabled 배경 #666666·글자 #999999 | States 표(Figma 5875:9829·9831·9833, 5152:9047·9049, 5164:8774, 5188:8718) |
-| COMPONENT-01-04 | focus-visible: `stroke.focus` 2px outline, offset 2px(Figma에 버튼 Focus 없음, TOKEN-05-03 근거) | States 표 |
+| COMPONENT-01-03 | 상태값: brand #7A64F9 → hover #493C95 → press #2C2459(글자 #999999, 대비 4.9:1로 AA 통과), neutral #FFFFFF → #999999 → #666666, disabled 배경 #666666·글자 #999999. brand 기본 상태의 흰 글자는 4.18:1이라 큰 글자 기준(Bold 18.67px 이상)으로만 통과하므로 버튼 글자는 Body 2(20 Bold) 이상을 씀(TOKEN-05 대비표). Figma 버튼의 Body 3(18 Bold)은 0.5px 부족 | States 표(Figma 5875:9829·9831·9833, 5152:9047·9049, 5164:8774, 5188:8718) |
+| COMPONENT-01-04 | focus-visible: `stroke.focus` 2px outline, offset 2px(Figma에 버튼 Focus 없음, TOKEN-05-03 근거). offset 없이 버튼 안쪽에 그리면 보라 위 2.26:1로 미달. 흰 표면(모달) 위 버튼은 `stroke.focus-inverse` | States 표 |
 | COMPONENT-01-05 | FE 합의 이름(`large-round`, `medium-primary`, `medium-white`, `small-round`, `mini` 등)과 명세 variant·size 대응표 | 코드 대응 절 |
 
 ## COMPONENT-02 text-field
@@ -114,7 +114,7 @@
 | COMPONENT-07-01 | 구조: 441×235, radius 40, 흰 표면(`bg.surface-inverse`)·2px #CCCCCC 보더, 아이콘 48(! · ✓ · 스피너) + 제목(Body 2 20 Bold, 검정) + 설명(18 Regular, #666666) + 버튼 130×44 pill(닫기 #E6E6E6·검정 글자, 신청 검정·흰 글자) | Anatomy 절(모달 창 4412:7387) |
 | COMPONENT-07-02 | 종류 7개: 안내 2(지원 기간 아님·모집 마감), 입력 오류 2(이메일 재입력·이메일 중복), 성공, 로딩, 실패 | Variants 표 |
 | COMPONENT-07-03 | 버튼 규칙: 안내형 2개(닫기·신청), 나머지 1개(닫기). 로딩 모달도 닫기 버튼 있음(Figma 5164:5587) | Variants 표 |
-| COMPONENT-07-04 | `role="alertdialog"`, 포커스 가두기·반환, Esc 닫기 | Accessibility 절 |
+| COMPONENT-07-04 | `role="alertdialog"`, 포커스 가두기·반환, Esc 닫기. 모달 안 버튼의 포커스 링은 `stroke.focus-inverse`(흰 표면 위 4.18:1) | Accessibility 절 |
 
 ## COMPONENT-08 card
 

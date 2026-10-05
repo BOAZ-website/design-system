@@ -24,7 +24,7 @@ tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/ (build artifacts)
 
 ## Installation
 
-git 태그로 설치합니다.
+git 태그로 설치합니다. 첫 태그 `v0.1.0`은 파운데이션 토큰(Phase 1)이 끝나면 발행합니다(`docs/wbs/10-repo.md` REPO-06). 발행 전에는 설치할 버전이 없습니다.
 
 ```bash
 npm install github:BOAZ-website/design-system#v0.1.0

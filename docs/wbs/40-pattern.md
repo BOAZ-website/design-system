@@ -44,8 +44,8 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| PATTERN-03-01 | 모든 상호작용 요소에 `:focus-visible` 표시(`stroke.focus`). 전역 `outline: none` 금지 | `patterns/accessibility.md` |
-| PATTERN-03-02 | 대비표: 본문 4.5:1, 큰 글자·UI 3:1. `fg.brand`는 큰 글자 전용 | 같은 파일 |
+| PATTERN-03-01 | 모든 상호작용 요소에 `:focus-visible` 표시(검정 캔버스 위 `stroke.focus`, 흰 표면 위 `stroke.focus-inverse`, offset 2px). 전역 `outline: none` 금지 | `patterns/accessibility.md` |
+| PATTERN-03-02 | 대비표: 본문 4.5:1, 큰 글자·UI 3:1. `fg.brand`와 `fg.on-brand`(보라 버튼 흰 글자 4.18:1)는 큰 글자 전용. 전체 조합은 `docs/wbs/20-token.md`의 "대비표"를 옮겨 적음 | 같은 파일 |
 | PATTERN-03-03 | 색만으로 상태를 구분하지 않음(선택 = 색 + 굵기 또는 아이콘) | 같은 파일 |
 | PATTERN-03-04 | `prefers-reduced-motion` 대응 | 같은 파일 |
 
