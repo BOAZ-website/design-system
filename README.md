@@ -45,6 +45,7 @@ vars.color.palette.purple[100]; // "var(--boaz-color-palette-purple-100)"
 
 ## Documentation
 
+- [`docs/design-reference.md`](./docs/design-reference.md) — 디자인 참조: Figma 원본 색·타이포·컴포넌트·에셋 기록
 - [`docs/wbs/`](./docs/wbs) — 구축 로드맵 (WBS·명세서)
 - [`AGENTS.md`](./AGENTS.md) — 토큰 명명 규칙, 작업 절차, breaking change 정책
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — 개발 환경, 협업 규약
