@@ -52,7 +52,8 @@
         "$value": 400
       },
       "600": {
-        "$value": 600
+        "$value": 600,
+        "$description": "Headline1-Semibold, 모바일 버튼(TOKEN-02-06)"
       },
       "700": {
         "$value": 700
@@ -115,6 +116,18 @@
       },
       "weight": {
         "$value": "{font.weight.700}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.48}"
+      }
+    },
+    "headline-1-semibold": {
+      "$description": "Figma Headline1-Semibold. 행간은 Auto 계산값(크기 × 1.193)",
+      "size": {
+        "$value": "{font.size.40}"
+      },
+      "weight": {
+        "$value": "{font.weight.600}"
       },
       "line-height": {
         "$value": "{font.line-height.48}"
@@ -241,7 +254,7 @@
       }
     },
     "body-2-mobile": {
-      "$description": "모바일 버튼 실측(7064:14053). 행간은 Auto 계산값(크기 × 1.193)",
+      "$description": "모바일 버튼 실측(7064:14053). 행간은 텍스트 레이어 높이 실측",
       "size": {
         "$value": "{font.size.16}"
       },
@@ -253,7 +266,7 @@
       }
     },
     "body-4-mobile": {
-      "$description": "모바일 텍스트필드 실측(7578:14642). 행간은 Auto 계산값(크기 × 1.193)",
+      "$description": "모바일 텍스트필드 실측(7578:14642). 행간은 텍스트 레이어 높이 실측",
       "size": {
         "$value": "{font.size.15}"
       },
@@ -265,7 +278,7 @@
       }
     },
     "text-1-mobile": {
-      "$description": "모바일 카드 실측(7091:10966). 행간은 Auto 계산값(크기 × 1.193)",
+      "$description": "모바일 카드 실측(7091:10966). 행간은 텍스트 레이어 높이 실측",
       "size": {
         "$value": "{font.size.12}"
       },

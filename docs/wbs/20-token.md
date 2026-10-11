@@ -4,7 +4,7 @@
 
 ## 명세서 목적
 
-- Figma에 등록된 색 스타일 17종·텍스트 스타일 12종을 DTCG 토큰으로 옮김
+- Figma에 등록된 색 스타일 17종·텍스트 스타일 13종을 DTCG 토큰으로 옮김
 - 팔레트 → 시맨틱 2계층으로 두고, 앱은 시맨틱을 우선 참조하게 함
 - Figma에 없거나 Figma 안에서 서로 다른 값(radius, spacing, focus, 모바일 타이포)은 기능 행에 근거를 적고 정한 값을 씀
 
@@ -27,6 +27,7 @@
 | --- | --- | --- | --- |
 | Display | 72 | 700 | 100% |
 | Headline1-Bold | 40 | 700 | 100% |
+| Headline1-Semibold | 40 | 600 | 100% |
 | Headline 2 | 30 | 700 | 100% |
 | Headline 3 | 24 | 700 | 100% |
 | Body 1 | 24 | 400 | 100% |
@@ -39,6 +40,7 @@
 | Text 1 | 14 | 300 | 100% |
 
 - 글꼴은 모두 Pretendard, 자간 0
+- 행간 "100%"는 Figma 표기임. 토큰 행간은 TOKEN-02 "행간 규칙" 표가 기준
 - Figma 11단계 색 스케일(FE 회의용 페이지)은 스타일로 등록되지 않은 초안이라 팔레트에 넣지 않음
 - 다크 pill hover #2A2647은 스타일이 아닌 로컬 값이라 팔레트에 넣지 않음
 
@@ -59,9 +61,9 @@
 | TOKEN-01-03 | Figma 스타일 17종과 토큰 17개가 모두 대응 | `grep -c '\$value' tokens/color/palette.json` = 17 |
 | TOKEN-01-04 | 이름을 AGENTS.md 규칙(step은 숫자, 클수록 어두움)에 맞춤: `gray.white` → `gray.0`, `gray.black` → `gray.1000`, `red.200` → `red.900`(#190A0A는 gray 900대 어둡기). v0.1.0 태그 전이라 소비 앱 영향 없음 | `dist/tokens.css`에 `-gray-white`·`-gray-black`·`-red-200` 없음 |
 
-## TOKEN-02 타이포 토큰 12종
+## TOKEN-02 타이포 토큰
 
-**목적:** Figma 텍스트 스타일 12종을 토큰으로 옮김
+**목적:** Figma 텍스트 스타일 13종과 모바일 전용 3종을 토큰으로 옮김
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
@@ -70,23 +72,25 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | TOKEN-02-01 | 원시 스케일: `font.size.*`, `font.weight.*`, `font.line-height.*`, `font.family.base`(Pretendard) | `tokens/typography.json` |
-| TOKEN-02-02 | 12종을 `typography.{display, headline-1, headline-2, headline-3, body-1, body-2, body-2-regular, body-3, body-4, body-4-paragraph, body-5, text-1}.{size,weight,line-height}`로 정의하고 원시 스케일을 참조 | `grep -c -- '--boaz-typography-' dist/tokens.css` = 45(데스크톱 12종 + TOKEN-02-06 모바일 3종, 각 3개) |
+| TOKEN-02-02 | 13종을 `typography.{display, headline-1, headline-1-semibold, headline-2, headline-3, body-1, body-2, body-2-regular, body-3, body-4, body-4-paragraph, body-5, text-1}.{size,weight,line-height}`로 정의하고 원시 스케일을 참조 | `grep -c -- '--boaz-typography-' dist/tokens.css` = 48(데스크톱 13종 + TOKEN-02-06 모바일 3종, 각 3개) |
 | TOKEN-02-03 | DTCG 복합 `typography` 타입은 쓰지 않음(Style Dictionary css 변환이 `font` 단축 문자열로 합치고 자간을 버림) | 토큰 파일에 `"$type": "typography"` 없음 |
 | TOKEN-02-04 | 크기·행간·spacing·radius 단위는 px. rem을 쓰지 않는 이유: 두 앱의 루트 글꼴 기준이 달라(frontend `html 62.5%`로 1rem = 10px, frontend_admin `html 14px`) 같은 rem 값이 다른 크기로 렌더됨. 브라우저 확대는 px에도 적용되므로 확대 기능은 유지됨. 이 결정을 README 사용 절에 명시 | `dist/tokens.css`의 size·line-height·spacing·radius 값이 모두 px |
-| TOKEN-02-05 | 코드 전용 17종(8·10·12·22·28·32·36·38·80px, 굵기 500·600 등)은 토큰에 넣지 않음. 앱 로컬 예외로 두고 화면을 고칠 때 12종으로 옮김 | 토큰에 데스크톱 12종 + 모바일 3종(TOKEN-02-06)만 존재 |
-| TOKEN-02-06 | 모바일 전용 3종: `typography.body-2-mobile`(16, 600), `typography.body-4-mobile`(15, 400), `typography.text-1-mobile`(12, 300). 나머지는 데스크톱과 같음. 근거: Figma 모바일 버튼·텍스트필드·카드 실측(7064:14053, 7578:14642, 7091:10966). 600은 Figma 정식 스타일이 아니지만 모바일 버튼에 일관되게 쓰임 | `dist/tokens.css`에 `-mobile` 토큰 3종 |
+| TOKEN-02-05 | 코드 전용 17종(8·10·12·22·28·32·36·38·80px, 굵기 500 등)은 토큰에 넣지 않음. 앱 로컬 예외로 두고 화면을 고칠 때 토큰 스타일로 옮김 | 토큰에 데스크톱 13종 + 모바일 3종(TOKEN-02-06)만 존재 |
+| TOKEN-02-06 | 모바일 전용 3종: `typography.body-2-mobile`(16, 600), `typography.body-4-mobile`(15, 400), `typography.text-1-mobile`(12, 300). 나머지는 데스크톱과 같음. 근거: Figma 모바일 버튼·텍스트필드·카드 실측(7064:14053, 7578:14642, 7091:10966). 16/600 조합은 Figma 텍스트 스타일로 등록되어 있지 않지만 모바일 버튼에 일관되게 쓰임 | `dist/tokens.css`에 `-mobile` 토큰 3종 |
 
 ### 행간 규칙(2026-10-11 결정)
 
 - Figma 텍스트 스타일의 "100%"는 글자 크기와 같은 행간이 아니라 Auto(폰트가 정한 높이)임. 텍스트 레이어 높이가 글자 크기의 약 1.2배로 측정됨
 - 토큰 행간은 Figma 레이어 높이를 px로 그대로 씀. 브라우저 `normal`은 글꼴 로딩·브라우저에 따라 값이 달라지고, 글자 크기와 같은 px는 Figma보다 줄이 좁아짐
-- 측정하지 못한 스타일은 글자 크기 × 1.193을 반올림해 정함. 1.193은 측정값 9건을 모두 만족하는 비율(1.1875 이상 1.1944 미만)이고, 이 범위 안 어느 값을 써도 계산 결과는 같음
+- 측정하지 못한 스타일은 글자 크기 × 1.193을 반올림해 정함. 1.193은 실측 11건(데스크톱 8종, 모바일 3종)을 모두 만족하는 비율(1.1875 이상 1.1944 미만)이고, 이 범위 안 어느 값을 써도 계산 결과는 같음
+- 원시 `font.size.*`·`font.line-height.*`의 키는 px 값임. 값이 바뀌면 키도 함께 바꿈
 - Body 4 - Paragraph는 Figma 지정값 30px
 
 | 토큰 | 크기 | 행간 | 근거 |
 | --- | --- | --- | --- |
 | `display` | 72 | 86 | 실측 1728:3700 |
 | `headline-1` | 40 | 48 | 실측 1728:3699 |
+| `headline-1-semibold` | 40 | 48 | 계산 |
 | `headline-2` | 30 | 36 | 실측 1728:3703 |
 | `headline-3` | 24 | 29 | 실측 1728:3705 |
 | `body-1` | 24 | 29 | 계산 |
@@ -97,12 +101,13 @@
 | `body-4-paragraph` | 18 | 30 | Figma 지정값 |
 | `body-5` | 16 | 19 | 실측 1728:3701 |
 | `text-1` | 14 | 17 | 실측 1728:3706 |
-| `body-2-mobile` | 16 | 19 | 계산 |
-| `body-4-mobile` | 15 | 18 | 계산 |
-| `text-1-mobile` | 12 | 14 | 계산 |
+| `body-2-mobile` | 16 | 19 | 실측 7064:14053 |
+| `body-4-mobile` | 15 | 18 | 실측 7578:14642 |
+| `text-1-mobile` | 12 | 14 | 실측 7091:10966 |
 
 - 글꼴 스택: `Pretendard, sans-serif`. 앱이 쓰는 추가 대체 글꼴(`-apple-system` 등)은 앱 로컬에 둠
 - 모바일 장문 본문의 행간 지정 예외 2건(7142:13836 14/400에 24px, 7142:13894 15/400에 20px)은 단일 사용이라 토큰에 넣지 않음
+- 모바일의 다른 조합(카드 14/400, 카드 본문 18/400)은 레이어 높이가 고정이라 행간 근거가 없어 넣지 않음
 
 ## TOKEN-03 radius 토큰
 

@@ -93,6 +93,11 @@ export const vars = {
       "weight": "var(--boaz-typography-headline-1-weight)",
       "line-height": "var(--boaz-typography-headline-1-line-height)"
     },
+    "headline-1-semibold": {
+      "size": "var(--boaz-typography-headline-1-semibold-size)",
+      "weight": "var(--boaz-typography-headline-1-semibold-weight)",
+      "line-height": "var(--boaz-typography-headline-1-semibold-line-height)"
+    },
     "headline-2": {
       "size": "var(--boaz-typography-headline-2-size)",
       "weight": "var(--boaz-typography-headline-2-weight)",

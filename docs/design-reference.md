@@ -193,40 +193,42 @@
 
 ## 2. Typography
 
-### 2.1 Figma 텍스트 스타일 12종
+### 2.1 Figma 텍스트 스타일 13종
 
 - 출처: 20-token.md "Figma 원본 값" 절
 - 글꼴 Pretendard, 자간 0
+- Figma 행간 "100%"는 Auto(글자 크기의 약 1.19배)임. 토큰 행간(px)은 20-token.md TOKEN-02 "행간 규칙" 표를 따름
 
-| 스타일 | 크기 | 굵기 | 행간 |
-| --- | --- | --- | --- |
-| Display | 72 | 700 | 100% |
-| Headline1-Bold | 40 | 700 | 100% |
-| Headline 2 | 30 | 700 | 100% |
-| Headline 3 | 24 | 700 | 100% |
-| Body 1 | 24 | 400 | 100% |
-| Body 2 | 20 | 700 | 100% |
-| Body2 - Regular | 20 | 400 | 100% |
-| Body 3 | 18 | 700 | 100% |
-| Body 4 | 18 | 400 | 100% |
-| Body 4 - Paragraph | 18 | 400 | 30px |
-| Body 5 | 16 | 400 | 100% |
-| Text 1 | 14 | 300 | 100% |
+| 스타일 | 크기 | 굵기 | 행간(Figma 표기) | 토큰 행간(px) | 토큰 |
+| --- | --- | --- | --- | --- | --- |
+| Display | 72 | 700 | 100% | 86 | `typography.display` |
+| Headline1-Bold | 40 | 700 | 100% | 48 | `typography.headline-1` |
+| Headline1-Semibold | 40 | 600 | 100% | 48 | `typography.headline-1-semibold` |
+| Headline 2 | 30 | 700 | 100% | 36 | `typography.headline-2` |
+| Headline 3 | 24 | 700 | 100% | 29 | `typography.headline-3` |
+| Body 1 | 24 | 400 | 100% | 29 | `typography.body-1` |
+| Body 2 | 20 | 700 | 100% | 24 | `typography.body-2` |
+| Body2 - Regular | 20 | 400 | 100% | 24 | `typography.body-2-regular` |
+| Body 3 | 18 | 700 | 100% | 21 | `typography.body-3` |
+| Body 4 | 18 | 400 | 100% | 21 | `typography.body-4` |
+| Body 4 - Paragraph | 18 | 400 | 30px | 30 | `typography.body-4-paragraph` |
+| Body 5 | 16 | 400 | 100% | 19 | `typography.body-5` |
+| Text 1 | 14 | 300 | 100% | 17 | `typography.text-1` |
 
 ### 2.2 모바일 전용 3종
 
 - 출처: 20-token.md TOKEN-02-06
-- 나머지 9종은 데스크톱과 같음
-- 행간은 20-token.md에 별도 기재 없음
-- 600은 Figma 정식 스타일이 아니며 모바일 버튼에 일관되게 쓰임
+- 나머지 10종은 데스크톱과 같음
+- 행간은 Figma 텍스트 레이어 높이 실측
+- 16/600 조합은 Figma 텍스트 스타일로 등록되어 있지 않으며 모바일 버튼에 일관되게 쓰임
 
-| 토큰 | 크기 | 굵기 |
-| --- | --- | --- |
-| `typography.body-2-mobile` | 16 | 600 |
-| `typography.body-4-mobile` | 15 | 400 |
-| `typography.text-1-mobile` | 12 | 300 |
+| 토큰 | 크기 | 굵기 | 행간(px) |
+| --- | --- | --- | --- |
+| `typography.body-2-mobile` | 16 | 600 | 19 |
+| `typography.body-4-mobile` | 15 | 400 | 18 |
+| `typography.text-1-mobile` | 12 | 300 | 14 |
 
-- 코드 이름과 토큰 이름의 대응표는 TOKEN-02 확정 후 작성(미정)
+- 코드 이름과 토큰 이름의 대응표는 ADOPT-03에서 작성
 - 코드 이름 `{역할}_{weight}_{size}`는 typography 스타일 이름(`frontend/src/shared/styles/typography.css.ts`)이고 fontSize 키는 숫자임
 
 ### 2.3 코드 글꼴
