@@ -19,4 +19,7 @@
   --color-boaz-palette-gray-1000: var(--boaz-color-palette-gray-1000);
   --color-boaz-palette-red-100: var(--boaz-color-palette-red-100);
   --color-boaz-palette-red-900: var(--boaz-color-palette-red-900);
+  --radius-boaz-sm: var(--boaz-radius-sm);
+  --radius-boaz-md: var(--boaz-radius-md);
+  --radius-boaz-full: var(--boaz-radius-full);
 }

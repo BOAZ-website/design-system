@@ -28,5 +28,10 @@ export const vars = {
         "900": "var(--boaz-color-palette-red-900)"
       }
     }
+  },
+  "radius": {
+    "sm": "var(--boaz-radius-sm)",
+    "md": "var(--boaz-radius-md)",
+    "full": "var(--boaz-radius-full)"
   }
 } as const;

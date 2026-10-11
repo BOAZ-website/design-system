@@ -80,13 +80,18 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | REPO-04 | 1 | 없음 |
+| 몇 시간 | REPO-04 | 1 | #31 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | TOKEN-03-01 | `radius.sm` 12(사각 버튼·입력), `radius.md` 20(태그·카드·소형 버튼), `radius.full` 40(pill) | `dist/tokens.css`의 `--boaz-radius-*` 3개 |
 | TOKEN-03-02 | Figma 실측 근거를 `$description`에 기재(Radius 시트 1728:3710의 12·20·40. 흰 250 버튼의 10은 다른 사각 버튼·Radius 시트와 달라 12로 통일, 카드 라벨 "24 (20)"은 실측 20) | `tokens/radius.json` |
 | TOKEN-03-03 | Tailwind 출력 `--radius-boaz-*` | `dist/tailwind-theme.css` |
+
+- `radius.full`(40) 이름 근거: Radius 시트의 가장 큰 단계이고, Figma pill 버튼(높이 44~68)에서 반원 끝을 만드는 값이라 `full`로 부름. 높이 80px을 넘는 요소에는 반원이 되지 않음
+- 모달(COMPONENT-07-01, radius 40)도 `radius.full`을 씀. 모달 전용 radius 토큰은 만들지 않음
+- 단위: 모든 값에 `px`를 붙임. Style Dictionary `css` 변환(`size/rem`)은 단위 없는 숫자를 rem으로 바꿈
+- 토큰에 넣지 않는 값: 코드의 10·24·4, Figma 썸네일 16·후기 카드 10·선택 카드 8(`docs/design-reference.md` 3절, 7절)
 
 ## TOKEN-04 spacing 토큰
 
