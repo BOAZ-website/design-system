@@ -3,7 +3,7 @@
     "$type": "dimension",
     "sm": {
       "$value": "12px",
-      "$description": "사각 버튼·입력. Figma Radius 시트 1728:3710의 12. 흰 250×68 버튼의 10은 다른 사각 버튼·Radius 시트와 달라 12로 통일"
+      "$description": "사각 버튼·입력. Figma Radius 시트 1728:3710의 12. 흰 250×68 버튼(5875:9827)의 10은 다른 사각 버튼·Radius 시트와 달라 12로 통일"
     },
     "md": {
       "$value": "20px",

@@ -16,7 +16,7 @@
   --boaz-color-palette-gray-1000: #000000; /** Figma: Black */
   --boaz-color-palette-red-100: #f96466; /** Figma: Error-Red */
   --boaz-color-palette-red-900: #190a0a; /** Figma: Error-bg-Red */
-  --boaz-radius-sm: 12px; /** 사각 버튼·입력. Figma Radius 시트 1728:3710의 12. 흰 250×68 버튼의 10은 다른 사각 버튼·Radius 시트와 달라 12로 통일 */
+  --boaz-radius-sm: 12px; /** 사각 버튼·입력. Figma Radius 시트 1728:3710의 12. 흰 250×68 버튼(5875:9827)의 10은 다른 사각 버튼·Radius 시트와 달라 12로 통일 */
   --boaz-radius-md: 20px; /** 태그·카드·소형 버튼. Figma Radius 시트 1728:3710의 20. 카드 라벨 "24 (20)"은 실측 20 */
   --boaz-radius-full: 40px; /** pill 버튼·모달. Figma Radius 시트 1728:3710의 40. 가장 큰 단계라 full로 부름(높이 80px 이하 요소는 반원 끝이 됨) */
 }
