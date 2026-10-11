@@ -33,5 +33,17 @@ export const vars = {
     "sm": "var(--boaz-radius-sm)",
     "md": "var(--boaz-radius-md)",
     "full": "var(--boaz-radius-full)"
+  },
+  "spacing": {
+    "1": "var(--boaz-spacing-1)",
+    "2": "var(--boaz-spacing-2)",
+    "3": "var(--boaz-spacing-3)",
+    "4": "var(--boaz-spacing-4)",
+    "5": "var(--boaz-spacing-5)",
+    "6": "var(--boaz-spacing-6)",
+    "8": "var(--boaz-spacing-8)",
+    "10": "var(--boaz-spacing-10)",
+    "12": "var(--boaz-spacing-12)",
+    "16": "var(--boaz-spacing-16)"
   }
 } as const;
