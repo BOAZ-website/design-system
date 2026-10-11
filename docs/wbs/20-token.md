@@ -9,7 +9,7 @@
 - Figma에 없거나 Figma 안에서 서로 다른 값(radius, spacing, focus, 모바일 타이포)은 기능 행에 근거를 적고 정한 값을 씀
 
 **범위:** `tokens/**/*.json`, `build/build.mjs`, `dist/` 4종(`tokens.css`, `tokens.js`, `tokens.d.ts`, `tailwind-theme.css`)
-**범위 밖:** z-index·breakpoint·glass(Figma에 대응 개념 없음, 앱 로컬 유지), 라이트 모드 시맨틱(관리자 콘솔은 shadcn 기본값을 쓰고 강조색만 팔레트 purple-200·300을 참조함. 배경·상태 색·모서리는 `frontend_admin`에서 정함, ADOPT-05), elevation·motion(근거 없음, 필요할 때 추가)
+**범위 밖:** z-index·breakpoint·glass(Figma에 대응 개념 없음, 앱 로컬 유지), 라이트 모드 시맨틱(Figma에 관리자 콘솔 디자인이 없음. 관리자 콘솔은 정식 색을 복사해 쓰고, Figma에 없는 값 6개는 `frontend_admin`의 `theme.css`에 임시로 둠. ADOPT-05), elevation·motion(근거 없음, 필요할 때 추가)
 
 ### Figma 원본 값
 

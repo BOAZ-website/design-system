@@ -5,7 +5,7 @@
 ## 명세서 목적
 
 - 두 앱이 `v0.1.0` 토큰을 git 태그로 설치해 쓰게 함
-- 관리자 콘솔의 화면별 값(색·모서리·그림자·글자 크기)과 공용 컴포넌트를 통일함(ADOPT-05~07). 관리자 콘솔은 디자인 시안이 없어 shadcn 기본 체계를 따르고, 강조색만 팔레트 보라(purple-200·300)를 씀. 토큰을 설치하지 않으므로 `v0.1.0`을 기다리지 않음
+- 관리자 콘솔의 화면별 값(색·모서리·그림자·글자 크기)과 공용 컴포넌트를 통일함(ADOPT-05~07). 디자인팀 Figma는 공개 홈페이지(검정 바탕) 전용이라 관리자 콘솔 디자인이 없음. 색은 Figma 정식 색(팔레트 토큰과 같은 값)을 쓰고, Figma에 없는 값 6개만 관리자 `theme.css`에 임시로 정함(ADOPT-05-03). 크기(모서리·글자·간격)는 관리자 콘솔에서 정하고, 컴포넌트는 Figma의 색과 hover·press 순서만 따름. 토큰을 설치하지 않고 값을 복사해 쓰므로 `v0.1.0`을 기다리지 않음
 - 이 저장소에서는 앱 코드를 고치지 않음. 티켓마다 **해당 앱 저장소에 이슈·PR**을 만듦. PR 1개로 닫히지 않는 티켓(ADOPT-06·07)은 앱 저장소에서 화면별·컴포넌트별 이슈로 나눔
 
 **범위:** frontend, frontend_admin
@@ -71,7 +71,7 @@
 
 ## ADOPT-05 frontend_admin 값 기준 확정
 
-**목적:** 관리자 콘솔 화면을 통일할 기준값을 정하고 `theme.css`와 규칙 문서에 반영함. 2026-10-11 조사 기준 주 버튼 배경 5종(`bg-slate-900`·`bg-blue-600`·`bg-blue-500`·`bg-red-500`·`bg-purple-600`), `bg-primary` 사용 0건, `--primary`와 `--destructive`가 같은 값(`#ef4444`)
+**목적:** 관리자 콘솔 화면을 통일할 기준값을 정하고 `theme.css`와 규칙 문서에 반영함. 디자인팀에 관리자용 디자인을 요청할 수 없어 Figma 정식 색을 우선 쓰고, 없는 값만 대비 계산으로 정함(2026-10-11 결정). 2026-10-11 조사 기준 주 버튼 배경 5종(`bg-slate-900`·`bg-blue-600`·`bg-blue-500`·`bg-red-500`·`bg-purple-600`), `bg-primary` 사용 0건, `--primary`와 `--destructive`가 같은 값(`#ef4444`)
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
@@ -79,12 +79,13 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-05-01 | 배경 역할: 바탕 `--background` #f8fafc(`bg-background`), 면(카드·표·입력·팝업) `--card`·`--popover`·`--input` #FFFFFF(`bg-card`), 보조 영역(표 머리글·hover·비활성) `--muted`·`--secondary` #f1f5f9. 현재 `--muted`는 `--background`와 같은 #f8fafc라 #f1f5f9로 바꿈 | `--muted`와 `--background` 값이 다름 |
-| ADOPT-05-02 | 강조색: `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring`을 #6250c7(팔레트 purple-200), hover #493c95(purple-300), `--primary-foreground` #FFFFFF. purple-100(#7a64f9)은 흰 글자 대비 4.18:1로 일반 글자 AA(4.5:1) 미달이고, 관리자 버튼은 `text-xs`·`text-sm`이라 큰 글자 예외가 적용되지 않음. purple-200은 6.01:1, purple-300은 8.88:1 | `--primary`와 `--destructive` 값이 다름 |
-| ADOPT-05-03 | 상태 색: 성공(emerald)·위험(rose 또는 red)·경고(amber) 계열에서 각 1단계를 정함. 흰 글자를 올리는 배경은 4.5:1 이상인 단계만 씀. 현재 `--destructive` #ef4444는 흰 글자 3.76:1로 미달 | 정한 단계와 대비값이 `frontend_admin` 문서에 있음 |
-| ADOPT-05-04 | 모서리 기준: 입력·버튼 `rounded-sm`, 카드·표 `rounded-md`, 팝업 `rounded-lg`, `rounded-xl` 이상 쓰지 않음(출결 화면 기준). `--radius`에서 계산되는 값과 맞는지 확인 | 기준과 `--radius` 대응표 |
-| ADOPT-05-05 | 쓰지 않는 `.dark` 블록과 `@custom-variant dark` 줄 삭제(관리자 콘솔은 다크 모드를 켜는 코드가 없음) | `theme.css`에 `.dark` 없음 |
-| ADOPT-05-06 | 새 코드·수정 파일은 `slate-*`·`bg-white` 대신 shadcn 시맨틱 클래스(`bg-background`·`bg-card`·`text-muted-foreground` 등)를 쓴다는 규칙을 CLAUDE.md에 추가. `src/shared/ui` 사용 현황 설명을 실제 import 현황에 맞게 고침 | 규칙 문서 |
+| ADOPT-05-01 | 바탕·회색 역할(Figma 정식 회색): 바탕·카드·팝업·입력 #FFFFFF(`--background`·`--card`·`--popover`·`--input`), 구분선·카드 테두리 #E6E6E6(Gray100, `--border`), 본문 글자 #1A1A1A(Gray900, `--foreground`, 흰 바탕 17.40:1), 보조 글자 #666666(Gray600, `--muted-foreground`, 5.74:1), 입력칸 테두리 #666666, 비활성 #B3B3B3(Gray300) 또는 투명도. #999999 이상 밝은 회색은 글자·입력 테두리에 쓰지 않음(흰 바탕 2.85:1). Tailwind slate는 쓰지 않음 | `theme.css` 회색 값이 모두 팔레트 값과 같음 |
+| ADOPT-05-02 | 강조색(Figma 보라): `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring` #6250C7(Primary-subtle-purple, 팔레트 purple-200), hover #493C95(purple-300), `--primary-foreground` #FFFFFF. #7A64F9(purple-100)는 흰 글자 4.18:1로 일반 글자 AA(4.5:1) 미달이고 관리자 버튼은 `text-xs`·`text-sm`이라 큰 글자 예외가 적용되지 않음. #6250C7은 6.01:1, #493C95는 8.88:1. 포커스 링은 #6250C7 2px에 흰 간격 2px(`ring-offset-2`)를 둠(간격이 없으면 주 버튼 위에서 1.00:1). 전역 `outline-ring/50`은 반투명이라 불투명으로 바꿈 | `--primary`와 `--destructive` 값이 다름. `theme.css`에 `/50` 포커스 없음 |
+| ADOPT-05-03 | Figma에 없는 값 6개를 `theme.css`에 정함. 주석에 "Figma 밖 값, 2026-10-11 결정, 디자인팀 값이 생기면 교체"를 적음. 보조 면(표 머리글·hover·배지 바탕) #F5F5F5(`--muted`·`--secondary`, 흰색과 Gray100 사이 단계가 없어 추가), 위험 글자·버튼 #C92A2D(`--destructive`, Error-red #F96466을 어둡게 함. #F96466은 흰 바탕 2.98:1로 미달)와 위험 바탕 #FFF3F3, 성공 글자 #047857(`--success`, Tailwind emerald-700)과 바탕 #ECFDF5, 경고 글자 #B45309(`--warning`, Tailwind amber-700)와 바탕 #FFFBEB. 각 글자색은 흰색·#F5F5F5·자기 바탕 위에서 4.5:1 이상(위험 5.45·5.00·5.03, 성공 5.48·5.03·5.21, 경고 5.02·4.61·4.84) | `theme.css`에 6개 값과 출처 주석 |
+| ADOPT-05-04 | 상태는 색만으로 구분하지 않음. 배지·알림에 아이콘이나 문구("성공", "실패")를 함께 둠. 색각 이상 시뮬레이션에서 성공·위험·경고가 거의 같은 색으로 보임 | `CLAUDE.md` 규칙 |
+| ADOPT-05-05 | 모서리 기준: 입력·버튼 `rounded-sm`, 카드·표 `rounded-md`, 팝업 `rounded-lg`, `rounded-xl` 이상 쓰지 않음(출결 화면 기준). `--radius`에서 계산되는 값과 맞는지 확인 | 기준과 `--radius` 대응표 |
+| ADOPT-05-06 | 쓰지 않는 `.dark` 블록과 `@custom-variant dark` 줄 삭제(관리자 콘솔은 다크 모드를 켜는 코드가 없음) | `theme.css`에 `.dark` 없음 |
+| ADOPT-05-07 | 새 코드·수정 파일은 Tailwind 기본 팔레트(`slate-*`·`emerald-*` 등)와 `bg-white` 대신 시맨틱 클래스(`bg-background`·`bg-card`·`text-muted-foreground`·`text-destructive` 등)를 쓴다는 규칙을 CLAUDE.md에 추가. `src/shared/ui` 사용 현황 설명을 실제 import 현황에 맞게 고침 | 규칙 문서 |
 
 ## ADOPT-06 frontend_admin 화면 값 통일
 
@@ -96,15 +97,16 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-06-01 | 모서리를 ADOPT-05-04 기준으로 바꿈 | `grep -rE 'rounded-[23]?xl' src` 0건 |
-| ADOPT-06-02 | 성공·위험·경고 색을 ADOPT-05-03에서 정한 단계로 바꿈 | 정한 단계 외 `red-`·`rose-`·`emerald-`·`amber-`·`orange-` 0건 |
+| ADOPT-06-01 | 모서리를 ADOPT-05-05 기준으로 바꿈 | `grep -rE 'rounded-[23]?xl' src` 0건 |
+| ADOPT-06-02 | 성공·위험·경고 색을 ADOPT-05-03의 `--success`·`--destructive`·`--warning`으로 바꾸고, 상태 배지에 아이콘·문구를 붙임(ADOPT-05-04) | `grep -rE -e 'red-[0-9]' -e 'rose-[0-9]' -e 'emerald-[0-9]' -e 'amber-[0-9]' -e 'orange-[0-9]' src` 0건 |
 | ADOPT-06-03 | 주 버튼 배경 5종을 `bg-primary`로, 위험 버튼을 `bg-destructive`로 바꿈 | 주 버튼 용도의 `bg-slate-900`·`bg-blue-600`·`bg-blue-500`·`bg-purple-600` 0건 |
-| ADOPT-06-04 | 입력 포커스 표시를 `--ring` 기준 한 가지로 통일 | `grep -rE -e 'focus:border-slate-400' -e 'focus:border-blue-500' src` 0건 |
+| ADOPT-06-04 | 입력 포커스 표시를 `--ring`(ADOPT-05-02) 한 가지로 통일. `CreateButton`의 `ring-slate-300`(흰 바탕 약 1.5:1) 포함 | `grep -rE -e 'focus:border-slate-400' -e 'focus:border-blue-500' src` 0건 |
 | ADOPT-06-05 | 모달 오버레이 배경(현재 14종)과 폭을 `modalStyles` 정의값으로 통일 | 오버레이 배경 1종 |
 | ADOPT-06-06 | 그림자: 팝업 `shadow-2xl`, 카드 `shadow-2xs` | 카드에 `shadow-xl`·`shadow-2xl` 0건 |
 | ADOPT-06-07 | 임의 글자 크기(`text-[11px]` 등)를 `text-xs`·`text-sm` 등 기본 단계로 바꿈. 관리자 기본 글자 14px 기준이라 `text-base` 이상으로 키우지 않음 | `grep -rE 'text-\[[0-9]+px\]' src` 0건 |
-| ADOPT-06-08 | 배경 직접 지정을 시맨틱 클래스로 바꿈: `bg-white` → `bg-card`, `bg-slate-50` → `bg-background` 또는 `bg-muted`, `bg-slate-100` → `bg-secondary` | `grep -rE -e 'bg-white' -e 'bg-slate-50[^0-9]' -e 'bg-slate-100' src` 0건 |
+| ADOPT-06-08 | 회색 직접 지정을 시맨틱 클래스로 바꿈: `bg-white` → `bg-card`, `bg-slate-50`·`bg-slate-100` → `bg-background` 또는 `bg-muted`(쓰인 자리에 따라 판단, 일괄 치환 금지), `text-slate-400`(244곳, 흰 바탕 2.56:1 미달)·`text-slate-500` → `text-muted-foreground`, 나머지 `slate-*` 글자·테두리 → `text-foreground`·`border-border` | `grep -rE 'slate-[0-9]' src` 0건 |
 | ADOPT-06-09 | 하드코딩 hex를 시맨틱 클래스·CSS 변수로 바꿈(인라인 `style` 포함) | `grep -rE '#[0-9a-fA-F]{6}' src --include='*.tsx'` 0건 |
+| ADOPT-06-10 | 치환이 끝난 뒤 `theme.css`에 `@theme { --color-*: initial; }`를 넣어 Tailwind 기본 팔레트를 막고 시맨틱 색만 다시 선언함(관리자 저장소에 린트가 없어 재발을 막는 수단). 치환 전에 넣으면 클래스가 사라져 화면이 깨지므로 마지막에 넣음 | `bg-slate-100`을 새로 쓰면 스타일이 적용되지 않음, `npm run build` 성공 |
 
 ## ADOPT-07 frontend_admin 공용 컴포넌트
 
