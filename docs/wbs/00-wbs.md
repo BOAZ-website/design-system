@@ -70,7 +70,7 @@
 | Phase | 목표 | 완료 기준 | 티켓 |
 | --- | --- | --- | --- |
 | Phase 0 저장소·규칙 | 공개 저장소와 협업 규칙 | CI `Tokens Build` 통과, 이슈 #1·#4·#17~#21 종료 | REPO-00~05, REPO-08 (완료) |
-| Phase 1 파운데이션 | 토큰 v0.1 | 팔레트·시맨틱·타이포·radius·spacing 토큰과 dist 3종, `v0.1.0` 태그 | TOKEN-01~06, REPO-06 |
+| Phase 1 파운데이션 | 토큰 v0.1 | 팔레트·시맨틱·타이포·radius·spacing 토큰과 dist 4종, `v0.1.0` 태그 | TOKEN-01~06, REPO-06 |
 | Phase 2 핵심 컴포넌트 | P0 명세 8종 | `components/*.md` 8개 `status: review` 이상 | COMPONENT-01~08 |
 | Phase 3 패턴·확장 | 패턴 4종, P1 명세 8종, v0.2 | `patterns/*.md` 4개, P1 8개 `draft` 이상, `v0.2.0` 태그 | PATTERN-01~04, COMPONENT-09~16, REPO-07 |
 | Phase 4 앱 적용 | 두 앱이 토큰 사용, 관리자 콘솔 화면 통일 | 각 앱 저장소 PR 머지 | ADOPT-01~07 |

@@ -37,7 +37,7 @@
 | ADOPT-02-02 | ADOPT-05-02에서 정한 강조색 값을 팔레트 참조로 바꿈: `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring`은 `--boaz-color-palette-purple-200`, hover는 `--boaz-color-palette-purple-300` | `theme.css`에 `#6250c7`·`#493c95` 직접 기재 없음, 화면 차이 없음 |
 
 - `.dark` 블록 삭제와 시맨틱 클래스 사용 규칙은 ADOPT-05에서 처리함(토큰 설치와 관계없어 `v0.1.0` 전에 진행)
-- TOKEN-01-04에서 팔레트 이름을 정리하므로, `v0.1.0`의 purple 변수 이름이 위와 같은지 설치 시점에 확인함
+- 위 purple 변수 이름은 TOKEN-01에서 확정됨
 
 ## ADOPT-03 frontend 값 불일치 정리
 
