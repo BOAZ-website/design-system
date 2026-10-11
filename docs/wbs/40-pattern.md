@@ -48,6 +48,7 @@
 | PATTERN-03-02 | 대비표: 본문 4.5:1, 큰 글자·UI 3:1. `fg.brand`와 `fg.on-brand`(보라 버튼 흰 글자 4.18:1)는 큰 글자 전용. 전체 조합은 `docs/wbs/20-token.md`의 "대비표"를 옮겨 적음 | 같은 파일 |
 | PATTERN-03-03 | 색만으로 상태를 구분하지 않음(선택 = 색 + 굵기 또는 아이콘) | 같은 파일 |
 | PATTERN-03-04 | `prefers-reduced-motion` 대응 | 같은 파일 |
+| PATTERN-03-05 | 비활성 요소는 `disabled` 속성(네이티브 요소) 또는 `aria-disabled="true"`(그 밖의 요소)로 표시함. `fg.disabled`와 `fg.muted`가 같은 색이라 색으로는 구분되지 않음(TOKEN-05-02) | 같은 파일 |
 
 ## PATTERN-04 voice & tone
 

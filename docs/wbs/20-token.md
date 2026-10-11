@@ -180,16 +180,19 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | TOKEN-01 | 1 | 없음 |
+| 하루이틀 | TOKEN-01 | 1 | #33 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | TOKEN-05-01 | 배경: `bg.canvas`(gray 1000), `bg.layer`(gray 900), `bg.surface-inverse`(gray 0, 모달), `bg.brand-solid`·`-hover`·`-press`(purple 100·300·400), `bg.neutral-solid`·`-hover`·`-press`(gray 0·400·600), `bg.disabled`(gray 600) | `tokens/color/semantic.json` |
-| TOKEN-05-02 | 글자: `fg.default`(gray 0), `fg.neutral`(gray 200), `fg.muted`(gray 400), `fg.disabled`(gray 400), `fg.on-brand`(gray 0), `fg.on-inverse`(gray 1000), `fg.brand`(purple 100), `fg.accent`(lightblue 100), `fg.critical`(red 100). `fg.muted`와 `fg.disabled`는 값이 같으므로 비활성 상태는 색이 아니라 `disabled` 속성으로 구분함(PATTERN-03-03) | 같은 파일 |
+| TOKEN-05-02 | 글자: `fg.default`(gray 0), `fg.neutral`(gray 200), `fg.muted`(gray 400), `fg.disabled`(gray 400), `fg.on-brand`(gray 0), `fg.on-inverse`(gray 1000), `fg.brand`(purple 100), `fg.accent`(lightblue 100), `fg.critical`(red 100). `fg.muted`와 `fg.disabled`는 값이 같으므로 비활성 상태는 색이 아니라 `disabled` 속성으로 구분함(대비표 `fg.disabled` 행, WCAG 비활성 예외. PATTERN-03-05) | 같은 파일 |
 | TOKEN-05-03 | 선: `stroke.neutral`(gray 400), `stroke.weak`(gray 800), `stroke.brand`(purple 100), `stroke.focus`(lightblue 100. 검정 캔버스 위 포커스 링용. 보라 버튼 위 보라 outline은 대비 1:1이라 쓰지 않음), `stroke.focus-inverse`(purple 100. 흰 표면(`bg.surface-inverse`) 위 포커스 링용. lightblue는 흰색 위 1.85:1로 보이지 않음), `stroke.critical`(red 100) | 같은 파일 |
 | TOKEN-05-04 | 모든 시맨틱은 팔레트 참조(hex 직접 기재 없음), `tokens.css`에 `var()` 참조로 출력 | `--boaz-color-bg-brand-solid: var(--boaz-color-palette-purple-100)` |
 | TOKEN-05-05 | 아래 "대비표"의 조합이 실제 토큰 값과 일치하는지 확인하고, 시맨틱 토큰을 추가·변경할 때 표를 함께 고침 | 대비표의 모든 행이 `tokens/color/semantic.json`의 값과 일치 |
 | TOKEN-05-06 | 브랜드 색은 Figma `Primary-Purple`(보라). 로고의 파랑은 로고 파일 전용이라 토큰으로 두지 않음(Figma의 "블루계열(보아즈 공식 색상)" 메모는 무드보드 단계 레퍼런스 설명) | `color.bg.brand-solid`가 purple 100 참조 |
+
+- 시맨틱으로 만들지 않는 색(2026-10-11 결정): 모달 보더 #CCCCCC, 모달 설명 글자 #666666, 태그 글자 #E6E6E6, 선택 카드 보더 #666666. 각각 한 컴포넌트에서만 쓰여 용도 이름을 정할 근거가 부족함. 해당 컴포넌트 명세(COMPONENT-07·13·15)에서 팔레트를 직접 참조하고, 두 번째 사용처가 생기면 시맨틱으로 올림(후보 이름 `stroke.inverse`, `fg.inverse-muted`)
+- 시맨틱에서 참조하지 않는 팔레트: gray.950(Figma 화면에 사용처 없음), red.900(Error-bg-Red. 오류 바탕을 쓰는 화면이 없어 대비 근거가 없음), purple.200(Primary-subtle-Purple. 홈페이지 화면에 사용처가 없고 관리자 콘솔 강조색으로만 씀, ADOPT-05)
 
 ### 대비표(WCAG 2.2 AA)
 
@@ -204,7 +207,11 @@
 | `fg.brand` #7A64F9 | `bg.layer` #1A1A1A | 4.16 | 큰 글자만 통과 | 큰 글자 전용 |
 | `fg.brand` #7A64F9 | `bg.canvas` #000000 | 5.02 | 통과 | 제한 없음(text-field 라벨 14px 포함) |
 | `fg.critical` #F96466 | `bg.layer` #1A1A1A | 5.84 | 통과 | 제한 없음 |
+| `fg.critical` #F96466 | `bg.canvas` #000000 | 7.04 | 통과 | 제한 없음 |
+| `fg.accent` #68CBEC | `bg.layer` #1A1A1A | 9.40 | 통과 | 제한 없음 |
+| `fg.accent` #68CBEC | `bg.canvas` #000000 | 11.34 | 통과 | 제한 없음 |
 | `fg.on-brand` #FFFFFF | `bg.brand-solid` #7A64F9 | 4.18 | 큰 글자만 통과 | 보라 버튼 글자는 Bold 18.67px 이상. Body 3(18 Bold)은 0.5px 부족하므로 버튼 글자는 Body 2(20 Bold)를 씀. COMPONENT-01-03에 반영 |
+| `fg.on-brand` #FFFFFF | `bg.brand-solid` #7A64F9 | 4.18 | 미달 | 모바일 보라 버튼 글자 `typography.body-2-mobile`(16, 600)은 큰 글자가 아님. Figma 값 유지, 기록용. COMPONENT-01에서 처리 |
 | `fg.on-brand` #FFFFFF | `bg.brand-solid-hover` #493C95 | 8.88 | 통과 | 제한 없음 |
 | `fg.muted` #999999 | `bg.brand-solid-press` #2C2459 | 4.90 | 통과 | 보라 버튼 press 글자 |
 | `fg.on-inverse` #000000 | `bg.neutral-solid` #FFFFFF | 21.00 | 통과 | 제한 없음 |
@@ -212,6 +219,7 @@
 | `fg.on-inverse` #000000 | `bg.neutral-solid-press` #666666 | 3.66 | 큰 글자만 통과 | 일시 상태(누르는 동안). Figma 값 유지 |
 | `fg.disabled` #999999 | `bg.disabled` #666666 | 2.02 | 적용 제외 | 비활성. 기록용 |
 | `stroke.focus` #68CBEC | `bg.canvas` #000000 | 11.34 | 통과 | 포커스 링은 offset 2px로 캔버스 위에 놓임 |
+| `stroke.focus` #68CBEC | `bg.layer` #1A1A1A | 9.40 | 통과 | 카드 포커스 링 |
 | `stroke.focus` #68CBEC | `bg.brand-solid` #7A64F9 | 2.26 | 미달 | 보라 버튼 안쪽에 링을 그리지 않음(offset 2px 필수) |
 | `stroke.focus` #68CBEC | `bg.surface-inverse` #FFFFFF | 1.85 | 미달 | 흰 표면 위에서는 `stroke.focus-inverse` 사용 |
 | `stroke.focus-inverse` #7A64F9 | `bg.surface-inverse` #FFFFFF | 4.18 | 통과 | 모달 안 버튼 포커스 링 |

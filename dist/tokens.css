@@ -55,6 +55,31 @@
   --boaz-font-line-height-36: 36px;
   --boaz-font-line-height-48: 48px;
   --boaz-font-line-height-86: 86px;
+  --boaz-color-bg-canvas: var(--boaz-color-palette-gray-1000); /** 페이지 바탕 */
+  --boaz-color-bg-layer: var(--boaz-color-palette-gray-900); /** 카드·패널 바탕 */
+  --boaz-color-bg-surface-inverse: var(--boaz-color-palette-gray-0); /** 모달 등 흰 표면 */
+  --boaz-color-bg-brand-solid: var(--boaz-color-palette-purple-100); /** 보라 버튼 */
+  --boaz-color-bg-brand-solid-hover: var(--boaz-color-palette-purple-300);
+  --boaz-color-bg-brand-solid-press: var(--boaz-color-palette-purple-400);
+  --boaz-color-bg-neutral-solid: var(--boaz-color-palette-gray-0); /** 흰 버튼 */
+  --boaz-color-bg-neutral-solid-hover: var(--boaz-color-palette-gray-400);
+  --boaz-color-bg-neutral-solid-press: var(--boaz-color-palette-gray-600);
+  --boaz-color-bg-disabled: var(--boaz-color-palette-gray-600); /** 비활성 버튼 바탕 */
+  --boaz-color-fg-default: var(--boaz-color-palette-gray-0); /** 기본 글자 */
+  --boaz-color-fg-neutral: var(--boaz-color-palette-gray-200); /** 보조 글자 */
+  --boaz-color-fg-muted: var(--boaz-color-palette-gray-400); /** 약한 글자 */
+  --boaz-color-fg-disabled: var(--boaz-color-palette-gray-400); /** 비활성 글자. fg.muted와 값이 같으므로 비활성은 disabled 속성으로 구분 */
+  --boaz-color-fg-on-brand: var(--boaz-color-palette-gray-0); /** 보라 바탕 위 글자. 큰 글자 전용(4.18:1) */
+  --boaz-color-fg-on-inverse: var(--boaz-color-palette-gray-1000); /** 흰 바탕 위 글자 */
+  --boaz-color-fg-brand: var(--boaz-color-palette-purple-100); /** 보라 글자. bg.layer 위에서는 큰 글자 전용 */
+  --boaz-color-fg-accent: var(--boaz-color-palette-lightblue-100); /** 강조 글자 */
+  --boaz-color-fg-critical: var(--boaz-color-palette-red-100); /** 오류 글자 */
+  --boaz-color-stroke-neutral: var(--boaz-color-palette-gray-400);
+  --boaz-color-stroke-weak: var(--boaz-color-palette-gray-800); /** 장식용 경계 */
+  --boaz-color-stroke-brand: var(--boaz-color-palette-purple-100);
+  --boaz-color-stroke-focus: var(--boaz-color-palette-lightblue-100); /** 검정·회색 바탕 위 포커스 링(offset 2px) */
+  --boaz-color-stroke-focus-inverse: var(--boaz-color-palette-purple-100); /** 흰 표면 위 포커스 링 */
+  --boaz-color-stroke-critical: var(--boaz-color-palette-red-100);
   --boaz-typography-display-size: var(--boaz-font-size-72);
   --boaz-typography-display-weight: var(--boaz-font-weight-700);
   --boaz-typography-display-line-height: var(--boaz-font-line-height-86);

@@ -105,7 +105,7 @@
 ### 1.4 홈페이지 시맨틱 토큰 (검정 바탕)
 
 - 출처: 20-token.md TOKEN-05-01~03
-- 현재 `dist/`에 없음. TOKEN-05 이후 출력됨
+- `tokens/color/semantic.json`. CSS 변수는 `--boaz-color-{bg|fg|stroke}-{role}`(예: `--boaz-color-bg-brand-solid`)이고 값은 팔레트 변수 `var()` 참조
 - 대비표: 20-token.md "대비표(WCAG 2.2 AA)" 절
 - 팔레트 참조 값의 숫자는 토큰 이름 기준(gray 0 = White, gray 1000 = Black)
 

@@ -1,0 +1,106 @@
+{
+  "color": {
+    "bg": {
+      "$type": "color",
+      "canvas": {
+        "$value": "{color.palette.gray.1000}",
+        "$description": "페이지 바탕"
+      },
+      "layer": {
+        "$value": "{color.palette.gray.900}",
+        "$description": "카드·패널 바탕"
+      },
+      "surface-inverse": {
+        "$value": "{color.palette.gray.0}",
+        "$description": "모달 등 흰 표면"
+      },
+      "brand-solid": {
+        "$value": "{color.palette.purple.100}",
+        "$description": "보라 버튼"
+      },
+      "brand-solid-hover": {
+        "$value": "{color.palette.purple.300}"
+      },
+      "brand-solid-press": {
+        "$value": "{color.palette.purple.400}"
+      },
+      "neutral-solid": {
+        "$value": "{color.palette.gray.0}",
+        "$description": "흰 버튼"
+      },
+      "neutral-solid-hover": {
+        "$value": "{color.palette.gray.400}"
+      },
+      "neutral-solid-press": {
+        "$value": "{color.palette.gray.600}"
+      },
+      "disabled": {
+        "$value": "{color.palette.gray.600}",
+        "$description": "비활성 버튼 바탕"
+      }
+    },
+    "fg": {
+      "$type": "color",
+      "default": {
+        "$value": "{color.palette.gray.0}",
+        "$description": "기본 글자"
+      },
+      "neutral": {
+        "$value": "{color.palette.gray.200}",
+        "$description": "보조 글자"
+      },
+      "muted": {
+        "$value": "{color.palette.gray.400}",
+        "$description": "약한 글자"
+      },
+      "disabled": {
+        "$value": "{color.palette.gray.400}",
+        "$description": "비활성 글자. fg.muted와 값이 같으므로 비활성은 disabled 속성으로 구분"
+      },
+      "on-brand": {
+        "$value": "{color.palette.gray.0}",
+        "$description": "보라 바탕 위 글자. 큰 글자 전용(4.18:1)"
+      },
+      "on-inverse": {
+        "$value": "{color.palette.gray.1000}",
+        "$description": "흰 바탕 위 글자"
+      },
+      "brand": {
+        "$value": "{color.palette.purple.100}",
+        "$description": "보라 글자. bg.layer 위에서는 큰 글자 전용"
+      },
+      "accent": {
+        "$value": "{color.palette.lightblue.100}",
+        "$description": "강조 글자"
+      },
+      "critical": {
+        "$value": "{color.palette.red.100}",
+        "$description": "오류 글자"
+      }
+    },
+    "stroke": {
+      "$type": "color",
+      "neutral": {
+        "$value": "{color.palette.gray.400}"
+      },
+      "weak": {
+        "$value": "{color.palette.gray.800}",
+        "$description": "장식용 경계"
+      },
+      "brand": {
+        "$value": "{color.palette.purple.100}"
+      },
+      "focus": {
+        "$value": "{color.palette.lightblue.100}",
+        "$description": "검정·회색 바탕 위 포커스 링(offset 2px)"
+      },
+      "focus-inverse": {
+        "$value": "{color.palette.purple.100}",
+        "$description": "흰 표면 위 포커스 링"
+      },
+      "critical": {
+        "$value": "{color.palette.red.100}"
+      }
+    }
+  }
+}

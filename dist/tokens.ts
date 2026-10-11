@@ -27,6 +27,37 @@ export const vars = {
         "100": "var(--boaz-color-palette-red-100)",
         "900": "var(--boaz-color-palette-red-900)"
       }
+    },
+    "bg": {
+      "canvas": "var(--boaz-color-bg-canvas)",
+      "layer": "var(--boaz-color-bg-layer)",
+      "surface-inverse": "var(--boaz-color-bg-surface-inverse)",
+      "brand-solid": "var(--boaz-color-bg-brand-solid)",
+      "brand-solid-hover": "var(--boaz-color-bg-brand-solid-hover)",
+      "brand-solid-press": "var(--boaz-color-bg-brand-solid-press)",
+      "neutral-solid": "var(--boaz-color-bg-neutral-solid)",
+      "neutral-solid-hover": "var(--boaz-color-bg-neutral-solid-hover)",
+      "neutral-solid-press": "var(--boaz-color-bg-neutral-solid-press)",
+      "disabled": "var(--boaz-color-bg-disabled)"
+    },
+    "fg": {
+      "default": "var(--boaz-color-fg-default)",
+      "neutral": "var(--boaz-color-fg-neutral)",
+      "muted": "var(--boaz-color-fg-muted)",
+      "disabled": "var(--boaz-color-fg-disabled)",
+      "on-brand": "var(--boaz-color-fg-on-brand)",
+      "on-inverse": "var(--boaz-color-fg-on-inverse)",
+      "brand": "var(--boaz-color-fg-brand)",
+      "accent": "var(--boaz-color-fg-accent)",
+      "critical": "var(--boaz-color-fg-critical)"
+    },
+    "stroke": {
+      "neutral": "var(--boaz-color-stroke-neutral)",
+      "weak": "var(--boaz-color-stroke-weak)",
+      "brand": "var(--boaz-color-stroke-brand)",
+      "focus": "var(--boaz-color-stroke-focus)",
+      "focus-inverse": "var(--boaz-color-stroke-focus-inverse)",
+      "critical": "var(--boaz-color-stroke-critical)"
     }
   },
   "radius": {
