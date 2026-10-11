@@ -45,5 +45,118 @@ export const vars = {
     "10": "var(--boaz-spacing-10)",
     "12": "var(--boaz-spacing-12)",
     "16": "var(--boaz-spacing-16)"
+  },
+  "font": {
+    "family": {
+      "base": "var(--boaz-font-family-base)"
+    },
+    "size": {
+      "12": "var(--boaz-font-size-12)",
+      "14": "var(--boaz-font-size-14)",
+      "15": "var(--boaz-font-size-15)",
+      "16": "var(--boaz-font-size-16)",
+      "18": "var(--boaz-font-size-18)",
+      "20": "var(--boaz-font-size-20)",
+      "24": "var(--boaz-font-size-24)",
+      "30": "var(--boaz-font-size-30)",
+      "40": "var(--boaz-font-size-40)",
+      "72": "var(--boaz-font-size-72)"
+    },
+    "weight": {
+      "300": "var(--boaz-font-weight-300)",
+      "400": "var(--boaz-font-weight-400)",
+      "600": "var(--boaz-font-weight-600)",
+      "700": "var(--boaz-font-weight-700)"
+    },
+    "line-height": {
+      "14": "var(--boaz-font-line-height-14)",
+      "17": "var(--boaz-font-line-height-17)",
+      "18": "var(--boaz-font-line-height-18)",
+      "19": "var(--boaz-font-line-height-19)",
+      "21": "var(--boaz-font-line-height-21)",
+      "24": "var(--boaz-font-line-height-24)",
+      "29": "var(--boaz-font-line-height-29)",
+      "30": "var(--boaz-font-line-height-30)",
+      "36": "var(--boaz-font-line-height-36)",
+      "48": "var(--boaz-font-line-height-48)",
+      "86": "var(--boaz-font-line-height-86)"
+    }
+  },
+  "typography": {
+    "display": {
+      "size": "var(--boaz-typography-display-size)",
+      "weight": "var(--boaz-typography-display-weight)",
+      "line-height": "var(--boaz-typography-display-line-height)"
+    },
+    "headline-1": {
+      "size": "var(--boaz-typography-headline-1-size)",
+      "weight": "var(--boaz-typography-headline-1-weight)",
+      "line-height": "var(--boaz-typography-headline-1-line-height)"
+    },
+    "headline-2": {
+      "size": "var(--boaz-typography-headline-2-size)",
+      "weight": "var(--boaz-typography-headline-2-weight)",
+      "line-height": "var(--boaz-typography-headline-2-line-height)"
+    },
+    "headline-3": {
+      "size": "var(--boaz-typography-headline-3-size)",
+      "weight": "var(--boaz-typography-headline-3-weight)",
+      "line-height": "var(--boaz-typography-headline-3-line-height)"
+    },
+    "body-1": {
+      "size": "var(--boaz-typography-body-1-size)",
+      "weight": "var(--boaz-typography-body-1-weight)",
+      "line-height": "var(--boaz-typography-body-1-line-height)"
+    },
+    "body-2": {
+      "size": "var(--boaz-typography-body-2-size)",
+      "weight": "var(--boaz-typography-body-2-weight)",
+      "line-height": "var(--boaz-typography-body-2-line-height)"
+    },
+    "body-2-regular": {
+      "size": "var(--boaz-typography-body-2-regular-size)",
+      "weight": "var(--boaz-typography-body-2-regular-weight)",
+      "line-height": "var(--boaz-typography-body-2-regular-line-height)"
+    },
+    "body-3": {
+      "size": "var(--boaz-typography-body-3-size)",
+      "weight": "var(--boaz-typography-body-3-weight)",
+      "line-height": "var(--boaz-typography-body-3-line-height)"
+    },
+    "body-4": {
+      "size": "var(--boaz-typography-body-4-size)",
+      "weight": "var(--boaz-typography-body-4-weight)",
+      "line-height": "var(--boaz-typography-body-4-line-height)"
+    },
+    "body-4-paragraph": {
+      "size": "var(--boaz-typography-body-4-paragraph-size)",
+      "weight": "var(--boaz-typography-body-4-paragraph-weight)",
+      "line-height": "var(--boaz-typography-body-4-paragraph-line-height)"
+    },
+    "body-5": {
+      "size": "var(--boaz-typography-body-5-size)",
+      "weight": "var(--boaz-typography-body-5-weight)",
+      "line-height": "var(--boaz-typography-body-5-line-height)"
+    },
+    "text-1": {
+      "size": "var(--boaz-typography-text-1-size)",
+      "weight": "var(--boaz-typography-text-1-weight)",
+      "line-height": "var(--boaz-typography-text-1-line-height)"
+    },
+    "body-2-mobile": {
+      "size": "var(--boaz-typography-body-2-mobile-size)",
+      "weight": "var(--boaz-typography-body-2-mobile-weight)",
+      "line-height": "var(--boaz-typography-body-2-mobile-line-height)"
+    },
+    "body-4-mobile": {
+      "size": "var(--boaz-typography-body-4-mobile-size)",
+      "weight": "var(--boaz-typography-body-4-mobile-weight)",
+      "line-height": "var(--boaz-typography-body-4-mobile-line-height)"
+    },
+    "text-1-mobile": {
+      "size": "var(--boaz-typography-text-1-mobile-size)",
+      "weight": "var(--boaz-typography-text-1-mobile-weight)",
+      "line-height": "var(--boaz-typography-text-1-mobile-line-height)"
+    }
   }
 } as const;
