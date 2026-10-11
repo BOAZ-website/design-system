@@ -1,18 +1,131 @@
 :root {
-  --boaz-color-palette-purple-100: #7a64f9;
-  --boaz-color-palette-purple-200: #6250c7;
-  --boaz-color-palette-purple-300: #493c95;
-  --boaz-color-palette-lightblue-100: #68cbec;
-  --boaz-color-palette-gray-100: #e6e6e6;
-  --boaz-color-palette-gray-200: #cccccc;
-  --boaz-color-palette-gray-300: #b3b3b3;
-  --boaz-color-palette-gray-400: #999999;
-  --boaz-color-palette-gray-600: #666666;
-  --boaz-color-palette-gray-800: #333333;
-  --boaz-color-palette-gray-900: #1a1a1a;
-  --boaz-color-palette-gray-950: #0d0d0d;
-  --boaz-color-palette-gray-white: #ffffff;
-  --boaz-color-palette-gray-black: #000000;
-  --boaz-color-palette-red-100: #f96466;
-  --boaz-color-palette-red-200: #190a0a;
+  --boaz-color-palette-purple-100: #7a64f9; /** Figma: Primary-Purple */
+  --boaz-color-palette-purple-200: #6250c7; /** Figma: Primary-subtle-Purple */
+  --boaz-color-palette-purple-300: #493c95; /** Figma: Primary-hover-Purple */
+  --boaz-color-palette-purple-400: #2c2459; /** Figma: Primary-press-Purple */
+  --boaz-color-palette-lightblue-100: #68cbec; /** Figma: Sub-Lightblue */
+  --boaz-color-palette-gray-0: #ffffff; /** Figma: White */
+  --boaz-color-palette-gray-100: #e6e6e6; /** Figma: Gray100 */
+  --boaz-color-palette-gray-200: #cccccc; /** Figma: Gray200 */
+  --boaz-color-palette-gray-300: #b3b3b3; /** Figma: Gray300 */
+  --boaz-color-palette-gray-400: #999999; /** Figma: Gray400 */
+  --boaz-color-palette-gray-600: #666666; /** Figma: Gray600 */
+  --boaz-color-palette-gray-800: #333333; /** Figma: Gray800 */
+  --boaz-color-palette-gray-900: #1a1a1a; /** Figma: Gray900 */
+  --boaz-color-palette-gray-950: #0d0d0d; /** Figma: Gray950 */
+  --boaz-color-palette-gray-1000: #000000; /** Figma: Black */
+  --boaz-color-palette-red-100: #f96466; /** Figma: Error-Red */
+  --boaz-color-palette-red-900: #190a0a; /** Figma: Error-bg-Red */
+  --boaz-radius-sm: 12px; /** 사각 버튼·입력. Figma Radius 시트 1728:3710의 12. 흰 250×68 버튼(5875:9827)의 10은 다른 사각 버튼·Radius 시트와 달라 12로 통일 */
+  --boaz-radius-md: 20px; /** 태그·카드·소형 버튼. Figma Radius 시트 1728:3710의 20. 카드 라벨 "24 (20)"은 실측 20 */
+  --boaz-radius-full: 40px; /** pill 버튼·모달. Figma Radius 시트 1728:3710의 40. 가장 큰 단계라 full로 부름(높이 80px 이하 요소는 반원 끝이 됨) */
+  --boaz-spacing-1: 4px;
+  --boaz-spacing-2: 8px;
+  --boaz-spacing-3: 12px;
+  --boaz-spacing-4: 16px;
+  --boaz-spacing-5: 20px;
+  --boaz-spacing-6: 24px;
+  --boaz-spacing-8: 32px;
+  --boaz-spacing-10: 40px;
+  --boaz-spacing-12: 48px;
+  --boaz-spacing-16: 64px;
+  --boaz-font-family-base: Pretendard, sans-serif; /** Figma 텍스트 스타일 전체 글꼴 */
+  --boaz-font-size-12: 12px;
+  --boaz-font-size-14: 14px;
+  --boaz-font-size-15: 15px;
+  --boaz-font-size-16: 16px;
+  --boaz-font-size-18: 18px;
+  --boaz-font-size-20: 20px;
+  --boaz-font-size-24: 24px;
+  --boaz-font-size-30: 30px;
+  --boaz-font-size-40: 40px;
+  --boaz-font-size-72: 72px;
+  --boaz-font-weight-300: 300;
+  --boaz-font-weight-400: 400;
+  --boaz-font-weight-600: 600; /** Headline1-Semibold, 모바일 버튼(TOKEN-02-06) */
+  --boaz-font-weight-700: 700;
+  --boaz-font-line-height-14: 14px;
+  --boaz-font-line-height-17: 17px;
+  --boaz-font-line-height-18: 18px;
+  --boaz-font-line-height-19: 19px;
+  --boaz-font-line-height-21: 21px;
+  --boaz-font-line-height-24: 24px;
+  --boaz-font-line-height-29: 29px;
+  --boaz-font-line-height-30: 30px;
+  --boaz-font-line-height-36: 36px;
+  --boaz-font-line-height-48: 48px;
+  --boaz-font-line-height-86: 86px;
+  --boaz-color-bg-canvas: var(--boaz-color-palette-gray-1000); /** 페이지 바탕 */
+  --boaz-color-bg-layer: var(--boaz-color-palette-gray-900); /** 카드·패널 바탕 */
+  --boaz-color-bg-surface-inverse: var(--boaz-color-palette-gray-0); /** 모달 등 흰 표면 */
+  --boaz-color-bg-brand-solid: var(--boaz-color-palette-purple-100); /** 보라 버튼 */
+  --boaz-color-bg-brand-solid-hover: var(--boaz-color-palette-purple-300);
+  --boaz-color-bg-brand-solid-press: var(--boaz-color-palette-purple-400);
+  --boaz-color-bg-neutral-solid: var(--boaz-color-palette-gray-0); /** 흰 버튼 */
+  --boaz-color-bg-neutral-solid-hover: var(--boaz-color-palette-gray-400);
+  --boaz-color-bg-neutral-solid-press: var(--boaz-color-palette-gray-600);
+  --boaz-color-bg-disabled: var(--boaz-color-palette-gray-600); /** 비활성 버튼 바탕 */
+  --boaz-color-fg-default: var(--boaz-color-palette-gray-0); /** 기본 글자 */
+  --boaz-color-fg-neutral: var(--boaz-color-palette-gray-200); /** 보조 글자 */
+  --boaz-color-fg-muted: var(--boaz-color-palette-gray-400); /** 약한 글자 */
+  --boaz-color-fg-disabled: var(--boaz-color-palette-gray-400); /** 비활성 글자. fg.muted와 값이 같으므로 비활성은 disabled 속성으로 구분 */
+  --boaz-color-fg-on-brand: var(--boaz-color-palette-gray-0); /** 보라 바탕 위 글자. 큰 글자 전용(4.18:1) */
+  --boaz-color-fg-on-inverse: var(--boaz-color-palette-gray-1000); /** 흰 바탕 위 글자 */
+  --boaz-color-fg-brand: var(--boaz-color-palette-purple-100); /** 보라 글자. bg.layer 위에서는 큰 글자 전용 */
+  --boaz-color-fg-accent: var(--boaz-color-palette-lightblue-100); /** 강조 글자 */
+  --boaz-color-fg-critical: var(--boaz-color-palette-red-100); /** 오류 글자 */
+  --boaz-color-stroke-neutral: var(--boaz-color-palette-gray-400);
+  --boaz-color-stroke-weak: var(--boaz-color-palette-gray-800); /** 장식용 경계 */
+  --boaz-color-stroke-brand: var(--boaz-color-palette-purple-100);
+  --boaz-color-stroke-focus: var(--boaz-color-palette-lightblue-100); /** 검정·회색 바탕 위 포커스 링(offset 2px) */
+  --boaz-color-stroke-focus-inverse: var(--boaz-color-palette-purple-100); /** 흰 표면 위 포커스 링 */
+  --boaz-color-stroke-critical: var(--boaz-color-palette-red-100);
+  --boaz-typography-display-size: var(--boaz-font-size-72);
+  --boaz-typography-display-weight: var(--boaz-font-weight-700);
+  --boaz-typography-display-line-height: var(--boaz-font-line-height-86);
+  --boaz-typography-headline-1-size: var(--boaz-font-size-40);
+  --boaz-typography-headline-1-weight: var(--boaz-font-weight-700);
+  --boaz-typography-headline-1-line-height: var(--boaz-font-line-height-48);
+  --boaz-typography-headline-1-semibold-size: var(--boaz-font-size-40);
+  --boaz-typography-headline-1-semibold-weight: var(--boaz-font-weight-600);
+  --boaz-typography-headline-1-semibold-line-height: var(--boaz-font-line-height-48);
+  --boaz-typography-headline-2-size: var(--boaz-font-size-30);
+  --boaz-typography-headline-2-weight: var(--boaz-font-weight-700);
+  --boaz-typography-headline-2-line-height: var(--boaz-font-line-height-36);
+  --boaz-typography-headline-3-size: var(--boaz-font-size-24);
+  --boaz-typography-headline-3-weight: var(--boaz-font-weight-700);
+  --boaz-typography-headline-3-line-height: var(--boaz-font-line-height-29);
+  --boaz-typography-body-1-size: var(--boaz-font-size-24);
+  --boaz-typography-body-1-weight: var(--boaz-font-weight-400);
+  --boaz-typography-body-1-line-height: var(--boaz-font-line-height-29);
+  --boaz-typography-body-2-size: var(--boaz-font-size-20);
+  --boaz-typography-body-2-weight: var(--boaz-font-weight-700);
+  --boaz-typography-body-2-line-height: var(--boaz-font-line-height-24);
+  --boaz-typography-body-2-regular-size: var(--boaz-font-size-20);
+  --boaz-typography-body-2-regular-weight: var(--boaz-font-weight-400);
+  --boaz-typography-body-2-regular-line-height: var(--boaz-font-line-height-24);
+  --boaz-typography-body-3-size: var(--boaz-font-size-18);
+  --boaz-typography-body-3-weight: var(--boaz-font-weight-700);
+  --boaz-typography-body-3-line-height: var(--boaz-font-line-height-21);
+  --boaz-typography-body-4-size: var(--boaz-font-size-18);
+  --boaz-typography-body-4-weight: var(--boaz-font-weight-400);
+  --boaz-typography-body-4-line-height: var(--boaz-font-line-height-21);
+  --boaz-typography-body-4-paragraph-size: var(--boaz-font-size-18);
+  --boaz-typography-body-4-paragraph-weight: var(--boaz-font-weight-400);
+  --boaz-typography-body-4-paragraph-line-height: var(--boaz-font-line-height-30);
+  --boaz-typography-body-5-size: var(--boaz-font-size-16);
+  --boaz-typography-body-5-weight: var(--boaz-font-weight-400);
+  --boaz-typography-body-5-line-height: var(--boaz-font-line-height-19);
+  --boaz-typography-text-1-size: var(--boaz-font-size-14);
+  --boaz-typography-text-1-weight: var(--boaz-font-weight-300);
+  --boaz-typography-text-1-line-height: var(--boaz-font-line-height-17);
+  --boaz-typography-body-2-mobile-size: var(--boaz-font-size-16);
+  --boaz-typography-body-2-mobile-weight: var(--boaz-font-weight-600);
+  --boaz-typography-body-2-mobile-line-height: var(--boaz-font-line-height-19);
+  --boaz-typography-body-4-mobile-size: var(--boaz-font-size-15);
+  --boaz-typography-body-4-mobile-weight: var(--boaz-font-weight-400);
+  --boaz-typography-body-4-mobile-line-height: var(--boaz-font-line-height-18);
+  --boaz-typography-text-1-mobile-size: var(--boaz-font-size-12);
+  --boaz-typography-text-1-mobile-weight: var(--boaz-font-weight-300);
+  --boaz-typography-text-1-mobile-line-height: var(--boaz-font-line-height-14);
 }

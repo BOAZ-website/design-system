@@ -35,6 +35,7 @@
 
 - 토큰 이름 삭제·변경은 소비 앱을 깨뜨립니다. PR 본문에 대체 이름과 영향 앱을 적고, 버전의 minor(0.x) 또는 major를 올립니다.
 - 값만 바뀌는 변경은 patch입니다.
+- 이름 삭제·변경 여부는 `git diff dev -- dist/tokens.d.ts`로 확인합니다. 소비 앱에서는 새 버전 설치 후 타입 검사(frontend `pnpm check-types`, frontend_admin `npm run check-types`)로 깨지는 곳을 찾습니다.
 
 ## 릴리스
 

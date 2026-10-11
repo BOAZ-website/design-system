@@ -9,7 +9,7 @@ BOAZ 공개 홈페이지와 관리자 콘솔이 함께 쓰는 디자인 언어�
 ```text
 tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/ (build artifacts)
                                               ├── tokens.css          CSS 변수 --boaz-*
-                                              ├── tokens.ts           CSS 변수 참조 객체
+                                              ├── tokens.js·.d.ts     CSS 변수 참조 객체와 타입
                                               └── tailwind-theme.css  Tailwind v4 @theme
 ```
 
@@ -42,6 +42,8 @@ import { vars } from '@boaz/design-system/tokens';
 
 vars.color.palette.purple[100]; // "var(--boaz-color-palette-purple-100)"
 ```
+
+크기·행간·간격·radius 토큰은 px입니다. 두 앱의 루트 글꼴 크기가 달라(frontend 10px, frontend_admin 14px) rem을 쓰면 같은 토큰이 앱마다 다른 크기로 보이기 때문입니다. 브라우저 확대는 px에도 적용됩니다.
 
 ## Documentation
 

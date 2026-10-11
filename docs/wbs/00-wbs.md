@@ -60,7 +60,7 @@
 | 팔레트 토큰 | 원래 색 값 그 자체(`color.palette.purple.100` = #7A64F9) |
 | 시맨틱 토큰 | 용도로 붙인 이름(`color.bg.brand-solid`). 값은 팔레트를 참조함 |
 | DTCG | 디자인 토큰 JSON 표준 형식(`$value`, `$type`) |
-| dist | `npm run build`로 만든 생성물(`tokens.css`, `tokens.js`·`tokens.d.ts`, `tailwind-theme.css`. TOKEN-06 전까지는 `tokens.ts`). 앱은 이 파일을 가져감 |
+| dist | `npm run build`로 만든 생성물(`tokens.css`, `tokens.js`·`tokens.d.ts`, `tailwind-theme.css`). 앱은 이 파일을 가져감 |
 | breaking | 토큰 이름을 지우거나 바꿔 앱이 깨지는 변경 |
 
 ---
@@ -70,7 +70,7 @@
 | Phase | 목표 | 완료 기준 | 티켓 |
 | --- | --- | --- | --- |
 | Phase 0 저장소·규칙 | 공개 저장소와 협업 규칙 | CI `Tokens Build` 통과, 이슈 #1·#4·#17~#21 종료 | REPO-00~05, REPO-08 (완료) |
-| Phase 1 파운데이션 | 토큰 v0.1 | 팔레트·시맨틱·타이포·radius·spacing 토큰과 dist 3종, `v0.1.0` 태그 | TOKEN-01~06, REPO-06 |
+| Phase 1 파운데이션 | 토큰 v0.1 | 팔레트·시맨틱·타이포·radius·spacing 토큰과 dist 4종, `v0.1.0` 태그 | TOKEN-01~06, REPO-06 |
 | Phase 2 핵심 컴포넌트 | P0 명세 8종 | `components/*.md` 8개 `status: review` 이상 | COMPONENT-01~08 |
 | Phase 3 패턴·확장 | 패턴 4종, P1 명세 8종, v0.2 | `patterns/*.md` 4개, P1 8개 `draft` 이상, `v0.2.0` 태그 | PATTERN-01~04, COMPONENT-09~16, REPO-07 |
 | Phase 4 앱 적용 | 두 앱이 토큰 사용, 관리자 콘솔 화면 통일 | 각 앱 저장소 PR 머지 | ADOPT-01~07 |
@@ -86,7 +86,7 @@
 | --- | --- | --- | --- |
 | 저장소 초기 구성 | 공개 저장소(Apache-2.0), 커밋 훅, 가드·라벨·배정 워크플로, CI, CodeRabbit, AGENTS.md, Style Dictionary 최소 빌드 | #1 | 완료 |
 | 브랜치 규칙 삭제·리뷰어 수동 지정 | ruleset 삭제, CODEOWNERS 삭제 | #17·#19, PR #3 | 완료 |
-| Figma 원본 조사 | 색 스타일 17종·텍스트 스타일 12종·버튼 상태값·radius 실측 | 이 문서 | 완료 |
+| Figma 원본 조사 | 색 스타일 17종·텍스트 스타일 13종·버튼 상태값·radius 실측 | 이 문서 | 완료 |
 | Phase 1 착수 전 토큰 명세 보강 | 크기 단위 px, `tokens.js`·`tokens.d.ts` 출력, 대비표, 팔레트 이름 규칙 | #25, PR #26 | 완료 |
 | 관리자 콘솔 화면 조사 | 주 버튼 배경 5종, 모달 오버레이 14종, `bg-primary` 사용 0건, `text-slate-400` 244곳 대비 미달. Figma에 관리자 디자인이 없음을 확인하고 정식 색 사용·Figma 밖 값 7개 임시 결정 → ADOPT-05~07 추가 | #27 | 완료 |
 
@@ -104,7 +104,7 @@
 | REPO-05 | CodeRabbit·AGENTS.md·README | 저장소·규칙 | 0 | 몇 시간 | REPO-00 | 완료 |
 | REPO-08 | WBS·명세서 작성 | 저장소·규칙 | 0 | 하루이틀 | REPO-00 | 완료 |
 | TOKEN-01 | 팔레트 토큰 확정 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
-| TOKEN-02 | 타이포 토큰 12종 | 파운데이션 | 1 | 하루이틀 | REPO-04 | 대기 |
+| TOKEN-02 | 타이포 토큰 | 파운데이션 | 1 | 하루이틀 | REPO-04 | 대기 |
 | TOKEN-03 | radius 토큰 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
 | TOKEN-04 | spacing 토큰 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
 | TOKEN-05 | 시맨틱 색 토큰 | 파운데이션 | 1 | 하루이틀 | TOKEN-01 | 대기 |

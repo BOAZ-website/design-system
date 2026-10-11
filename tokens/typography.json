@@ -1,0 +1,293 @@
+{
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "base": {
+        "$value": [
+          "Pretendard",
+          "sans-serif"
+        ],
+        "$description": "Figma 텍스트 스타일 전체 글꼴"
+      }
+    },
+    "size": {
+      "$type": "dimension",
+      "12": {
+        "$value": "12px"
+      },
+      "14": {
+        "$value": "14px"
+      },
+      "15": {
+        "$value": "15px"
+      },
+      "16": {
+        "$value": "16px"
+      },
+      "18": {
+        "$value": "18px"
+      },
+      "20": {
+        "$value": "20px"
+      },
+      "24": {
+        "$value": "24px"
+      },
+      "30": {
+        "$value": "30px"
+      },
+      "40": {
+        "$value": "40px"
+      },
+      "72": {
+        "$value": "72px"
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "300": {
+        "$value": 300
+      },
+      "400": {
+        "$value": 400
+      },
+      "600": {
+        "$value": 600,
+        "$description": "Headline1-Semibold, 모바일 버튼(TOKEN-02-06)"
+      },
+      "700": {
+        "$value": 700
+      }
+    },
+    "line-height": {
+      "$type": "dimension",
+      "14": {
+        "$value": "14px"
+      },
+      "17": {
+        "$value": "17px"
+      },
+      "18": {
+        "$value": "18px"
+      },
+      "19": {
+        "$value": "19px"
+      },
+      "21": {
+        "$value": "21px"
+      },
+      "24": {
+        "$value": "24px"
+      },
+      "29": {
+        "$value": "29px"
+      },
+      "30": {
+        "$value": "30px"
+      },
+      "36": {
+        "$value": "36px"
+      },
+      "48": {
+        "$value": "48px"
+      },
+      "86": {
+        "$value": "86px"
+      }
+    }
+  },
+  "typography": {
+    "display": {
+      "$description": "Figma Display. 행간은 레이어 높이 실측(1728:3700)",
+      "size": {
+        "$value": "{font.size.72}"
+      },
+      "weight": {
+        "$value": "{font.weight.700}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.86}"
+      }
+    },
+    "headline-1": {
+      "$description": "Figma Headline1-Bold. 행간은 레이어 높이 실측(1728:3699)",
+      "size": {
+        "$value": "{font.size.40}"
+      },
+      "weight": {
+        "$value": "{font.weight.700}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.48}"
+      }
+    },
+    "headline-1-semibold": {
+      "$description": "Figma Headline1-Semibold. 행간은 Auto 계산값(크기 × 1.193)",
+      "size": {
+        "$value": "{font.size.40}"
+      },
+      "weight": {
+        "$value": "{font.weight.600}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.48}"
+      }
+    },
+    "headline-2": {
+      "$description": "Figma Headline 2. 행간은 레이어 높이 실측(1728:3703)",
+      "size": {
+        "$value": "{font.size.30}"
+      },
+      "weight": {
+        "$value": "{font.weight.700}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.36}"
+      }
+    },
+    "headline-3": {
+      "$description": "Figma Headline 3. 행간은 레이어 높이 실측(1728:3705)",
+      "size": {
+        "$value": "{font.size.24}"
+      },
+      "weight": {
+        "$value": "{font.weight.700}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.29}"
+      }
+    },
+    "body-1": {
+      "$description": "Figma Body 1. 행간은 Auto 계산값(크기 × 1.193)",
+      "size": {
+        "$value": "{font.size.24}"
+      },
+      "weight": {
+        "$value": "{font.weight.400}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.29}"
+      }
+    },
+    "body-2": {
+      "$description": "Figma Body 2. 행간은 Auto 계산값(크기 × 1.193). 2441:5362의 29는 고정 높이라 쓰지 않음",
+      "size": {
+        "$value": "{font.size.20}"
+      },
+      "weight": {
+        "$value": "{font.weight.700}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.24}"
+      }
+    },
+    "body-2-regular": {
+      "$description": "Figma Body2 - Regular. 행간은 Auto 계산값(크기 × 1.193)",
+      "size": {
+        "$value": "{font.size.20}"
+      },
+      "weight": {
+        "$value": "{font.weight.400}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.24}"
+      }
+    },
+    "body-3": {
+      "$description": "Figma Body 3. 행간은 레이어 높이 실측(1728:3704)",
+      "size": {
+        "$value": "{font.size.18}"
+      },
+      "weight": {
+        "$value": "{font.weight.700}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.21}"
+      }
+    },
+    "body-4": {
+      "$description": "Figma Body 4. 행간은 레이어 높이 실측(2009:4229)",
+      "size": {
+        "$value": "{font.size.18}"
+      },
+      "weight": {
+        "$value": "{font.weight.400}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.21}"
+      }
+    },
+    "body-4-paragraph": {
+      "$description": "Figma Body 4 - Paragraph. 행간은 Figma 지정값 30px",
+      "size": {
+        "$value": "{font.size.18}"
+      },
+      "weight": {
+        "$value": "{font.weight.400}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.30}"
+      }
+    },
+    "body-5": {
+      "$description": "Figma Body 5. 행간은 레이어 높이 실측(1728:3701)",
+      "size": {
+        "$value": "{font.size.16}"
+      },
+      "weight": {
+        "$value": "{font.weight.400}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.19}"
+      }
+    },
+    "text-1": {
+      "$description": "Figma Text 1. 행간은 레이어 높이 실측(1728:3706)",
+      "size": {
+        "$value": "{font.size.14}"
+      },
+      "weight": {
+        "$value": "{font.weight.300}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.17}"
+      }
+    },
+    "body-2-mobile": {
+      "$description": "모바일 버튼 실측(7064:14053). 행간은 텍스트 레이어 높이 실측",
+      "size": {
+        "$value": "{font.size.16}"
+      },
+      "weight": {
+        "$value": "{font.weight.600}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.19}"
+      }
+    },
+    "body-4-mobile": {
+      "$description": "모바일 텍스트필드 실측(7578:14642). 행간은 텍스트 레이어 높이 실측",
+      "size": {
+        "$value": "{font.size.15}"
+      },
+      "weight": {
+        "$value": "{font.weight.400}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.18}"
+      }
+    },
+    "text-1-mobile": {
+      "$description": "모바일 카드 실측(7091:10966). 행간은 텍스트 레이어 높이 실측",
+      "size": {
+        "$value": "{font.size.12}"
+      },
+      "weight": {
+        "$value": "{font.weight.300}"
+      },
+      "line-height": {
+        "$value": "{font.line-height.14}"
+      }
+    }
+  }
+}
