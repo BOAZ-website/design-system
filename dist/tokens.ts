@@ -5,12 +5,14 @@ export const vars = {
       "purple": {
         "100": "var(--boaz-color-palette-purple-100)",
         "200": "var(--boaz-color-palette-purple-200)",
-        "300": "var(--boaz-color-palette-purple-300)"
+        "300": "var(--boaz-color-palette-purple-300)",
+        "400": "var(--boaz-color-palette-purple-400)"
       },
       "lightblue": {
         "100": "var(--boaz-color-palette-lightblue-100)"
       },
       "gray": {
+        "0": "var(--boaz-color-palette-gray-0)",
         "100": "var(--boaz-color-palette-gray-100)",
         "200": "var(--boaz-color-palette-gray-200)",
         "300": "var(--boaz-color-palette-gray-300)",
@@ -19,12 +21,11 @@ export const vars = {
         "800": "var(--boaz-color-palette-gray-800)",
         "900": "var(--boaz-color-palette-gray-900)",
         "950": "var(--boaz-color-palette-gray-950)",
-        "white": "var(--boaz-color-palette-gray-white)",
-        "black": "var(--boaz-color-palette-gray-black)"
+        "1000": "var(--boaz-color-palette-gray-1000)"
       },
       "red": {
         "100": "var(--boaz-color-palette-red-100)",
-        "200": "var(--boaz-color-palette-red-200)"
+        "900": "var(--boaz-color-palette-red-900)"
       }
     }
   }

@@ -2,7 +2,7 @@
 
 디자인팀 Figma(공개 홈페이지, 검정 바탕 기준)와 홈페이지·관리자 코드에서 확인한 디자인 값을 기록한 참조 문서임. 기준일 2026-10-11.
 토큰으로 정식화된 값의 기준은 `tokens/`와 `docs/wbs/20-token.md`이고, 이 문서는 원본 기록임. 서로 다르면 토큰이 우선.
-토큰 이름은 `tokens/`·`dist/`의 현재 이름 기준임. TOKEN-01-04 이후 바뀔 이름은 "예정 이름" 열에 따로 표시.
+토큰 이름은 `tokens/`·`dist/`의 현재 이름 기준임.
 각 값 옆에 출처(Figma 노드 ID 또는 저장소 루트 기준 코드 경로와 줄)를 적음. Figma 값과 코드 값이 다르면 둘 다 적고 어느 쪽인지 표시.
 확인되지 않은 값은 "미확인"으로 표시.
 
@@ -11,9 +11,9 @@
 ### 1.1 정식 색 17종
 
 - 출처: Components 페이지 색 시트 `2432:5247`
-- 시트의 스와치는 16개이고 `dist/tokens.css`의 팔레트 16개와 값이 동일함
+- 시트의 스와치는 16개. press 1개를 더한 17개가 `tokens/color/palette.json`의 팔레트 17개와 값이 동일함
 - 17번째 Primary-press-Purple #2C2459는 시트에 없음. 20-token.md "Figma 원본 값" 절에 별도 색 스타일로 등록되어 있음
-- Primary-press-Purple은 palette.json에 아직 없음. TOKEN-01-01에서 `purple.400`으로 추가 예정(사용처 COMPONENT-01-03)
+- Primary-press-Purple은 `purple.400`(사용처 COMPONENT-01-03)
 - Gray950 #0D0D0D는 시트(`2433:5315`)에만 있고 사용처 없음
 - Black 스와치(`2433:5330`)는 0.2px 흰 테두리 있음
 
@@ -41,32 +41,31 @@
 
 - 값 출처: `dist/tokens.css`, `dist/tokens.ts`, `dist/tailwind-theme.css`(`@theme inline`)
 - CSS 변수 규칙: `--boaz-color-palette-{group}-{step}`
-- TS 경로 규칙: `vars.color.palette.{group}["{step}"]`. White·Black은 `vars.color.palette.gray.white`, `vars.color.palette.gray.black`
+- TS 경로 규칙: `vars.color.palette.{group}["{step}"]`. White·Black은 `gray["0"]`·`gray["1000"]`
 - Tailwind 테마 변수 규칙: `--color-boaz-palette-{group}-{step}`
-- 예정 이름: TOKEN-01-04(`gray.white`→`gray.0`, `gray.black`→`gray.1000`, `red.200`→`red.900`)와 TOKEN-01-01(press→`purple.400` 신규)
-- 예정 이름 열이 "동일"이면 현재 이름 유지
+- 각 토큰의 `$description`에 Figma 스타일 이름이 있음
 
-| Figma 이름 | hex | 현재 CSS 변수 | 현재 TS 경로 | 현재 Tailwind 테마 변수 | 예정 이름 |
+| Figma 이름 | hex | 토큰 경로 | CSS 변수 | TS 경로 | Tailwind 테마 변수 |
 | --- | --- | --- | --- | --- | --- |
-| White | #FFFFFF | `--boaz-color-palette-gray-white` | `vars.color.palette.gray.white` | `--color-boaz-palette-gray-white` | `gray.0` |
-| Gray100 | #E6E6E6 | `--boaz-color-palette-gray-100` | `vars.color.palette.gray["100"]` | `--color-boaz-palette-gray-100` | 동일 |
-| Gray200 | #CCCCCC | `--boaz-color-palette-gray-200` | `vars.color.palette.gray["200"]` | `--color-boaz-palette-gray-200` | 동일 |
-| Gray300 | #B3B3B3 | `--boaz-color-palette-gray-300` | `vars.color.palette.gray["300"]` | `--color-boaz-palette-gray-300` | 동일 |
-| Gray400 | #999999 | `--boaz-color-palette-gray-400` | `vars.color.palette.gray["400"]` | `--color-boaz-palette-gray-400` | 동일 |
-| Gray600 | #666666 | `--boaz-color-palette-gray-600` | `vars.color.palette.gray["600"]` | `--color-boaz-palette-gray-600` | 동일 |
-| Gray800 | #333333 | `--boaz-color-palette-gray-800` | `vars.color.palette.gray["800"]` | `--color-boaz-palette-gray-800` | 동일 |
-| Gray900 | #1A1A1A | `--boaz-color-palette-gray-900` | `vars.color.palette.gray["900"]` | `--color-boaz-palette-gray-900` | 동일 |
-| Gray950 | #0D0D0D | `--boaz-color-palette-gray-950` | `vars.color.palette.gray["950"]` | `--color-boaz-palette-gray-950` | 동일 |
-| Black | #000000 | `--boaz-color-palette-gray-black` | `vars.color.palette.gray.black` | `--color-boaz-palette-gray-black` | `gray.1000` |
-| Error-Red | #F96466 | `--boaz-color-palette-red-100` | `vars.color.palette.red["100"]` | `--color-boaz-palette-red-100` | 동일 |
-| Error-bg-Red | #190A0A | `--boaz-color-palette-red-200` | `vars.color.palette.red["200"]` | `--color-boaz-palette-red-200` | `red.900` |
-| Primary-Purple | #7A64F9 | `--boaz-color-palette-purple-100` | `vars.color.palette.purple["100"]` | `--color-boaz-palette-purple-100` | 동일 |
-| Primary-subtle-Purple | #6250C7 | `--boaz-color-palette-purple-200` | `vars.color.palette.purple["200"]` | `--color-boaz-palette-purple-200` | 동일 |
-| Primary-hover-Purple | #493C95 | `--boaz-color-palette-purple-300` | `vars.color.palette.purple["300"]` | `--color-boaz-palette-purple-300` | 동일 |
-| Primary-press-Purple | #2C2459 | 없음 | 없음 | 없음 | `purple.400`(신규) |
-| Sub-Lightblue | #68CBEC | `--boaz-color-palette-lightblue-100` | `vars.color.palette.lightblue["100"]` | `--color-boaz-palette-lightblue-100` | 동일 |
+| White | #FFFFFF | `color.palette.gray.0` | `--boaz-color-palette-gray-0` | `vars.color.palette.gray["0"]` | `--color-boaz-palette-gray-0` |
+| Gray100 | #E6E6E6 | `color.palette.gray.100` | `--boaz-color-palette-gray-100` | `vars.color.palette.gray["100"]` | `--color-boaz-palette-gray-100` |
+| Gray200 | #CCCCCC | `color.palette.gray.200` | `--boaz-color-palette-gray-200` | `vars.color.palette.gray["200"]` | `--color-boaz-palette-gray-200` |
+| Gray300 | #B3B3B3 | `color.palette.gray.300` | `--boaz-color-palette-gray-300` | `vars.color.palette.gray["300"]` | `--color-boaz-palette-gray-300` |
+| Gray400 | #999999 | `color.palette.gray.400` | `--boaz-color-palette-gray-400` | `vars.color.palette.gray["400"]` | `--color-boaz-palette-gray-400` |
+| Gray600 | #666666 | `color.palette.gray.600` | `--boaz-color-palette-gray-600` | `vars.color.palette.gray["600"]` | `--color-boaz-palette-gray-600` |
+| Gray800 | #333333 | `color.palette.gray.800` | `--boaz-color-palette-gray-800` | `vars.color.palette.gray["800"]` | `--color-boaz-palette-gray-800` |
+| Gray900 | #1A1A1A | `color.palette.gray.900` | `--boaz-color-palette-gray-900` | `vars.color.palette.gray["900"]` | `--color-boaz-palette-gray-900` |
+| Gray950 | #0D0D0D | `color.palette.gray.950` | `--boaz-color-palette-gray-950` | `vars.color.palette.gray["950"]` | `--color-boaz-palette-gray-950` |
+| Black | #000000 | `color.palette.gray.1000` | `--boaz-color-palette-gray-1000` | `vars.color.palette.gray["1000"]` | `--color-boaz-palette-gray-1000` |
+| Error-Red | #F96466 | `color.palette.red.100` | `--boaz-color-palette-red-100` | `vars.color.palette.red["100"]` | `--color-boaz-palette-red-100` |
+| Error-bg-Red | #190A0A | `color.palette.red.900` | `--boaz-color-palette-red-900` | `vars.color.palette.red["900"]` | `--color-boaz-palette-red-900` |
+| Primary-Purple | #7A64F9 | `color.palette.purple.100` | `--boaz-color-palette-purple-100` | `vars.color.palette.purple["100"]` | `--color-boaz-palette-purple-100` |
+| Primary-subtle-Purple | #6250C7 | `color.palette.purple.200` | `--boaz-color-palette-purple-200` | `vars.color.palette.purple["200"]` | `--color-boaz-palette-purple-200` |
+| Primary-hover-Purple | #493C95 | `color.palette.purple.300` | `--boaz-color-palette-purple-300` | `vars.color.palette.purple["300"]` | `--color-boaz-palette-purple-300` |
+| Primary-press-Purple | #2C2459 | `color.palette.purple.400` | `--boaz-color-palette-purple-400` | `vars.color.palette.purple["400"]` | `--color-boaz-palette-purple-400` |
+| Sub-Lightblue | #68CBEC | `color.palette.lightblue.100` | `--boaz-color-palette-lightblue-100` | `vars.color.palette.lightblue["100"]` | `--color-boaz-palette-lightblue-100` |
 
-- Tailwind 유틸 클래스 이름(`bg-boaz-palette-purple-100` 형태)은 Tailwind v4 규칙에 따른 추정(추정)이며 앱에서 확인하지 않았음
+- Tailwind 유틸 클래스 이름(`bg-boaz-palette-purple-100` 형태)은 Tailwind v4 규칙에 따른 추정이며 앱에서 확인하지 않았음
 
 ### 1.3 미등록 단계 초안
 
@@ -108,7 +107,7 @@
 - 출처: 20-token.md TOKEN-05-01~03
 - 현재 `dist/`에 없음. TOKEN-05 이후 출력됨
 - 대비표: 20-token.md "대비표(WCAG 2.2 AA)" 절
-- 팔레트 참조 값의 숫자는 예정 이름 기준(gray 0 = White, gray 1000 = Black)
+- 팔레트 참조 값의 숫자는 토큰 이름 기준(gray 0 = White, gray 1000 = Black)
 
 | 토큰 | 팔레트 참조 | 용도 |
 | --- | --- | --- |

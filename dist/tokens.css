@@ -1,18 +1,19 @@
 :root {
-  --boaz-color-palette-purple-100: #7a64f9;
-  --boaz-color-palette-purple-200: #6250c7;
-  --boaz-color-palette-purple-300: #493c95;
-  --boaz-color-palette-lightblue-100: #68cbec;
-  --boaz-color-palette-gray-100: #e6e6e6;
-  --boaz-color-palette-gray-200: #cccccc;
-  --boaz-color-palette-gray-300: #b3b3b3;
-  --boaz-color-palette-gray-400: #999999;
-  --boaz-color-palette-gray-600: #666666;
-  --boaz-color-palette-gray-800: #333333;
-  --boaz-color-palette-gray-900: #1a1a1a;
-  --boaz-color-palette-gray-950: #0d0d0d;
-  --boaz-color-palette-gray-white: #ffffff;
-  --boaz-color-palette-gray-black: #000000;
-  --boaz-color-palette-red-100: #f96466;
-  --boaz-color-palette-red-200: #190a0a;
+  --boaz-color-palette-purple-100: #7a64f9; /** Figma: Primary-Purple */
+  --boaz-color-palette-purple-200: #6250c7; /** Figma: Primary-subtle-Purple */
+  --boaz-color-palette-purple-300: #493c95; /** Figma: Primary-hover-Purple */
+  --boaz-color-palette-purple-400: #2c2459; /** Figma: Primary-press-Purple */
+  --boaz-color-palette-lightblue-100: #68cbec; /** Figma: Sub-Lightblue */
+  --boaz-color-palette-gray-0: #ffffff; /** Figma: White */
+  --boaz-color-palette-gray-100: #e6e6e6; /** Figma: Gray100 */
+  --boaz-color-palette-gray-200: #cccccc; /** Figma: Gray200 */
+  --boaz-color-palette-gray-300: #b3b3b3; /** Figma: Gray300 */
+  --boaz-color-palette-gray-400: #999999; /** Figma: Gray400 */
+  --boaz-color-palette-gray-600: #666666; /** Figma: Gray600 */
+  --boaz-color-palette-gray-800: #333333; /** Figma: Gray800 */
+  --boaz-color-palette-gray-900: #1a1a1a; /** Figma: Gray900 */
+  --boaz-color-palette-gray-950: #0d0d0d; /** Figma: Gray950 */
+  --boaz-color-palette-gray-1000: #000000; /** Figma: Black */
+  --boaz-color-palette-red-100: #f96466; /** Figma: Error-Red */
+  --boaz-color-palette-red-900: #190a0a; /** Figma: Error-bg-Red */
 }
