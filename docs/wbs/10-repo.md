@@ -131,4 +131,4 @@
 | REPO-08-04 | 명세서의 확인 필요 사항 절 삭제 | 명세서에 "확인 필요 사항" 절 없음(PR #13) |
 | REPO-08-05 | 티켓 규모 재산정과 Epic 규모 합계 | `00-wbs.md` Epic 표의 "남은 규모" 열(PR #15) |
 | REPO-08-06 | Phase 1 착수 전 토큰 명세 보강: 크기 단위 px 확정, `tokens.js`·`tokens.d.ts` 출력, 이름 규칙 표에 `font`·`typography` 행과 state 예외 추가, Tailwind 타이포 변환 규칙, 중복 이름 빌드 실패 설정, 대비표, 팔레트 이름 정리, 완료 확인 방법 수치 수정 | `20-token.md`에 "대비표" 절, AGENTS.md 표에 `typography.{style}` 행 |
-| REPO-08-07 | 관리자 콘솔 디자인 통일 반영: ADOPT-05~07 추가(Figma 정식 색 사용, Figma에 없는 값 6개는 관리자 `theme.css`에 임시로 두는 결정과 대비 근거), ADOPT-02-02 보라 값을 purple-200·300으로 수정, ADOPT-02의 `.dark` 삭제·시맨틱 클래스 규칙을 ADOPT-05로 이동, 20-token.md·50-adopt.md 범위 문구 수정, 티켓 수·규모·진행 현황 갱신 | `50-adopt.md`에 ADOPT-05~07 절(#27) |
+| REPO-08-07 | 관리자 콘솔 디자인 통일 반영: ADOPT-05~07 추가(Figma 정식 색 사용, Figma에 없는 값 7개는 관리자 `theme.css`에 임시로 두는 결정과 대비 근거), ADOPT-02-02 보라 값을 purple-200·300으로 수정, ADOPT-02의 `.dark` 삭제·시맨틱 클래스 규칙을 ADOPT-05로 이동, 20-token.md·50-adopt.md 범위 문구 수정, 티켓 수·규모·진행 현황 갱신 | `50-adopt.md`에 ADOPT-05~07 절(#27) |
