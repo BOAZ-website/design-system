@@ -1,6 +1,6 @@
 {
   "name": "@boaz/design-system",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "BOAZ 디자인 시스템 — 디자인 토큰과 컴포넌트·패턴 명세",
   "license": "Apache-2.0",
@@ -15,10 +15,10 @@
   "exports": {
     "./tokens.css": "./dist/tokens.css",
     "./tailwind-theme.css": "./dist/tailwind-theme.css",
-    "./tokens": "./dist/tokens.ts"
-  },
-  "engines": {
-    "node": ">=24"
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "default": "./dist/tokens.js"
+    }
   },
   "scripts": {
     "build": "node build/build.mjs"
