@@ -15,7 +15,10 @@
   "exports": {
     "./tokens.css": "./dist/tokens.css",
     "./tailwind-theme.css": "./dist/tailwind-theme.css",
-    "./tokens": "./dist/tokens.ts"
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "default": "./dist/tokens.js"
+    }
   },
   "engines": {
     "node": ">=24"

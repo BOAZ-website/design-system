@@ -195,4 +195,4 @@ export const vars = {
       "line-height": "var(--boaz-typography-text-1-mobile-line-height)"
     }
   }
-} as const;
+};

@@ -39,7 +39,7 @@
 
 ### 1.2 팔레트 코드 참조
 
-- 값 출처: `dist/tokens.css`, `dist/tokens.ts`, `dist/tailwind-theme.css`(`@theme inline`)
+- 값 출처: `dist/tokens.css`, `dist/tokens.js`, `dist/tailwind-theme.css`(`@theme inline`)
 - CSS 변수 규칙: `--boaz-color-palette-{group}-{step}`
 - TS 경로 규칙: `vars.color.palette.{group}["{step}"]`. White·Black은 `gray["0"]`·`gray["1000"]`
 - Tailwind 테마 변수 규칙: `--color-boaz-palette-{group}-{step}`

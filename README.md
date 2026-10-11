@@ -9,7 +9,7 @@ BOAZ 공개 홈페이지와 관리자 콘솔이 함께 쓰는 디자인 언어�
 ```text
 tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/ (build artifacts)
                                               ├── tokens.css          CSS 변수 --boaz-*
-                                              ├── tokens.ts           CSS 변수 참조 객체
+                                              ├── tokens.js·.d.ts     CSS 변수 참조 객체와 타입
                                               └── tailwind-theme.css  Tailwind v4 @theme
 ```
 

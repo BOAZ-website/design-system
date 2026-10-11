@@ -232,10 +232,13 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | TOKEN-02, TOKEN-04 | 1 | 없음 |
+| 하루이틀 | TOKEN-02, TOKEN-04 | 1 | #34 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | TOKEN-06-01 | `tailwind-theme.css` 출력 규칙. 색 `color.*` → `--color-boaz-*`, radius → `--radius-boaz-*`, spacing → `--spacing-boaz-*`. 타이포는 경로를 그대로 잇지 않고 다음과 같이 바꿔 씀: `typography.{style}.size` → `--text-boaz-{style}`, `typography.{style}.line-height` → `--text-boaz-{style}--line-height`, `typography.{style}.weight` → `--text-boaz-{style}--font-weight`(Body 2와 Body2 - Regular처럼 크기가 같고 굵기만 다른 스타일을 유틸 하나로 구분하기 위함). `font.family.base` → `--font-boaz-base`. 원시 스케일 `font.size.*`·`font.weight.*`·`font.line-height.*`는 Tailwind에 내보내지 않음 | `grep -- '--text-boaz-body-3:' dist/tailwind-theme.css`, `grep -- '--text-boaz-body-3--line-height' dist/tailwind-theme.css`, `grep -- '--text-boaz-body-3--font-weight' dist/tailwind-theme.css` 모두 1건 |
-| TOKEN-06-02 | `tokens.js`(ESM)와 `tokens.d.ts`를 출력하고 `package.json`의 `exports["./tokens"]`를 `{ "types": "./dist/tokens.d.ts", "default": "./dist/tokens.js" }`로 바꿈. `vars` 객체에 모든 토큰의 `var()` 참조를 담음. 이유: Node는 `node_modules` 안의 `.ts` 파일을 import하지 못함(`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`). frontend의 Vanilla Extract 컴파일러가 `theme.css.ts`에서 이 모듈을 Node로 평가하므로 `.ts` 그대로는 쓸 수 없음. 기존 `dist/tokens.ts`는 삭제(v0.1.0 전이라 breaking 아님) | `node -e "import('./dist/tokens.js').then(m => console.log(m.vars.typography['headline-3'].size))"`가 `var(--boaz-typography-headline-3-size)` 출력, `dist/tokens.d.ts` 존재 |
+| TOKEN-06-02 | `tokens.js`(ESM)와 `tokens.d.ts`를 출력하고 `package.json`의 `exports["./tokens"]`를 `{ "types": "./dist/tokens.d.ts", "default": "./dist/tokens.js" }`로 바꿈. `vars` 객체에 모든 토큰의 `var()` 참조를 담음. 이유: Node는 `node_modules` 안의 `.ts` 파일을 import하지 못함(`ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING`). frontend의 Vanilla Extract 컴파일러가 `theme.css.ts`에서 이 모듈을 Node로 평가하므로 `.ts` 그대로는 쓸 수 없음. 기존 `dist/tokens.ts`는 삭제(v0.1.0 전이라 breaking 아님) | `node -e "import('./dist/tokens.js').then(m => console.log(m.vars.typography['headline-3'].size))"`가 `var(--boaz-typography-headline-3-size)` 출력, `dist/tokens.d.ts` 존재, `.d.ts`와 `.js`의 키·값 목록 일치, `.d.ts`를 import하는 파일이 `tsc --noEmit --strict` 통과 |
 | TOKEN-06-03 | 참조 깨짐·중복 이름이 있으면 빌드 실패. Style Dictionary 기본값은 중복 이름을 경고만 내고 나중 값으로 덮어쓰므로, 빌드 설정에 경고를 오류로 올리는 옵션(`log: { warnings: 'error' }`)을 둠 | 잘못된 참조를 넣으면 `npm run build` 실패. 같은 이름 토큰을 두 파일에 넣으면 `npm run build` 실패 |
+
+- `tokens.d.ts` 타입 규칙(2026-10-11 결정): 리프는 `readonly` 문자열 리터럴(예: `"var(--boaz-radius-sm)"`), 숫자 단계는 숫자 키(`vars.color.palette.gray[0]`), `-`가 든 이름은 따옴표 키(`vars.typography['headline-3']`). 시맨틱이 어느 팔레트를 참조하는지는 타입에 넣지 않음(값이 모두 `var()` 문자열이라 참조 관계가 소비 코드에 필요 없음)
+- 빌드는 매번 `dist/`를 비우고 다시 만듦. 이름이 바뀐 생성물(예: 예전 `tokens.ts`)이 남지 않게 하기 위함
