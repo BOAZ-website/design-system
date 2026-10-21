@@ -103,13 +103,13 @@
 | REPO-04 | CI `Tokens Build` | 저장소·규칙 | 0 | 몇 시간 | REPO-00 | 완료 |
 | REPO-05 | CodeRabbit·AGENTS.md·README | 저장소·규칙 | 0 | 몇 시간 | REPO-00 | 완료 |
 | REPO-08 | WBS·명세서 작성 | 저장소·규칙 | 0 | 하루이틀 | REPO-00 | 완료 |
-| TOKEN-01 | 팔레트 토큰 확정 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
-| TOKEN-02 | 타이포 토큰 | 파운데이션 | 1 | 하루이틀 | REPO-04 | 대기 |
-| TOKEN-03 | radius 토큰 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
-| TOKEN-04 | spacing 토큰 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 대기 |
-| TOKEN-05 | 시맨틱 색 토큰 | 파운데이션 | 1 | 하루이틀 | TOKEN-01 | 대기 |
-| TOKEN-06 | 빌드 보강(타이포·spacing 출력) | 파운데이션 | 1 | 하루이틀 | TOKEN-02, TOKEN-04 | 대기 |
-| REPO-06 | `v0.1.0` 릴리스 | 저장소·규칙 | 1 | 몇 시간 | TOKEN-01~06 | 대기 |
+| TOKEN-01 | 팔레트 토큰 확정 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 완료(#29) |
+| TOKEN-02 | 타이포 토큰 | 파운데이션 | 1 | 하루이틀 | REPO-04 | 완료(#30) |
+| TOKEN-03 | radius 토큰 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 완료(#31) |
+| TOKEN-04 | spacing 토큰 | 파운데이션 | 1 | 몇 시간 | REPO-04 | 완료(#32) |
+| TOKEN-05 | 시맨틱 색 토큰 | 파운데이션 | 1 | 하루이틀 | TOKEN-01 | 완료(#33) |
+| TOKEN-06 | 빌드 보강(타이포·spacing 출력) | 파운데이션 | 1 | 하루이틀 | TOKEN-02, TOKEN-04 | 완료(#34) |
+| REPO-06 | `v0.1.0` 릴리스 | 저장소·규칙 | 1 | 몇 시간 | TOKEN-01~06 | 완료(#16, 2026-10-11 `v0.1.0` 태그·Release) |
 | COMPONENT-01 | button | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 대기 |
 | COMPONENT-02 | text-field | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 대기 |
 | COMPONENT-03 | select(dropdown) | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 대기 |

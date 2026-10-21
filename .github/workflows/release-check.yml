@@ -1,0 +1,55 @@
+name: Release Check
+
+# vX.Y.Z 태그가 push 되면 그 커밋이 릴리스 조건을 만족하는지 검사한다.
+# 브랜치 규칙이 없어 CI 실패가 머지를 막지 못하므로, 태그 시점에 마지막으로 막는다.
+#   1. 토큰 빌드가 성공한다
+#   2. 커밋된 dist/ 가 빌드 결과와 같다
+#   3. package.json 의 version 이 태그 이름과 같다
+# 실패하면 태그를 지우고(git push --delete origin vX.Y.Z) 고친 뒤 다시 건다.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Release Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build tokens
+        run: npm run build
+
+      - name: dist 최신 여부 확인
+        run: |
+          if [ -n "$(git status --porcelain -- dist)" ]; then
+            echo "::error::dist/ 가 빌드 결과와 다릅니다. 이 태그로 릴리스하지 마세요."
+            git status --porcelain -- dist
+            exit 1
+          fi
+
+      - name: version 과 태그 일치 확인
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="v$(node -p "require('./package.json').version")"
+          if [ "$version" != "$TAG" ]; then
+            echo "::error::package.json version($version)과 태그($TAG)가 다릅니다."
+            exit 1
+          fi

@@ -8,7 +8,7 @@
 - 상태를 한 가지 방식으로 정의함: **기본 상태**(default · disabled · selected · invalid · completed 중 하나) × **상호작용**(hover · press · focus-visible)
 - 코드는 만들지 않음. 명세마다 frontend 구현 위치와 관리자 콘솔(shadcn) 대응을 적음
 
-**범위:** 공개 홈페이지 컴포넌트(Figma 기준). 관리자 콘솔은 shadcn을 그대로 쓰고 토큰만 공유
+**범위:** 공개 홈페이지 컴포넌트(Figma 기준). 관리자 콘솔은 이 명세를 따르지 않고 shadcn 방식 CSS 변수(`--background`·`--primary` 등)에 팔레트 토큰 값을 연결해 씀(ADOPT-05). shadcn 컴포넌트·Radix는 설치돼 있지 않아 공용 컴포넌트는 ADOPT-07에서 직접 만듦
 **범위 밖:** 페이지 전용 조각(커리큘럼 주차 행, 리크루팅 섹션, 탭바·푸터 레이아웃), 컴포넌트 코드 패키지
 
 ### 명세 파일 양식

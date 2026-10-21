@@ -210,8 +210,7 @@
 | `fg.critical` #F96466 | `bg.canvas` #000000 | 7.04 | 통과 | 제한 없음 |
 | `fg.accent` #68CBEC | `bg.layer` #1A1A1A | 9.40 | 통과 | 제한 없음 |
 | `fg.accent` #68CBEC | `bg.canvas` #000000 | 11.34 | 통과 | 제한 없음 |
-| `fg.on-brand` #FFFFFF | `bg.brand-solid` #7A64F9 | 4.18 | 큰 글자만 통과 | 보라 버튼 글자는 Bold 18.67px 이상. Body 3(18 Bold)은 0.5px 부족하므로 버튼 글자는 Body 2(20 Bold)를 씀. COMPONENT-01-03에 반영 |
-| `fg.on-brand` #FFFFFF | `bg.brand-solid` #7A64F9 | 4.18 | 미달 | 모바일 보라 버튼 글자 `typography.body-2-mobile`(16, 600)은 큰 글자가 아님. Figma 값 유지, 기록용. COMPONENT-01에서 처리 |
+| `fg.on-brand` #FFFFFF | `bg.brand-solid` #7A64F9 | 4.18 | 큰 글자만 통과 | 보라 버튼 글자는 Bold 18.67px 이상. Body 3(18 Bold)은 0.5px 부족하므로 데스크톱 버튼 글자는 Body 2(20 Bold)를 씀. 모바일 버튼 글자 `typography.body-2-mobile`(16, 600)은 큰 글자가 아니라 미달이지만 Figma 값이라 유지함. COMPONENT-01-03에 반영 |
 | `fg.on-brand` #FFFFFF | `bg.brand-solid-hover` #493C95 | 8.88 | 통과 | 제한 없음 |
 | `fg.muted` #999999 | `bg.brand-solid-press` #2C2459 | 4.90 | 통과 | 보라 버튼 press 글자 |
 | `fg.on-inverse` #000000 | `bg.neutral-solid` #FFFFFF | 21.00 | 통과 | 제한 없음 |

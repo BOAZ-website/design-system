@@ -2,7 +2,7 @@ name: CI
 
 # 토큰을 빌드하고, 커밋된 dist/ 가 빌드 결과와 같은지 확인한다.
 # 소비 앱은 git 태그로 dist/ 를 그대로 가져가므로 dist/ 가 낡으면 안 된다.
-# job 이름 "Tokens Build" 는 ruleset 의 required status check 이름이다. 바꾸면 ruleset 도 함께 바꾼다.
+# 브랜치 규칙이 없어 이 검사가 머지를 막지는 않는다. 태그 시점의 검사는 release-check.yml 이 한다.
 
 on:
   push:
