@@ -1,11 +1,11 @@
 # ADOPT 앱 적용 명세서
 
-기준일 2026-10-11 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
+기준일 2026-10-11, 2026-10-21 앱 코드 대조 후 ADOPT-01·02·05·06 정정 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
 
 ## 명세서 목적
 
 - 두 앱이 `v0.1.0` 토큰을 git 태그로 설치해 쓰게 함
-- 관리자 콘솔의 화면별 값(색·모서리·그림자·글자 크기)과 공용 컴포넌트를 통일함(ADOPT-05~07). 디자인팀 Figma는 공개 홈페이지(검정 바탕) 전용이라 관리자 콘솔 디자인이 없음. 색은 Figma 정식 색(팔레트 토큰과 같은 값)을 쓰고, Figma에 없는 값 7개만 관리자 `theme.css`에 임시로 정함(ADOPT-05-03). 크기(모서리·글자·간격)는 관리자 콘솔에서 정하고, 컴포넌트는 Figma의 색과 hover·press 순서만 따름. 토큰을 설치하지 않고 값을 복사해 쓰므로 `v0.1.0`을 기다리지 않음
+- 관리자 콘솔의 화면별 값(색·모서리·그림자·글자 크기)과 공용 컴포넌트를 통일함(ADOPT-05~07). 디자인팀 Figma는 공개 홈페이지(검정 바탕) 전용이라 관리자 콘솔 디자인이 없음. 색은 Figma 정식 색(팔레트 토큰과 같은 값)을 쓰고, Figma에 없는 값 7개만 관리자 `theme.css`에 임시로 정함(ADOPT-05-03). 크기(모서리·글자·간격)는 관리자 콘솔에서 정하고, 컴포넌트는 Figma의 색과 hover·press 순서만 따름. `v0.1.0`이 2026-10-11에 발행돼 ADOPT-02에서 토큰을 설치한 뒤 팔레트 변수를 참조함(2026-10-21 정정. 이전에는 값을 복사해 쓰기로 했었음)
 - 이 저장소에서는 앱 코드를 고치지 않음. 티켓마다 **해당 앱 저장소에 이슈·PR**을 만듦. PR 1개로 닫히지 않는 티켓(ADOPT-06·07)은 앱 저장소에서 화면별·컴포넌트별 이슈로 나눔
 
 **범위:** frontend, frontend_admin
@@ -21,8 +21,8 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-01-01 | `pnpm add github:BOAZ-website/design-system#v0.1.0` | `package.json` 의존성 |
-| ADOPT-01-02 | `theme.css.ts`의 값 출처만 `@boaz/design-system/tokens`로 바꿈. 기존 `themeVars.color.grayscale[800]` 등 호출부(약 210곳)는 그대로 둠 | 호출부 변경 0건, 화면 차이 없음 |
+| ADOPT-01-01 | `pnpm add github:BOAZ-website/design-system#v0.1.0`. 앱 진입점(`src/app` 전역 스타일)에서 `@boaz/design-system/tokens.css`를 한 번 import함. `tokens` 모듈의 `vars`는 `var(--boaz-*)` 문자열만 담고 있어 이 CSS가 없으면 모든 값이 정의되지 않은 변수가 됨(빌드·타입 검사는 통과하고 화면만 깨짐) | `package.json` 의존성, 브라우저에서 `:root`에 `--boaz-*` 변수 존재 |
+| ADOPT-01-02 | `theme.css.ts`의 값 출처를 `@boaz/design-system/tokens`의 `vars`로 바꿈. 기존 키 이름은 유지하고 `color.css.ts`·`font.css.ts`·`radius.css.ts` 안에서 토큰으로 대응시킴. 호출부(`themeVars.color` 243곳, `fontSize`·`fontWeight`·`lineHeight`·`letterSpacing` 각 29~31곳, `radius` 2곳)는 그대로 둠. 대응표: `color.primary.100/200/300` → `palette.purple.100/200/300`, `grayscale.white/black` → `gray.0/1000`, `grayscale.100~950` → `gray.100~950`, `sub.lightblue_100` → `lightblue.100`, `error.red_100/red_200` → `red.100/900`. radius는 이름이 같은데 값이 다르므로(앱 `xs 12·sm 20·md 24·lg 40`, 토큰 `sm 12·md 20·full 40`) 키별로 지정함: `xs` → `radius.sm`, `sm` → `radius.md`, `lg` → `radius.full`, `md` 24는 토큰이 없어 로컬 값 유지. 토큰에 없는 값은 로컬 값 유지: `fontSize` 8·10·22·28·32·36·38·80, `fontWeight.medium`(500), `lineHeight`(비율), `letterSpacing`, `fontFamily`(토큰은 `Pretendard, sans-serif`라 `Pretendard Variable`·`Paperlogy` 지정이 사라짐) | 호출부 변경 0건, 화면 차이 없음, 로컬 유지 값마다 "토큰 없음" 주석 |
 | ADOPT-01-03 | 전역 `outline: none`(`global.css.ts:49`) 제거, `:focus-visible` 적용 | 키보드 Tab 이동 시 버튼 포커스 표시 |
 
 ## ADOPT-02 frontend_admin 토큰 연결
@@ -33,10 +33,10 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-02-01 | `npm install github:BOAZ-website/design-system#v0.1.0`, `theme.css`에서 `tailwind-theme.css` import | 빌드 성공 |
-| ADOPT-02-02 | ADOPT-05-02에서 정한 강조색 값을 팔레트 참조로 바꿈: `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring`은 `--boaz-color-palette-purple-200`, hover는 `--boaz-color-palette-purple-300` | `theme.css`에 `#6250c7`·`#493c95` 직접 기재 없음, 화면 차이 없음 |
+| ADOPT-02-01 | `npm install git+https://github.com/BOAZ-website/design-system.git#v0.1.0`(https 명시. `github:` 축약은 lockfile에 ssh 주소로 기록될 수 있어 CI `npm ci`가 실패할 수 있음). `src/app/styles/index.css`에서 `./tailwind.css` import 바로 뒤, `./theme.css` 앞에 `@import '@boaz/design-system/tailwind-theme.css'`를 둠(`theme.css`의 `:root`가 `--boaz-*`를 참조하므로 그보다 앞이어야 하고, `theme.css` 안은 `@custom-variant`로 시작해 `@import`를 둘 수 없음) | `npm ci`·`npm run build` 성공, 브라우저에서 `:root`에 `--boaz-*` 변수 존재 |
+| ADOPT-02-02 | 관리자 콘솔이 쓰는 토큰 범위를 `CLAUDE.md`에 적음. 쓰는 것: 팔레트 색 변수(`--boaz-color-palette-*`)를 `theme.css`의 shadcn 변수(`--primary` 등) 값으로만 참조. 쓰지 않는 것: 시맨틱 색(`bg-boaz-bg-*`·`text-boaz-fg-*` 등. 검정 바탕 홈페이지 값이라 흰 바탕에서 쓰면 흰 글자·검정 면이 됨), `--spacing-boaz-*`·`--text-boaz-*`(px라 루트 14px 기준 rem 단계와 섞임), `rounded-boaz-*`(관리자는 `--radius` 계산값 사용) | 규칙 문서, `grep -rE 'boaz-(bg|fg|stroke|spacing|text|radius)' src` 0건 |
 
-- `.dark` 블록 삭제와 시맨틱 클래스 사용 규칙은 ADOPT-05에서 처리함(토큰 설치와 관계없어 `v0.1.0` 전에 진행)
+- ADOPT-05는 이 티켓 뒤에 진행함. `theme.css` 값을 처음부터 팔레트 변수로 적어 같은 줄을 두 번 고치지 않음(2026-10-21 정정)
 - 위 purple 변수 이름은 TOKEN-01에서 확정됨
 
 ## ADOPT-03 frontend 값 불일치 정리
@@ -75,15 +75,15 @@
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 하루이틀 | 없음 | 4 | `BOAZ-website/frontend_admin` |
+| 하루이틀 | ADOPT-02 | 4 | `BOAZ-website/frontend_admin` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-05-01 | 바탕·회색 역할(Figma 정식 회색): 바탕·카드·팝업·입력 #FFFFFF(`--background`·`--card`·`--popover`·`--input`), 구분선·카드 테두리 #E6E6E6(Gray100, `--border`), 본문 글자 #1A1A1A(Gray900, `--foreground`, 흰 바탕 17.40:1), 보조 글자 #666666(Gray600, `--muted-foreground`, 5.74:1), 입력칸 테두리 #666666, 비활성 #B3B3B3(Gray300) 또는 투명도. #999999 이상 밝은 회색은 글자·입력 테두리에 쓰지 않음(흰 바탕 2.85:1). Tailwind slate는 쓰지 않음 | `theme.css` 회색 값이 모두 팔레트 값과 같음 |
-| ADOPT-05-02 | 강조색(Figma 보라): `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring` #6250C7(Primary-subtle-purple, 팔레트 purple-200), hover #493C95(purple-300), `--primary-foreground` #FFFFFF. #7A64F9(purple-100)는 흰 글자 4.18:1로 일반 글자 AA(4.5:1) 미달이고 관리자 버튼은 `text-xs`·`text-sm`이라 큰 글자 예외가 적용되지 않음. #6250C7은 6.01:1, #493C95는 8.88:1. 포커스 링은 #6250C7 2px에 흰 간격 2px(`ring-offset-2`)를 둠(간격이 없으면 주 버튼 위에서 1.00:1). 전역 `outline-ring/50`은 반투명이라 불투명으로 바꿈 | `--primary`와 `--destructive` 값이 다름. `theme.css`에 `/50` 포커스 없음 |
+| ADOPT-05-01 | 바탕·회색 역할(Figma 정식 회색): 바탕·카드·팝업·입력 #FFFFFF(`--background`·`--card`·`--popover`·`--input`), 구분선·카드 테두리 #E6E6E6(Gray100, `--border`), 본문 글자 #1A1A1A(Gray900, `--foreground`, 흰 바탕 17.40:1), 보조 글자 #666666(Gray600, `--muted-foreground`, 5.74:1), 입력칸 테두리 #666666, 비활성 #B3B3B3(Gray300) 또는 투명도. #999999 이상 밝은 회색은 글자·입력 테두리에 쓰지 않음(흰 바탕 2.85:1). Tailwind slate는 쓰지 않음 | `theme.css` 회색이 모두 `var(--boaz-color-palette-gray-*)` 참조. 팔레트와 같은 hex 직접 기재 0건 |
+| ADOPT-05-02 | 강조색(Figma 보라): `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring` #6250C7(Primary-subtle-purple, 팔레트 purple-200), hover #493C95(purple-300), `--primary-foreground` #FFFFFF. #7A64F9(purple-100)는 흰 글자 4.18:1로 일반 글자 AA(4.5:1) 미달이고 관리자 버튼은 `text-xs`·`text-sm`이라 큰 글자 예외가 적용되지 않음. #6250C7은 6.01:1, #493C95는 8.88:1. 포커스 링은 #6250C7 2px에 흰 간격 2px(`ring-offset-2`)를 둠(간격이 없으면 주 버튼 위에서 1.00:1). 전역 `outline-ring/50`은 반투명이라 불투명으로 바꿈 | `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring`이 `var(--boaz-color-palette-purple-200)`, hover가 `var(--boaz-color-palette-purple-300)` 참조. `--primary`와 `--destructive` 값이 다름. `theme.css`에 `/50` 포커스 없음 |
 | ADOPT-05-03 | Figma에 없는 값 7개를 `theme.css`에 정함. 주석에 "Figma 밖 값, 2026-10-11 결정, 디자인팀 값이 생기면 교체"를 적음. 보조 면(표 머리글·hover·배지 바탕) #F5F5F5(`--muted`·`--secondary`, 흰색과 Gray100 사이 단계가 없어 추가), 위험 글자·버튼 #C92A2D(`--destructive`, Error-red #F96466을 어둡게 함. #F96466은 흰 바탕 2.98:1로 미달)와 위험 바탕 #FFF3F3, 성공 글자 #047857(`--success`, Tailwind emerald-700)과 바탕 #ECFDF5, 경고 글자 #B45309(`--warning`, Tailwind amber-700)와 바탕 #FFFBEB. 각 글자색은 흰색·#F5F5F5·자기 바탕 위에서 4.5:1 이상(위험 5.45·5.00·5.03, 성공 5.48·5.03·5.21, 경고 5.02·4.61·4.84) | `theme.css`에 6개 값과 출처 주석 |
 | ADOPT-05-04 | 상태는 색만으로 구분하지 않음. 배지·알림에 아이콘이나 문구("성공", "실패")를 함께 둠. 색각 이상 시뮬레이션에서 성공·위험·경고가 거의 같은 색으로 보임 | `CLAUDE.md` 규칙 |
-| ADOPT-05-05 | 모서리 기준: 입력·버튼 `rounded-sm`, 카드·표 `rounded-md`, 팝업 `rounded-lg`, `rounded-xl` 이상 쓰지 않음(출결 화면 기준). `--radius`에서 계산되는 값과 맞는지 확인 | 기준과 `--radius` 대응표 |
+| ADOPT-05-05 | 모서리 기준: 입력·버튼 `rounded-sm`, 카드·표 `rounded-md`, 팝업 `rounded-lg`, `rounded-xl` 이상 쓰지 않음(출결 화면 기준). `--radius`에서 계산되는 값과 맞는지 확인. 토큰의 `rounded-boaz-sm`(12px) 등은 관리자에서 쓰지 않음(ADOPT-02-02) | 기준과 `--radius` 대응표 |
 | ADOPT-05-06 | 쓰지 않는 `.dark` 블록과 `@custom-variant dark` 줄 삭제(관리자 콘솔은 다크 모드를 켜는 코드가 없음) | `theme.css`에 `.dark` 없음 |
 | ADOPT-05-07 | 새 코드·수정 파일은 Tailwind 기본 팔레트(`slate-*`·`emerald-*` 등)와 `bg-white` 대신 시맨틱 클래스(`bg-background`·`bg-card`·`text-muted-foreground`·`text-destructive` 등)를 쓴다는 규칙을 CLAUDE.md에 추가. `src/shared/ui` 사용 현황 설명을 실제 import 현황에 맞게 고침 | 규칙 문서 |
 
@@ -106,7 +106,7 @@
 | ADOPT-06-07 | 임의 글자 크기(`text-[11px]` 등)를 `text-xs`·`text-sm` 등 기본 단계로 바꿈. 관리자 기본 글자 14px 기준이라 `text-base` 이상으로 키우지 않음 | `grep -rE 'text-\[[0-9]+px\]' src` 0건 |
 | ADOPT-06-08 | 회색 직접 지정을 시맨틱 클래스로 바꿈: `bg-white` → `bg-card`, `bg-slate-50`·`bg-slate-100` → `bg-background` 또는 `bg-muted`(쓰인 자리에 따라 판단, 일괄 치환 금지), `text-slate-400`(244곳, 흰 바탕 2.56:1 미달)·`text-slate-500` → `text-muted-foreground`, 나머지 `slate-*` 글자·테두리 → `text-foreground`·`border-border` | `grep -rE 'slate-[0-9]' src` 0건 |
 | ADOPT-06-09 | 하드코딩 hex를 시맨틱 클래스·CSS 변수로 바꿈(인라인 `style` 포함) | `grep -rE '#[0-9a-fA-F]{6}' src --include='*.tsx'` 0건 |
-| ADOPT-06-10 | 치환이 끝난 뒤 `theme.css`에 `@theme { --color-*: initial; }`를 넣어 Tailwind 기본 팔레트를 막고 시맨틱 색만 다시 선언함(관리자 저장소에 린트가 없어 재발을 막는 수단). 치환 전에 넣으면 클래스가 사라져 화면이 깨지므로 마지막에 넣음 | `bg-slate-100`을 새로 쓰면 스타일이 적용되지 않음, `npm run build` 성공 |
+| ADOPT-06-10 | 치환이 끝난 뒤 Tailwind 기본 팔레트를 막음. `@theme { --color-*: initial; }`를 `index.css`의 `tailwind-theme.css` import보다 **앞**에 두고(뒤에 두면 `--color-boaz-*` 41개까지 지워짐), `--color-white`·`--color-black`은 다시 선언함(`bg-white`·`bg-black/50` 오버레이가 사라지지 않게). 그 뒤 시맨틱 색을 선언함. 치환 전에 넣으면 클래스가 사라져 화면이 깨지므로 마지막에 넣음. ESLint(`eslint.config.js`, CI `lint.yml`)가 있으므로 `no-restricted-syntax`로 `slate-*` 클래스를 막는 방법도 검토함 | `bg-slate-100`을 새로 쓰면 스타일이 적용되지 않음, `bg-boaz-palette-purple-200`·`bg-white` 클래스는 생성됨, `npm run build` 성공 |
 
 ## ADOPT-07 frontend_admin 공용 컴포넌트
 
