@@ -11,3 +11,4 @@ TICKET-*.md
 
 # 로컬 AI 도구 상태 (oh-my-claudecode)
 .omc/
+dist.tmp/
