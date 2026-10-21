@@ -5,7 +5,7 @@ name: Release Check
 #   1. 토큰 빌드가 성공한다
 #   2. 커밋된 dist/ 가 빌드 결과와 같다
 #   3. package.json 의 version 이 태그 이름과 같다
-# 실패하면 태그를 지우고(git push --delete origin vX.Y.Z) 고친 뒤 다시 건다.
+# 실패해도 이 태그는 삭제·이동할 수 없다(v* 태그 보호 규칙). 고친 뒤 patch 버전을 올려 새 태그를 건다.
 
 on:
   push:

@@ -40,7 +40,7 @@
 | REPO-01-01 | `.githooks/commit-msg`: `type: 설명 (#이슈)` 강제(product-infra 원본) | 대문자 type·이슈 번호 누락·설명 누락 메시지가 거부됨 |
 | REPO-01-02 | 이슈·PR 템플릿: 영향 토큰·dist 재생성·breaking·소비 앱 영향 체크 | `.github/` 파일 존재 |
 | REPO-01-03 | `.editorconfig`(frontend), `.gitattributes`(LF, dist 생성물 표시), `.gitignore` | 파일 존재 |
-| REPO-01-04 | CODEOWNERS는 두지 않음. 리뷰어는 PR 담당자가 지정 | `.github/CODEOWNERS` 없음(PR #3) |
+| REPO-01-04 | CODEOWNERS는 두지 않음. 리뷰어는 PR 작성자가 지정 | `.github/CODEOWNERS` 없음(PR #3) |
 
 ## REPO-02 라벨·자동 라벨·자동 배정
 
@@ -51,8 +51,8 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | REPO-02-01 | 라벨 7종(FEAT·FIX·DOCS·STYLE·REFACTOR·TEST·CHORE), 기본 라벨 삭제 | `gh label list` 7개 |
-| REPO-02-02 | auto-label: 제목 맨 앞 `[Type]`으로만 라벨 부착(본문 단어로 오분류하지 않음) | `[Docs] design 문서` 제목에 DOCS만 붙음 |
-| REPO-02-03 | auto-assign, title-guard, pr-base-guard(product-infra 원본) | 이슈·PR 생성 시 작성자 배정, 양식 위반 시 안내 코멘트 |
+| REPO-02-02 | 자동 라벨(auto-label): 제목 맨 앞 `[Type]`으로만 라벨 부착(본문 단어로 오분류하지 않음) | `[Docs] design 문서` 제목에 DOCS만 붙음 |
+| REPO-02-03 | 자동 배정(auto-assign), 제목 양식 검사(title-guard), PR base 브랜치 검사(pr-base-guard). 모두 product-infra 원본 | 이슈·PR 생성 시 작성자 배정, 양식 위반 시 안내 코멘트 |
 
 ## REPO-03 저장소 서버 설정
 
@@ -64,7 +64,7 @@
 | --- | --- | --- |
 | REPO-03-01 | 팀 권한: `2nd-frontend`·`2nd-pm` write | `gh api repos/BOAZ-website/design-system/teams` |
 | REPO-03-02 | Actions 기본 토큰 read, secret scanning·push protection·Dependabot alerts 켬 | 저장소 보안 설정 |
-| REPO-03-03 | 서버 브랜치 규칙(ruleset) 없음 | `gh api repos/BOAZ-website/design-system/rulesets` = `[]`(PR #3) |
+| REPO-03-03 | 서버 브랜치 규칙(ruleset) 없음. 태그 규칙 1개만 있음: `v*` 태그의 삭제·갱신 금지(예외 없음, 생성은 허용. 2026-10-21 #44) | `gh api repos/BOAZ-website/design-system/rulesets`에 `v* 태그 보호` 1건만 있고 `target`이 `tag`(브랜치 규칙은 PR #3에서 삭제) |
 
 ## REPO-04 CI `Tokens Build`
 
