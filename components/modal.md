@@ -165,7 +165,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 모달 열기·닫기 | 없음 | — | Figma 없음(추정) |
 | 스피너 회전 | `raw:1s` 1회전, 무한 반복 | linear | Figma 없음(추정) |
 
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함. 스피너는 회전을 멈추고 정지 이미지로 표시함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04). 스피너는 회전을 멈추고 정지 이미지로 표시함
 
 ## 6. 반응형
 

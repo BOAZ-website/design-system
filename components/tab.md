@@ -182,7 +182,7 @@ press는 Figma에 없어 hover 값을 유지함(추정).
 | color, border-color(underline·text) | 0.2s | ease | 코드 `src/pages/archive-page.css.ts` |
 
 - text variant의 글자 굵기 변화(Regular → Bold)는 전환하지 않음. 굵기 변화로 폭이 흔들리지 않도록 항목 폭을 Bold 기준으로 잡음
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 

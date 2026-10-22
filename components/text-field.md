@@ -153,7 +153,7 @@ rest는 상호작용이 없을 때의 모습임. 텍스트 필드의 focus-visib
 
 - Figma 프로토타입: 빈 필드 Default→Focus는 크기·위치 보간(Smart Animate) 0.15s ease-out, 값 있는 필드는 디졸브 0.15s ease-out. hover는 전환 없음
 - 버튼의 0.2s ease-in-out(design-reference 4.3)과 다름. 10절 참조
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 

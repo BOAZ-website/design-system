@@ -203,7 +203,7 @@ hover 효과 A(project·blog·photo 공통, Figma 5236:823)
 
 - `transition: all`은 쓰지 않고 대상 속성을 적음(코드의 `all 0.2s`·blog `all 0.3s`는 0.2s로 맞춤)
 - 그라데이션 바탕은 보간되지 않으므로 그라데이션 층을 `::before`에 두고 `opacity` 0 → 1로 전환함
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 

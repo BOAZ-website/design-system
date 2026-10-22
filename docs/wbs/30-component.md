@@ -1,8 +1,8 @@
-# COMPONENT 컴포넌트 명세서
+# COMPONENT 컴포넌트 작업 정의서
 
 기준일 2026-09-28, 2026-10-22 인수인계 준비로 양식·티켓 정정 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
 
-## 명세서 목적
+## 작업 정의서 목적
 
 - Figma Components 페이지의 컴포넌트를 `components/<id>.md` 명세로 옮김
 - 상태를 한 가지 방식으로 정의함: **기본 상태**(default · disabled · selected · invalid · completed 중 하나) × **상호작용**(rest · hover · press · focus-visible). `hover-selected`처럼 두 상태를 합친 이름을 만들지 않고 selected 행의 hover 칸에 적음

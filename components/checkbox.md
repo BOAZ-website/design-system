@@ -155,7 +155,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | detail 펼침·접힘(max-height, padding) | `raw:0.35s` | ease | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` |
 
 - detail 전환은 `hidden` 전환과 함께 쓸 때 펼친 뒤에만 높이 전환을 적용함. 접힘 끝에 `hidden`을 설정함
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 
