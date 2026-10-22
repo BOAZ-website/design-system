@@ -1,7 +1,8 @@
 # 디자인 참조
 
 디자인팀 Figma(공개 홈페이지, 검정 바탕 기준)와 홈페이지·관리자 코드에서 확인한 디자인 값을 기록한 참조 문서임. 기준일 2026-10-11.
-토큰으로 정식화된 값의 기준은 `tokens/`와 `docs/wbs/20-token.md`이고, 이 문서는 원본 기록임. 서로 다르면 토큰이 우선.
+토큰으로 정식화된 값의 기준은 `tokens/`와 `docs/wbs/20-token.md`이고, 이 문서는 원본 기록임.
+명세 값의 우선순위: 라이브에 있는 UI는 라이브 값, 없는 UI는 Figma 값. 토큰과 다르면 토큰 이름이 아니라 raw 값으로 적고 토큰 추가는 별도 이슈(2026-10-22 결정).
 토큰 이름은 `tokens/`·`dist/`의 현재 이름 기준임.
 각 값 옆에 출처(Figma 노드 ID 또는 저장소 루트 기준 코드 경로와 줄)를 적음. Figma 값과 코드 값이 다르면 둘 다 적고 어느 쪽인지 표시.
 확인되지 않은 값은 "미확인"으로 표시.
@@ -285,8 +286,8 @@
 | 텍스트 링크 | 10(토큰에 없음) | `5875:9827` |
 | 프로젝트 카드 썸네일 | Figma 20 | 5절 Component Inventory 카드 |
 | 블로그 카드 썸네일 | 16 | 5절 Component Inventory 카드 |
-| 대상·모집 카드 | 12 | 노드 미확인 |
-| 후기 카드 | 10 | 노드 미확인 |
+| 대상·모집 카드 | 12 | 대상 `5411:10347`, 모집 최종안 `8838:12513`(Figma 10, 명세 `radius.sm` 12)(2026-10-22 Figma 재확인으로 정정) |
+| 후기 카드 | 10 | `1132:1299`, 모바일 `7289:14365`(2026-10-22 Figma 재확인으로 정정) |
 | selection-card | 8 | COMPONENT-15-02 |
 | frontend `radius.css.ts` | xs 12, sm 20, md 24(토큰에 없음), lg 40 | `frontend/src/shared/styles/radius.css.ts:1-6` |
 | 버튼 코드 | base 10, round 계열 40, 모바일 medium 4 | `frontend/src/shared/components/button/button.css.ts:15,35,118` |
@@ -433,7 +434,7 @@ keyframes(`:3-19`)
 
 | 항목 | 값 | 출처 |
 | --- | --- | --- |
-| Figma 크기 | 800×68, 250×68, 200×68, 250×56, 180×56, 154×44, 130×44, mini(검색 Tag 97×43) | `2682:2297`, `2897:6164` |
+| Figma 크기 | 800×68, 250×68, 200×68, 250×56, 180×56, 154×44, 130×44, mini(검색 Tag 97×43, 옛 시안이라 명세에 두지 않음(2026-10-22 Figma 재확인으로 정정)) | `2682:2297`, `2897:6164` |
 | 180×56 | "사전 알림 신청" 버튼. Figma에 "예외…" 라벨 | `2897:6164` |
 | FE 회의 라벨(미확정) | large-round, large-white, medium-round, medium, medium-primary, medium-white, small-round, mini | FE 회의용 `2897:6164` 라벨 |
 | 이전/다음 페이지 텍스트 버튼 | 24 Bold 흰 글자 + 24 화살표, 간격 10 | Figma |
@@ -486,24 +487,26 @@ keyframes(`:3-19`)
 | --- | --- | --- |
 | 프로젝트 | 333×350, radius 20, 썸네일 radius 20 | 카드 20(2rem), 썸네일 16(1.6rem, 모바일 10px). `project-card.css.ts:13,45,52` |
 | 블로그 | 929×278, 보더 2px, 썸네일 16 | 미확인 |
-| 활동사진 | 인스턴스 `6363:11807` 333×350(바깥 프레임 `6363:11806` 373×410). hover 오버레이 rgba(255,255,255,0.6) | 33.3×35rem, 이미지 높이 25rem(모바일 20rem), radius 20(`active-card.css.ts:11-12,47,52`). hover는 보더 #2C3F61 + 그라데이션 2겹(`active-card.css.ts:22-32`) |
-| 대상 | 300×270, #333333, radius 12 | 미확인 |
-| 모집 | 310×404, 흰색, radius 12, 캐릭터 이미지 불투명도 0.8 | 미확인 |
+| 활동사진 | 인스턴스 `6363:11807` 333×350(바깥 프레임 `6363:11806` 373×410). 썸네일 자리 채움 rgba(255,255,255,0.6)(2026-10-22 Figma 재확인으로 정정) | 33.3×35rem, 이미지 높이 25rem(모바일 20rem), radius 20(`active-card.css.ts:11-12,47,52`). hover는 보더 #2C3F61 + 그라데이션 2겹(`active-card.css.ts:22-32`) |
+| 대상 | `5411:10347` 300×270, #333333, radius 12 | 미확인 |
+| 모집 | 최종안 rest `8838:12513`·hover `8796:5269` 310×404. rest #333333·제목 30 Bold 흰색·캐릭터 이미지, hover #1A1A1A·설명 글 #E6E6E6(제목·이미지 숨김), radius 10. 이전 컴포넌트 `5338:3599`(rest 흰색·hover #333333)는 쓰지 않음(2026-10-22 Figma 재확인으로 정정) | 미확인 |
 | FAQ | 840×100, 하단 보더 0.5px #999999 | 5.9절 accordion |
-| 후기 | 500×208, #1A1A1A, radius 10, 이름 20 Bold, 기수 18 Bold 보라 | 미확인 |
+| 후기 | `1132:1299`(모바일 `7289:14365`) 500×208, #1A1A1A, radius 10, 이름 20 Bold, 기수 18 Bold 보라 | 미확인 |
 
-- 활동사진 hover 오버레이 rgba(255,255,255,0.6)은 Figma 값이며 코드에 없음
+- 활동사진 썸네일 자리 채움 rgba(255,255,255,0.6)은 Figma 값이며 코드에 없음. hover 오버레이가 아님(`5236:915`). 프로젝트·블로그·활동사진 hover는 그라데이션 바탕·보더(`5236:823`)(2026-10-22 Figma 재확인으로 정정)
 - 전환 값은 4절 Elevation, Motion & Layering 전환 참조
 
 ### 5.5 텍스트 필드
 
 - 명세: 30-component.md COMPONENT-02
-- 노드: 인터렉션 `5152:8908`, 모바일 `7578:14642`
-- 코드: `frontend/src/shared/components/textfield/textfield.css.ts:20,31`
+- 노드: 인터렉션 `5152:8908`, 모바일 `7578:14642`, 지원 폼 섹션 `1981:4329`
+- 코드: `frontend/src/shared/components/textfield/textfield.css.ts:20,31`, 문단형 `frontend/src/shared/components/textfield-with-counter/`, 글자 수 표시 `frontend/src/shared/components/textfield/text-counter.css.ts`
 
 ### 5.6 드롭다운(select)
 
 - 코드 이름 dropdown
+- 노드: 지원폼 목록 항목 `5393:997`(행 50px), 목록 `5395:565`(5행 245px, 아래 모서리 12), 모바일 `7885:15196`·`7885:15246`, 트리거 `5395:3803`·`5395:3848`·`5393:950`·`5395:647`
+- 아카이빙 기수 목록 `3496:6393`: radius 20, 보더 1px #333333, 그림자 10 10 20 rgba(0,0,0,0.25), 글자 #E6E6E6
 - 코드: `frontend/src/shared/components/dropdown/dropdown.css.ts:32-62`, `dropdownField.css.ts:5-35`
 
 | 항목 | 값 | 출처 |
@@ -543,13 +546,38 @@ keyframes(`:3-19`)
 | `7064:14044` | Tab_Components_Mobile | 741×842 |
 | `7064:14045` | Tab_menu_button_mobile | 103×111 |
 | `7071:14124` | Underline_Tab_모바일 | 항목 80×52 |
-| `7578:9510` | 탭 | 342×56 |
+| `7578:9510` | 탭 | 342×56. 지원 폼 탭(부문 선택 카드) 모바일이라 COMPONENT-15 selection-card 대상 |
+| `7249:14310` | 모바일 커리큘럼 탭(box) | 100×40 |
 
 ### 5.8 모달
 
 - 명세: 30-component.md COMPONENT-07
-- 노드: `4412:7387`
+- 노드: `4412:7387`(모달 창 프레임), 안내·입력 오류 4종 세트 `4243:4479`
+- 7종 모두 441×235, radius 40, 흰 바탕(#FFFFFF), 테두리 2px #CCCCCC. 제목 20 Bold #000000, 설명 18 Regular #666666, 아이콘 48(로딩 42)(성공 체크·로딩 스피너는 래스터 이미지, 느낌표는 #000000 벡터)
+- 버튼은 `팝업창 버튼` 130×44 radius 40, 18 Regular. variant `closed`(#E6E6E6 바탕)·`primary`. 버튼 세트 `4243:4439`
+
+| 종류 | 노드 | 제목 | 설명 | 버튼 |
+| --- | --- | --- | --- | --- |
+| 안내: 지원 기간 아님 | `4243:4452` | 지금은 지원 기간이 아닙니다. | 사전 알림을 신청해보세요. | 닫기·신청 |
+| 안내: 모집 마감 | `4243:4480` | 모집이 마감되었습니다. | 사전 알림을 신청해보세요. | 닫기·신청 |
+| 입력 오류: 이메일 재입력 | `4243:4492` | 이메일을 다시 입력해주시길 바랍니다. | 다시 한 번 확인해주세요. | 닫기 |
+| 입력 오류: 이메일 중복 | `4243:4504` | 이미 사전 알림이 신청된 이메일입니다. | 다시 한 번 확인해주세요. | 닫기 |
+| 성공 | `5164:5542` | 지원서 제출이 성공적으로 완료되었습니다. | BOAZ에 지원해주셔서 감사합니다. | 닫기 |
+| 로딩 | `5164:5587` | 지원서를 제출 중입니다. | 잠시만 기다려주세요. | 닫기 |
+| 실패 | `5164:5621` | 제출에 실패하였습니다. | 다시 한 번 확인해주세요. | 닫기 |
+
+- Figma에 배경 막(backdrop)·모바일 모달 없음
 - frontend에 모달 컴포넌트 코드 없음(z-index 3만 존재)
+
+### 5.8.1 체크박스·약관 동의
+
+- 체크박스 세트: 데스크톱 `Check_box` `5946:10027`(24×24), 모바일 `Check_box_mobile` `7578:14600`(20×20)
+- unchecked(`5946:10028`): 투명 바탕, 테두리 1px #999999, radius 5. checked(`5946:10030`): #7A64F9로 채운 상자에 체크 모양 구멍을 낸 벡터(`5946:10032`). 체크 색은 배경이 비쳐 보이는 색이며 별도 색 지정 없음(2026-10-22 Figma 재확인으로 정정)
+- Figma에 hover·disabled·indeterminate 없음
+- 약관 동의 조합 세트 `5799:10193`: 기본(`5799:10186`, 387×24)과 전문 펼침(`5799:10194`) 2종. 체크박스 + 라벨 "개인정보 필수항목 수집 및 이용 동의"(18 Bold #FFFFFF) + 전문 버튼
+- 전문 펼침(`5799:10194`)은 행 아래 20px에 `지원폼_전문 카드`(`5799:10200`, 800×300, #1A1A1A, radius 12, 본문 18 Regular #FFFFFF). 안쪽 글자 높이 330으로 카드보다 넘침
+- 전문 버튼: `전문 보기` `4266:7630`, `전문 닫기` `4266:7631`. 76×24(모바일 80×24), radius 8, 테두리 1px #999999, 바탕 없음, 14 Light #E6E6E6, 패딩 4·12
+- 코드는 버튼 문구가 "접기"로 Figma "전문 닫기"와 다름(`frontend/src/widgets/apply/ui/agreement-step/agreement-step.tsx`)
 
 ### 5.9 코드 컴포넌트
 
@@ -563,8 +591,8 @@ keyframes(`:3-19`)
 | textfield-with-counter | 문단형 필드. Figma `2009:3439`~`3441` 800×75~82 | `frontend/src/shared/components/textfield-with-counter/` |
 | login-overlay | backdrop fixed rgba(0,0,0,.6), z-index 1000, 원형 버튼 6rem·간격 1.6rem, 네이버 #03C75A·구글 #FFFFFF·카카오 #FEE500, hover 불투명도 0.85 | `frontend/src/features/auth/ui/login-overlay.css.ts` |
 | progress-bar | 높이 1rem, 1px grayscale[800], radius 20, 현재 단계 grayscale[100]. Figma `2009:3442` 800×10 | `frontend/src/shared/components/progress-bar/` |
-| radio-group | radio-button과 함께 사용. Figma 라디오 `2007:3436`·`3437`, `2391:5869`·`5870` | `frontend/src/shared/components/radio-button/radio-group.css.ts` |
-| pagination | 명세 COMPONENT-12-01 도트형(화살표 + 점 5개) | `frontend/src/shared/components/pagination/pagination.css.ts:15-68` |
+| radio-group | radio-button과 함께 사용. Figma 라디오 `2007:3436`·`3437`(인터랙션 세트 `5188:409`), 표형 질문 행 이름 `2391:5869`·`5870`(2026-10-22 Figma 재확인으로 정정) | `frontend/src/shared/components/radio-button/radio-group.css.ts` |
+| pagination | 명세 COMPONENT-12-01 도트형(화살표 + 점 5개)<br>Figma 데스크톱 `2653:6538`·`5239:823`, 모바일 `7078:3511`, 점 default 테두리 #999999(코드는 흰색) | `frontend/src/shared/components/pagination/pagination.css.ts:15-68` |
 | 체크박스 | 컴포넌트 코드 없음. 동의 단계 체크박스는 `accentColor` 직접 지정 | `frontend/src/widgets/apply/ui/agreement-step/agreement-step.css.ts:78` |
 
 폴더만 확인(값 미대조)
@@ -580,13 +608,13 @@ keyframes(`:3-19`)
 
 | 컴포넌트 | Figma 노드·크기 | 코드 |
 | --- | --- | --- |
-| filter-chip | 부문 `3723:9261` 155×44, `9262` 120×44, `9263` 135×44, `9264` 166×44. 기수 `3723:9269`·`9270` 92×44 | 코드 없음 |
-| tag-chip | COMPONENT-10 | 코드 없음 |
-| search-autocomplete | `3613:7592` 710×225, 인터랙션 `5980:12236` 720×50 | 코드 없음 |
+| filter-chip | 부문 `3723:9261` 155×44, `9262` 120×44, `9263` 135×44, `9264` 166×44. 기수 `3723:9269`·`9270` 92×44 | `frontend/src/widgets/archive/ui/track-filter/`, `generation-filter/`(select chip과 공유)(2026-10-22 Figma 재확인으로 정정) |
+| tag-chip | COMPONENT-10. 필터 칩 selected 변형의 ✕(close 세트 `5980:11571`)(2026-10-22 Figma 재확인으로 정정) | 코드 없음 |
+| search-autocomplete | `3613:7592` 710×225<br>인터랙션 세트 `5980:12235`(720×250, 행 50, hover `5875:6267`), 모바일 `7091:5772`(342×140, 행 28)(2026-10-22 Figma 재확인으로 정정) | 코드 없음 |
 | selection-card | `4266:7628`·`7629` 253×80 | 코드 없음 |
-| form-add-button | `2009:4216` 840×180 | 코드 없음 |
-| modal | 명세 441×235·radius 40(30-component.md COMPONENT-07-01) | 코드 없음 |
-| checkbox | 명세 기준 | 코드 없음 |
+| form-add-button | 인터랙션 `5188:454` 800×60, 모바일 `7578:14703` 342×56<br>`2009:4216` 840×180은 이전 판(2026-10-22 Figma 재확인으로 정정) | 코드 없음 |
+| modal | 7종 441×235·radius 40(5.8) | 코드 없음 |
+| checkbox | `5946:10027` 24×24, 모바일 `7578:14600` 20×20(5.8.1) | 코드 없음 |
 
 ### 5.11 관리자 콘솔 컴포넌트
 
@@ -696,15 +724,15 @@ keyframes(`:3-19`)
 | glass | 그라데이션·마스크 보더·그림자 2겹 | 단색 rgba 하나 | `frontend/src/shared/styles/glass.css.ts:1-52` |
 | frontend_admin `--primary` | #ef4444(빨강) | #6250C7(`purple.200`) | `frontend_admin/src/app/styles/theme.css:10`, ADOPT-05-02 |
 | 버튼 press | `:active` 없음 | brand #2C2459, neutral #666666 | `frontend/src/shared/components/button/button.css.ts:59-89`, ADOPT-03-01 |
-| 흰 버튼 hover | grayscale[100] #E6E6E6 | #999999 | `frontend/src/shared/components/button/button.css.ts:80`, ADOPT-03-02 |
-| disabled | primary 배경 #999999·글자 흰색, white 배경 #333333, outlined·glass는 disabled 없음 | 배경 #666666·글자 #999999 | `frontend/src/shared/components/button/button.css.ts:63-67,81-84`, ADOPT-03-03 |
-| 박스 탭 hover | 비활성 hover 배경 grayscale[600] | 흰 배경·검정 글자 | `frontend/src/shared/components/fixed-tab/fixed-tab.css.ts:42-47`, ADOPT-03-04 |
+| 흰 버튼 hover | grayscale[100] #E6E6E6 | #999999 | `frontend/src/shared/components/button/button.css.ts:80`. 명세는 코드(라이브) 값 채택(2026-10-22), 정리 대상 아님 |
+| disabled | primary 배경 #999999·글자 흰색, white 배경 #333333, outlined·glass는 disabled 없음 | 배경 #666666·글자 #999999 | `frontend/src/shared/components/button/button.css.ts:63-67,81-84`. 명세는 primary·white 코드(라이브) 값 채택(2026-10-22). glass disabled 추가만 ADOPT-03-03 |
+| 박스 탭 hover | 비활성 hover 배경 grayscale[600] | Figma에 hover 없음(흰 바탕은 selected 전용, reactions ON_CLICK만 `5639:10001`). 명세는 코드와 같은 #666666 + 흰 글자(2026-10-22 Figma 재확인으로 정정) | `frontend/src/shared/components/fixed-tab/fixed-tab.css.ts:42-47`. 명세는 코드(라이브) 값 #666666 + 검정 글자 채택(2026-10-22), 정리 대상 아님 |
 | 체크박스 색 | `accentColor: '#7964F9'`(오타) | #7A64F9 | `frontend/src/widgets/apply/ui/agreement-step/agreement-step.css.ts:78`, ADOPT-03-05 |
-| Text 1 굵기 | `text_rg_14` 400(fontWeight에 300 없음, 약 28곳) | 300 | `frontend/src/shared/styles/typography.css.ts:168-173`, `font.css.ts:26-31`, ADOPT-03-07 |
+| Text 1 굵기 | `text_rg_14` 400(fontWeight에 300 없음, 약 28곳) | 300 | `frontend/src/shared/styles/typography.css.ts:168-173`, `font.css.ts:26-31`. 명세는 라이브 값 14/400을 `raw:14px/400`으로 채택(2026-10-22), 정리 대상 아님 |
 | Body 4 Paragraph 행간 | lineHeight.card 1.6 = 28.8px | 30px | `frontend/src/shared/styles/typography.css.ts:119-124`, `font.css.ts:37`, ADOPT-03-08 |
 | 쓰지 않는 스타일 | `display1_bd_80`, `h1_md_40`(참조 0건), `form-header` 폴더(참조 여부 미확인) | 해당 없음 | `frontend/src/shared/styles/typography.css.ts:7,39`, ADOPT-03-06 |
 | 프로젝트 썸네일 radius | 16 | 20 | `frontend/src/shared/components/archive/project-card.css.ts:45,52` |
-| 활동사진 hover | 보더 + 그라데이션 | 흰 오버레이 0.6 | `frontend/src/shared/components/archive/active-card.css.ts:22-32` |
+| 활동사진 hover | 보더 + 그라데이션 | 그라데이션 바탕·보더(`5236:823`). 0.6은 썸네일 자리 채움(2026-10-22 Figma 재확인으로 정정) | `frontend/src/shared/components/archive/active-card.css.ts:22-32` |
 | reduced-motion | 코드 미대응 | PATTERN-03-04 요구 | `frontend/src` 전체 0건 |
 
 ## 확인되지 않은 사항

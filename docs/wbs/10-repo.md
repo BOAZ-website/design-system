@@ -1,8 +1,8 @@
-# REPO 저장소·규칙 명세서
+# REPO 저장소·규칙 작업 정의서
 
 기준일 2026-09-28 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
 
-## 명세서 목적
+## 작업 정의서 목적
 
 - 디자인 시스템 공개 저장소를 만들고 BOAZ 공통 협업 규칙을 이식함
 - 토큰 원천(`tokens/`)과 생성물(`dist/`)이 항상 같도록 CI로 검사함
@@ -40,7 +40,7 @@
 | REPO-01-01 | `.githooks/commit-msg`: `type: 설명 (#이슈)` 강제(product-infra 원본) | 대문자 type·이슈 번호 누락·설명 누락 메시지가 거부됨 |
 | REPO-01-02 | 이슈·PR 템플릿: 영향 토큰·dist 재생성·breaking·소비 앱 영향 체크 | `.github/` 파일 존재 |
 | REPO-01-03 | `.editorconfig`(frontend), `.gitattributes`(LF, dist 생성물 표시), `.gitignore` | 파일 존재 |
-| REPO-01-04 | CODEOWNERS는 두지 않음. 리뷰어는 PR 담당자가 지정 | `.github/CODEOWNERS` 없음(PR #3) |
+| REPO-01-04 | CODEOWNERS는 두지 않음. 리뷰어는 PR 작성자가 지정 | `.github/CODEOWNERS` 없음(PR #3) |
 
 ## REPO-02 라벨·자동 라벨·자동 배정
 
@@ -51,8 +51,8 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | REPO-02-01 | 라벨 7종(FEAT·FIX·DOCS·STYLE·REFACTOR·TEST·CHORE), 기본 라벨 삭제 | `gh label list` 7개 |
-| REPO-02-02 | auto-label: 제목 맨 앞 `[Type]`으로만 라벨 부착(본문 단어로 오분류하지 않음) | `[Docs] design 문서` 제목에 DOCS만 붙음 |
-| REPO-02-03 | auto-assign, title-guard, pr-base-guard(product-infra 원본) | 이슈·PR 생성 시 작성자 배정, 양식 위반 시 안내 코멘트 |
+| REPO-02-02 | 자동 라벨(auto-label): 제목 맨 앞 `[Type]`으로만 라벨 부착(본문 단어로 오분류하지 않음) | `[Docs] design 문서` 제목에 DOCS만 붙음 |
+| REPO-02-03 | 자동 배정(auto-assign), 제목 양식 검사(title-guard), PR base 브랜치 검사(pr-base-guard). 모두 product-infra 원본 | 이슈·PR 생성 시 작성자 배정, 양식 위반 시 안내 코멘트 |
 
 ## REPO-03 저장소 서버 설정
 
@@ -64,7 +64,7 @@
 | --- | --- | --- |
 | REPO-03-01 | 팀 권한: `2nd-frontend`·`2nd-pm` write | `gh api repos/BOAZ-website/design-system/teams` |
 | REPO-03-02 | Actions 기본 토큰 read, secret scanning·push protection·Dependabot alerts 켬 | 저장소 보안 설정 |
-| REPO-03-03 | 서버 브랜치 규칙(ruleset) 없음 | `gh api repos/BOAZ-website/design-system/rulesets` = `[]`(PR #3) |
+| REPO-03-03 | 서버 브랜치 규칙(ruleset) 없음. 태그 규칙 1개만 있음: `v*` 태그의 삭제·갱신 금지(예외 없음, 생성은 허용. 2026-10-21 #44) | `gh api repos/BOAZ-website/design-system/rulesets`에 `v* 태그 보호` 1건만 있고 `target`이 `tag`(브랜치 규칙은 PR #3에서 삭제) |
 
 ## REPO-04 CI `Tokens Build`
 
@@ -86,7 +86,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| REPO-05-01 | `.coderabbit.yaml`: 한국어, `dist/` 제외, DTCG·이름 규칙·breaking·대비·공개 저장소 지침 | 첫 PR에 CodeRabbit 리뷰 코멘트 |
+| REPO-05-01 | `.coderabbit.yaml`: 한국어, `dist/` 제외, DTCG·이름 규칙·breaking·대비·공개 저장소 지침 | 첫 PR에 CodeRabbit 리뷰 코멘트. GitHub 앱의 저장소 접근 목록에 이 저장소가 빠져 있어 PR #48 이전에는 리뷰가 없었고, 2026-10-22 앱 접근 추가 뒤 PR #49에서 첫 리뷰 확인 |
 | REPO-05-02 | `AGENTS.md`: 토큰 작업 절차, 이름 규칙, breaking·릴리스 규칙. `CLAUDE.md`는 `@AGENTS.md` | 파일 존재 |
 | REPO-05-03 | README: 소개, 구성(폴더·문서 색인), 사용, 라이선스(seed-design 방식) | 파일 존재 |
 | REPO-05-04 | CONTRIBUTING.md: 개발 환경, 토큰 변경 절차, 브랜치·이슈·PR·커밋 규약, 언어 | 파일 존재(PR #7) |
@@ -115,9 +115,9 @@
 | --- | --- | --- |
 | REPO-07-01 | `dev` → `main` 머지, version `0.2.0`, `v0.2.0` 태그·Release | `gh release view v0.2.0` |
 
-## REPO-08 WBS·명세서 작성
+## REPO-08 WBS·작업 정의서 작성
 
-**목적:** 디자인 시스템 구축 작업 전체를 명세서(Epic)와 티켓으로 나누고, 결정 사항과 규모를 정리함
+**목적:** 디자인 시스템 구축 작업 전체를 작업 정의서(Epic)와 티켓으로 나누고, 결정 사항과 규모를 정리함
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
@@ -125,10 +125,10 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| REPO-08-01 | WBS·명세서 v2: 읽는 법, 명세서 5개, Phase 0~4, 기능 ID별 완료 확인 방법, Figma 원본 조사 결과 | `docs/wbs/` 파일 6개(PR #5) |
-| REPO-08-02 | 결정 D-01·D-02·D-03·D-04·D-08 확정 반영 | 명세서 본문의 확정값(PR #9) |
+| REPO-08-01 | WBS·작업 정의서 v2: 읽는 법, 작업 정의서 5개, Phase 0~4, 기능 ID별 완료 확인 방법, Figma 원본 조사 결과 | `docs/wbs/` 파일 6개(PR #5) |
+| REPO-08-02 | 결정 D-01·D-02·D-03·D-04·D-08 확정 반영 | 작업 정의서 본문의 확정값(PR #9) |
 | REPO-08-03 | 남은 결정 5건 확정과 결정 섹션 정리 | `00-wbs.md`에 결정 대기 섹션 없음(PR #11) |
-| REPO-08-04 | 명세서의 확인 필요 사항 절 삭제 | 명세서에 "확인 필요 사항" 절 없음(PR #13) |
+| REPO-08-04 | 작업 정의서의 확인 필요 사항 절 삭제 | 작업 정의서에 "확인 필요 사항" 절 없음(PR #13) |
 | REPO-08-05 | 티켓 규모 재산정과 Epic 규모 합계 | `00-wbs.md` Epic 표의 "남은 규모" 열(PR #15) |
 | REPO-08-06 | Phase 1 착수 전 토큰 명세 보강: 크기 단위 px 확정, `tokens.js`·`tokens.d.ts` 출력, 이름 규칙 표에 `font`·`typography` 행과 state 예외 추가, Tailwind 타이포 변환 규칙, 중복 이름 빌드 실패 설정, 대비표, 팔레트 이름 정리, 완료 확인 방법 수치 수정 | `20-token.md`에 "대비표" 절, AGENTS.md 표에 `typography.{style}` 행 |
 | REPO-08-07 | 관리자 콘솔 디자인 통일 반영: ADOPT-05~07 추가(Figma 정식 색 사용, Figma에 없는 값 7개는 관리자 `theme.css`에 임시로 두는 결정과 대비 근거), ADOPT-02-02 보라 값을 purple-200·300으로 수정, ADOPT-02의 `.dark` 삭제·시맨틱 클래스 규칙을 ADOPT-05로 이동, 20-token.md·50-adopt.md 범위 문구 수정, 티켓 수·규모·진행 현황 갱신 | `50-adopt.md`에 ADOPT-05~07 절(#27) |

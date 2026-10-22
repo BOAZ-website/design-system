@@ -1,15 +1,15 @@
-# TOKEN 파운데이션 명세서
+# TOKEN 파운데이션 작업 정의서
 
 기준일 2026-09-28 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
 
-## 명세서 목적
+## 작업 정의서 목적
 
 - Figma에 등록된 색 스타일 17종·텍스트 스타일 13종을 DTCG 토큰으로 옮김
 - 팔레트 → 시맨틱 2계층으로 두고, 앱은 시맨틱을 우선 참조하게 함
 - Figma에 없거나 Figma 안에서 서로 다른 값(radius, spacing, focus, 모바일 타이포)은 기능 행에 근거를 적고 정한 값을 씀
 
 **범위:** `tokens/**/*.json`, `build/build.mjs`, `dist/` 4종(`tokens.css`, `tokens.js`, `tokens.d.ts`, `tailwind-theme.css`)
-**범위 밖:** z-index·breakpoint·glass(Figma에 대응 개념 없음, 앱 로컬 유지), 라이트 모드 시맨틱(Figma에 관리자 콘솔 디자인이 없음. 관리자 콘솔은 정식 색을 복사해 쓰고, Figma에 없는 값 7개는 `frontend_admin`의 `theme.css`에 임시로 둠. ADOPT-05), elevation·motion(근거 없음, 필요할 때 추가)
+**범위 밖:** z-index·breakpoint·glass(Figma에 대응 개념 없음, 앱 로컬 유지), 라이트 모드 시맨틱(Figma에 관리자 콘솔 디자인이 없음. 관리자 콘솔은 팔레트 토큰을 CSS 변수로 참조하고(2026-10-21 정정, 이전에는 값을 복사하기로 했었음), Figma에 없는 값 7개는 `frontend_admin`의 `theme.css`에 임시로 둠. ADOPT-05), elevation·motion(근거 없음, 필요할 때 추가)
 
 ### Figma 원본 값
 
@@ -117,14 +117,14 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| TOKEN-03-01 | `radius.sm` 12(사각 버튼·입력), `radius.md` 20(태그·카드·소형 버튼), `radius.full` 40(pill) | `dist/tokens.css`의 `--boaz-radius-*` 3개 |
+| TOKEN-03-01 | `radius.xs` 8(작은 버튼·토글·선택 카드·모바일 목록 패널, 2026-10-22 추가 #73), `radius.sm` 12(사각 버튼·입력), `radius.md` 20(태그·카드·소형 버튼), `radius.full` 40(pill) | `dist/tokens.css`의 `--boaz-radius-*` 4개 |
 | TOKEN-03-02 | Figma 실측 근거를 `$description`에 기재(Radius 시트 1728:3710의 12·20·40. 흰 250 버튼의 10은 다른 사각 버튼·Radius 시트와 달라 12로 통일, 카드 라벨 "24 (20)"은 실측 20) | `tokens/radius.json` |
 | TOKEN-03-03 | Tailwind 출력 `--radius-boaz-*` | `dist/tailwind-theme.css` |
 
 - `radius.full`(40) 이름 근거: Radius 시트의 가장 큰 단계이고, Figma pill 버튼(높이 44~68)에서 반원 끝을 만드는 값이라 `full`로 부름. 높이 80px을 넘는 요소에는 반원이 되지 않음
 - 모달(COMPONENT-07-01, radius 40)도 `radius.full`을 씀. 모달 전용 radius 토큰은 만들지 않음
 - 단위: 모든 값에 `px`를 붙임. Style Dictionary `css` 변환(`size/rem`)은 단위 없는 숫자를 rem으로 바꿈
-- 토큰에 넣지 않는 값: 코드의 10·24·4, Figma 썸네일 16·후기 카드 10·선택 카드 8(`docs/design-reference.md` 3절, 7절), 모바일 흰 버튼 10(7225:13942)·`Button_White_200` 8(7289:14366)
+- 토큰에 넣지 않는 값: 코드의 10·24·4, Figma 썸네일 16·후기 카드 10(`docs/design-reference.md` 3절, 7절), 모바일 흰 버튼 10(7225:13942). 8은 컴포넌트 명세 4곳에서 쓰여 `radius.xs`로 추가함(2026-10-22, #73)
 - frontend `radius.css.ts`와 이름이 겹치지만 값이 다름. 옮길 때 frontend `xs`(12) → `radius.sm`, `sm`(20) → `radius.md`, `lg`(40) → `radius.full`. `md`(24)는 대응 토큰 없음(ADOPT-03)
 
 ## TOKEN-04 spacing 토큰
@@ -143,7 +143,7 @@
 ### 실측 → 단계
 
 - 2026-10-11 Figma 실측(Components 페이지 모바일 컴포넌트). 거리가 같으면 작은 단계
-- 명세 예시 중 47은 실측에서 찾지 못함.
+- 2026-09-28 명세 초안이 예로 든 패딩 47px은 실측에서 찾지 못해 예시와 표에서 뺌(PR #37)
 - 소수 값은 Figma가 자동 레이아웃·크기 조정으로 계산한 값을 그대로 적음. 탭·모달 패딩은 Figma에 패딩 지정이 없음(고정 크기만 있음)
 
 | 노드 | 대상 | 실측(px) | 단계 | 토큰 |
@@ -191,7 +191,7 @@
 | TOKEN-05-05 | 아래 "대비표"의 조합이 실제 토큰 값과 일치하는지 확인하고, 시맨틱 토큰을 추가·변경할 때 표를 함께 고침 | 대비표의 모든 행이 `tokens/color/semantic.json`의 값과 일치 |
 | TOKEN-05-06 | 브랜드 색은 Figma `Primary-Purple`(보라). 로고의 파랑은 로고 파일 전용이라 토큰으로 두지 않음(Figma의 "블루계열(보아즈 공식 색상)" 메모는 무드보드 단계 레퍼런스 설명) | `color.bg.brand-solid`가 purple 100 참조 |
 
-- 시맨틱으로 만들지 않는 색(2026-10-11 결정): 모달 보더 #CCCCCC, 모달 설명 글자 #666666, 태그 글자 #E6E6E6, 선택 카드 보더 #666666. 각각 한 컴포넌트에서만 쓰여 용도 이름을 정할 근거가 부족함. 해당 컴포넌트 명세(COMPONENT-07·13·15)에서 팔레트를 직접 참조하고, 두 번째 사용처가 생기면 시맨틱으로 올림(후보 이름 `stroke.inverse`, `fg.inverse-muted`)
+- 시맨틱으로 만들지 않는 색(2026-10-11 결정, 2026-10-22 보강): 모달 보더 #CCCCCC(gray.200), 모달 설명 글자 #666666(gray.600), 모달 닫기 버튼 바탕 #E6E6E6(gray.100), 모달 신청 버튼 바탕 #000000(gray.1000), 태그 글자 #E6E6E6(gray.100), 선택 카드 보더 #666666(gray.600), 대상 카드 바탕 #333333(gray.800). 각각 한 컴포넌트에서만 쓰여 용도 이름을 정할 근거가 부족함. 해당 컴포넌트 명세(COMPONENT-07·08·13·15)에서 팔레트를 직접 참조하고, 두 번째 사용처가 생기면 시맨틱으로 올림. 올릴 때 이름은 AGENTS.md 규칙대로 기존 role 뒤에 `-inverse`를 붙임(후보 `stroke.weak-inverse` #CCCCCC, `fg.muted-inverse` #666666). 토큰 추가는 patch 릴리스
 - 시맨틱에서 참조하지 않는 팔레트: gray.950(Figma 화면에 사용처 없음), red.900(Error-bg-Red. 오류 바탕을 쓰는 화면이 없어 대비 근거가 없음), purple.200(Primary-subtle-Purple. 홈페이지 화면에 사용처가 없고 관리자 콘솔 강조색으로만 씀, ADOPT-05)
 
 ### 대비표(WCAG 2.2 AA)
@@ -210,8 +210,7 @@
 | `fg.critical` #F96466 | `bg.canvas` #000000 | 7.04 | 통과 | 제한 없음 |
 | `fg.accent` #68CBEC | `bg.layer` #1A1A1A | 9.40 | 통과 | 제한 없음 |
 | `fg.accent` #68CBEC | `bg.canvas` #000000 | 11.34 | 통과 | 제한 없음 |
-| `fg.on-brand` #FFFFFF | `bg.brand-solid` #7A64F9 | 4.18 | 큰 글자만 통과 | 보라 버튼 글자는 Bold 18.67px 이상. Body 3(18 Bold)은 0.5px 부족하므로 버튼 글자는 Body 2(20 Bold)를 씀. COMPONENT-01-03에 반영 |
-| `fg.on-brand` #FFFFFF | `bg.brand-solid` #7A64F9 | 4.18 | 미달 | 모바일 보라 버튼 글자 `typography.body-2-mobile`(16, 600)은 큰 글자가 아님. Figma 값 유지, 기록용. COMPONENT-01에서 처리 |
+| `fg.on-brand` #FFFFFF | `bg.brand-solid` #7A64F9 | 4.18 | 큰 글자만 통과 | 보라 버튼 글자는 Bold 18.67px 이상. Body 3(18 Bold)은 0.67px 부족하므로 데스크톱 버튼 글자는 Body 2(20 Bold)를 씀. 모바일 버튼 글자 `typography.body-2-mobile`(16, 600)은 큰 글자가 아니라 미달이지만 Figma 값이라 유지함. COMPONENT-01-03에 반영 |
 | `fg.on-brand` #FFFFFF | `bg.brand-solid-hover` #493C95 | 8.88 | 통과 | 제한 없음 |
 | `fg.muted` #999999 | `bg.brand-solid-press` #2C2459 | 4.90 | 통과 | 보라 버튼 press 글자 |
 | `fg.on-inverse` #000000 | `bg.neutral-solid` #FFFFFF | 21.00 | 통과 | 제한 없음 |

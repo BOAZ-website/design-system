@@ -61,6 +61,7 @@ export declare const vars: {
     };
   };
   readonly radius: {
+    readonly xs: "var(--boaz-radius-xs)";
     readonly sm: "var(--boaz-radius-sm)";
     readonly md: "var(--boaz-radius-md)";
     readonly full: "var(--boaz-radius-full)";

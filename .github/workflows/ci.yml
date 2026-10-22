@@ -2,7 +2,7 @@ name: CI
 
 # 토큰을 빌드하고, 커밋된 dist/ 가 빌드 결과와 같은지 확인한다.
 # 소비 앱은 git 태그로 dist/ 를 그대로 가져가므로 dist/ 가 낡으면 안 된다.
-# job 이름 "Tokens Build" 는 ruleset 의 required status check 이름이다. 바꾸면 ruleset 도 함께 바꾼다.
+# 브랜치 규칙이 없어 이 검사가 머지를 막지는 않는다. 태그 시점의 검사는 release-check.yml 이 한다.
 
 on:
   push:
@@ -44,3 +44,33 @@ jobs:
             git diff -- dist
             exit 1
           fi
+
+      - name: 명세가 참조하는 토큰 존재 확인
+        run: |
+          shopt -s nullglob
+          files=()
+          for f in components/*.md patterns/*.md; do
+            [ "${f##*/}" = _template.md ] || files+=("$f")
+          done
+          [ ${#files[@]} -eq 0 ] && exit 0
+          fail=0
+          for ref in $(grep -ohE '`(palette|fg|bg|stroke)\.[^`[:space:]]+`' "${files[@]}" | tr -d '`' | sort -u); do
+            echo "::error::전체 경로로 적습니다: color.$ref"; fail=1
+          done
+          for ref in $(grep -ohE '`(color|font|typography|radius|spacing)\.[^`[:space:]]+`' "${files[@]}" | tr -d '`' | sort -u); do
+            if ! printf '%s' "$ref" | grep -qE '^[a-z]+(\.[a-z0-9-]+)+$'; then
+              echo "::error::토큰 이름 형식이 아닙니다(소문자·숫자·-만): $ref"; fail=1; continue
+            fi
+            n="$ref"
+            case "$n" in typography.*) n="${n%.size}"; n="${n%.weight}"; n="${n%.line-height}";; esac
+            v="--boaz-$(echo "$n" | tr . -)"
+            case "$n" in
+              typography.*) re="^[[:space:]]*$v-(size|weight|line-height):";;
+              *) re="^[[:space:]]*$v:";;
+            esac
+            grep -qE -- "$re" dist/tokens.css || { echo "::error::없는 토큰: $ref"; fail=1; }
+          done
+          if grep -nE 'figma\.com' "${files[@]}"; then
+            echo "::error::Figma 링크는 공개 저장소에 적지 않습니다."; fail=1
+          fi
+          exit $fail
