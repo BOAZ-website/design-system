@@ -29,7 +29,7 @@
 | 미확인 | Figma 확인이 필요해 비워 둔 칸 |
 
 - 복사 원본은 `components/_template.md`. 절 구성·표 열·표기 규칙은 템플릿을 그대로 따름
-- 표기 규칙: 토큰은 전체 경로를 백틱으로 적음. "근거" 열은 `Figma <노드ID>`·`Figma 없음(추정)`·`코드 <경로>`·`design-reference <절>` 네 가지만 씀
+- 표기 규칙: 토큰은 전체 경로를 백틱으로 적음. "근거" 열은 `Figma <노드ID>`·`Figma 없음(추정)`·`코드 <경로>`·`design-reference <절>` 네 가지만 씀(7절 "대비" 행만 `docs/wbs/20-token.md` 대비표 행 또는 계산값)
 - 시맨틱이 없는 색은 팔레트 경로(`color.palette.gray.100`)로 적음
 - 팔레트에도 없는 값(glass rgba, radius 10·8 등)은 `raw:` 값으로 적고 "비토큰 값" 절에 근거를 둠. 두 번째 사용처가 생기면 토큰 추가를 별도 이슈로 제안함
 - 모든 명세는 쓰는 토큰이 `tokens/`에 실제로 있어야 함. `dist/tokens.d.ts`와 대조함. CI `Tokens Build`가 명세의 백틱 안 토큰 이름을 `dist/tokens.css`와 대조해 없는 이름·짧은 표기·Figma 링크를 실패 처리함(2026-10-22 추가). CodeRabbit(자동 리뷰 도구) 지침 5번은 보조 수단임
@@ -233,4 +233,4 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-16-01 | "+ 항목 추가"·"− 삭제" 행, 상태 default·hover·active_focus, 삭제 hover 빨강 | `components/form-add-button.md`(2009:4216, 5775:9707) |
+| COMPONENT-16-01 | "+ 항목 추가"·"− 삭제" 행, 기본 상태 default의 상호작용 rest·hover·press·focus-visible(Figma 이름 Active_Focus는 focus-visible 칸에 적음), 삭제 hover 빨강 | `components/form-add-button.md`(2009:4216, 5775:9707) |
