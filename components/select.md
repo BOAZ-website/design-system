@@ -120,7 +120,7 @@ rest는 상호작용이 없을 때의 모습임.
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| default("전체 부문"·"기수") | `color.bg.layer` (#1A1A1A) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | `color.palette.gray.800` (#333333) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | hover 값 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | Figma 3723:9261, Figma 3723:9269, 코드 `src/widgets/archive/ui/generation-filter/generation-filter.css.ts`, Figma 없음(추정, press·focus-visible) |
+| default("전체 부문"·"기수") | `color.bg.layer` (#1A1A1A) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | `color.palette.gray.800` (#333333) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | `color.bg.layer` (#1A1A1A) / `color.fg.muted` (#999999) / `color.stroke.weak` (#333333) | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | Figma 3723:9261, Figma 3723:9269, 코드 `src/widgets/archive/ui/generation-filter/generation-filter.css.ts`, Figma 5980:11379, Figma 5212:3699, Figma 없음(추정, focus-visible) |
 | selected(필터 적용) | default와 같음. label이 값("분석", "25기"), chevron 대신 clear 아이콘 | default와 같음 | default와 같음 | default와 같음 | Figma 3723:9262, Figma 3723:9270, Figma 7091:5127 |
 | disabled | `color.bg.layer` (#1A1A1A) / `color.fg.disabled` (#999999) / `color.stroke.weak` (#333333) | — | — | — | Figma 없음(추정) |
 
@@ -201,7 +201,7 @@ rest는 상호작용이 없을 때의 모습임.
 | --- | --- | --- |
 | role | 권장: 커스텀 listbox(select-only combobox)<br>trigger: `role="combobox"`(`<button>` 대신 `tabindex="0"`인 `<div>`에 부여, 또는 `<button role="combobox">`)<br>목록: `role="listbox"`, 항목: `role="option"`<br>clear: trigger 밖 별도 `<button>`(trigger 안에 버튼을 중첩하지 않음) | Figma 없음(추정) |
 | 키보드 | ↓·↑·Home·End·PageUp·PageDown 이동, Enter·Space·Alt+↑ 선택, Esc 닫기, Tab 선택 후 이동, 타이핑 검색(5절) | Figma 없음(추정) |
-| aria | trigger: `aria-expanded`(열림 `true`/닫힘 `false`), `aria-controls`(listbox id), `aria-haspopup="listbox"`, `aria-activedescendant`(열렸을 때 활성 option id, 닫히면 제거)<br>이름: field는 `<label>` 또는 `aria-labelledby`로 필드 이름, chip은 `aria-label`("부문 필터", "기수 필터")<br>option: `aria-selected="true"`는 선택된 항목에만, 비활성은 `aria-disabled="true"`<br>field invalid: `aria-invalid="true"` + `aria-describedby`(에러 메시지 id), 필수는 `aria-required="true"`<br>clear: `aria-label`("부문 필터 해제")<br>아이콘(부문·chevron·check)은 `aria-hidden="true"` | Figma 없음(추정) |
+| aria | trigger: `aria-expanded`(열림 `true`/닫힘 `false`), `aria-controls`(listbox id), `aria-haspopup="listbox"`, `aria-activedescendant`(열렸을 때 활성 option id, 닫히면 제거)<br>이름: field는 `<label>` 또는 `aria-labelledby`로 필드 이름, chip은 `aria-label`("부문 필터", "기수 필터")<br>option: `aria-selected="true"`는 선택된 항목에만, 비활성은 `aria-disabled="true"`<br>field invalid: `aria-invalid="true"` + `aria-describedby`(에러 메시지 id), 필수는 `aria-required="true"`<br>clear: `aria-label`("{값} 선택 해제(COMPONENT-10-02, `components/tag-chip.md`)")<br>아이콘(부문·chevron·check)은 `aria-hidden="true"` | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, 큰 글자·UI 요소 3:1<br>option default 흰 글자 / `color.bg.layer`: 17.40, hover 바탕 위 12.63<br>chip-list(기수) 글자 #E6E6E6 / #1A1A1A: 13.94<br>option selected `color.fg.brand` / `color.bg.layer`: 4.16, hover 바탕 위 3.02. 18 Regular는 큰 글자가 아니라 기준 미달(11절). check 아이콘(UI 요소)은 3:1 기준으로 rest 통과, hover 3.02로 통과<br>field placeholder `color.fg.muted` / 검정 캔버스: 7.37<br>field 하단 보더: `color.stroke.neutral` 7.37, `color.stroke.brand` 5.02, `color.stroke.critical` 7.04<br>chip 보더 `color.stroke.weak` / 검정 캔버스: 1.66. 트리거는 글자로 식별되므로 보더는 장식으로 봄<br>disabled: WCAG 1.4.3 비활성 예외 | 계산값(WCAG 상대 휘도) |
 | 터치 영역 | 최소 24×24: 전 size 통과(모바일 chip 28 높이)<br>모바일 권장 44×44: 모바일 chip(높이 28), chip-list 모바일 항목(높이 28), 모바일 clear 아이콘(16×16) 미달. clear는 누르는 영역을 24×24 이상으로 넓힘 | WCAG 2.2 2.5.8 |
 | 포커스 링 | chip: `color.stroke.focus` (#68CBEC) outline 2px, offset 2px. 검정 캔버스 위 11.34:1, `color.bg.layer` 위 9.40:1<br>field: text-field 명세와 같음(하단 `color.stroke.brand` + label `color.fg.brand`)<br>option: 링 없음, 활성 바탕으로 표시 | `docs/wbs/20-token.md` 대비표, 계산값 |
@@ -262,7 +262,7 @@ rest는 상호작용이 없을 때의 모습임.
 - field-list 글자 정렬: Figma 항목 패딩 0이라 정렬 의도 미확인. 코드의 가운데 정렬을 따름(Figma 5393:998)
 - field 트리거 disabled: Figma 없음. text-field 명세에도 disabled 행이 없어 정의하지 않음
 - field 트리거 chevron(펼침 화살표): Figma TextField_*_Dropdown 세트에 화살표 없음(Figma 5395:3803, Figma 5393:950). text-field 명세 11절과 같은 항목. 추가 여부 디자이너 확인 필요
-- chip 트리거의 hover·press·열림 모습: Figma 없음. 코드 hover(#333333)를 따름
+- chip 트리거의 hover·열림 모습: Figma 없음. 코드 hover(#333333)를 따름. press는 Figma 5980:11379(2026-10-22 확인, 글자 #999999 바탕 #1A1A1A 대비 6.11:1)
 - chip-list와 트리거 사이 간격: Figma 없음. 코드는 3.8rem(데스크톱)·1rem(모바일)
 - 모바일 field 트리거 글자: 모바일 텍스트 필드 노드(design-reference 5.5 7578:14642)에서 확인 필요. 목록 항목은 18 Regular 확인됨
 - chip 트리거·option disabled: Figma 없음. 추정값

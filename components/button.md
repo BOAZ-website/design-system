@@ -226,7 +226,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 | 값 | 위치 | 근거 | 토큰 추가 필요 여부 |
 | --- | --- | --- | --- |
-| `raw:8px` | 모바일 neutral-md radius | Figma 7289:14366 | 불필요(모바일 1곳) |
+| `raw:8px` | 모바일 neutral-md radius | Figma 7289:14366 | 검토 필요. checkbox 전문 토글·selection-card와 함께 사용처 3곳(별도 이슈로 결정) |
 | `raw:30px` | brand-wide 좌우 패딩 | Figma 5188:8826 | 불필요 |
 | `raw:28px`, `raw:29px` | brand-pill 패딩 | Figma 5252:5632, Figma 5875:9828 | 불필요 |
 | `raw:10px` | brand-small 패딩, 아이콘·화살표 gap | Figma 5639:10028, Figma 5152:8869 | 불필요. spacing 4·8·12 사이 값 |

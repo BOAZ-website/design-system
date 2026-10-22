@@ -155,17 +155,17 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | COMPONENT-06 | 3 | 없음 |
+| 몇 시간 | COMPONENT-06 | 3 | #50 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-09-01 | 부문·기수 필터 칩, 상태 default·hover·press·selected, selected의 hover(selected 행의 hover 칸) | `components/filter-chip.md`(아카이빙 부문·기수 필터 3723:9261~9270) |
+| COMPONENT-09-01 | 부문·기수 필터 칩, 상태 default·hover·press·selected, selected의 hover(selected 행의 hover 칸)<br>토글이 아니라 select chip 트리거와 같은 노드. 목록·키보드는 COMPONENT-03(2026-10-22 Figma 재확인으로 정정) | `components/filter-chip.md`(아카이빙 부문·기수 필터 3723:9261~9270) |
 
 ## COMPONENT-10 tag-chip (P1)
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | COMPONENT-09 | 3 | 없음 |
+| 몇 시간 | COMPONENT-09 | 3 | #50 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -176,7 +176,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | COMPONENT-02 | 3 | 없음 |
+| 몇 시간 | COMPONENT-02 | 3 | #50 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -187,7 +187,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | REPO-06 | 3 | 없음 |
+| 몇 시간 | REPO-06 | 3 | #50 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -197,18 +197,18 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | REPO-06 | 3 | 없음 |
+| 몇 시간 | REPO-06 | 3 | #50 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-13-01 | 읽기 전용 라벨(부문·기수 태그): 1px #999999 보더, radius 20, Text 1 #E6E6E6, 패딩 12·3 | `components/tag.md`(3723:9271·9272) |
+| COMPONENT-13-01 | 읽기 전용 라벨(부문·기수 태그): 1px #999999 보더, radius 20, Text 1 14 Light #E6E6E6, 패딩 세로 4·가로 12(모바일 4·8)(2026-10-22 Figma 재확인으로 정정) | `components/tag.md`(3723:9271·9272) |
 | COMPONENT-13-02 | 검색 Tag 버튼(mini·small)과 구분 | Do / Don't 절 |
 
 ## COMPONENT-14 progress-bar (P1)
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | REPO-06 | 3 | 없음 |
+| 몇 시간 | REPO-06 | 3 | #50 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -218,7 +218,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | COMPONENT-05 | 3 | 없음 |
+| 몇 시간 | COMPONENT-05 | 3 | #50 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -229,8 +229,8 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | COMPONENT-02 | 3 | 없음 |
+| 몇 시간 | COMPONENT-02 | 3 | #50 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-16-01 | "+ 항목 추가"·"− 삭제" 행, 기본 상태 default의 상호작용 rest·hover·press·focus-visible(Figma 이름 Active_Focus는 focus-visible 칸에 적음), 삭제 hover 빨강 | `components/form-add-button.md`(2009:4216, 5775:9707) |
+| COMPONENT-16-01 | "+ 항목 추가"·"− 삭제(빼기 아이콘 버튼)" 행, 기본 상태 default의 상호작용 rest·hover·press·focus-visible(Figma 이름 Active_Focus는 focus-visible 칸에 적음), 삭제 hover 빨강 | `components/form-add-button.md`(인터랙션 세트 5188:454 중 Active_Focus 5775:9707, close 5755:10062, 모바일 7578:14703. 2009:4216은 이전 판)(2026-10-22 Figma 재확인으로 정정) |

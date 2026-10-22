@@ -18,6 +18,7 @@
 | 몇 시간 | 반나절 안에 끝나는 작업 |
 | 하루이틀 | 1~2일 안에 끝나는 작업 |
 | 한 주 | 1주 정도 걸리는 작업 |
+| 두 주 | 2주 정도 걸리는 작업. 앱 저장소에서 컴포넌트 단위 이슈로 나눠 진행함 |
 
 ### 번호 규칙
 
@@ -48,12 +49,12 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | REPO | 저장소·규칙 | 저장소 생성, 협업 규칙, CI, 릴리스 | 0, 1, 3 | 9 | 약 0.5일(릴리스 1개) | 10-repo.md |
 | TOKEN | 파운데이션 | 색(팔레트·시맨틱), 타이포, radius, spacing, 빌드 | 1 | 6 | 완료 | 20-token.md |
-| COMPONENT | 컴포넌트 명세 | P0 8종, P1 8종 | 2, 3 | 16 | 약 10~14일(P0 6~10, P1 4) | 30-component.md |
+| COMPONENT | 컴포넌트 명세 | P0 8종, P1 8종 | 2, 3 | 16 | 완료(#50) | 30-component.md |
 | PATTERN | 패턴·가이드라인 | 피드백, 폼, 접근성, 보이스 앤 톤 | 3 | 4 | 약 3~5일 | 40-pattern.md |
-| ADOPT | 앱 적용 | frontend·frontend_admin 토큰 연결, 불일치 정리, 관리자 콘솔 값·공용 컴포넌트 통일 | 4 | 7 | 약 14.5~18.5일 | 50-adopt.md |
+| ADOPT | 앱 적용 | frontend·frontend_admin 토큰 연결, 불일치 정리, 관리자 콘솔 값·공용 컴포넌트 통일 | 4 | 7 | 약 23.5~26.5일(ADOPT-03이 명세 작성으로 두 주로 늘어남) | 50-adopt.md |
 
-- 티켓 42개 중 Phase 0·1의 14개는 완료. 남은 28개 규모 합계 약 28~38일(1인 기준)
-- 남은 규모 환산: 몇 시간 = 0.5일, 하루이틀 = 1~2일, 한 주 = 5일. 작업량이며 일정이 아님
+- 티켓 42개 중 Phase 0·1의 14개와 COMPONENT 16개는 완료. 남은 12개 규모 합계 약 27~32일(1인 기준, 2026-10-22 재산정)
+- 남은 규모 환산: 몇 시간 = 0.5일, 하루이틀 = 1~2일, 한 주 = 5일, 두 주 = 10일. 작업량이며 일정이 아님
 - 이 저장소를 처음 보는 담당자는 첫 티켓에 읽기·권한 준비 1~2일을 더함
 - ADOPT-06·07의 "한 주"는 앱 저장소에서 화면·컴포넌트 단위 이슈로 나눈 뒤 다시 셈
 
@@ -156,18 +157,18 @@ Phase 0·1은 디자인 시스템 리드(현재 인프라 담당)가 끝냈고, 
 | PATTERN-02 | form | 패턴·가이드라인 | 3 | 하루이틀 | COMPONENT-02 | 대기 |
 | PATTERN-03 | accessibility | 패턴·가이드라인 | 3 | 하루이틀 | TOKEN-05 | 대기 |
 | PATTERN-04 | voice & tone | 패턴·가이드라인 | 3 | 몇 시간 | 없음 | 대기 |
-| COMPONENT-09 | filter-chip | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-06 | 대기 |
-| COMPONENT-10 | tag-chip | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-09 | 대기 |
-| COMPONENT-11 | search-autocomplete | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 대기 |
-| COMPONENT-12 | pagination | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 대기 |
-| COMPONENT-13 | tag | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 대기 |
-| COMPONENT-14 | progress-bar | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 대기 |
-| COMPONENT-15 | selection-card | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-05 | 대기 |
-| COMPONENT-16 | form-add-button | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 대기 |
+| COMPONENT-09 | filter-chip | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-06 | 완료(#50) |
+| COMPONENT-10 | tag-chip | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-09 | 완료(#50) |
+| COMPONENT-11 | search-autocomplete | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
+| COMPONENT-12 | pagination | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-13 | tag | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-14 | progress-bar | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-15 | selection-card | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-05 | 완료(#50) |
+| COMPONENT-16 | form-add-button | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
 | REPO-07 | `v0.2.0` 릴리스 | 저장소·규칙 | 3 | 몇 시간 | PATTERN-01~04, COMPONENT-09~16 | 대기 |
 | ADOPT-01 | frontend 토큰 연결 | 앱 적용 | 4 | 하루이틀 | REPO-06 | 대기 |
 | ADOPT-02 | frontend_admin 토큰 연결 | 앱 적용 | 4 | 몇 시간 | REPO-06 | 대기 |
-| ADOPT-03 | frontend 값 불일치 정리 | 앱 적용 | 4 | 한 주 | ADOPT-01, COMPONENT-01~08 | 대기 |
+| ADOPT-03 | frontend 값 불일치 정리 | 앱 적용 | 4 | 두 주 | ADOPT-01, COMPONENT-01~16 | 대기 |
 | ADOPT-04 | frontend `alert()` → 모달 교체 | 앱 적용 | 4 | 하루이틀 | COMPONENT-07, PATTERN-01 | 대기 |
 | ADOPT-05 | frontend_admin 값 기준 확정 | 앱 적용 | 4 | 하루이틀 | ADOPT-02 | 대기 |
 | ADOPT-06 | frontend_admin 화면 값 통일 | 앱 적용 | 4 | 한 주 | ADOPT-05 | 대기 |

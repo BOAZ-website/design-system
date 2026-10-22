@@ -591,7 +591,7 @@ keyframes(`:3-19`)
 | login-overlay | backdrop fixed rgba(0,0,0,.6), z-index 1000, 원형 버튼 6rem·간격 1.6rem, 네이버 #03C75A·구글 #FFFFFF·카카오 #FEE500, hover 불투명도 0.85 | `frontend/src/features/auth/ui/login-overlay.css.ts` |
 | progress-bar | 높이 1rem, 1px grayscale[800], radius 20, 현재 단계 grayscale[100]. Figma `2009:3442` 800×10 | `frontend/src/shared/components/progress-bar/` |
 | radio-group | radio-button과 함께 사용. Figma 라디오 `2007:3436`·`3437`(인터랙션 세트 `5188:409`), 표형 질문 행 이름 `2391:5869`·`5870`(2026-10-22 Figma 재확인으로 정정) | `frontend/src/shared/components/radio-button/radio-group.css.ts` |
-| pagination | 명세 COMPONENT-12-01 도트형(화살표 + 점 5개) | `frontend/src/shared/components/pagination/pagination.css.ts:15-68` |
+| pagination | 명세 COMPONENT-12-01 도트형(화살표 + 점 5개)<br>Figma 데스크톱 `2653:6538`·`5239:823`, 모바일 `7078:3511`, 점 default 테두리 #999999(코드는 흰색) | `frontend/src/shared/components/pagination/pagination.css.ts:15-68` |
 | 체크박스 | 컴포넌트 코드 없음. 동의 단계 체크박스는 `accentColor` 직접 지정 | `frontend/src/widgets/apply/ui/agreement-step/agreement-step.css.ts:78` |
 
 폴더만 확인(값 미대조)
@@ -607,11 +607,11 @@ keyframes(`:3-19`)
 
 | 컴포넌트 | Figma 노드·크기 | 코드 |
 | --- | --- | --- |
-| filter-chip | 부문 `3723:9261` 155×44, `9262` 120×44, `9263` 135×44, `9264` 166×44. 기수 `3723:9269`·`9270` 92×44 | 코드 없음 |
-| tag-chip | COMPONENT-10 | 코드 없음 |
-| search-autocomplete | `3613:7592` 710×225, 인터랙션 `5980:12236` 720×50 | 코드 없음 |
+| filter-chip | 부문 `3723:9261` 155×44, `9262` 120×44, `9263` 135×44, `9264` 166×44. 기수 `3723:9269`·`9270` 92×44 | `frontend/src/widgets/archive/ui/track-filter/`, `generation-filter/`(select chip과 공유)(2026-10-22 Figma 재확인으로 정정) |
+| tag-chip | COMPONENT-10. 필터 칩 selected 변형의 ✕(close 세트 `5980:11571`)(2026-10-22 Figma 재확인으로 정정) | 코드 없음 |
+| search-autocomplete | `3613:7592` 710×225<br>인터랙션 세트 `5980:12235`(720×250, 행 50, hover `5875:6267`), 모바일 `7091:5772`(342×140, 행 28)(2026-10-22 Figma 재확인으로 정정) | 코드 없음 |
 | selection-card | `4266:7628`·`7629` 253×80 | 코드 없음 |
-| form-add-button | `2009:4216` 840×180 | 코드 없음 |
+| form-add-button | 인터랙션 `5188:454` 800×60, 모바일 `7578:14703` 342×56<br>`2009:4216` 840×180은 이전 판(2026-10-22 Figma 재확인으로 정정) | 코드 없음 |
 | modal | 7종 441×235·radius 40(5.8) | 코드 없음 |
 | checkbox | `5946:10027` 24×24, 모바일 `7578:14600` 20×20(5.8.1) | 코드 없음 |
 
