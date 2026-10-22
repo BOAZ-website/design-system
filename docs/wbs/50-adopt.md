@@ -10,7 +10,7 @@
   - 색은 Figma 정식 색(팔레트 토큰과 같은 값)을 씀. Figma에 없는 값 7개만 관리자 `theme.css`에 임시로 정함(ADOPT-05-03)
   - 크기(모서리·글자·간격)는 관리자 콘솔에서 정함. 컴포넌트는 Figma의 색과 hover·press 순서만 따름
   - `v0.1.0`이 2026-10-11에 발행돼, ADOPT-02에서 토큰을 설치한 뒤 팔레트 변수를 참조함(2026-10-21 정정. 이전에는 값을 복사해 쓰기로 했었음)
-- 이 저장소에서는 앱 코드를 고치지 않음. 티켓마다 **해당 앱 저장소에 이슈·PR**을 만듦. PR 1개로 닫히지 않는 티켓(ADOPT-06·07)은 앱 저장소에서 화면별·컴포넌트별 이슈로 나눔
+- 이 저장소에서는 앱 코드를 고치지 않음. 티켓마다 **해당 앱 저장소에 이슈·PR**을 만듦. PR 1개로 닫히지 않는 티켓(ADOPT-03·06·07)은 앱 저장소에서 화면별·컴포넌트별 이슈로 나눔(2026-10-22 명세 작성으로 확장)
 
 **범위:** frontend, frontend_admin
 **범위 밖:** 화면 배치·흐름 재설계, frontend 컴포넌트 전면 교체
@@ -45,11 +45,11 @@
 
 ## ADOPT-03 frontend 값 불일치 정리
 
-**목적:** 조사에서 찾은 Figma와 다른 값을 고침. 버튼 값의 기준은 `components/button.md`(COMPONENT-01)이며, 아래 표의 값은 명세 머지 후 같은지 확인하고 다르면 명세를 따름
+**목적:** 조사에서 찾은 Figma와 다른 값과 접근성 결함을 고침. 각 컴포넌트 값의 기준은 `components/<id>.md`(COMPONENT-01~08)이며, 아래 표의 값은 명세 머지 후 같은지 확인하고 다르면 명세를 따름(2026-10-22 명세 작성으로 확장). 03-09부터는 컴포넌트별로 이슈·PR을 나눔. 모달은 ADOPT-04, 전역 `outline: none`은 ADOPT-01-03에서 다룸
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 하루이틀 | ADOPT-01, COMPONENT-01(`review` 이상) | 4 | `BOAZ-website/frontend` |
+| 한 주 | ADOPT-01, COMPONENT-01~08(`review` 이상) | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -61,6 +61,13 @@
 | ADOPT-03-06 | 쓰지 않는 스타일·컴포넌트 삭제: `display1_bd_80`, `h1_md_40`, `form-header` | 참조 0건 확인 후 삭제 |
 | ADOPT-03-07 | Text 1 굵기 400 → 300(Figma Text 1은 14 Light). `fontWeight`에 300이 없어 `text_rg_14`가 400으로 쓰임(약 28곳) | `typography.text-1.weight` 참조, 화면에서 14px 글자가 Light |
 | ADOPT-03-08 | Body 4 - Paragraph 행간 1.6 → 30px(Figma 값. `lineHeight.card` 1.6 = 28.8px) | `typography.body-4-paragraph.line-height` 참조 |
+| ADOPT-03-09 | 버튼(03-01~03 외): small-round 글자 18 → 20 Bold(`--boaz-typography-body-2-size`)·radius 40 → `--boaz-radius-md`<br>사각 radius 10 → `--boaz-radius-sm`, `wide` 글자 24 → 20 Bold<br>높이를 명세 값으로 고정(현재 2~3px 작음)<br>glass 바탕 검정 그라데이션 → rgba 0.1<br>text-link: `question-section`의 `<div onClick>`을 `<button>`으로 교체<br>pending: notice-form의 disabled + 라벨 교체("신청 중...")를 명세 pending 표시로 교체 | `components/button.md` 9절 frontend 차이 항목 모두 해소, 키보드(Tab·Enter)로 text-link 실행 가능 |
+| ADOPT-03-10 | 입력 필드(03-07·08 외): 한 줄 입력을 `<input>`으로 교체(현재 `<textarea>` + Enter 차단)<br>라벨 요소 추가·입력칸과 연결(현재 placeholder만), 라벨 축소 동작 추가<br>`aria-invalid`·`aria-describedby`로 오류 문구 연결<br>completed 보더 #7A64F9 → `--boaz-color-palette-gray-0`, hover 추가, invalid 바탕 `color-mix` → 명세 값<br>간격: 라벨·입력칸 간격 추가, 오류 아이콘·필드와 문구 간격 → `--boaz-spacing-2`, 문단 상하 패딩 10px<br>counter 형식 "8 / 500자", 모바일 글자 크기·전환 추가 | `components/text-field.md` 9절 frontend 차이 항목 모두 해소, 화면 읽기 프로그램이 입력칸 이름과 오류 문구를 읽음 |
+| ADOPT-03-11 | 셀렉트: field에 `role="combobox"`·`listbox`·`option`과 `aria-expanded`·`aria-activedescendant`·`aria-selected` 추가<br>키보드: 방향키·Home/End·Esc·타이핑 검색 추가(현재 목록 항목마다 Tab 대상)<br>option 글자 16 → `--boaz-typography-body-4-size`, check 아이콘 추가, selected hover 바탕 `--boaz-color-palette-gray-800`<br>field-list: 트리거와 간격 0, 아래 모서리만 `--boaz-radius-sm`, 그림자 제거<br>field hover·focus·열림 상태(보더·label 이동) 추가<br>chip(부문·기수 필터): 화면 전체 backdrop 제거, 목록 간격 → `--boaz-spacing-2`, 목록 그림자 추가, 모바일 높이 28px, selected에 clear 아이콘, 부문 chevron 열림·닫힘 아이콘 반대 import 수정<br>option 전환 0.2s ease-in-out | `components/select.md` 9절 frontend 차이 항목 모두 해소, 키보드만으로 열기·이동·선택·닫기 가능 |
+| ADOPT-03-12 | 체크박스(03-05 외): 공용 `Checkbox` 컴포넌트(네모 상자 radius 5·1px #999999 보더, checked `--boaz-color-bg-brand-solid`)를 만들어 약관 동의(현재 브라우저 기본 상자)와 표 문항 다중 선택(현재 원형 `RadioButton type="checkbox"`)을 교체<br>표 문항: `aria-label`로 이름 부여, 숨긴 input의 포커스를 상자에 표시<br>toggle: `<label>` 밖으로 분리(현재 체크박스 이름에 "전문 보기"가 섞임), `aria-expanded`·`aria-controls` 추가, 펼침 문구 "접기" → "전문 닫기"<br>detail: 접힌 내용을 화면 읽기 프로그램에서도 숨김(현재 max-height 0만 적용), 펼침 시 보더 제거<br>모바일 toggle 글자 10 Regular → 명세 값 | `components/checkbox.md` 9절 frontend 차이 항목 모두 해소, 표 문항 체크박스가 네모이고 Tab 이동 시 포커스 표시 |
+| ADOPT-03-13 | 라디오: 묶음을 `<fieldset>`·`<legend>` 또는 `role="radiogroup"` + 제목 연결로 교체(현재 `<div>`, 제목 `<h2>`와 연결 없음)<br>숨긴 input의 포커스를 원에 표시<br>hover(원·라벨 흰색) 추가, 미선택 라벨 `--boaz-color-fg-muted`<br>점 약 9px → 8px, 모바일 보기 간격 16px → `--boaz-spacing-5`, 표형 행 이름 모바일 18 Bold → 16 Medium<br>동작하지 않는 선택 해제 코드 삭제, disabled 상태 추가<br>표형 다중 선택은 ADOPT-03-12에서 처리 | `components/radio.md` 9절 frontend 차이 항목 모두 해소, 화면 읽기 프로그램이 묶음 제목과 함께 보기를 읽음 |
+| ADOPT-03-14 | 탭(03-04 외): `role="tablist"`·`tab`·`tabpanel`, `aria-selected`, 방향키 이동을 명세 Accessibility 절 기준으로 추가(현재 네 곳 모두 없음). FAQ 탭 목록의 `<nav>` 제거<br>box(커리큘럼 트랙): default 글자 대비 수정(#333333 위 검정 1.66:1), radius 10 → `--boaz-radius-sm`, 폭 226 → 200, 모바일 색 → `--boaz-color-bg-layer`·`--boaz-color-palette-purple-200`<br>underline(아카이브): selected 선 2px → 1px<br>category(FAQ): hover 바탕 `--boaz-color-bg-layer`·글자 `--boaz-color-fg-neutral`<br>text(탭바): default 글자 `--boaz-color-palette-gray-300`, hover 시 굵기 유지<br>리크루팅 하단 링크 두 개의 탭 스타일 재사용을 버튼 neutral로 교체 | `components/tab.md` 9절 frontend 차이 항목 모두 해소, 방향키로 탭 이동 시 `aria-selected` 변경 |
+| ADOPT-03-15 | 카드: 링크 카드(project·photo·blog)의 카드 전체 `<a>`를 제목 링크 + 클릭 영역 확장(stretched-link)으로 교체<br>hover를 명세 hover 효과 A로 교체(현재 보더 #2C3F61 + outline + 그라데이션), blog hover 추가·보더 2px·전환 `all 0.3s` 정리<br>썸네일 radius: blog 20 → 16px, project 16 → `--boaz-radius-md`<br>photo: 기수 태그 `<button>` → `<span>`, tag의 `cursor: pointer` 제거<br>target: hover #666666 추가<br>recruit: rest 바탕 흰색, `:focus-within` 추가, 캐릭터 아이콘 hover 때도 0.8 유지<br>review: radius 10 → `--boaz-radius-sm`, 모바일 글자 10~12px → 14~16px, root를 `<article>`로 | `components/card.md` 9절 frontend 차이 항목 모두 해소, Tab으로 카드 링크 이동 시 포커스 표시 |
 
 ## ADOPT-04 frontend `alert()` → 모달 교체
 
