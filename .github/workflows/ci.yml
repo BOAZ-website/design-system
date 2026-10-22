@@ -44,3 +44,30 @@ jobs:
             git diff -- dist
             exit 1
           fi
+
+      - name: 명세가 참조하는 토큰 존재 확인
+        run: |
+          shopt -s nullglob
+          files=()
+          for f in components/*.md patterns/*.md; do
+            [ "${f##*/}" = _template.md ] || files+=("$f")
+          done
+          [ ${#files[@]} -eq 0 ] && exit 0
+          fail=0
+          for ref in $(grep -ohE '`(palette|fg|bg|stroke)\.[A-Za-z0-9.-]+`' "${files[@]}" | tr -d '`' | sort -u); do
+            echo "::error::전체 경로로 적습니다: color.$ref"; fail=1
+          done
+          for ref in $(grep -ohE '`(color|font|typography|radius|spacing)\.[A-Za-z0-9.-]+`' "${files[@]}" | tr -d '`' | sort -u); do
+            n="$ref"
+            case "$n" in typography.*) n="${n%.size}"; n="${n%.weight}"; n="${n%.line-height}";; esac
+            v="--boaz-$(echo "$n" | tr . -)"
+            case "$n" in
+              typography.*) re="^[[:space:]]*$v-(size|weight|line-height):";;
+              *) re="^[[:space:]]*$v:";;
+            esac
+            grep -qE -- "$re" dist/tokens.css || { echo "::error::없는 토큰: $ref"; fail=1; }
+          done
+          if grep -nE 'figma\.com' "${files[@]}"; then
+            echo "::error::Figma 링크는 공개 저장소에 적지 않습니다."; fail=1
+          fi
+          exit $fail

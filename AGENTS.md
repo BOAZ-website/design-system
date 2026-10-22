@@ -22,7 +22,7 @@
 
 1. 배정받은 이슈 번호를 확인합니다. 없으면 커밋하지 않습니다(CONTRIBUTING.md "이슈 / PR").
 2. `components/_template.md`를 `components/<id>.md`로 복사해 채웁니다. 절 구성·표 열·표기 규칙은 템플릿을 그대로 둡니다.
-3. 쓰는 토큰 이름이 모두 `tokens/`에 있는지 `dist/tokens.d.ts`와 대조합니다.
+3. 쓰는 토큰 이름이 모두 `tokens/`에 있는지 `dist/tokens.d.ts`와 대조합니다. CI `Tokens Build`도 백틱 안 토큰 이름을 `dist/tokens.css`와 대조해, 없는 이름·짧은 표기(`bg.layer`)·Figma 링크가 있으면 실패시킵니다. 같은 PR에서 토큰을 추가했다면 `npm run build`로 만든 `dist/`도 함께 커밋해야 통과합니다. 토큰에 없는 값은 `radius.8`처럼 지어 쓰지 않고 `raw:8px`로 적습니다. "이런 토큰은 없음"을 설명할 때도 이름을 백틱에 넣지 않습니다.
 4. `docs/wbs/30-component.md`의 해당 티켓 "완료 확인 방법"을 하나씩 대조합니다.
 5. PR 제목은 `[Docs] COMPONENT-01 button 명세` 꼴, 커밋 type은 `docs`입니다. 머지 전 status 전이 조건은 `docs/wbs/30-component.md` "status 전이"입니다.
 

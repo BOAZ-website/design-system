@@ -32,7 +32,7 @@
 - 표기 규칙: 토큰은 전체 경로를 백틱으로 적음. "근거" 열은 `Figma <노드ID>`·`Figma 없음(추정)`·`코드 <경로>`·`design-reference <절>` 네 가지만 씀
 - 시맨틱이 없는 색은 팔레트 경로(`color.palette.gray.100`)로 적음
 - 팔레트에도 없는 값(glass rgba, radius 10·8 등)은 `raw:` 값으로 적고 "비토큰 값" 절에 근거를 둠. 두 번째 사용처가 생기면 토큰 추가를 별도 이슈로 제안함
-- 모든 명세는 쓰는 토큰이 `tokens/`에 실제로 있어야 함. `dist/tokens.d.ts`와 대조하며, CodeRabbit(자동 리뷰 도구) 지침 5번은 보조 수단임
+- 모든 명세는 쓰는 토큰이 `tokens/`에 실제로 있어야 함. `dist/tokens.d.ts`와 대조함. CI `Tokens Build`가 명세의 백틱 안 토큰 이름을 `dist/tokens.css`와 대조해 없는 이름·짧은 표기·Figma 링크를 실패 처리함(2026-10-22 추가). CodeRabbit(자동 리뷰 도구) 지침 5번은 보조 수단임
 - Figma 캡처는 넣지 않고 노드 ID만 적음(원본 링크는 노션에만)
 - Figma 접근이 없어도 `docs/design-reference.md`·`docs/wbs/20-token.md`만으로 `draft`까지 쓸 수 있음. Figma 확인이 필요한 칸은 "미확인" 절에 남김
 - 값의 근거가 Figma와 토큰에서 다르면 토큰을 따름(`docs/design-reference.md` 머리말)
