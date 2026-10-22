@@ -18,7 +18,7 @@ figma:
   - "7078:5049"
   - "7091:5127"
 figma_verified: true
-tokens_version: v0.1.0
+tokens_version: v0.1.1
 owner: 디자인 시스템 리드
 last_updated: 2026-10-22
 ---

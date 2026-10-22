@@ -16,7 +16,7 @@ figma:
   - "4266:7630"
   - "4266:7631"
 figma_verified: true        # 2026-10-22 Figma에서 모달 7종·버튼·text-link 라벨 문구를 직접 확인함
-tokens_version: v0.1.0
+tokens_version: v0.1.1
 owner: 디자인 시스템 리드
 last_updated: 2026-10-22
 ---

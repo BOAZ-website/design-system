@@ -24,10 +24,10 @@ tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/ (build artifacts)
 
 ## Installation
 
-git 태그로 설치합니다. 첫 버전 `v0.1.0`(파운데이션 토큰, 2026-10-11)부터 설치할 수 있습니다. 버전 목록은 [Releases](https://github.com/BOAZ-website/design-system/releases)에 있습니다.
+git 태그로 설치합니다. 첫 버전 `v0.1.0`(파운데이션 토큰, 2026-10-11)부터 설치할 수 있고, 최신은 `v0.1.1`(`radius.xs` 추가)입니다. 버전 목록은 [Releases](https://github.com/BOAZ-website/design-system/releases)에 있습니다.
 
 ```bash
-npm install github:BOAZ-website/design-system#v0.1.0
+npm install github:BOAZ-website/design-system#v0.1.1
 ```
 
 ## Usage

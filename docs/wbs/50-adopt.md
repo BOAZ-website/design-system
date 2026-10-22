@@ -4,7 +4,7 @@
 
 ## 작업 정의서 목적
 
-- 두 앱이 `v0.1.0` 토큰을 git 태그로 설치해 쓰게 함
+- 두 앱이 `v0.1.1` 토큰(2026-10-22 `radius.xs` 추가)을 git 태그로 설치해 쓰게 함
 - 관리자 콘솔의 화면별 값(색·모서리·그림자·글자 크기)과 공용 컴포넌트를 통일함(ADOPT-05~07)
   - 디자인팀 Figma는 공개 홈페이지(검정 바탕) 전용이라 관리자 콘솔 디자인이 없음
   - 색은 Figma 정식 색(팔레트 토큰과 같은 값)을 씀. Figma에 없는 값 7개만 관리자 `theme.css`에 임시로 정함(ADOPT-05-03)
@@ -25,7 +25,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-01-01 | `pnpm add github:BOAZ-website/design-system#v0.1.0`. 앱 진입점(`src/app` 전역 스타일)에서 `@boaz/design-system/tokens.css`를 한 번 import함. `tokens` 모듈의 `vars`는 `var(--boaz-*)` 문자열만 담고 있어 이 CSS가 없으면 모든 값이 정의되지 않은 변수가 됨(빌드·타입 검사는 통과하고 화면만 깨짐) | `package.json` 의존성, 브라우저에서 `:root`에 `--boaz-*` 변수 존재 |
+| ADOPT-01-01 | `pnpm add github:BOAZ-website/design-system#v0.1.1`. 앱 진입점(`src/app` 전역 스타일)에서 `@boaz/design-system/tokens.css`를 한 번 import함. `tokens` 모듈의 `vars`는 `var(--boaz-*)` 문자열만 담고 있어 이 CSS가 없으면 모든 값이 정의되지 않은 변수가 됨(빌드·타입 검사는 통과하고 화면만 깨짐) | `package.json` 의존성, 브라우저에서 `:root`에 `--boaz-*` 변수 존재 |
 | ADOPT-01-02 | `theme.css.ts`의 값 출처를 `@boaz/design-system/tokens`의 `vars`로 바꿈. 기존 키 이름은 유지하고 `color.css.ts`·`font.css.ts`·`radius.css.ts` 안에서 토큰으로 대응시킴. 호출부(`themeVars.color` 243곳, `fontSize`·`fontWeight`·`lineHeight`·`letterSpacing` 각 29~31곳, `radius` 2곳)는 그대로 둠. <br>**색 대응표:** `color.primary.100/200/300` → `palette.purple.100/200/300`, `grayscale.white/black` → `gray.0/1000`, `grayscale.100~950` → `gray.100~950`, `sub.lightblue_100` → `lightblue.100`, `error.red_100/red_200` → `red.100/900`. radius는 이름이 같은데 값이 다르므로(앱 `xs 12·sm 20·md 24·lg 40`, 토큰 `sm 12·md 20·full 40`) 키별로 지정함: `xs` → `radius.sm`, `sm` → `radius.md`, `lg` → `radius.full`, `md` 24는 토큰이 없어 로컬 값 유지. 토큰에 없는 값은 로컬 값 유지: `fontSize` 8·10·22·28·32·36·38·80, `fontWeight.medium`(500), `lineHeight`(비율), `letterSpacing`, `fontFamily`(토큰은 `Pretendard, sans-serif`라 `Pretendard Variable`·`Paperlogy` 지정이 사라짐) | 호출부 변경 0건, 화면 차이 없음, 로컬 유지 값마다 "토큰 없음" 주석 |
 | ADOPT-01-03 | 전역 `outline: none`(`global.css.ts:49`) 제거, `:focus-visible` 적용 | 키보드 Tab 이동 시 버튼 포커스 표시 |
 | ADOPT-01-04 | `prefers-reduced-motion: reduce`일 때 전환 제거, 배경 장식 무한 애니메이션 5개 정지, 스피너 정지 이미지. 2026-10-22 PATTERN-03 작성으로 추가 | `patterns/accessibility.md` 2.4 규칙대로 OS 동작 줄이기 설정 시 움직임 없음 |
@@ -38,7 +38,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-02-01 | `npm install git+https://github.com/BOAZ-website/design-system.git#v0.1.0`(https 명시. `github:` 축약은 lockfile에 ssh 주소로 기록될 수 있어 CI `npm ci`가 실패할 수 있음). `src/app/styles/index.css`에서 `./tailwind.css` import 바로 뒤, `./theme.css` 앞에 `@import '@boaz/design-system/tailwind-theme.css'`를 둠(`theme.css`의 `:root`가 `--boaz-*`를 참조하므로 그보다 앞이어야 하고, `theme.css` 안은 `@custom-variant`로 시작해 `@import`를 둘 수 없음) | `npm ci`·`npm run build` 성공, 브라우저에서 `:root`에 `--boaz-*` 변수 존재 |
+| ADOPT-02-01 | `npm install git+https://github.com/BOAZ-website/design-system.git#v0.1.1`(https 명시. `github:` 축약은 lockfile에 ssh 주소로 기록될 수 있어 CI `npm ci`가 실패할 수 있음). `src/app/styles/index.css`에서 `./tailwind.css` import 바로 뒤, `./theme.css` 앞에 `@import '@boaz/design-system/tailwind-theme.css'`를 둠(`theme.css`의 `:root`가 `--boaz-*`를 참조하므로 그보다 앞이어야 하고, `theme.css` 안은 `@custom-variant`로 시작해 `@import`를 둘 수 없음) | `npm ci`·`npm run build` 성공, 브라우저에서 `:root`에 `--boaz-*` 변수 존재 |
 | ADOPT-02-02 | 관리자 콘솔이 쓰는 토큰 범위를 `CLAUDE.md`에 적음. 쓰는 것: 팔레트 색 변수(`--boaz-color-palette-*`)를 `theme.css`의 shadcn 변수(`--primary` 등) 값으로만 참조. 쓰지 않는 것: 시맨틱 색(`bg-boaz-bg-*`·`text-boaz-fg-*` 등. 검정 바탕 홈페이지 값이라 흰 바탕에서 쓰면 흰 글자·검정 면이 됨), `--spacing-boaz-*`·`--text-boaz-*`(px라 루트 14px 기준 rem 단계와 섞임), `rounded-boaz-*`(관리자는 `--radius` 계산값 사용) | 규칙 문서, `grep -rE 'boaz-(bg|fg|stroke|spacing|text|radius)' src` 0건 |
 
 - ADOPT-05는 이 티켓 뒤에 진행함. `theme.css` 값을 처음부터 팔레트 변수로 적어 같은 줄을 두 번 고치지 않음(2026-10-21 정정)

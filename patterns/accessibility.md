@@ -5,7 +5,7 @@ ticket: PATTERN-03
 status: review
 figma: []
 figma_verified: false     # review 조건의 figma_verified는 해당 없음: Figma 값을 새로 정하지 않고 컴포넌트 명세·20-token 대비표 값을 모은 문서임
-tokens_version: v0.1.0
+tokens_version: v0.1.1
 owner: 디자인 시스템 리드
 last_updated: 2026-10-22
 ---
