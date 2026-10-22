@@ -86,7 +86,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| REPO-05-01 | `.coderabbit.yaml`: 한국어, `dist/` 제외, DTCG·이름 규칙·breaking·대비·공개 저장소 지침 | 첫 PR에 CodeRabbit 리뷰 코멘트 |
+| REPO-05-01 | `.coderabbit.yaml`: 한국어, `dist/` 제외, DTCG·이름 규칙·breaking·대비·공개 저장소 지침 | 첫 PR에 CodeRabbit 리뷰 코멘트. GitHub 앱의 저장소 접근 목록에 이 저장소가 빠져 있어 PR #48 이전에는 리뷰가 없었고, 2026-10-22 앱 접근 추가 뒤 PR #49에서 첫 리뷰 확인 |
 | REPO-05-02 | `AGENTS.md`: 토큰 작업 절차, 이름 규칙, breaking·릴리스 규칙. `CLAUDE.md`는 `@AGENTS.md` | 파일 존재 |
 | REPO-05-03 | README: 소개, 구성(폴더·문서 색인), 사용, 라이선스(seed-design 방식) | 파일 존재 |
 | REPO-05-04 | CONTRIBUTING.md: 개발 환경, 토큰 변경 절차, 브랜치·이슈·PR·커밋 규약, 언어 | 파일 존재(PR #7) |
