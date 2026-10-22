@@ -44,6 +44,7 @@
   --color-boaz-stroke-focus: var(--boaz-color-stroke-focus);
   --color-boaz-stroke-focus-inverse: var(--boaz-color-stroke-focus-inverse);
   --color-boaz-stroke-critical: var(--boaz-color-stroke-critical);
+  --radius-boaz-xs: var(--boaz-radius-xs);
   --radius-boaz-sm: var(--boaz-radius-sm);
   --radius-boaz-md: var(--boaz-radius-md);
   --radius-boaz-full: var(--boaz-radius-full);

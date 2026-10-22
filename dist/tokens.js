@@ -61,6 +61,7 @@ export const vars = {
     }
   },
   "radius": {
+    "xs": "var(--boaz-radius-xs)",
     "sm": "var(--boaz-radius-sm)",
     "md": "var(--boaz-radius-md)",
     "full": "var(--boaz-radius-full)"

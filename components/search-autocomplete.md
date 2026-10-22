@@ -88,7 +88,7 @@ last_updated: 2026-10-22
 | size | 데스크톱(px) | 모바일(px) | radius | padding | 글자 | 근거 |
 | --- | --- | --- | --- | --- | --- | --- |
 | search-field(입력 줄) | 아이콘 + 입력 700~719×29(막대 1040×80 안) | 342×28(막대 342×44 안) | — | 막대 안 `raw:25px` / `spacing.3` (12px). 아이콘·입력 gap `spacing.2` (8px), 모바일 `spacing.1` (4px) | `typography.body-1` / 모바일 `raw:14px Regular` | Figma 5713:6947, Figma 5713:7010, Figma 7091:5817, Figma 7091:5821, 코드 `src/widgets/archive/ui/search-overlay/search-overlay.css.ts` |
-| panel | 720 × 행 수×50(최대 250) | 342 × 행 수×28(최대 140) | `radius.md` (20px) / 모바일 `raw:8px` | 0 | — | Figma 5980:12235, Figma 7091:5772 |
+| panel | 720 × 행 수×50(최대 250) | 342 × 행 수×28(최대 140) | `radius.md` (20px) / 모바일 `radius.xs` (8px) | 0 | — | Figma 5980:12235, Figma 7091:5772 |
 | option·status-row | 패널 폭 × 50 | 패널 폭 × 28 | — | 왼쪽 `raw:36px`, 오른쪽 `raw:36px` / 모바일 왼쪽 `raw:32px`, 오른쪽 `raw:32px` | `typography.body-1` / 모바일 `raw:12px Regular` | Figma 5875:6265, Figma 5875:6267, Figma 7091:5762 |
 
 - 높이: 표의 값으로 고정함. 글자는 행 안에서 세로 가운데
@@ -215,7 +215,7 @@ rest는 상호작용이 없을 때의 모습임.
 - 기준: 모바일 ≤768px, 데스크톱 ≥1366px, 769~1365px는 기본 스타일(design-reference 3.3)
 - 모바일에서 바뀌는 속성
   - 입력 줄: 342×28, 아이콘 28 유지, gap `spacing.1` (4px), 글자 `raw:14px Regular`
-  - 패널: 폭 342, 행 높이 28, radius `raw:8px`, 행 왼쪽 패딩 `raw:32px`, 글자 `raw:12px Regular`(select 모바일 chip-list와 같은 값)
+  - 패널: 폭 342, 행 높이 28, radius `radius.xs` (8px), 행 왼쪽 패딩 `raw:32px`, 글자 `raw:12px Regular`(select 모바일 chip-list와 같은 값)
   - 패널과 막대 사이 간격: Figma 모바일 프레임에서 위치 관계가 없어 `spacing.2` (8px)로 둠(추정)
   - hover: 적용하지 않음(터치). Figma 모바일 세트도 Default 변형만 있음(Figma 7091:5763)
 - Figma 모바일 노드
@@ -268,7 +268,6 @@ rest는 상호작용이 없을 때의 모습임.
 | `raw:25px` | 검색·필터 막대 안 입력 줄 위아래 여백(막대 80 - 입력 줄 29의 절반에 가까운 값) | Figma 5713:6947, 코드 `src/widgets/archive/ui/search-overlay/search-overlay.css.ts` | 불필요(막대 높이 80에서 나오는 값) |
 | `raw:36px` | 데스크톱 option·status-row 좌우 패딩 | Figma 5875:6265 | 불필요(1곳) |
 | `raw:32px` | 모바일 option·status-row 좌우 패딩 | Figma 7091:5762 | 불필요(1곳) |
-| `raw:8px` | 모바일 패널 radius | Figma 7091:5772 | 불필요. button 명세 모바일 neutral-md radius와 같은 값. 세 번째 사용처가 생기면 판단 |
 | `raw:14px Regular` | 모바일 입력 글자 | Figma 7091:5821 | 필요 여부 디자이너 확인(11절). `typography.text-1`은 14 Light(300) |
 | `raw:12px Regular` | 모바일 option·status-row 글자 | Figma 7091:5766 | select 명세 10절과 같은 항목(12 Regular 토큰 없음) |
 | 28px | 검색 아이콘 크기(데스크톱·모바일) | Figma 5713:6948, Figma 7091:5819 | 불필요 |
