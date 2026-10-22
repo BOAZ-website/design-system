@@ -46,12 +46,12 @@ last_updated: 2026-10-22
 | root | ○ | 흰 표면 상자. 데스크톱 441×235(최소 높이), 2px 보더, 내용을 가로·세로 가운데 정렬 | `color.bg.surface-inverse` (#FFFFFF), 보더 `color.palette.gray.200` (#CCCCCC) 2px, `radius.full` (40px) |
 | icon | ○ | 종류 표시 아이콘. 느낌표 48(안내·입력 오류·실패), 체크 48(성공), 스피너 42(로딩) | 느낌표 `color.fg.on-inverse` (#000000) |
 | title | ○ | 한 줄 제목. 가운데 정렬. `aria-labelledby` 대상 | `typography.body-2` (20/700), `color.fg.on-inverse` (#000000) |
-| description | ○ | 한 줄 설명. 가운데 정렬. `aria-describedby` 대상 | `typography.body-4` (18/400), `color.palette.gray.600` (#666666) |
+| description | ○ | 한 줄 설명. 가운데 정렬. `aria-describedby` 대상 | `typography.body-4` (18/400), `color.fg.muted` (#999999) |
 | actions | ○ | 버튼 줄. 1개(닫기) 또는 2개(닫기·신청). 가운데 정렬 | gap `raw:19px` |
 | button-close | ○ | 닫기 버튼 130×44 | 4절 modal-close |
 | button-primary | × | 신청 버튼 130×44. 안내형에만 있음 | 4절 modal-primary |
 
-- 설명 글자색은 `color.fg.muted` (#999999)를 쓰지 않음. 흰 위 2.85:1로 미달(7절)
+- 설명 글자색: 모달은 라이브에 없어 Figma 값 `color.fg.muted` (#999999)를 씀. 흰 위 2.85:1로 알려진 미달(7절). 이전에 대비 기준으로 `color.palette.gray.600` (#666666)으로 바꾼 결정은 되돌림(2026-10-22 라이브 기준으로 정정)
 - 간격(위에서 아래)
   - icon → title: `raw:9px`
   - title → description: `raw:9px`
@@ -120,11 +120,9 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| default | `color.palette.gray.1000` (#000000) / `color.fg.default` (#FFFFFF) / — | `color.bg.brand-solid-hover` (#493C95) / `color.fg.default` (#FFFFFF) / — | `color.bg.brand-solid-press` (#2C2459) / `color.fg.default` (#FFFFFF) / — | rest 유지 / outline `color.stroke.focus-inverse` (#7A64F9) 2px, offset 2px | Figma 4243:4438, Figma 4243:4440, Figma 없음(추정, press·focus-visible) |
+| default | `color.palette.gray.1000` (#000000) / `color.fg.default` (#FFFFFF) / — | `color.bg.brand-solid` (#7A64F9) / `color.fg.default` (#FFFFFF) / — | `color.bg.brand-solid-press` (#2C2459) / `color.fg.default` (#FFFFFF) / — | rest 유지 / outline `color.stroke.focus-inverse` (#7A64F9) 2px, offset 2px | Figma 4243:4438, Figma 4243:4440, Figma 없음(추정, press·focus-visible) |
 
-- modal-primary hover
-  - Figma: `color.bg.brand-solid` (#7A64F9). 18 Regular 흰 글자와 4.18:1로 일반 글자 기준 4.5 미달
-  - 명세: 보라 계열을 유지하면서 통과하는 `color.bg.brand-solid-hover` (#493C95, 8.88:1)를 씀. 디자이너 확인 필요(11절)
+- modal-primary hover: 모달은 라이브에 없어 Figma 값 `color.bg.brand-solid` (#7A64F9)를 씀. 18 Regular 흰 글자와 4.18:1로 알려진 미달(7절). 이전에 대비 기준으로 `color.bg.brand-solid-hover` (#493C95)로 바꾼 결정은 되돌림(2026-10-22 라이브 기준으로 정정)
 - 포커스 링: 모달 안 모든 버튼은 `color.stroke.focus-inverse` (#7A64F9). 트리거 `:focus-visible`. `color.stroke.focus`(하늘색)는 흰 위 대비가 낮아 쓰지 않음
 - disabled 행은 두지 않음. 모달 버튼은 항상 누를 수 있음(로딩 모달의 닫기 포함)
 - selected·invalid·completed 행은 두지 않음. 모달과 버튼의 상태가 아니기 때문임
@@ -187,7 +185,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | role | `<dialog>` + `showModal()`<br>안내·입력 오류·성공·실패: `role="alertdialog"`<br>로딩: 기본 `dialog` 역할 유지 | Figma 없음(추정) |
 | 키보드 | 열면 닫기 버튼에 포커스. Tab 순환은 모달 안에서만. Esc = 닫기. 닫히면 트리거로 포커스 복귀 | Figma 없음(추정) |
 | aria | `aria-modal="true"`, `aria-labelledby`=title id, `aria-describedby`=description id<br>로딩: `aria-busy="true"`<br>아이콘은 장식이므로 `aria-hidden="true"`(종류는 제목 문구가 전달함) | Figma 없음(추정) |
-| 대비 | 기준: 글자 4.5:1, 큰 글자·UI 요소 3:1<br>제목 #000000 / #FFFFFF: 21.00<br>설명 `color.palette.gray.600` / #FFFFFF: 5.74(참고 `color.fg.muted` 2.85 미달이라 안 씀)<br>닫기 rest #000000 / #E6E6E6: 16.83, hover / #CCCCCC: 13.08, press / #999999: 7.37<br>신청 rest #FFFFFF / #000000: 21.00, hover / #493C95: 8.88, press / #2C2459: 13.97<br>Figma 신청 hover #FFFFFF / #7A64F9: 4.18로 18 Regular 미달(4절에서 교체)<br>닫기 바탕 #E6E6E6 / 흰 표면: 1.25. 버튼 경계는 글자로 식별되므로 WCAG 1.4.11 대상 아님<br>느낌표 아이콘 #000000 / #FFFFFF: 21.00 | 계산값(WCAG 상대 휘도), `docs/wbs/20-token.md` 대비표 |
+| 대비 | 기준: 글자 4.5:1, 큰 글자·UI 요소 3:1<br>제목 #000000 / #FFFFFF: 21.00<br>설명 `color.fg.muted` / #FFFFFF: 2.85로 **알려진 미달**(Figma 값 유지, 2026-10-22 라이브 기준으로 정정)<br>닫기 rest #000000 / #E6E6E6: 16.83, hover / #CCCCCC: 13.08, press / #999999: 7.37<br>신청 rest #FFFFFF / #000000: 21.00, hover / #7A64F9: 4.18로 18 Regular **알려진 미달**(Figma 값 유지, 2026-10-22 라이브 기준으로 정정), press / #2C2459: 13.97<br>닫기 바탕 #E6E6E6 / 흰 표면: 1.25. 버튼 경계는 글자로 식별되므로 WCAG 1.4.11 대상 아님<br>느낌표 아이콘 #000000 / #FFFFFF: 21.00 | 계산값(WCAG 상대 휘도), `docs/wbs/20-token.md` 대비표 |
 | 터치 영역 | 최소 24×24: 130×44 통과<br>모바일 권장 44×44: 130×44 통과 | WCAG 2.2 2.5.8 |
 | 포커스 링 | `color.stroke.focus-inverse` (#7A64F9), 2px, offset 2px. 흰 표면 위 4.18:1 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 해당 없음. 모달 버튼은 비활성 상태가 없음 | Figma 4243:4439 |
@@ -198,7 +196,6 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | --- | --- |
 | `<dialog>` + `showModal()`, `aria-labelledby`·`aria-describedby` 연결 | `<div>`에 `role="dialog"`만 붙이고 뒤 화면을 그대로 둠 |
 | 열면 닫기 버튼에 포커스, 닫으면 트리거로 복귀 | 닫은 뒤 포커스를 `<body>`에 남김 |
-| 설명 글자 `color.palette.gray.600` | 흰 표면 위에 `color.fg.muted` |
 | 모달 안 포커스 링 `color.stroke.focus-inverse` | 흰 표면 위에 `color.stroke.focus` |
 | 로딩 모달 닫기는 모달만 닫고 요청은 유지, 결과는 결과 모달로 알림 | 로딩 모달 닫기로 결과 알림까지 생략 |
 | 입력 형식 오류는 입력 필드 아래 문구(COMPONENT-02)가 우선, 모달은 Figma 7종 상황에만 | 모든 오류를 `alert()`·모달로 띄움 |
@@ -240,14 +237,17 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 ## 11. 미확인
 
-- 신청 버튼 hover
-  - Figma: #7A64F9 바탕 + 18 Regular 흰 글자 4.18:1, 일반 글자 기준 미달(Figma 4243:4440)
-  - 명세: `color.bg.brand-solid-hover` (#493C95, 8.88:1)
-  - 대안: 바탕 유지 + 글자를 `typography.body-2`(20 Bold, 큰 글자)로 키움. 디자이너 확인 필요
 - 닫기 hover·press, 신청 press, 모든 버튼 focus-visible: Figma 없음. 추정값(Figma 4243:4439 세트에 primary·hover·closed 3종만 있음)
+  - Figma 추정(약): 버튼 세트 규칙 적용. 신청 press #2C2459(Figma 5639:10031), 닫기는 neutral 계열(#CCCCCC → #999999)
 - backdrop: Figma 모달 창(4412:7387)과 모든 페이지에 모달 인스턴스·배경 막이 없음. 색은 코드 login-overlay 값으로 추정
+  - Figma 추정(약): Components 페이지 전체에 dim·overlay 노드와 OVERLAY 연결이 없고 팝업창 변형 인스턴스 0개. 코드 값 유지
 - 모바일 모달: Figma Mobile 페이지에 없음. 6절 값은 전부 추정
+  - Figma 추정(약): Mobile 포함 팝업창 인스턴스 0개. 6절 추정 유지
 - 성공 아이콘(Figma 5164:5570)·스피너(Figma 5164:5617)는 래스터 이미지. 벡터 아이콘·색 지정 필요. 스피너 회전 속도 Figma 없음
+  - Figma 추정(디자이너): 체크·스피너 SVG와 색 요청 필요. 회전 속도는 명세에서 정함(예: 1s linear)
 - 확인형 대화 상자(예·아니오): 제출 전 확인, 부문 변경 확인이 코드에서 `confirm()`으로 쓰이나 Figma에 없음. 종류 추가 여부 디자이너 확인 필요
+  - Figma 추정(디자이너): 팝업창 세트(Figma 4243:4479) 7종에 없음 확인. 추가 여부 질문
 - 사전 알림 신청 완료·서버 오류 모달: 코드에는 있으나 Figma 7종에 없음. success·failure 문구는 지원서 제출 전용
+  - Figma 추정(디자이너): Figma 7종에 없음 확인. 확인형 대화 상자와 묶어 질문
 - 성공 제목(Figma 5164:5546) 너비 367로 내용 묶음 279를 넘음. 명세는 안쪽 여백 32 기준 최대 377로 수용함
+  - Figma 추정(약): 명세 수용 유지. 디자이너 질문 불필요

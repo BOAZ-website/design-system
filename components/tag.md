@@ -32,21 +32,21 @@ last_updated: 2026-10-22
 ## 1. 개요
 
 - 용도: 카드의 부문·기수 같은 분류 값을 보여 주는 읽기 전용 라벨. 누르거나 선택하는 동작이 없음
-- 구성: variant 1종(outline). 부문 태그(85×26 "엔지니어링")와 기수 태그(53×26 "24기")는 글자만 다른 같은 컴포넌트임
+- 구성: variant 1종(outline). 부문 태그("엔지니어링")와 기수 태그("24기")는 글자만 다른 같은 컴포넌트임
 - 사용 화면: 아카이빙 프로젝트·블로그·활동사진 카드
-- 관련 명세: `components/card.md`(카드 안 tags 슬롯, COMPONENT-08), `components/button.md`(검색 Tag 버튼 mini, COMPONENT-01), `components/filter-chip.md`(필터 칩, COMPONENT-09), `components/tag-chip.md`(선택값을 지우는 칩, COMPONENT-10), `patterns/accessibility.md`(PATTERN-03)
+- 관련 명세: `components/card.md`(카드 안 tags 슬롯, COMPONENT-08), `components/filter-chip.md`(필터 칩, COMPONENT-09), `components/tag-chip.md`(선택값을 지우는 칩, COMPONENT-10), `patterns/accessibility.md`(PATTERN-03)
 - 경계
   - tag: 읽기 전용. 상호작용 없음
   - filter-chip: 필터 값을 고르는 트리거. 누르면 목록이 열림
   - tag-chip: 선택된 값을 ✕로 지우는 칩
-  - 검색 Tag 버튼 mini: 누르는 버튼. 3절 끝과 8절 참조
+  - 검색 Tag 버튼 mini: 옛 시안 요소라 명세에 두지 않음(3절 끝)
 
 ## 2. Anatomy
 
 | 슬롯 | 필수 | 설명 | 적용 토큰 |
 | --- | --- | --- | --- |
 | root | ○ | `<span>`. 바탕 없음, 1px 보더, 알약형 | 보더 `color.stroke.neutral` (#999999) 1px, `radius.md` (20px) |
-| label | ○ | 한 줄 글자. 줄바꿈하지 않음 | `typography.text-1`, 모바일 `typography.text-1-mobile`, `color.palette.gray.100` (#E6E6E6) |
+| label | ○ | 한 줄 글자. 줄바꿈하지 않음 | `raw:14px/400`, 모바일 `raw:12px/400`, `color.palette.gray.100` (#E6E6E6) |
 
 - 아이콘 슬롯 없음. Figma 태그 2종 모두 글자만 있음(Figma 3723:9271, Figma 3723:9272)
 
@@ -62,29 +62,20 @@ last_updated: 2026-10-22
 
 | size | 데스크톱(px) | 모바일(px) | radius | padding | 글자 | 근거 |
 | --- | --- | --- | --- | --- | --- | --- |
-| default | 높이 26, 폭은 글자에 맞춤(부문 85, 기수 53) | 높이 20, 폭은 글자에 맞춤(부문 68, 기수 40) | `radius.md` (20px) | 데스크톱 `spacing.1` (4px) / `spacing.3` (12px)<br>모바일 `spacing.1` (4px) / `spacing.2` (8px) | `typography.text-1` (14/300) / 모바일 `typography.text-1-mobile` (12/300) | Figma 3723:9271, Figma 3723:9272, Figma 7095:10992, Figma 7098:8712 |
+| default | 높이 25, 폭은 글자에 맞춤 | 높이 20, 폭은 글자에 맞춤 | `radius.md` (20px) | 데스크톱 `raw:4.5px` / `spacing.3` (12px)<br>모바일 `raw:3px` / `spacing.2` (8px) | `raw:14px/400` / 모바일 `raw:12px/400` | 코드 `src/shared/components/tag/tag.css.ts` |
 
 - padding 값 순서: 세로 / 가로
-- 패딩 확정(2026-10-22 Figma 확인)
-  - 데스크톱: 세로 4·가로 12. 원본 컴포넌트 2종과 Components 페이지의 인스턴스 전부가 4·12임
-  - WBS COMPONENT-13-01의 "패딩 12·3"은 Figma와 다름. 4·12를 따름
-  - 모바일: 세로 4·가로 8(Figma 7095:10992, Figma 7098:8712). `components/card.md` 6절의 `spacing.1` / `spacing.2`와 같음
-- 높이: 데스크톱 26, 모바일 20으로 고정하고 글자를 세로 가운데 정렬함
-  - 모바일은 글자 줄 높이 14 + 세로 패딩 8 = 22로 20을 넘음. Figma 인스턴스가 높이를 20으로 고정해 그린 값임. 11절 참조
+- 값 기준(2026-10-22 라이브 기준으로 정정): 아카이빙 카드 태그는 라이브 사이트에 있어 라이브 값(= frontend 코드 값)을 씀
+  - 데스크톱: 높이 25(패딩 4.5×2 + 글자 행간 14 + 보더 1×2), 14 Regular
+  - 모바일: 높이 20(패딩 3×2 + 글자 행간 12 + 보더 1×2), 12 Regular
+  - 이전 명세 값(Figma 데스크톱 4·12 패딩·높이 26·14 Light, 모바일 12 Light)은 기록용
+- 글자: 14/400·12/400은 `typography.text-1` (14/300)·`typography.text-1-mobile` (12/300)과 굵기가 달라 `raw:`로 적음. 토큰 추가는 별도 이슈
 - 태그 여러 개를 나란히 둘 때 간격은 카드 명세가 정함(`components/card.md` 2절)
 
-### 검색 Tag 버튼 mini(tag variant 아님)
+### 검색 Tag 버튼 mini(명세에 두지 않음)
 
-- `components/button.md` 3절이 COMPONENT-13으로 넘긴 값. 버튼이므로 tag variant에 넣지 않고 Figma 값만 옮겨 적음
-- 상태·동작·접근성은 `components/button.md`를 따름
-
-| 항목 | 값 | 근거 |
-| --- | --- | --- |
-| 크기 | 97×43 | Figma 2682:2355, Figma 2897:6230 |
-| 바탕 / 보더 | `color.bg.canvas` (#000000) / `color.palette.gray.0` (#FFFFFF) 1px | Figma 2682:2355 |
-| radius | `radius.md` (20px) | Figma 2682:2355 |
-| padding | `spacing.2` (8px) / `spacing.4` (16px) / `spacing.2` (8px) / `raw:13px` | Figma 2682:2355 |
-| 글자 | `raw:22px Medium`, `color.fg.default` (#FFFFFF) | Figma 2682:2357 |
+- 옛 시안 요소. 최신 화면(4817:*)·Mobile·최종 수정사항 페이지에 없고, 옛 아카이빙 화면(Figma 1161:3363)과 기술 블로그 화면(Figma 572:174, Figma 928:646)에만 있음. 현재는 필터 칩과 검색줄이 대신함
+- tag variant로도, `components/button.md` size로도 두지 않음. 남은 노드: FE 회의용 Figma 2682:2355·2897:6230, Radius 시트 Figma 1728:3650
 
 ## 4. States
 
@@ -92,7 +83,7 @@ last_updated: 2026-10-22
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| default | — / `color.palette.gray.100` (#E6E6E6) / `color.stroke.neutral` (#999999) | rest 유지 | rest 유지 | — | Figma 3723:9271, Figma 3723:9272, Figma 5236:886 |
+| default | — / `color.palette.gray.100` (#E6E6E6) / `color.stroke.neutral` (#999999) 1px | rest 유지 | rest 유지 | — | 코드 `src/shared/components/tag/tag.css.ts`, Figma 5236:886 |
 
 - 읽기 전용이라 hover·press에 색 변화 없음. 카드 hover 때도 태그는 그대로임(Figma 5236:886, 블로그 카드 Hover 변형 안 태그)
 - 포커스 트리거: 해당 없음. 포커스를 받지 않음
@@ -116,13 +107,13 @@ last_updated: 2026-10-22
 ## 6. 반응형
 
 - 기준: 모바일 ≤768px, 데스크톱 ≥1366px, 769~1365px는 기본 스타일(design-reference 3.3)
-- 모바일에서 바뀌는 속성
-  - 높이: 26 → 20
-  - 글자: `typography.text-1` → `typography.text-1-mobile` (12/300)
-  - 가로 패딩: `spacing.3` (12px) → `spacing.2` (8px). 세로 패딩 `spacing.1` (4px) 유지
-  - radius: `radius.md` 유지. Figma 프로젝트 카드 인스턴스는 `raw:15.7px`(축소 배치 값)이나 높이 20에서 `radius.md`와 모양이 같음
-  - 보더: Figma 모바일 인스턴스는 불투명도 `raw:0.8`. 명세는 불투명도 없이 `color.stroke.neutral`로 통일함(10절)
-- Figma 모바일 노드
+- 모바일에서 바뀌는 속성(2026-10-22 라이브 기준으로 정정)
+  - 높이: 25 → 20
+  - 글자: `raw:14px/400` → `raw:12px/400`
+  - 패딩: 세로 `raw:4.5px` → `raw:3px`, 가로 `spacing.3` (12px) → `spacing.2` (8px)
+  - radius: `radius.md` 유지
+  - 보더: 데스크톱과 같음(`color.stroke.neutral` 1px, 불투명도 없음)
+- Figma 모바일 노드(기록용)
   - 부문 태그(프로젝트 카드): Figma 7095:10992
   - 블로그 카드 태그: Figma 7098:8712
 
@@ -133,7 +124,7 @@ last_updated: 2026-10-22
 | role | `<span>`(일반 글자). `<button>`·`<a>`로 만들지 않음. 별도 role 없음 | Figma 없음(추정) |
 | 키보드 | 포커스 대상 아님 | Figma 없음(추정) |
 | aria | 보이는 글자가 그대로 읽힘. 의미 보충이 필요하면 카드 쪽에서 목록(`<ul>`)으로 묶거나 시각적으로 숨긴 앞말("부문", "기수")을 붙임 | Figma 없음(추정) |
-| 대비 | 기준: 글자 4.5:1<br>글자 `color.palette.gray.100` (#E6E6E6) / 검정 캔버스 #000000: 16.83<br>같은 글자 / 카드 바탕 `color.bg.layer` (#1A1A1A): 13.94, 카드 hover 효과 A 위 11.70 이상(`components/card.md` 7절)<br>보더 `color.stroke.neutral` (#999999) / #000000: 7.37(장식, 기준 대상 아님) | 계산값(WCAG 상대 휘도) |
+| 대비 | 기준: 글자 4.5:1<br>글자 `color.palette.gray.100` (#E6E6E6) / 검정 캔버스 #000000: 16.83<br>같은 글자 / 카드 바탕 `color.bg.layer` (#1A1A1A): 13.94, 카드 hover 효과 A 위 10.56 이상(`components/card.md` 7절, 2026-10-22 라이브 기준으로 정정)<br>보더 `color.stroke.neutral` (#999999) / #000000: 7.37(장식, 기준 대상 아님) | 계산값(WCAG 상대 휘도) |
 | 터치 영역 | 해당 없음. 누르는 대상이 아님 | WCAG 2.2 2.5.8 |
 | 포커스 링 | 해당 없음. 포커스를 받지 않음 | Figma 없음(추정) |
 | 비활성 표시 | 해당 없음 | Figma 없음(추정) |
@@ -143,20 +134,19 @@ last_updated: 2026-10-22
 | Do | Don't |
 | --- | --- |
 | 태그는 읽기 전용 `<span>` | 태그를 `<button>`으로 마크업하거나 `cursor: pointer` 적용 |
-| 분류 값 표시는 tag(#999999 1px 보더, 14 Light #E6E6E6, 높이 26) | 분류 값 표시에 검색 Tag 버튼 mini(흰 1px 보더, 22 Medium, 97×43) 사용 |
-| 누르는 동작이 필요하면 `components/button.md`의 mini·brand-small 버튼 사용 | tag에 hover·press 색을 붙여 버튼처럼 보이게 함 |
+| 분류 값 표시는 tag(#999999 1px 보더, 14 Regular #E6E6E6, 높이 25) | 분류 값 표시에 옛 검색 Tag 버튼 mini(흰 1px 보더, 22 Medium, 97×43) 모양 사용 |
+| 누르는 동작이 필요하면 `components/button.md`의 버튼 사용 | tag에 hover·press 색을 붙여 버튼처럼 보이게 함 |
 | 필터 값을 고르는 칩은 `components/filter-chip.md`, 선택값 지우기는 `components/tag-chip.md` | tag에 ✕ 아이콘을 넣어 지우기 동작에 사용 |
-| 데스크톱 패딩 4·12, 모바일 4·8 | WBS 초안 값 3·12 사용 |
-| 글자 `typography.text-1` (14 Light) | 14 Regular 사용 |
+| 데스크톱 패딩 4.5·12, 모바일 3·8(높이 20) | WBS 초안 값 3·12 사용 |
 
 ## 9. 코드 대응
 
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | `src/shared/components/tag/tag.tsx`, `src/shared/components/tag/tag.css.ts` | `<span>` 사용. `src/shared/components/archive/project-card.tsx`에서 부문·기수 태그로 사용 |
-| frontend 차이 | 위와 같음 | 수정 예정. 명세와 다른 점<br>- `cursor: pointer`(ADOPT-03-15)<br>- 글자: `text_rg_14` 14 Regular, 모바일 `body6_rg_12` 12 Regular(명세 14·12 Light, ADOPT-03-07)<br>- 패딩: 0.45rem 1.2rem = 4.5 / 12, 모바일 0.3rem 0.8rem = 3 / 8(명세 4 / 12, 모바일 4 / 8). 대응 ADOPT 기능 없음(보고 대상)<br>- 높이 고정 없음(명세 26 / 20)<br>- photo 카드 기수 태그가 `<button>`(`components/card.md` 9절, ADOPT-03-15) |
+| frontend 차이 | 위와 같음 | 수정 예정. 명세와 다른 점(라이브 값을 명세로 채택한 글자·패딩·높이 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- `cursor: pointer`(ADOPT-03-15)<br>- photo 카드 기수 태그가 `<button>`(`components/card.md` 9절, ADOPT-03-15) |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-06(카드·태그·배지), 값은 ADOPT-05 기준 |
-| FE 이름 ↔ 명세 이름 | `src/shared/components/button/button.tsx` | `mini_outlined` ↔ 검색 Tag 버튼 mini(3절, tag variant 아님) |
+| FE 이름 ↔ 명세 이름 | `src/shared/components/button/button.tsx` | `mini_outlined` ↔ 명세에 없음(옛 검색 Tag 버튼 mini, 3절 끝) |
 
 ## 10. 비토큰 값
 
@@ -164,18 +154,10 @@ last_updated: 2026-10-22
 
 | 값 | 위치 | 근거 | 토큰 추가 필요 여부 |
 | --- | --- | --- | --- |
-| 26px / 20px | 태그 높이(데스크톱 / 모바일) | Figma 3723:9271, Figma 7095:10992 | 불필요 |
-| `raw:15.7px` | 모바일 프로젝트 카드 태그 radius(Figma). 명세는 `radius.md` | Figma 7095:10992 | 불필요 |
-| `raw:0.8` | 모바일 태그 보더 불투명도(Figma). 명세는 불투명도 없음 | Figma 7095:10992 | 불필요 |
-| `raw:13px` | mini 왼쪽 패딩 | Figma 2682:2355 | 불필요 |
-| `raw:22px Medium` | mini 글자 | Figma 2682:2357 | 필요 여부 디자이너 확인(11절). 22/500 typography 토큰 없음 |
+| 25px / 20px | 태그 높이(데스크톱 / 모바일) | 코드 `src/shared/components/tag/tag.css.ts` | 불필요 |
+| `raw:4.5px`, `raw:3px` | 세로 패딩(데스크톱 / 모바일) | 코드 `src/shared/components/tag/tag.css.ts` | 불필요 |
+| `raw:14px/400`, `raw:12px/400` | 글자(데스크톱 / 모바일). `typography.text-1`·`typography.text-1-mobile`은 굵기 300 | 코드 `src/shared/components/tag/tag.css.ts` | 필요 여부 별도 이슈 |
 
 ## 11. 미확인
 
-- 모바일 높이 20: 글자 줄 높이 14 + 세로 패딩 8 = 22라 Figma 인스턴스는 높이를 20으로 고정해 그림. 높이 20 고정(글자가 패딩 안쪽으로 1px씩 겹침)과 높이 22 중 디자이너 확인 필요(Figma 7095:10992)
-- 모바일 기수 태그 40×20: Figma 인스턴스 패딩이 0(폭 고정)임. 명세는 부문 태그와 같은 4·8로 적음(Figma 7095:10993)
-- 모바일 블로그 카드 태그 글자색: Figma #CCCCCC(`color.fg.neutral`). 다른 태그는 모두 #E6E6E6이라 명세는 `color.palette.gray.100`으로 통일함(Figma 7098:8712)
-- 검색 Tag 버튼 mini
-  - 사용 화면: Figma FE 회의용 버튼 모음에만 있고 실제 화면 배치는 찾지 못함
-  - 상태(hover·press·disabled)와 22 Medium 글자 토큰: Figma 없음
-  - mini를 버튼 명세 size로 옮길지 디자이너·FE 확인 필요(Figma 2682:2355, Figma 2897:6230)
+- 해당 없음. Figma 미확인 항목(모바일 기수 태그 폭, 모바일 블로그 태그 글자색)은 라이브 값 채택으로 해소됨(2026-10-22 라이브 기준으로 정정)

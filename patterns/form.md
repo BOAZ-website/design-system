@@ -86,14 +86,14 @@ last_updated: 2026-10-22
 | 입력 에러(형식) | blur(값 있음), 단계 이동 시 | 형식이 맞는 즉시 | 원인을 적음. "이메일 형식이 올바르지 않습니다.", "전화번호 형식이 올바르지 않습니다. (예: 01012345678)" | Figma 2007:3425, 코드 `src/widgets/apply/ui/personal-info-section.tsx` |
 | 글자 수 초과 | 입력 즉시 | 최대 이하가 되는 즉시 | "글자 수 제한을 초과했습니다" | Figma 2009:3441, `components/text-field.md` 4절 |
 | 묶음 선택 누락(라디오·표형) | 다음 페이지·제출하기 누를 때 | 선택 즉시 | 라디오 "필수 입력 항목입니다.", 표형 "모든 항목을 선택해주세요.", 다중 "최소 하나의 시간을 선택해주세요."(코드는 띄어 씀. `patterns/voice-and-tone.md` 2.2 붙여쓰기로 고침) | `components/radio.md` 3절, 코드 `src/widgets/apply/ui/question-section/question-section.tsx` |
-| 서버 거절(중복 이메일 등) | 응답을 받을 때 | 다시 제출할 때 | 모달(PATTERN-01) | `patterns/feedback.md`, design-reference 5.8 |
+| 서버 거절(중복 이메일 등) | 응답을 받을 때 | 다시 제출할 때 | 지원서 제출 중 서버가 필드 하나를 거절하면 해당 단계로 돌아가 인라인 오류 + 그 필드로 포커스 이동(SC 3.3.1·3.3.3). 필드 원인이 아닌 거절과 사전 알림 신청은 모달(PATTERN-01, Figma 4243:4492) | `patterns/feedback.md` 2.1 판단 순서, design-reference 5.8 |
 
 - 문구 문체(합쇼체, 2문장 구조 여부)는 PATTERN-04를 따름. 이 명세는 위치·시점만 정함
 
 #### 오류 문구 위치
 
-1. 오류 문구는 해당 필드 바로 아래에 둠. 필드와 문구 간격 `spacing.2` (8px), 문구 줄 높이 24px, 경고 아이콘 16px + 문구(`components/text-field.md` 2·3절)
-2. 한 줄에 나란히 놓인 필드(출생 연·월·일, 학년·학기, 졸업 연·월)는 문구를 줄 아래에 하나만 둠. 빈 필드마다 invalid 모양을 적용하고, 문구는 줄 전체 폭에 맞춤. 문구 id를 줄 안 invalid 필드 모두의 `aria-describedby`로 연결함
+1. 오류 문구는 해당 필드 바로 아래에 둠. 필드와 문구 간격 한 줄 입력 `spacing.3` (12px)·문단형 `spacing.2` (8px), 문구 줄 높이 24px, 경고 아이콘 16px + 문구(`components/text-field.md` 2·3절, 2026-10-22 라이브 기준으로 정정)
+2. 한 줄에 나란히 놓인 필드(출생 연·월·일, 학년·학기, 졸업 연·월)는 문구를 줄 아래에 하나만 둠. 빈 필드마다 invalid 모양을 적용하고, 문구는 줄 전체 폭에 맞춤. 문구 id를 줄 안 invalid 필드 모두의 `aria-describedby`로 연결함. 모바일 1/3 필드 폭 108px에는 문구 "필수 입력 항목입니다."(아이콘 포함 약 150px)가 필드별로 들어가지 않아 줄 아래 하나로 확정함
 3. 라디오·체크박스 묶음은 마지막 보기 아래에 묶음 단위로 하나(`components/radio.md` 3절)
 4. 문단형은 counter와 같은 줄 왼쪽(counter는 오른쪽 정렬)
 5. 오류 문구가 나타나도 아래 요소가 밀려 내려가는 것을 허용함(자리를 미리 비워 두지 않음). Figma 오류 컴포넌트 높이 92 = 60 + 8 + 24(Figma 2007:3426)
@@ -101,7 +101,7 @@ last_updated: 2026-10-22
 
 | 상황 | 위치 | 근거 |
 | --- | --- | --- |
-| 한 줄 입력·목록 선택 1개 | 필드 바로 아래, 간격 `spacing.2` (8px) | Figma 2007:3426, Figma 2007:3425 |
+| 한 줄 입력·목록 선택 1개 | 필드 바로 아래, 간격 `spacing.3` (12px) | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` |
 | 1/2·1/3 필드를 한 줄에 나란히 | 줄 아래 하나, 줄 전체 폭 | Figma 없음(추정), 코드 `src/widgets/apply/ui/personal-info-section.tsx` |
 | 라디오·체크박스 묶음 | 마지막 보기 아래 하나 | `components/radio.md` 3절 |
 | 문단형 | 필드 아래 message 줄 왼쪽, counter 오른쪽 | Figma 2009:3441 |
@@ -141,16 +141,16 @@ last_updated: 2026-10-22
 
 1. 지원서 폼 본문 폭은 800px(데스크톱)이고 필드는 1·1/2·1/3 세 가지 열 비율만 씀
 2. 필드 폭은 열 안에서 `width: 100%`로 늘어남. 한 줄에 같은 비율 필드만 나란히 둠(1/2와 1/3 섞지 않음)
-3. 한 줄 필드 간격은 1/2 줄 `spacing.5` (20px), 1/3 줄 `raw:22px`. 두 값 모두 800px을 정확히 채우는 값임(390×2 + 20 = 800, 252×3 + 22×2 = 800)
-4. 모바일(≤768px)은 본문 342px에 같은 비율을 유지함(1/2 → 164, 1/3 → 108). 간격은 342에서 역산한 1/2 `raw:14px`, 1/3 `raw:9px`(Figma 모바일 화면 없음, 추정)
+3. 한 줄 필드 간격은 1/2·1/3 줄 모두 `spacing.6` (24px), 모바일 `spacing.3` (12px)(코드 `src/widgets/apply/ui/personal-info-section.css.ts` `row`, 2026-10-22 라이브 기준으로 정정). 필드 폭은 간격을 뺀 나머지를 같은 비율로 나눔(`flex: 1`). Figma 간격(1/2 20px, 1/3 22px)은 기록용
+4. 모바일(≤768px)은 본문 342px에 같은 비율을 유지함(1/2 약 165, 1/3 약 106)
 5. 769~1365px은 본문 폭 800px 고정, 화면이 그보다 좁으면 좌우 여백을 줄임(design-reference 3.3)
 6. 어떤 비율을 쓸지는 값의 길이로 정함
 
 | 비율 | 데스크톱 폭(px) | 모바일 폭(px) | 한 줄 간격 | 쓰는 항목 | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | 1(full) | 800 | 342 | — | 이름, 이메일, 전화번호, 학교명, 학과, 문단형 답변 | Figma 2007:3422, Figma 8801:6015, `components/text-field.md` 3절 |
-| 1/2(half) | 390 | 164 | `spacing.5` (20px) / 모바일 `raw:14px` | 학년·학기, 졸업 연·월 | Figma 2007:3427, Figma 8801:6040, Figma 8801:6108 |
-| 1/3(third) | 252 | 108 | `raw:22px` / 모바일 `raw:9px` | 출생 연·월·일 | Figma 2007:3432, Figma 8801:6016, Figma 8801:6084 |
+| 1/2(half) | 388 | 약 165 | `spacing.6` (24px) / 모바일 `spacing.3` (12px) | 학년·학기, 졸업 연·월 | 코드 `src/widgets/apply/ui/personal-info-section.css.ts`, Figma 8801:6040 |
+| 1/3(third) | 약 251 | 약 106 | `spacing.6` (24px) / 모바일 `spacing.3` (12px) | 출생 연·월·일 | 코드 `src/widgets/apply/ui/personal-info-section.css.ts`, Figma 8801:6016 |
 
 #### 세로 간격
 
@@ -161,7 +161,7 @@ last_updated: 2026-10-22
 | 섹션 제목 → 첫 필드 | `spacing.12` (48px) | Figma 8801:6010, Figma 8801:6038 |
 | 질문 제목 → 글자 수 안내 | `raw:10px` | Figma 2009:4228 |
 | 같은 섹션 안 필드·줄 사이 | `spacing.8` (32px) | Figma 8801:6013, Figma 8801:6022 |
-| 필드 → 오류 문구 | `spacing.2` (8px) | Figma 2007:3426 |
+| 필드 → 오류 문구 | 한 줄 `spacing.3` (12px), 문단형 `spacing.2` (8px) | 코드 `src/widgets/apply/ui/personal-info-section.css.ts`, 코드 `src/shared/components/textfield-with-counter/textfield-with-counter.css.ts` |
 | 마지막 섹션 → 이동 버튼 줄 | `raw:120px` | Figma 8801:6005 |
 
 - 모바일 세로 간격: Figma 모바일 지원 폼 화면이 없음(Mobile 페이지의 지원 폼 프레임 6439:12300 등은 1440 폭). 7절 참조
@@ -204,7 +204,7 @@ last_updated: 2026-10-22
 | 이메일을 비워 둔 채 Tab | 오류 없음. 다음 페이지를 누를 때 "필수 입력 항목입니다." | Figma 2007:3426 |
 | 출생 "월"만 비우고 다음 페이지 | "월" 필드만 invalid, 줄 아래 "필수 입력 항목입니다." 하나. 포커스는 "월" 트리거 | Figma 8801:6016, Figma 없음(추정) |
 | 지원 부문 미선택 + 이름 누락 후 다음 페이지 | 둘 다 오류 표시. 포커스는 화면 위쪽인 지원 부문의 첫 보기 | 코드 `src/widgets/apply/ui/personal-info-section.tsx` |
-| 문단형에 501자 입력 | 입력 즉시 counter "501 / 500자" 빨강 + "글자 수 제한을 초과했습니다". 다음 페이지 누르면 그 필드로 포커스 | Figma 2009:3441 |
+| 문단형에 501자 입력 | 입력 즉시 counter "501/500" 빨강 + "글자 수 제한을 초과했습니다". 다음 페이지 누르면 그 필드로 포커스 | Figma 2009:3441 |
 | 공통 질문에서 이전 페이지 | 검사 없이 지원자 정보로 이동, 입력값 그대로 | Figma 8103:17006 |
 | 복수/부전공 추가 필드 | 제목 "복수/부전공 (선택)", 비워도 오류 없음 | Figma 없음(추정) |
 
@@ -214,7 +214,7 @@ last_updated: 2026-10-22
 | --- | --- |
 | `<label>`을 입력 자리에 보이고 focus·입력 시 위로 축소 | placeholder 속성만으로 항목 이름 표시 |
 | 누락은 다음 페이지를 누를 때, 형식은 blur 때 검사 | 빈 필드를 Tab으로 지나갈 때 누락 오류 표시 |
-| 오류 문구를 필드 바로 아래 8px에 둠 | 오류를 `alert()`·화면 위 요약으로만 알림 |
+| 오류 문구를 필드 바로 아래(한 줄 12px, 문단형 8px)에 둠 | 오류를 `alert()`·화면 위 요약으로만 알림 |
 | 단계 이동 실패 시 첫 오류 필드로 포커스 이동 | 오류만 표시하고 포커스·스크롤을 그대로 둠 |
 | 다음 페이지·제출하기를 항상 누를 수 있게 둠 | 미완성이라고 제출하기를 비활성화해 이유를 알 수 없게 함 |
 | 한 줄에 같은 비율 필드만 나란히(1/2끼리, 1/3끼리) | 1/2과 1/3을 한 줄에 섞음 |
@@ -226,7 +226,7 @@ last_updated: 2026-10-22
 
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
-| frontend | `src/widgets/apply/ui/personal-info-section.tsx` | 명세와 다른 점<br>- 다음 페이지 오류 시 `window.alert` 표시, 포커스 이동 없음 → 필드 아래 오류 문구 + 첫 오류 필드 포커스(2.2, ADOPT-03-22)<br>- 이메일·전화번호 blur 시 빈 값이면 누락 오류 표시 → 값 있을 때만 형식 검사(ADOPT-03-22)<br>- 입력 예시 "01012345678"·"컴퓨터공학과"를 라벨 대신 placeholder로 씀 → 라벨 + 축소 후 예시(ADOPT-03-10)<br>- 오류 문구 `FieldError`가 필드와 연결 안 됨(`aria-describedby` 없음, ADOPT-03-10)<br>- 한 줄 필드 간격 2.4rem(24px), 모바일 1.2rem → 1/2 `spacing.5`·1/3 `raw:22px`(ADOPT-03-22)<br>- 필드·문구 간격 1.2rem → `spacing.2`(ADOPT-03-10)<br>- 다음페이지 `<div onClick>`, 문구 "다음페이지"(띄어쓰기 없음) → `<button>` "다음 페이지"(ADOPT-03-09)<br>- 복수/부전공에 "(선택)" 표시 없음(ADOPT-03-22) |
+| frontend | `src/widgets/apply/ui/personal-info-section.tsx` | 명세와 다른 점<br>- 다음 페이지 오류 시 `window.alert` 표시, 포커스 이동 없음 → 필드 아래 오류 문구 + 첫 오류 필드 포커스(2.2, ADOPT-03-22)<br>- 이메일·전화번호 blur 시 빈 값이면 누락 오류 표시 → 값 있을 때만 형식 검사(ADOPT-03-22)<br>- 입력 예시 "01012345678"·"컴퓨터공학과"를 라벨 대신 placeholder로 씀 → 라벨 + 축소 후 예시(ADOPT-03-10)<br>- 오류 문구 `FieldError`가 필드와 연결 안 됨(`aria-describedby` 없음, ADOPT-03-10)<br>- 다음페이지 `<div onClick>`, 문구 "다음페이지"(띄어쓰기 없음) → `<button>` "다음 페이지"(ADOPT-03-09)<br>- 복수/부전공에 "(선택)" 표시 없음(ADOPT-03-22) |
 | frontend | `src/widgets/apply/ui/question-section/question-section.tsx` | 명세와 다른 점<br>- 제출하기 `disabled={!isComplete}` → 항상 누를 수 있게(ADOPT-03-22)<br>- 오류 시 포커스 이동 없음(ADOPT-03-22)<br>- 선택 질문에 "(선택)" 표시 없음(ADOPT-03-22)<br>- 이전·다음 `<div onClick>` → `<button>`(ADOPT-03-09)<br>- 표형 누락 문구 `<p>`가 묶음과 연결 안 됨(ADOPT-03-13) |
 | frontend | `src/pages/apply-page.tsx`, `src/widgets/apply/ui/apply-title-section.tsx` | 단계 이동 시 맨 위 스크롤만 함 → 단계 제목 `<h1>` 포커스 추가(ADOPT-03-22). 진행 막대는 `components/progress-bar.md` 9절 |
 | frontend | `src/features/notice/notice-form.tsx` | 이메일 누락·형식·서버 오류를 `alert()`로 알림 → Figma 입력 오류 모달(ADOPT-04, PATTERN-01-03 대응표). 입력칸에 라벨 없음(placeholder만) → 시각적으로 숨긴 `<label>` 또는 `aria-label`("이메일"). 흰 알약형 입력은 text-field 명세 밖 모양이라 라벨 축소를 적용하지 않음. 모달을 닫으면 포커스를 입력칸으로 돌려놓음 |
@@ -235,8 +235,8 @@ last_updated: 2026-10-22
 
 ## 7. 미확인
 
-- 모바일 지원 폼: Figma에 390 폭 지원 폼 화면이 없음. 모바일 한 줄 간격(14·9px)은 342에서 역산한 추정값, 세로 간격(120·48·32)의 모바일 값 미정
-- 나란히 놓인 필드의 오류 문구 위치(줄 아래 하나): Figma 오류 예시는 단일 필드만 있음(2007:3426, 2007:3431, 2007:3435). 디자이너 확인 필요
+- 모바일 지원 폼: Figma에 390 폭 지원 폼 화면이 없음. 한 줄 간격은 코드 값(12px), 세로 간격(120·48·32)의 모바일 값 미정
+  - Figma 추정(약): 세로 간격은 진행 막대→본문 `spacing.16` (64px), 섹션 사이 `spacing.16`, 섹션 제목→첫 필드 `spacing.8` (32px), 같은 섹션 필드 사이 `spacing.6` (24px) 제안. 모바일 시안이 생기면 덮어씀
 - "(선택)" 표시: Figma 없음. 문구·위치 디자이너 확인 필요
-- 진행 막대 단계 수: Figma 2009:3442는 3칸, frontend는 4단계. `components/progress-bar.md`에서 정리
-- 서버 오류 중 필드 단위 오류(예: 이메일 형식 거절)를 인라인으로 보일지 모달로 보일지: 사전 알림은 Figma 모달(4243:4492). 지원서 제출 실패는 실패 모달(5164:5621)만 있음
+  - Figma 추정(약): 제목 뒤 공백 + "(선택)", 제목과 같은 크기, `color.fg.muted` (#999999, 검정 위 7.37) 제안
+- 진행 막대 단계 수: Figma 3단계(최종안 8801:6001 포함), frontend 4단계(추가 정보). 4번째 단계 유지 여부는 기획·FE 결정(`components/progress-bar.md` 11절)

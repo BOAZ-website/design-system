@@ -40,7 +40,8 @@ last_updated: 2026-10-22
 | 텍스트 필드(예외) | outline 대신 아래쪽 보더 `color.stroke.brand` (#7A64F9) 1px + label 이동·축소·`color.fg.brand`. 드롭다운 결합형도 같음 | `components/text-field.md` 7절 |
 | select option | 링 없음. 활성 바탕으로 표시(`aria-activedescendant`) | `components/select.md` 7절 |
 
-- 텍스트 필드 예외의 한계: focus 보더와 빈 값 보더의 색 차이가 1.47로 작아 SC 2.4.11(포커스 표시) 단독 충족이 불확실함. 7절 참조
+- 텍스트 필드 예외의 한계: focus 보더와 빈 값 보더의 색 차이가 1.47로 작음. 색 조합으로는 3:1을 만들 수 없음(빈 값 보더를 어둡게 하면 보라와의 차이가 1.37로 더 줄어듦). focus 보더 대 검정 5.02라 SC 1.4.11은 통과하고, label 이동·색 변화와 함께 SC 2.4.7(포커스 표시)을 충족함. 상태 간 대비를 보는 SC 2.4.13(포커스 모양)은 AAA라 범위 밖. focus 보더 1px → 2px 확대를 권고함(7절)
+- SC 번호 정정(2026-10-22): SC 2.4.11은 Focus Not Obscured(Minimum, 포커스된 요소가 가려지지 않음)이고 포커스 모양 기준은 SC 2.4.13(AAA)임. 이전 표기 "SC 2.4.11(포커스 표시)"는 오기
 
 ### 2.2 PATTERN-03-02 대비
 
@@ -48,7 +49,7 @@ last_updated: 2026-10-22
 
 1. 글자 색 조합은 아래 표의 "사용 규칙"을 따름. "큰 글자 전용"인 조합을 작은 글자에 쓰지 않음
 2. `color.fg.brand`는 `color.bg.layer` 위에서 4.16이라 큰 글자 전용, 검정 캔버스 위에서는 5.02로 제한 없음
-3. `color.fg.on-brand`는 `color.bg.brand-solid` 위에서 4.18이라 큰 글자 전용. 데스크톱 보라 버튼 글자는 `typography.body-2`(20 Bold) 이상을 씀
+3. `color.fg.on-brand`는 `color.bg.brand-solid` 위에서 4.18이라 큰 글자에서만 통과함. 라이브 보라 버튼 중 18px 이하 글자는 아래 "알려진 미달"에 기록함(값은 바꾸지 않음)
 4. 새 색 조합을 쓰는 명세는 대비를 계산해 `docs/wbs/20-token.md` 대비표에 추가하는 PR과 함께 올림(TOKEN-05-05)
 
 #### 대비표(`docs/wbs/20-token.md` "대비표"를 옮김, 2026-10-05 계산)
@@ -65,11 +66,11 @@ last_updated: 2026-10-22
 | `color.fg.critical` #F96466 | `color.bg.canvas` #000000 | 7.04 | 통과 | 제한 없음 |
 | `color.fg.accent` #68CBEC | `color.bg.layer` #1A1A1A | 9.40 | 통과 | 제한 없음 |
 | `color.fg.accent` #68CBEC | `color.bg.canvas` #000000 | 11.34 | 통과 | 제한 없음 |
-| `color.fg.on-brand` #FFFFFF | `color.bg.brand-solid` #7A64F9 | 4.18 | 큰 글자만 통과 | 보라 버튼 글자는 Bold 18.67px 이상. 데스크톱은 `typography.body-2`(20 Bold). 모바일 `typography.body-2-mobile`(16/600)은 큰 글자가 아니라 미달이나 Figma 값이라 유지(2.2 아래 "명세에서 발견된 미달") |
+| `color.fg.on-brand` #FFFFFF | `color.bg.brand-solid` #7A64F9 | 4.18 | 큰 글자만 통과 | 큰 글자(Bold 18.67px 이상)에서만 통과. 18px 이하 라이브 버튼은 아래 "알려진 미달" |
 | `color.fg.on-brand` #FFFFFF | `color.bg.brand-solid-hover` #493C95 | 8.88 | 통과 | 제한 없음 |
 | `color.fg.muted` #999999 | `color.bg.brand-solid-press` #2C2459 | 4.90 | 통과 | 보라 버튼 press 글자 |
 | `color.fg.on-inverse` #000000 | `color.bg.neutral-solid` #FFFFFF | 21.00 | 통과 | 제한 없음 |
-| `color.fg.on-inverse` #000000 | `color.bg.neutral-solid-hover` #999999 | 7.37 | 통과 | 제한 없음 |
+| `color.fg.on-inverse` #000000 | `color.bg.neutral-solid-hover` #999999 | 7.37 | 통과 | 토큰 기록용. 라이브 neutral 버튼 hover는 `color.palette.gray.100` #E6E6E6(16.83) |
 | `color.fg.on-inverse` #000000 | `color.bg.neutral-solid-press` #666666 | 3.66 | 큰 글자만 통과 | 일시 상태(누르는 동안). Figma 값 유지 |
 | `color.fg.disabled` #999999 | `color.bg.disabled` #666666 | 2.02 | 적용 제외 | 비활성. 기록용 |
 | `color.stroke.focus` #68CBEC | `color.bg.canvas` #000000 | 11.34 | 통과 | 포커스 링은 offset 2px로 캔버스 위에 놓임 |
@@ -77,27 +78,39 @@ last_updated: 2026-10-22
 | `color.stroke.focus` #68CBEC | `color.bg.brand-solid` #7A64F9 | 2.26 | 미달 | 보라 버튼 안쪽에 링을 그리지 않음(offset 2px 필수) |
 | `color.stroke.focus` #68CBEC | `color.bg.surface-inverse` #FFFFFF | 1.85 | 미달 | 흰 표면 위에서는 `color.stroke.focus-inverse` 사용 |
 | `color.stroke.focus-inverse` #7A64F9 | `color.bg.surface-inverse` #FFFFFF | 4.18 | 통과 | 모달 안 버튼 포커스 링 |
-| 모달 설명 글자 `color.palette.gray.600` #666666 | `color.bg.surface-inverse` #FFFFFF | 5.74 | 통과 | COMPONENT-07-01 |
+| 모달 설명 글자 `color.fg.muted` #999999 | `color.bg.surface-inverse` #FFFFFF | 2.85 | 미달 | Figma 값 유지. 아래 "알려진 미달"(2026-10-22 라이브 기준으로 정정) |
 | `color.stroke.weak` #333333 | `color.bg.layer` #1A1A1A | 1.38 | 장식 | 카드 경계를 보더에만 의존하지 않음(배경색 차이로 구분) |
 
-#### 명세에서 발견된 미달(디자이너 확인 목록)
+#### 알려진 미달(2026-10-22 라이브 기준으로 정정)
 
-Phase 2 명세가 새로 계산한 조합 중 기준에 못 미치는 항목. 조치는 디자이너 확인 뒤 정하며, 그 전까지 명세 값을 유지함.
+명세 값은 라이브 값(라이브에 없는 UI는 Figma 값)을 쓰고, 대비·크기 기준을 이유로 값을 바꾸지 않음. 아래는 그 결과 기준에 못 미치는 항목을 모은 것임. 접근성 개선은 이후 별도 결정으로 다룸. 비활성 요소(SC 1.4.3·1.4.11 예외)는 넣지 않음.
 
-| 조합 | 대비 | 기준 | 위치 | 현재 처리 | 근거 |
+| 값(전경 / 배경) | 대비·크기 | 기준 | 위치 | 출처 | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| `color.fg.on-brand` / `color.bg.brand-solid`, 모바일 16/600 글자 | 4.18 | 4.5 | 모바일 brand 버튼 | Figma 값 유지(큰 글자 아님) | `components/button.md` 7·11절 |
-| #E6E6E6 / `color.bg.brand-solid`(Figma 모바일 342×52 글자색) | 3.35 | 4.5 | brand-wide 모바일 | 명세는 `color.fg.on-brand` 사용(대비 더 높음) | `components/button.md` 11절 |
-| `color.fg.on-inverse` / `color.bg.neutral-solid-press`, 모바일 16 SemiBold | 3.66 | 4.5 | 모바일 neutral 160×44 press | 큰 글자 아니라 미달. Figma 값 유지 | `components/button.md` 7·11절 |
-| `color.fg.brand` / `color.bg.layer`, option selected 18 Regular | 4.16 | 4.5 | select option | check 아이콘으로 선택은 전달됨. 글자색 유지 | `components/select.md` 7·11절 |
-| `color.fg.brand` / hover 바탕 `color.palette.gray.800`, option selected 18 Regular | 3.02 | 4.5 | select option hover | 위와 같음 | `components/select.md` 7·11절 |
-| `color.fg.brand` / `color.bg.layer`, review 카드 기수·부문 18 Bold | 4.16 | 큰 글자 3(18.67px 필요, 0.67px 부족) | card review | 큰 글자 기준 미달. 모바일 14 Bold도 미달 | `components/card.md` 7·11절 |
-| 텍스트 필드 focus 보더 / 빈 값 보더 색 차이 | 1.47 | 3(SC 1.4.11·2.4.11 해석에 따름) | text-field focus | 라벨 이동·축소가 함께 일어나 구분됨. 보더 2px 확대 여부 확인 | `components/text-field.md` 7·11절 |
-| `color.fg.default` / category 탭 default `color.fg.muted` 글자색 차이 | 2.85 | 3(색 이외 단서 필요, SC 1.4.1) | tab category | 글자색 외 단서 없음. 굵기·아래 선 추가 확인 | `components/tab.md` 7·11절 |
-| Figma 탭 모바일 default #666666 / `color.bg.layer` | 3.03 | 4.5 | tab box 모바일 | 명세는 `color.fg.muted`(6.11)로 교체함 | `components/tab.md` 4·11절 |
-| `color.fg.muted` / `color.bg.surface-inverse` 모달 설명 | 2.85 | 4.5 | modal | 명세는 `color.palette.gray.600`(5.74) 사용 | `components/modal.md` 2·7절 |
-| Figma 모달 신청 hover #FFFFFF / #7A64F9 18 Regular | 4.18 | 4.5 | modal 신청 버튼 | 명세는 `color.bg.brand-solid-hover`로 교체함(8.88) | `components/modal.md` 7·11절 |
-| `color.bg.brand-solid-hover` / `color.bg.canvas`(checkbox 보더 후보) | 2.36 | 3 | checkbox | 쓰지 않음 | `components/checkbox.md` 4절 |
+| `color.fg.on-brand` #FFFFFF / `color.bg.brand-solid` #7A64F9, 18/700 | 4.18 | 4.5(큰 글자 18.67px에 0.67px 부족) | button brand-small 데스크톱 "지원하기", brand-small + 아이콘 "카카오톡 문의하기"(데스크톱·모바일) | 라이브 | `components/button.md` 3·7절 |
+| `color.fg.on-brand` #FFFFFF / `color.bg.brand-solid` #7A64F9, 모바일 16/700·10/400 | 4.18 | 4.5 | button brand-small 모바일, brand-pill-md 모바일 "사전 알림 신청" | 라이브 | `components/button.md` 6·7절 |
+| `color.fg.on-inverse` #000000 / `color.bg.neutral-solid-press` #666666, 모바일 8/700 | 3.66 | 4.5 | button neutral-md 모바일 press | 라이브(크기)·Figma(press) | `components/button.md` 7절 |
+| `color.palette.gray.600` #666666 / `color.bg.canvas` #000000, 모바일 16/400 | 3.66 | 4.5 | button text-link 모바일 press | 코드(크기)·Figma(press) | `components/button.md` 7절 |
+| `color.fg.on-inverse` #000000 / `color.palette.gray.800` #333333, 20/700·모바일 16/600 | 1.66 | 3(큰 글자)·4.5 | tab box default 글자(커리큘럼 트랙 탭). 바탕 #333333 / 캔버스도 1.66 | 라이브 | `components/tab.md` 4·7절 |
+| `color.fg.default` #FFFFFF 대 `color.fg.muted` #999999 글자색 차이 | 2.85 | 색 이외 단서(SC 1.4.1) | tab category 데스크톱 default·selected(FAQ·아카이빙 분류 탭) | 라이브 | `components/tab.md` 7·11절 |
+| `color.fg.brand` #7A64F9 / `color.bg.layer` #1A1A1A, 18/700·모바일 10/700 | 4.16 | 4.5(큰 글자 18.67px에 0.67px 부족) | card review 기수·부문("25기 분석") | 라이브 | `components/card.md` 3·7절 |
+| `color.fg.brand` #7A64F9 / `color.bg.layer` #1A1A1A, 16/400·18/400 | 4.16 | 4.5 | select option selected(field-list 16, chip-list 18) | 라이브·코드 | `components/select.md` 7절 |
+| `color.fg.brand` #7A64F9 / `color.palette.gray.800` #333333 | 3.02 | 4.5 | select option selected 키보드 활성 | 라이브·Figma | `components/select.md` 7절 |
+| `color.fg.muted` #999999 / `color.palette.gray.800` #333333, 모바일 12px | 4.43 | 4.5 | search-autocomplete 모바일 결과 행 키보드 활성 | Figma(결과 패널은 라이브 없음) | `components/search-autocomplete.md` 7·11절 |
+| `color.fg.muted` #999999 / `color.bg.surface-inverse` #FFFFFF | 2.85 | 4.5 | modal 설명 글자 | Figma(모달은 라이브 없음) | `components/modal.md` 2·7절 |
+| `color.fg.default` #FFFFFF / `color.bg.brand-solid` #7A64F9, 18/400 | 4.18 | 4.5 | modal 신청 버튼 hover | Figma | `components/modal.md` 4·7절 |
+| `color.palette.gray.100` #E6E6E6 / `color.bg.brand-solid` #7A64F9, 18/700·모바일 15/700 | 3.35 | 4.5 | selection-card selected 라벨 | Figma(카드는 라이브 없음) | `components/selection-card.md` 4·7절 |
+| `color.stroke.weak` #333333 / `color.bg.canvas` #000000 | 1.66 | 3(UI 요소) | progress-bar default segment 테두리 | 코드 | `components/progress-bar.md` 7절 |
+| 텍스트 필드 focus 보더 #7A64F9 대 빈 값 보더 #999999 색 차이 | 1.47 | 3(SC 2.4.13, AAA라 AA 범위 밖) | text-field focus. 라벨 이동·축소가 함께 일어나 SC 2.4.7·1.4.11은 충족 | Figma | `components/text-field.md` 7·11절 |
+| 누르는 영역 20×20(모바일 점 12×12·화살표 16×16) | 24×24 미달 | 24×24(SC 2.5.8) | pagination 점 버튼, 모바일 화살표. 간격 예외도 충족 못 함 | 라이브 | `components/pagination.md` 3·7절 |
+| 누르는 영역 높이 22(모바일 18) | 24 미달 | 24×24(SC 2.5.8) | checkbox 약관 동의 toggle "전문 보기"·"접기" | 코드 | `components/checkbox.md` 3·7절 |
+| 누르는 영역 높이 14 | 24 미달 | 24×24(SC 2.5.8) | form-add-button add 행("+ 복수/부전공")·삭제 글자 버튼 | 코드 | `components/form-add-button.md` 3·7절 |
+| 누르는 영역 높이 16 | 24 미달 | 24×24(SC 2.5.8) | button text-link 모바일("이전 페이지"·"다음 페이지") | 코드 | `components/button.md` 7절 |
+| 포커스 표시 없음(전역 `button, input { outline: none }`) | — | SC 2.4.7 | frontend 전 화면 | 라이브 | 2.1, 코드 `src/shared/styles/global.css.ts` |
+| `prefers-reduced-motion` 규칙 없음, 무한 애니메이션 5개(20~40s) | — | SC 2.3.3·2.2.2 | 리크루팅 배경 | 라이브 | 2.4, 코드 `src/shared/components/gradient-background/gradient-background.css.ts` |
+
+- 포커스 표시·reduced-motion 두 행은 값이 아니라 동작이 없는 경우임. 명세는 "없음"을 값으로 삼지 않고 2.1·2.4 규칙을 유지하며, frontend 수정은 ADOPT-01-03·01-04에서 다룸
+- 출처 열: 라이브 = 라이브 사이트 측정값과 같은 frontend 코드 값, 코드 = 라이브에서 볼 수 없는 지원서 화면의 frontend 코드 값, Figma = 라이브에 없는 UI의 Figma 값
 
 ### 2.3 PATTERN-03-03 색만으로 상태를 구분하지 않음(SC 1.4.1)
 
@@ -150,9 +163,9 @@ Phase 2 명세가 새로 계산한 조합 중 기준에 못 미치는 항목. �
 
 | 컴포넌트 | 속성 | 색 | 근거 |
 | --- | --- | --- | --- |
-| button 전 variant | 네이티브 `disabled` | brand·neutral: `color.bg.disabled` (#666666) + `color.fg.disabled` (#999999). glass: rest 바탕 + `color.fg.disabled`. text-link: `color.fg.disabled` | `components/button.md` 4·7절 |
-| checkbox | 네이티브 `disabled` | 보더 #333333, 글자 `color.fg.disabled` 등(명세 4절) | `components/checkbox.md` 4·7절 |
-| radio | 네이티브 `disabled`(묶음 전체는 `<fieldset disabled>`) | `color.palette.gray.600` (#666666). 예외: default 라벨이 이미 `color.fg.muted`(#999999)라 `color.fg.disabled`로는 구분되지 않아 한 단계 어두운 gray.600을 씀 | `components/radio.md` 4·7절 |
+| button 전 variant | 네이티브 `disabled` | brand: `color.palette.gray.400` (#999999) + `color.fg.on-brand` (#FFFFFF). neutral: `color.palette.gray.800` (#333333) + `color.fg.on-inverse` (#000000). outlined: rest와 같음. glass: rest 바탕 + `color.fg.disabled`. text-link: `color.fg.disabled`(라이브 값, 2026-10-22 라이브 기준으로 정정) | `components/button.md` 4·7절 |
+| checkbox | 네이티브 `disabled` | 보더 #333333, 글자 `color.fg.disabled` 등(명세 4절). 보더 #333333 대 검정 1.66은 비활성 예외(SC 1.4.11)로 수정 불필요 | `components/checkbox.md` 4·7절 |
+| radio | 네이티브 `disabled`(묶음 전체는 `<fieldset disabled>`) | `color.palette.gray.600` (#666666). 예외: default 테두리가 이미 #999999라 `color.fg.disabled`로는 구분되지 않아 한 단계 어두운 gray.600을 씀 | `components/radio.md` 4·7절 |
 | select trigger·option | `aria-disabled="true"`. 포커스 유지, 열지 않음(trigger). option은 이동 시 건너뛰지 않고 선택만 막음 | 명세 4절 | `components/select.md` 7절 |
 | tab(예외) | 비활성 탭을 두지 않음. 필요하면 `aria-disabled="true"`로 포커스 유지 | — | `components/tab.md` 7절 |
 | text-field·modal·card | 비활성 상태 없음 | — | 각 명세 7절 |
@@ -173,15 +186,18 @@ Phase 2 명세가 새로 계산한 조합 중 기준에 못 미치는 항목. �
 
 | 컴포넌트 | 대상 | 최소 24×24 | 모바일 44×44 | 처리 | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| button | 전 size | 통과 | brand 112×36, glass 132×40 미달 | 크기 유지(Figma 값) | `components/button.md` 7절 |
+| button | 전 size | 모바일 text-link(높이 16) 미달, 그 외 통과 | brand-small 115×36, 카카오 198×40, brand-pill-md 91×28, neutral-md 높이 28, glass 132×40 미달 | 크기 유지(라이브·Figma 값). 2.2 알려진 미달 | `components/button.md` 7절 |
 | text-field | 필드 | 통과(높이 56~60) | 통과 | — | `components/text-field.md` 7절 |
-| select | 모바일 chip(높이 28), chip-list 모바일 항목(28) | 통과 | 미달 | 유지 | `components/select.md` 7절 |
+| select | 모바일 chip(높이 32), chip-list 모바일 항목(28·32) | 통과 | 미달 | 유지(라이브 값) | `components/select.md` 7절 |
 | select | 모바일 clear 아이콘 16×16 | 미달 | 미달 | 누르는 영역을 24×24 이상으로 넓힘 | `components/select.md` 7절 |
 | checkbox | 모바일 상자 20×20 | 미달 | 미달 | label 또는 투명 영역으로 24×24 이상 확보 | `components/checkbox.md` 7절 |
 | checkbox | 약관 동의 행 높이 24 | 통과 | 미달 | 라벨까지 클릭 영역, 가로 충분 | `components/checkbox.md` 7절 |
-| radio | 행 높이 21(모바일 18) | 간격 예외로 통과 | 미달 | 위아래 `raw:10px` 패딩 + 음수 margin | `components/radio.md` 7절 |
+| checkbox | 약관 toggle 높이 22(모바일 18) | 미달 | 미달 | 유지(코드 값). 2.2 알려진 미달 | `components/checkbox.md` 7절 |
+| form-add-button | add 행·삭제 버튼 높이 14 | 미달 | 미달 | 유지(코드 값). 2.2 알려진 미달 | `components/form-add-button.md` 7절 |
+| pagination | 점 20×20(모바일 12×12), 모바일 화살표 16×16 | 미달 | 미달 | 유지(라이브 값). 2.2 알려진 미달 | `components/pagination.md` 7절 |
+| radio | 행 높이 18 | 간격 예외로 통과 | 미달 | 위아래 `raw:10px` 패딩 + 음수 margin | `components/radio.md` 7절 |
 | radio | label-hidden 16×16 | 미달 | 미달 | 셀 전체를 `<label>`로 감싸 24×24 이상 | `components/radio.md` 7절 |
-| tab | box 모바일 100×40, text 63×21 | 통과(text는 위아래 `raw:2px` 이상 추가) | 미달 | 유지 | `components/tab.md` 7·11절 |
+| tab | box 모바일 100×49, text 높이 18, underline 높이 35.5 | 통과(text는 위아래 `raw:3px` 이상 추가) | underline 미달 | 유지(라이브 값) | `components/tab.md` 7·11절 |
 | card | project 아이콘 링크 24×24 | 통과(최소값과 같음, gap 12 줄이지 않음) | 미달 | `padding`으로 44까지 확장 | `components/card.md` 7절 |
 | modal | 버튼 130×44 | 통과 | 통과 | — | `components/modal.md` 7절 |
 
@@ -195,7 +211,7 @@ Phase 2 명세가 새로 계산한 조합 중 기준에 못 미치는 항목. �
 | checkbox | 네이티브 `disabled`, 체크 표시, 모바일 영역 확장 | `components/checkbox.md` |
 | radio | circle 포커스 링, 비활성 gray.600 예외, 영역 확장 | `components/radio.md` |
 | tab | `aria-disabled` 예외, 굵기·아래 선·바탕 선택 표시, category 미충족 | `components/tab.md` |
-| modal | 흰 표면 포커스 링, 스피너 reduced-motion, 설명 글자 대비 교체 | `components/modal.md` |
+| modal | 흰 표면 포커스 링, 스피너 reduced-motion, 설명 글자·신청 hover 알려진 미달 | `components/modal.md` |
 | card | `::after` 포커스 링, 보더 비의존 경계, 아이콘 링크 영역 확장 | `components/card.md` |
 
 ## 4. 예시
@@ -205,7 +221,7 @@ Phase 2 명세가 새로 계산한 조합 중 기준에 못 미치는 항목. �
 | 모달 안 닫기 버튼에 포커스 | 흰 표면 위이므로 outline `color.stroke.focus-inverse` 2px, offset 2px | `components/modal.md` 7절 |
 | 보라 버튼에 포커스 | `color.stroke.focus` outline을 버튼 밖 offset 2px에 그림(검정 캔버스 위 11.34) | `components/button.md` 4절 |
 | 탭이 선택됨 | text: 글자를 Bold로 + `aria-current="page"`. 색만 바꾸지 않음 | `components/tab.md` 5·7절 |
-| 비활성 신청 버튼 | `<button disabled>` + 회색 바탕 + "신청 기간이 아닙니다." 같은 사유 문구 | `components/button.md` 7절 |
+| 비활성 지원하기 버튼 | `<button disabled>` + 회색 바탕(#999999) + "모집 기간이 아닙니다." 같은 사유 문구 | `components/button.md` 7절 |
 | reduced-motion 켠 사용자의 제출 중 모달 | 스피너 정지 이미지 + "지원서를 제출 중입니다." + `aria-busy="true"` | `components/modal.md` 5·7절 |
 
 ## 5. Do / Don't
@@ -213,7 +229,7 @@ Phase 2 명세가 새로 계산한 조합 중 기준에 못 미치는 항목. �
 | Do | Don't |
 | --- | --- |
 | 포커스 링은 2px, offset 2px, 흰 표면 위는 `color.stroke.focus-inverse` | 전역 `outline: none`, 흰 표면 위에 `color.stroke.focus` |
-| `color.fg.brand`·`color.fg.on-brand`는 큰 글자에만 | `color.fg.brand`를 `color.bg.layer` 위 14~16px 글자에 사용 |
+| 새 화면에서 `color.fg.brand`·`color.fg.on-brand`는 큰 글자에만. 라이브 값의 미달은 2.2 알려진 미달에 기록 | 미달 조합을 기록 없이 새 화면에 추가 |
 | 선택은 색 + 굵기·아이콘·모양 | 선택을 색 하나로만 구분 |
 | 네이티브 요소는 `disabled`, 그 밖은 `aria-disabled="true"` + 사유 문구 | 색만 회색으로 바꿔 비활성 표시 |
 | `prefers-reduced-motion`에서 전환 제거, 무한 애니메이션 정지 | 동작 줄이기 설정을 무시하고 배경 애니메이션 상시 실행 |
@@ -224,8 +240,8 @@ Phase 2 명세가 새로 계산한 조합 중 기준에 못 미치는 항목. �
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | `src/shared/styles/global.css.ts` | `button , input`에 전역 `outline: none`. `:focus-visible` 대체 없음 → ADOPT-01-03에서 제거하고 `:focus-visible` 적용 |
-| frontend | `src/shared/components/textfield/textfield.css.ts` | `outline: 'none'` 별도 지정. 아래 보더 포커스 표시 없음 → ADOPT-03-10 |
-| frontend | `src/shared/components/archive/active-card.css.ts`, `project-card.css.ts` | hover에 `outline: 1px solid #2C3F61`. 키보드 포커스 링 없음 → ADOPT-03-15(카드) |
+| frontend | `src/shared/components/textfield/textfield.css.ts` | `outline: 'none'` 별도 지정, `:focus`에 보라 아래 보더(명세와 같음). 라벨 이동 없음 → ADOPT-03-10 |
+| frontend | `src/shared/components/archive/active-card.css.ts`, `project-card.css.ts` | hover의 `outline: 1px solid #2C3F61`은 라이브 값이라 명세 hover 효과 A로 채택. 키보드 포커스 링 없음 → ADOPT-03-15(카드) |
 | frontend | `src/shared/components/gradient-background/gradient-background.css.ts` | infinite 애니메이션 5개. `prefers-reduced-motion` 쿼리 0건(`frontend/src` 전체) → ADOPT-01-04에서 2.4 규칙 적용 |
 | frontend | `src/shared/components/button/button.css.ts` | `:focus-visible`·`:active`·disabled 일부 없음 → ADOPT-03-01·03·09 |
 | frontend | 라디오·체크박스·탭·select | 숨긴 input 포커스 미표시(ADOPT-03-13), 체크박스(ADOPT-03-12), 탭(ADOPT-03-14), select(ADOPT-03-11) 각 티켓의 명세 차이 항목에서 해소 |
@@ -234,8 +250,9 @@ Phase 2 명세가 새로 계산한 조합 중 기준에 못 미치는 항목. �
 
 ## 7. 미확인
 
-- 2.2 "명세에서 발견된 미달" 12행 전체: 디자이너 확인 필요. 특히 tab category(색 외 단서 없음), card review 기수(4.16), 모바일 brand 버튼(4.18)
-- 텍스트 필드 focus 표시 굵기: 1px 보더 + label 이동이 SC 2.4.11을 충족하는지, 2px로 키울지(`components/text-field.md` 11절)
+- 2.2 "알려진 미달" 전체: 명세 값은 라이브·Figma 값으로 유지함(2026-10-22 결정). 개선 방법(글자 크기·색·누르는 영역·포커스 표시)은 접근성 개선 별도 결정으로 다룸
+- 텍스트 필드 focus 보더 2px로 키움 권고: 1px 보더 + label 이동으로 SC 2.4.7·1.4.11은 충족. 2px 확대는 디자이너 승인 대기(`components/text-field.md` 11절)
 - 배경 장식 애니메이션 5개에 일시정지 수단이 필요한지(SC 2.2.2 해석). reduced-motion 대응은 이 문서가 정하나 상시 정지 버튼 여부는 결정 필요
-- checkbox disabled 색(보더 #333333 등)은 `components/checkbox.md` 4절 값을 그대로 따름. 이 문서는 값을 재검증하지 않음
+  - Figma 추정(디자이너): 무한 반복 30~40초 애니메이션은 장식에도 SC 2.2.2를 적용하는 해석이 일반적이라 일시정지 토글 1개(기본값은 `prefers-reduced-motion` 따름) 권고. 위치·문구 결정 필요
 - Figma 노드를 직접 읽어 확인하지 않음(`figma_verified: false`). 값은 Phase 2 명세와 `docs/wbs/20-token.md`에서 옮김
+  - Figma 추정(디자이너): 값은 컴포넌트 명세 값이라 Figma 확인은 컴포넌트 쪽 항목에서 처리

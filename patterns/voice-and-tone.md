@@ -34,7 +34,7 @@ last_updated: 2026-10-22
   - `components/modal.md` 3절(7종 문구)
   - `components/button.md` 3절·5절·8절(버튼 종류, pending 라벨 유지)
   - `components/text-field.md` 8절(입력 필드 아래 오류 문구)
-  - `components/checkbox.md` 5절(전문 보기·전문 닫기)
+  - `components/checkbox.md` 5절(전문 보기·접기)
   - `patterns/feedback.md`(오류를 모달로 띄울지 필드 아래에 둘지의 판단)
 
 ## 2. 규칙
@@ -110,7 +110,7 @@ last_updated: 2026-10-22
 | --- | --- | --- | --- |
 | 동작 버튼 | "동사 어간 + 하기" | 지원하기, 제출하기, 신청하기, 문의하기 | 코드 `src/widgets/recruiting/ui/recruiting-hero-section/recruiting-hero-section.tsx`, 코드 `src/pages/apply-page.tsx` |
 | 링크형(이동·열람) | "대상 + 보기" | 자세히 보기, 전문 보기 | 코드 `src/widgets/curriculum/ui/conference-section/conference-section.tsx`, Figma 4266:7630 |
-| 열림·닫힘 토글 | "대상 + 보기" / "대상 + 닫기" 짝 | 전문 보기 / 전문 닫기 | Figma 4266:7630, Figma 4266:7631 |
+| 열림·닫힘 토글 | 열기 "대상 + 보기", 닫기 "접기" | 전문 보기 / 접기 | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.tsx`(2026-10-22 라이브 기준으로 정정) |
 | 모달 버튼 | Figma 원문의 한 단어 "닫기", "신청" | 닫기, 신청 | Figma 4243:4452, Figma 4243:4480 |
 | 진행 중(pending) | 라벨을 바꾸지 않음 | 신청하기 유지 | `components/button.md` 8절 |
 | 이전·다음 이동(text-link) | "이전 페이지", "다음 페이지" | 다음 페이지 | Figma 5152:8868, Figma 5411:9042 |
@@ -126,7 +126,7 @@ last_updated: 2026-10-22
 | 닫기, 신청 | 모달(Figma 7종) | Figma 원문. 모달 맥락에서 동사가 생략됨 | 유지. 바꾸려면 `components/modal.md` 3절 표를 함께 고침 |
 | 사전 알림 신청 | `src/features/notice/notice-form.tsx` 제출 버튼 | 명사형. "동사 + 하기" 아님 | 디자이너 확인(7절) |
 | 다음 페이지 | `src/widgets/apply/ui/question-section/question-section.tsx` | 이동 버튼. 명사형 | 유지(이전·다음 이동은 text-link 규칙) |
-| 전문 닫기 | Figma 4266:7631 | "보기"의 짝 | 유지 |
+| 접기 | `src/widgets/apply/ui/agreement-step/agreement-step.tsx` 약관 토글 | 동사 하나. "전문 보기"의 짝 | 유지(라이브 문구, 2026-10-22 라이브 기준으로 정정) |
 
 ## 3. 적용 컴포넌트
 
@@ -135,7 +135,7 @@ last_updated: 2026-10-22
 | modal | 제목·설명 2문장 구조(2.3). 7종 문구 | `components/modal.md` |
 | text-field | 입력 필드 아래 오류 문구. 2문장을 한 줄로 합침 | `components/text-field.md` |
 | button | 버튼 라벨(2.4) | `components/button.md` |
-| checkbox | 약관 전문 토글 라벨 "전문 보기"·"전문 닫기" | `components/checkbox.md` |
+| checkbox | 약관 전문 토글 라벨 "전문 보기"·"접기" | `components/checkbox.md` |
 | card | 카드 안 버튼 "지원하기" | `components/card.md` |
 
 ## 4. 예시
@@ -178,7 +178,6 @@ last_updated: 2026-10-22
 | frontend | `src/features/auth/ui/login-widget.tsx` | "다시 시도해 주세요." 띄어쓰기 위반. ADOPT-03-23 |
 | frontend | `src/widgets/apply/ui/personal-info-section.tsx` | `alert` "항목을 다시 확인해 주세요."와 안내 "정확하게 작성해 주세요." 띄어쓰기 위반 2건(ADOPT-03-23). 필수 항목 누락 `alert`는 입력 필드 오류로 대체 대상(`components/modal.md` 9절, ADOPT-03-22) |
 | frontend | `src/widgets/apply/ui/question-section/question-section.tsx` | "선택해 주세요." 2곳 띄어쓰기 위반(같은 줄 삼항식). ADOPT-03-23 |
-| frontend | `src/widgets/apply/ui/agreement-step/agreement-step.tsx` | 토글 문구 "접기"가 Figma "전문 닫기"와 다름(`components/checkbox.md` 11절). 해당 ADOPT-03 체크박스 티켓에서 처리 |
 | frontend_admin | — | 관리자 콘솔 문구는 이 명세 범위 밖. 빈 상태·불러오기 실패 문구는 ADOPT-07-07 |
 
 - 규칙 위반 요약
@@ -192,7 +191,6 @@ last_updated: 2026-10-22
 
 | 질문 | 결정 필요 주체 | 필요 시점 |
 | --- | --- | --- |
-| Figma 모달 3종(4243:4492, 4243:4504, 5164:5621)의 2문장을 2.3 고친 예로 바꿀지. 바꾸면 `components/modal.md` 3절 표와 design-reference 5.8 표를 함께 고침 | 디자이너, 디자인 시스템 리드 | ADOPT-04-01 착수 전 |
-| 붙여쓰기 통일(2.2) 승인. 맞춤법상 띄어쓰기가 원칙이며 붙여쓰기는 허용 표기 | 디자인 시스템 리드 | PATTERN-04 status review 전환 전 |
-| "사전 알림 신청" 버튼을 "동사 + 하기"("신청하기")로 바꿀지. 모달 버튼 "신청"과 짝 | 디자이너 | ADOPT-03-09 착수 전 |
-| 확인창(`window.confirm`) 문구 규칙. 현재 합쇼체 의문이며 Figma에 해당 종류 없음 | 디자이너 | ADOPT-04-02 착수 전 |
+| Figma 모달 3종(4243:4492, 4243:4504, 5164:5621)의 2문장을 2.3 고친 예로 바꿀지. 바꾸면 `components/modal.md` 3절 표와 design-reference 5.8 표를 함께 고침 | 디자이너, 디자인 시스템 리드 | ADOPT-04-01 착수 전. Figma 추정(디자이너): 2문장 "다시 한 번 확인해주세요."는 확인 대상이 없어 교체 권고 |
+| 붙여쓰기 통일(2.2) 디자인 시스템 리드 승인 대기. Figma "주세요" 163곳 중 붙여쓰기 150곳, 모달 7종 전부라 붙여쓰기로 정함. 디자이너 확인 대상 아님 | 디자인 시스템 리드 | PATTERN-04 status review 전환 전 |
+| "사전 알림 신청" 버튼을 "동사 + 하기"("신청하기")로 바꿀지. 모달 버튼 "신청"과 짝 | 디자이너 | ADOPT-03-09 착수 전. Figma 추정(약): "신청하기"로 바꿈 권고(2.4 규칙과 일관). 2글자 늘어 pill 폭 확인 필요 |

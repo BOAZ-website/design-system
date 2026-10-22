@@ -1,7 +1,8 @@
 # 디자인 참조
 
 디자인팀 Figma(공개 홈페이지, 검정 바탕 기준)와 홈페이지·관리자 코드에서 확인한 디자인 값을 기록한 참조 문서임. 기준일 2026-10-11.
-토큰으로 정식화된 값의 기준은 `tokens/`와 `docs/wbs/20-token.md`이고, 이 문서는 원본 기록임. 서로 다르면 토큰이 우선.
+토큰으로 정식화된 값의 기준은 `tokens/`와 `docs/wbs/20-token.md`이고, 이 문서는 원본 기록임.
+명세 값의 우선순위: 라이브에 있는 UI는 라이브 값, 없는 UI는 Figma 값. 토큰과 다르면 토큰 이름이 아니라 raw 값으로 적고 토큰 추가는 별도 이슈(2026-10-22 결정).
 토큰 이름은 `tokens/`·`dist/`의 현재 이름 기준임.
 각 값 옆에 출처(Figma 노드 ID 또는 저장소 루트 기준 코드 경로와 줄)를 적음. Figma 값과 코드 값이 다르면 둘 다 적고 어느 쪽인지 표시.
 확인되지 않은 값은 "미확인"으로 표시.
@@ -285,7 +286,7 @@
 | 텍스트 링크 | 10(토큰에 없음) | `5875:9827` |
 | 프로젝트 카드 썸네일 | Figma 20 | 5절 Component Inventory 카드 |
 | 블로그 카드 썸네일 | 16 | 5절 Component Inventory 카드 |
-| 대상·모집 카드 | 12 | 대상 `5411:10347`, 모집 `5338:3599`(2026-10-22 Figma 재확인으로 정정) |
+| 대상·모집 카드 | 12 | 대상 `5411:10347`, 모집 최종안 `8838:12513`(Figma 10, 명세 `radius.sm` 12)(2026-10-22 Figma 재확인으로 정정) |
 | 후기 카드 | 10 | `1132:1299`, 모바일 `7289:14365`(2026-10-22 Figma 재확인으로 정정) |
 | selection-card | 8 | COMPONENT-15-02 |
 | frontend `radius.css.ts` | xs 12, sm 20, md 24(토큰에 없음), lg 40 | `frontend/src/shared/styles/radius.css.ts:1-6` |
@@ -433,7 +434,7 @@ keyframes(`:3-19`)
 
 | 항목 | 값 | 출처 |
 | --- | --- | --- |
-| Figma 크기 | 800×68, 250×68, 200×68, 250×56, 180×56, 154×44, 130×44, mini(검색 Tag 97×43) | `2682:2297`, `2897:6164` |
+| Figma 크기 | 800×68, 250×68, 200×68, 250×56, 180×56, 154×44, 130×44, mini(검색 Tag 97×43, 옛 시안이라 명세에 두지 않음(2026-10-22 Figma 재확인으로 정정)) | `2682:2297`, `2897:6164` |
 | 180×56 | "사전 알림 신청" 버튼. Figma에 "예외…" 라벨 | `2897:6164` |
 | FE 회의 라벨(미확정) | large-round, large-white, medium-round, medium, medium-primary, medium-white, small-round, mini | FE 회의용 `2897:6164` 라벨 |
 | 이전/다음 페이지 텍스트 버튼 | 24 Bold 흰 글자 + 24 화살표, 간격 10 | Figma |
@@ -488,7 +489,7 @@ keyframes(`:3-19`)
 | 블로그 | 929×278, 보더 2px, 썸네일 16 | 미확인 |
 | 활동사진 | 인스턴스 `6363:11807` 333×350(바깥 프레임 `6363:11806` 373×410). 썸네일 자리 채움 rgba(255,255,255,0.6)(2026-10-22 Figma 재확인으로 정정) | 33.3×35rem, 이미지 높이 25rem(모바일 20rem), radius 20(`active-card.css.ts:11-12,47,52`). hover는 보더 #2C3F61 + 그라데이션 2겹(`active-card.css.ts:22-32`) |
 | 대상 | `5411:10347` 300×270, #333333, radius 12 | 미확인 |
-| 모집 | `5338:3599` 310×404, rest 흰색·hover #333333, radius 12, 캐릭터 이미지 불투명도 0.8 | 미확인 |
+| 모집 | 최종안 rest `8838:12513`·hover `8796:5269` 310×404. rest #333333·제목 30 Bold 흰색·캐릭터 이미지, hover #1A1A1A·설명 글 #E6E6E6(제목·이미지 숨김), radius 10. 이전 컴포넌트 `5338:3599`(rest 흰색·hover #333333)는 쓰지 않음(2026-10-22 Figma 재확인으로 정정) | 미확인 |
 | FAQ | 840×100, 하단 보더 0.5px #999999 | 5.9절 accordion |
 | 후기 | `1132:1299`(모바일 `7289:14365`) 500×208, #1A1A1A, radius 10, 이름 20 Bold, 기수 18 Bold 보라 | 미확인 |
 
@@ -723,15 +724,15 @@ keyframes(`:3-19`)
 | glass | 그라데이션·마스크 보더·그림자 2겹 | 단색 rgba 하나 | `frontend/src/shared/styles/glass.css.ts:1-52` |
 | frontend_admin `--primary` | #ef4444(빨강) | #6250C7(`purple.200`) | `frontend_admin/src/app/styles/theme.css:10`, ADOPT-05-02 |
 | 버튼 press | `:active` 없음 | brand #2C2459, neutral #666666 | `frontend/src/shared/components/button/button.css.ts:59-89`, ADOPT-03-01 |
-| 흰 버튼 hover | grayscale[100] #E6E6E6 | #999999 | `frontend/src/shared/components/button/button.css.ts:80`, ADOPT-03-02 |
-| disabled | primary 배경 #999999·글자 흰색, white 배경 #333333, outlined·glass는 disabled 없음 | 배경 #666666·글자 #999999 | `frontend/src/shared/components/button/button.css.ts:63-67,81-84`, ADOPT-03-03 |
-| 박스 탭 hover | 비활성 hover 배경 grayscale[600] | 흰 배경·검정 글자 | `frontend/src/shared/components/fixed-tab/fixed-tab.css.ts:42-47`, ADOPT-03-04 |
+| 흰 버튼 hover | grayscale[100] #E6E6E6 | #999999 | `frontend/src/shared/components/button/button.css.ts:80`. 명세는 코드(라이브) 값 채택(2026-10-22), 정리 대상 아님 |
+| disabled | primary 배경 #999999·글자 흰색, white 배경 #333333, outlined·glass는 disabled 없음 | 배경 #666666·글자 #999999 | `frontend/src/shared/components/button/button.css.ts:63-67,81-84`. 명세는 primary·white 코드(라이브) 값 채택(2026-10-22). glass disabled 추가만 ADOPT-03-03 |
+| 박스 탭 hover | 비활성 hover 배경 grayscale[600] | Figma에 hover 없음(흰 바탕은 selected 전용, reactions ON_CLICK만 `5639:10001`). 명세는 코드와 같은 #666666 + 흰 글자(2026-10-22 Figma 재확인으로 정정) | `frontend/src/shared/components/fixed-tab/fixed-tab.css.ts:42-47`. 명세는 코드(라이브) 값 #666666 + 검정 글자 채택(2026-10-22), 정리 대상 아님 |
 | 체크박스 색 | `accentColor: '#7964F9'`(오타) | #7A64F9 | `frontend/src/widgets/apply/ui/agreement-step/agreement-step.css.ts:78`, ADOPT-03-05 |
-| Text 1 굵기 | `text_rg_14` 400(fontWeight에 300 없음, 약 28곳) | 300 | `frontend/src/shared/styles/typography.css.ts:168-173`, `font.css.ts:26-31`, ADOPT-03-07 |
+| Text 1 굵기 | `text_rg_14` 400(fontWeight에 300 없음, 약 28곳) | 300 | `frontend/src/shared/styles/typography.css.ts:168-173`, `font.css.ts:26-31`. 명세는 라이브 값 14/400을 `raw:14px/400`으로 채택(2026-10-22), 정리 대상 아님 |
 | Body 4 Paragraph 행간 | lineHeight.card 1.6 = 28.8px | 30px | `frontend/src/shared/styles/typography.css.ts:119-124`, `font.css.ts:37`, ADOPT-03-08 |
 | 쓰지 않는 스타일 | `display1_bd_80`, `h1_md_40`(참조 0건), `form-header` 폴더(참조 여부 미확인) | 해당 없음 | `frontend/src/shared/styles/typography.css.ts:7,39`, ADOPT-03-06 |
 | 프로젝트 썸네일 radius | 16 | 20 | `frontend/src/shared/components/archive/project-card.css.ts:45,52` |
-| 활동사진 hover | 보더 + 그라데이션 | 흰 오버레이 0.6 | `frontend/src/shared/components/archive/active-card.css.ts:22-32` |
+| 활동사진 hover | 보더 + 그라데이션 | 그라데이션 바탕·보더(`5236:823`). 0.6은 썸네일 자리 채움(2026-10-22 Figma 재확인으로 정정) | `frontend/src/shared/components/archive/active-card.css.ts:22-32` |
 | reduced-motion | 코드 미대응 | PATTERN-03-04 요구 | `frontend/src` 전체 0건 |
 
 ## 확인되지 않은 사항

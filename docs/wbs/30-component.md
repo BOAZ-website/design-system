@@ -5,10 +5,11 @@
 ## 작업 정의서 목적
 
 - Figma Components 페이지의 컴포넌트를 `components/<id>.md` 명세로 옮김
+- 값 우선순위: 라이브에 있는 UI는 라이브 값, 없는 UI는 Figma 값. 토큰과 다르면 토큰 이름이 아니라 raw 값으로 적고 토큰 추가는 별도 이슈(2026-10-22 결정). 라이브에서 볼 수 없는 지원서 화면은 frontend 코드 값을 라이브 값으로 봄
 - 상태를 한 가지 방식으로 정의함: **기본 상태**(default · disabled · selected · invalid · completed 중 하나) × **상호작용**(rest · hover · press · focus-visible). `hover-selected`처럼 두 상태를 합친 이름을 만들지 않고 selected 행의 hover 칸에 적음
 - 코드는 만들지 않음. 명세마다 frontend 구현 위치를 적음. 관리자 콘솔은 이 명세를 따르지 않으므로 대응하는 ADOPT-07 티켓만 적음
 
-**범위:** 공개 홈페이지 컴포넌트(Figma 기준). 관리자 콘솔은 이 명세를 따르지 않음. 관리자 콘솔은 shadcn 방식 CSS 변수(`--background`·`--primary` 등)에 팔레트 토큰 값을 연결해 씀(ADOPT-05). shadcn 컴포넌트·Radix는 설치돼 있지 않아 공용 컴포넌트는 ADOPT-07에서 직접 만듦
+**범위:** 공개 홈페이지 컴포넌트(라이브·Figma 기준). 관리자 콘솔은 이 명세를 따르지 않음. 관리자 콘솔은 shadcn 방식 CSS 변수(`--background`·`--primary` 등)에 팔레트 토큰 값을 연결해 씀(ADOPT-05). shadcn 컴포넌트·Radix는 설치돼 있지 않아 공용 컴포넌트는 ADOPT-07에서 직접 만듦
 **범위 밖:** 페이지 전용 조각(커리큘럼 주차 행, 리크루팅 섹션, 탭바·푸터 레이아웃), 컴포넌트 코드 패키지
 
 ### 명세 파일 양식
@@ -35,7 +36,6 @@
 - 모든 명세는 쓰는 토큰이 `tokens/`에 실제로 있어야 함. `dist/tokens.d.ts`와 대조함. CI `Tokens Build`가 명세의 백틱 안 토큰 이름을 `dist/tokens.css`와 대조해 없는 이름·짧은 표기·Figma 링크를 실패 처리함(2026-10-22 추가). CodeRabbit(자동 리뷰 도구) 지침 5번은 보조 수단임
 - Figma 캡처는 넣지 않고 노드 ID만 적음(원본 링크는 노션에만)
 - Figma 접근이 없어도 `docs/design-reference.md`·`docs/wbs/20-token.md`만으로 `draft`까지 쓸 수 있음. Figma 확인이 필요한 칸은 "미확인" 절에 남김
-- 값의 근거가 Figma와 토큰에서 다르면 토큰을 따름(`docs/design-reference.md` 머리말)
 - COMPONENT-01~08은 서로 선행이 없음. COMPONENT-01(button)을 먼저 끝내 양식을 확정하고 나머지는 그 양식으로 씀. 첫 PR 리뷰가 양식 확정 리뷰를 겸함
 
 ### status 전이
@@ -59,8 +59,8 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-01-01 | variant: brand(보라), neutral(흰색), glass(탭바 `rgba(208,207,249,0.1)`), text-link(이전·다음 페이지 + 화살표) | `components/button.md` Variants 표 |
-| COMPONENT-01-02 | size: 800×68(폼 제출), 250×68·200×68(사각), 250×56(pill), 180×56(pill, Figma에 예외로 표시된 사전 알림 신청 전용), 130×44(소형, radius 20 `radius.md`), 154×44(glass, radius 40 `radius.full`), mini 97×43(검색 Tag). 모바일 112×36·342×52·132×40·160×52·160×44는 Sizes 표 모바일 열에 적음. Figma radius 10(250×68·160×52)은 `radius.sm`(12) 설명의 결정대로 12로 통일하고, radius 8은 토큰이 없어 `raw:` 값으로 적음(TOKEN-03, 2026-10-22 정정) | Sizes 표(`docs/design-reference.md` 5.1·3.1) |
+| COMPONENT-01-01 | variant: brand(보라), neutral(흰색), glass(탭바 `rgba(208,207,249,0.1)`), text-link(이전·다음 페이지 + 화살표), outlined(지원서 임시저장, 회색 1px 보더)(2026-10-22 Figma 재확인으로 정정) | `components/button.md` Variants 표 |
+| COMPONENT-01-02 | size: 800×68(폼 제출), 250×68·200×68(사각), 250×56(pill), 180×56(pill, Figma에 예외로 표시된 사전 알림 신청 전용), 130×44(소형, radius 20 `radius.md`), 154×44(glass, radius 40 `radius.full`). 검색 Tag mini 97×43은 옛 시안 요소라 두지 않음(2026-10-22 Figma 재확인으로 정정). 모바일 112×36·342×52·132×40·160×52·160×44는 Sizes 표 모바일 열에 적음. Figma radius 10(250×68·160×52)은 `radius.sm`(12) 설명의 결정대로 12로 통일하고, radius 8은 토큰이 없어 `raw:` 값으로 적음(TOKEN-03, 2026-10-22 정정) | Sizes 표(`docs/design-reference.md` 5.1·3.1) |
 | COMPONENT-01-03 | **상태값 색**<br>brand: `bg.brand-solid` #7A64F9 → `bg.brand-solid-hover` #493C95 → `bg.brand-solid-press` #2C2459. 글자는 `fg.on-brand` → `fg.on-brand` → `fg.muted` #999999(press 글자 대비 4.9:1).<br>neutral: `bg.neutral-solid` #FFFFFF → `-hover` #999999 → `-press` #666666. 글자는 `fg.on-inverse`.<br>disabled: `bg.disabled` #666666, `fg.disabled` #999999.<br>glass: hover는 Figma에 있음(그라데이션 오버레이, `raw:` 값). press·disabled는 Figma에 없어 `Figma 없음(추정)`으로 새로 정의함.<br>text-link: hover #999999·press #666666은 Figma에 있음. disabled만 `Figma 없음(추정)`(2026-10-22 Figma 재확인으로 정정).<br>모달 안 버튼(닫기 #E6E6E6, 신청 검정): COMPONENT-07에서 정의함.<br>**brand 버튼 글자 크기(대비 근거)**<br>brand 위 흰 글자는 4.18:1이라 큰 글자 기준(Bold 18.67px 이상 또는 Regular 24px 이상)으로만 통과함.<br>데스크톱 brand 버튼 글자는 `typography.body-2`(20 Bold) 이상(`body-2`·`headline-*`·`body-1`)을 씀.<br>`body-2-regular`(20/400)는 쓰지 않음.<br>`body-3`(18 Bold)은 기준보다 0.67px 작아 쓰지 않음.<br>모바일 `typography.body-2-mobile`(16, 600)은 큰 글자가 아니라 AA 미달이지만 Figma 값이라 유지함(2026-10-22 결정, TOKEN-05 대비표) | States 표(Figma 5875:9829·9831·9833, 5152:9047·9049, 5164:8774, 5188:8718) |
 | COMPONENT-01-04 | focus-visible: `stroke.focus` 2px outline, offset 2px(Figma에 버튼 Focus 없음, TOKEN-05-03 근거). offset 없이 버튼 안쪽에 그리면 보라 위 2.26:1로 미달. 흰 표면(모달) 위 버튼은 `stroke.focus-inverse` | States 표 |
 | COMPONENT-01-05 | FE 합의 이름(`large-round`, `medium-primary`, `medium-white`, `small-round`, `mini` 등)과 명세 variant·size 대응표 | 코드 대응 절 |
@@ -120,7 +120,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-06-01 | variant: text(탭바 메뉴 항목, 페이지 이동이라 링크 내비게이션), box(커리큘럼 트랙, hover·selected 흰 배경. 모바일 7249:14310)(2026-10-22 Figma 재확인으로 정정), underline(프로젝트, 모바일에서 확인), category(FAQ 세로 목록) | Variants 표(탭 인터렉션 5915:7015, FAQ Category 2416:3726·3727, 2417:3731) |
+| COMPONENT-06-01 | variant: text(탭바 메뉴 항목, 페이지 이동이라 링크 내비게이션), box(커리큘럼 트랙, selected 흰 바탕, hover #666666. 모바일 7249:14310)(2026-10-22 Figma 재확인으로 정정), underline(프로젝트, 모바일에서 확인), category(FAQ 세로 목록) | Variants 표(탭 인터렉션 5915:7015, FAQ Category 2416:3726·3727, 2417:3731) |
 | COMPONENT-06-02 | 상태 default·hover·selected, selected의 hover(selected 행의 hover 칸) | States 표 |
 | COMPONENT-06-03 | `role="tablist"`·`tab`, 방향키 이동 | Accessibility 절 |
 

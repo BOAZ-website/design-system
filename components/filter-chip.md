@@ -55,9 +55,9 @@ last_updated: 2026-10-22
 | --- | --- | --- | --- |
 | root | ○ | 트리거 `<button>`과 ✕ `<button>`을 감싸는 알약형 바탕. 바탕·보더·radius는 root에 그림 | `color.bg.layer` (#1A1A1A), `color.stroke.weak` (#333333) 1px, `radius.md` (20px) |
 | trigger | ○ | `role="combobox"` `<button>`. 아이콘·label·chevron을 담음. 동작은 `components/select.md` 5절 | — |
-| icon-start | × | sector만. 부문 아이콘 24px(모바일 16px). 아이콘 에셋 색(#999999) 유지 | — |
-| label | ○ | default: 필터 이름("전체 부문", "기수"). selected: 고른 값("분석", "25기") | `typography.body-4`, `color.fg.default` (#FFFFFF) |
-| chevron | × | default에만. 펼침 화살표 24px(모바일 16px). 열리면 위 방향 | `color.fg.default` (#FFFFFF) |
+| icon-start | × | sector만. 부문 아이콘 28px(모바일 16px, 라이브). 아이콘 에셋 색(#999999) 유지 | — |
+| label | ○ | default: 필터 이름("전체 부문", "기수"). selected: sector는 "{값} 부문"("분석 부문"), generation은 고른 값("25기")(라이브, 2026-10-22 라이브 기준으로 정정) | `typography.body-4`, `color.fg.default` (#FFFFFF) |
+| chevron | × | default에만. 펼침 화살표 16px(데스크톱·모바일, 라이브). 열리면 위 방향 | `color.fg.default` (#FFFFFF) |
 | clear | × | selected에만. chevron 자리의 ✕ 버튼. 값과 상태는 `components/tag-chip.md` | `components/tag-chip.md` 4절 |
 
 ## 3. Variants·Sizes
@@ -71,17 +71,18 @@ last_updated: 2026-10-22
 
 ### Sizes
 
-- radius·padding·gap·글자는 `components/select.md` 3절 chip(부문)·chip(기수) 행과 같음. 여기서는 Figma 원본 크기만 옮김
+- radius·padding·gap·글자는 `components/select.md` 3절 chip(부문)·chip(기수) 행과 같음
+- 값 기준(2026-10-22 라이브 기준으로 정정): 아카이빙 라이브 값(= frontend 코드 값). 높이 48 / 모바일 32, 바탕 #1A1A1A, 보더 1px #333333, 흰 18/400, radius 20. 이전 Figma 값(155×44·92×44, 모바일 56×28·60×28)은 기록용
 
 | size | 데스크톱(px) | 모바일(px) | radius | padding | 글자 | 근거 |
 | --- | --- | --- | --- | --- | --- | --- |
-| sector default("전체 부문") | 155×44 | 56×28(아이콘 + chevron만, label 숨김) | select.md 3절 chip(부문) | select.md 3절 chip(부문) | select.md 3절 chip(부문) | Figma 3723:9261, Figma 7078:5049 |
-| sector selected | 120×44("분석"), 135×44("시각화"), 166×44("엔지니어링") | 56~88×28 | 같음 | 같음 | 같음 | Figma 3723:9262, Figma 3723:9263, Figma 3723:9264 |
-| generation default·selected | 92×44 | 60×28 | select.md 3절 chip(기수) | select.md 3절 chip(기수) | select.md 3절 chip(기수) | Figma 3723:9269, Figma 3723:9270, Figma 7091:5127 |
+| sector default·selected | 글자 폭 × 48 | 아이콘 + chevron × 32(label 숨김) | select.md 3절 chip(부문) | select.md 3절 chip(부문) | select.md 3절 chip(부문) | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts` |
+| generation default·selected | 글자 폭 × 48 | 글자 폭 × 32 | select.md 3절 chip(기수) | select.md 3절 chip(기수) | select.md 3절 chip(기수) | 코드 `src/widgets/archive/ui/generation-filter/generation-filter.css.ts` |
 
 - 높이: 표의 값으로 고정함
-- 칩 묶음 배치: sector 칩과 generation 칩을 가로로 나란히 둠. 칩 사이 gap `spacing.2` (8px)(Figma 5834:10108)
-- 모바일 sector default는 label을 숨기고 아이콘·chevron만 보임. 숨긴 이름은 7절 aria로 전달함
+- 칩 묶음 배치: sector 칩과 generation 칩을 가로로 나란히 둠. 칩 사이 gap `spacing.2` (8px)(코드 `src/pages/archive-page.css.ts`, 모바일 같음)
+- 모바일 sector는 label을 숨기고 아이콘·chevron만 보임(라이브). 숨긴 이름은 7절 aria로 전달함
+- selected의 ✕(clear): 라이브에 없어 Figma 값(Figma 3723:9262, Figma 7091:5133)을 씀. 라이브는 selected에도 chevron을 유지함
 
 ## 4. States
 
@@ -90,8 +91,8 @@ last_updated: 2026-10-22
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| default | `color.bg.layer` (#1A1A1A) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | `color.palette.gray.800` (#333333) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | `color.bg.layer` (#1A1A1A) / `color.fg.muted` (#999999) / `color.stroke.weak` (#333333) | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | Figma 5980:11372, Figma 5212:759, Figma 5980:11374, Figma 5980:11379, Figma 5212:3699, Figma 없음(추정, focus-visible) |
-| selected | default rest와 같음. label이 값, chevron 대신 ✕ | `color.palette.gray.800` (#333333) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | `color.bg.layer` (#1A1A1A) / `color.fg.muted` (#999999) / `color.stroke.weak` (#333333) | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | Figma 5980:11538, Figma 5980:11541, Figma 5980:11456, Figma 5980:11544, Figma 없음(추정, focus-visible) |
+| default | `color.bg.layer` (#1A1A1A) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) 1px | `color.palette.gray.800` (#333333) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | `color.bg.layer` (#1A1A1A) / `color.fg.muted` (#999999) / `color.stroke.weak` (#333333) | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts`, 코드 `src/widgets/archive/ui/generation-filter/generation-filter.css.ts`(rest·hover), Figma 5980:11379, Figma 5212:3699(press, 라이브 없음), Figma 없음(추정, focus-visible, 라이브 없음) |
+| selected | default rest와 같음. label이 값, chevron 대신 ✕(Figma) | `color.palette.gray.800` (#333333) / `color.fg.default` (#FFFFFF) / `color.stroke.weak` (#333333) | `color.bg.layer` (#1A1A1A) / `color.fg.muted` (#999999) / `color.stroke.weak` (#333333) | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | Figma 5980:11538, Figma 5980:11541, Figma 5980:11456, Figma 5980:11544, Figma 없음(추정, focus-visible) |
 | disabled | `color.bg.layer` (#1A1A1A) / `color.fg.disabled` (#999999) / `color.stroke.weak` (#333333) | — | — | — | Figma 없음(추정, select.md 4절) |
 
 - selected의 hover 칸: Figma 변형 "Hover"(Figma 5980:11541, Figma 5980:11456) 값임. `hover-selected` 같은 별도 상태 이름은 두지 않음
@@ -130,11 +131,12 @@ last_updated: 2026-10-22
 ## 6. 반응형
 
 - 기준: 모바일 ≤768px, 데스크톱 ≥1366px, 769~1365px는 기본 스타일(design-reference 3.3)
-- 모바일에서 바뀌는 속성: `components/select.md` 6절 chip 항목과 같음
-  - 높이 44 → 28, 아이콘·chevron·✕ 24 → 16
-  - sector default는 label을 숨김(56×28)
-- Figma 모바일 노드
+- 모바일에서 바뀌는 속성: `components/select.md` 6절 chip 항목과 같음(2026-10-22 라이브 기준으로 정정)
+  - 높이 48 → 32, 부문 아이콘 28 → 16, chevron 16 유지, ✕ 24 → 16(Figma)
+  - sector는 label을 숨김
+- Figma 모바일 노드(기록용)
   - sector default: Figma 7078:5049
+  - sector selected: Figma 7089:5086
   - generation selected: Figma 7091:5127
 
 ## 7. Accessibility
@@ -145,7 +147,7 @@ last_updated: 2026-10-22
 | 키보드 | Tab으로 trigger·✕에 각각 포커스. 목록 키보드는 select.md 5절 | Figma 없음(추정) |
 | aria | trigger 이름: `aria-label`("부문 필터", "기수 필터"). 현재 값은 label 글자로 읽힘<br>모바일 sector default처럼 label이 숨으면 `aria-label`로 이름 유지<br>`aria-expanded`·`aria-controls`·`aria-haspopup="listbox"`는 select.md 7절<br>부문 아이콘·chevron은 `aria-hidden="true"` | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, UI 요소 3:1<br>label `color.fg.default` / `color.bg.layer`: 17.40, hover 바탕 `color.palette.gray.800` 위 12.63<br>보더 `color.stroke.weak` / 검정 캔버스: 1.66. 바탕 #1A1A1A와 글자로 칩이 식별되어 보더는 장식으로 봄(select.md 7절) | 계산값(WCAG 상대 휘도) |
-| 터치 영역 | 최소 24×24: 전 size 통과(모바일 높이 28)<br>모바일 권장 44×44: 모바일 칩(높이 28) 미달 | WCAG 2.2 2.5.8 |
+| 터치 영역 | 최소 24×24: 전 size 통과(모바일 높이 32)<br>모바일 권장 44×44: 모바일 칩(높이 32) 미달 | WCAG 2.2 2.5.8 |
 | 포커스 링 | `color.stroke.focus` (#68CBEC) 2px, offset 2px. 검정 캔버스 위 11.34:1 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 네이티브 `disabled`. 기수 목록 조회 중이면 칩 옆에 사유 표시 | Figma 없음(추정) |
 
@@ -165,7 +167,7 @@ last_updated: 2026-10-22
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | `src/widgets/archive/ui/track-filter/track-filter.tsx`, `src/widgets/archive/ui/generation-filter/generation-filter.tsx` 및 각 `.css.ts` | 공용 컴포넌트 없음. 위젯 안에 따로 구현됨 |
-| frontend 차이 | 위와 같음 | `components/select.md` 9절 chip 항목과 같음(ADOPT-03-11). 이 명세 관점의 추가 차이(ADOPT-03-19)<br>- selected: chevron 유지, ✕ 없음<br>- 부문 트리거(`track-filter.css.ts`) 높이 4.8rem = 48(명세 44), 패딩 0 1.4rem(명세 select.md 3절)<br>- sector label이 "{값} 부문"으로 붙음(Figma "분석"처럼 값만) |
+| frontend 차이 | 위와 같음 | `components/select.md` 9절 chip 항목과 같음(ADOPT-03-11). 이 명세 관점의 추가 차이(ADOPT-03-19). 높이·패딩·label 형식은 라이브 값을 명세로 채택해 삭제(2026-10-22 라이브 기준으로 정정)<br>- selected: chevron 유지, ✕ 없음 |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-03(입력·셀렉트), 값은 ADOPT-05 기준 |
 | FE 이름 ↔ 명세 이름 | 위와 같음 | `TrackFilterOverlay` ↔ sector. `GenerationFilterOverlay` ↔ generation |
 
@@ -175,14 +177,14 @@ last_updated: 2026-10-22
 
 | 값 | 위치 | 근거 | 토큰 추가 필요 여부 |
 | --- | --- | --- | --- |
-| 44px / 28px | 칩 높이(데스크톱 / 모바일) | Figma 3723:9261, Figma 7078:5049 | 불필요 |
-| 24px / 16px | 부문 아이콘·chevron·✕(데스크톱 / 모바일) | Figma 3723:9261, Figma 7078:5049 | 불필요 |
+| 48px / 32px | 칩 높이(데스크톱 / 모바일) | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts` | 불필요 |
+| 28px / 16px | 부문 아이콘(데스크톱 / 모바일) | 코드 `src/widgets/archive/ui/track-filter/track-filter.tsx` | 불필요 |
+| 16px | chevron(데스크톱·모바일) | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts` | 불필요 |
+| 24px / 16px | ✕(데스크톱 / 모바일, 라이브 없음) | Figma 3723:9262, Figma 7091:5133 | 불필요 |
 | 2px, offset 2px | focus-visible outline | Figma 없음(추정) | 불필요 |
 | 0.2s ease-in-out | 전환 | design-reference 4.3 | 불필요 |
-| radius·padding·모바일 글자·보더 불투명도 | select.md 10절 chip 행 | Figma 3723:9261, Figma 7091:5390 | select.md 10절과 같음 |
+| radius·padding·모바일 글자 | select.md 10절 chip 행 | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts` | select.md 10절과 같음 |
 
 ## 11. 미확인
 
-- 모바일 sector selected 크기 56~88×28: 값별 Figma 모바일 selected 노드를 찾지 못함. select.md 3절 chip(부문) 모바일 범위를 옮김
-- 칩 사이 gap 8: 검색·필터 줄 프레임(Figma 5834:10108) 값. 모바일 줄의 gap은 미확인
-- 모바일 generation selected(Figma 7091:5127)에 chevron과 ✕가 함께 들어 있음. 명세는 데스크톱과 같이 ✕만 보이는 것으로 봄
+- 해당 없음. 칩 사이 간격은 라이브 값(데스크톱·모바일 8)으로 해소됨(2026-10-22 라이브 기준으로 정정)

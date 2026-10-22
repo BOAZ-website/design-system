@@ -47,7 +47,7 @@ last_updated: 2026-10-22
 | 슬롯 | 필수 | 설명 | 적용 토큰 |
 | --- | --- | --- | --- |
 | root | ○ | filter-chip selected의 알약형 바탕. 값은 `components/filter-chip.md` 2절 root | `color.bg.layer` (#1A1A1A), `color.stroke.weak` (#333333), `radius.md` (20px) |
-| label | ○ | 선택된 값("분석", "25기"). filter-chip trigger 안 글자 | `typography.body-4`, `color.fg.default` (#FFFFFF) |
+| label | ○ | 선택된 값("분석", "25기"). filter-chip trigger 안 글자 | `typography.body-4` / 모바일 `raw:12px/400`, `color.fg.default` (#FFFFFF) |
 | clear | ○ | ✕ `<button>`. 아이콘 24px(모바일 16px). trigger `<button>` 밖 형제 요소 | 4절 |
 
 ## 3. Variants·Sizes
@@ -62,10 +62,11 @@ last_updated: 2026-10-22
 
 | size | 데스크톱(px) | 모바일(px) | radius | padding | 글자 | 근거 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 칩 | filter-chip selected와 같음(92~166×44) | filter-chip selected와 같음(높이 28) | `components/filter-chip.md` 3절 | `components/filter-chip.md` 3절 | `components/filter-chip.md` 3절 | Figma 3723:9262, Figma 7091:5127 |
+| 칩 | filter-chip selected와 같음(글자 폭 × 48) | filter-chip selected와 같음(높이 32) | `components/filter-chip.md` 3절 | `components/filter-chip.md` 3절 | `components/filter-chip.md` 3절 | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts` |
 | ✕ 아이콘 | 24×24(선 13×13) | 16×16 | — | — | — | Figma 3496:6197, Figma 7091:5127 |
 | ✕ 누르는 영역 | 24×24 | 24×24(아이콘 16 + 사방 4 확장) | — | — | — | Figma 없음(추정) |
 
+- 값 기준(2026-10-22 라이브 기준으로 정정): 칩 본체는 아카이빙 라이브 값(`components/filter-chip.md` 3절). ✕는 라이브에 없어 Figma 값을 씀
 - ✕ 위치: 칩 오른쪽 끝, label 뒤. chevron이 있던 자리(Figma 3723:9262)
 - label과 ✕ 사이 gap: filter-chip gap과 같음(select.md 3절)
 
@@ -126,7 +127,7 @@ last_updated: 2026-10-22
 | 키보드 | Tab으로 포커스, Enter·Space로 실행 | Figma 없음(추정) |
 | aria | `aria-label="{값} 선택 해제"`(예: "분석 선택 해제", "25기 선택 해제"). 값이 바뀌면 함께 갱신<br>✕ 아이콘 SVG는 `aria-hidden="true"` | Figma 없음(추정) |
 | 대비 | 기준: UI 요소(아이콘) 3:1<br>rest `color.fg.default` / `color.bg.layer`: 17.40, hover 바탕 위 12.63<br>hover·press `color.fg.critical` / `color.bg.layer`: 5.84, hover 바탕 `color.palette.gray.800` 위 4.24<br>칩 press 중 ✕ `color.fg.muted` / `color.bg.layer`: 6.11<br>focus 링 `color.stroke.focus` / 검정 캔버스: 11.34 | 계산값(WCAG 상대 휘도), `docs/wbs/20-token.md` 대비표 |
-| 터치 영역 | 최소 24×24: 데스크톱 24×24 통과. 모바일 아이콘 16×16은 누르는 영역을 24×24로 넓혀 통과<br>모바일 권장 44×44: 미달(칩 높이 28 안에 있음) | WCAG 2.2 2.5.8 |
+| 터치 영역 | 최소 24×24: 데스크톱 24×24 통과. 모바일 아이콘 16×16은 누르는 영역을 24×24로 넓혀 통과<br>모바일 권장 44×44: 미달(칩 높이 32 안에 있음) | WCAG 2.2 2.5.8 |
 | 포커스 링 | `color.stroke.focus` (#68CBEC) 2px, offset 2px. `color.bg.layer` 위 9.40:1 | `docs/wbs/20-token.md` 대비표, 계산값 |
 | 비활성 표시 | 칩이 disabled면 ✕도 네이티브 `disabled` | Figma 없음(추정) |
 
@@ -156,6 +157,7 @@ last_updated: 2026-10-22
 | 값 | 위치 | 근거 | 토큰 추가 필요 여부 |
 | --- | --- | --- | --- |
 | 24px / 16px | ✕ 아이콘(데스크톱 / 모바일) | Figma 3496:6197, Figma 7091:5127 | 불필요 |
+| `raw:12px/400` | 모바일 label 글자 | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts` | `components/select.md` 10절과 같음 |
 | 24×24 | ✕ 누르는 영역(모바일 사방 4px 확장) | Figma 없음(추정) | 불필요 |
 | 2px, offset 2px | focus-visible outline | Figma 없음(추정) | 불필요 |
 | 0.2s ease-in-out | 전환 | design-reference 4.3 | 불필요 |
@@ -163,4 +165,6 @@ last_updated: 2026-10-22
 ## 11. 미확인
 
 - ✕ press 색: Figma close 세트(Figma 5980:11571)에 Press 변형 없음. WBS 기준 빨강으로 정함. 디자이너 확인 필요
+  - Figma 추정(약): 데스크톱·모바일 모두 Press 변형 없음. hover 빨강만 ON_HOVER로 연결됨(Figma 5980:11570 → 5980:11572, 모바일 Figma 7078:4925 → 7078:4928 #F96466). hover와 같은 빨강 유지
 - 필터 밖 사용처(검색어·다중 선택 칩 등): Figma에 없음. 다른 화면에 쓸 때 크기·색 재확인 필요
+  - Figma 추정(약): ✕ 칩은 옛 태그 검색 시안(Figma 1110:1261, 1110:1564, 1635:2574)에만 있고 최신 화면(4817:*)에는 없음
