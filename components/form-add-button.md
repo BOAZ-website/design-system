@@ -13,7 +13,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 폼 항목 추가 버튼 (form-add-button)
@@ -65,9 +65,9 @@ last_updated: 2026-10-22
 
 | size | 데스크톱(px) | 모바일(px) | radius | padding | 글자 | 근거 |
 | --- | --- | --- | --- | --- | --- | --- |
-| add 행 | 글자 폭 × 14 | 데스크톱과 같음 | — | 0 | `raw:14px/400` | 코드 `src/widgets/apply/ui/personal-info-section.css.ts`, 코드 `src/widgets/apply/ui/question-section/question-section.css.ts` |
+| add 행 | 글자 폭 × 14, 누르는 영역 높이 24 | 데스크톱과 같음 | — | 0 | `raw:14px/400` | 코드 `src/widgets/apply/ui/personal-info-section.css.ts`, 코드 `src/widgets/apply/ui/question-section/question-section.css.ts` |
 | 추가된 항목 행 | 부모 폭 | 부모 폭 | — | `components/text-field.md` full과 같음, 입력–삭제 gap `spacing.3` (12px) | `components/text-field.md` full과 같음 | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` |
-| remove-button | 글자 폭 × 14 | 데스크톱과 같음 | — | 0 | `raw:14px/400` | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` |
+| remove-button | 글자 폭 × 14, 누르는 영역 24×24 이상 | 데스크톱과 같음 | — | 0 | `raw:14px/400` | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` |
 
 - 값 기준(2026-10-22 라이브 기준으로 정정): 지원서 화면은 모집 기간이 아니라 라이브에서 볼 수 없어 frontend 코드 값을 라이브 값으로 씀(add 행·삭제 버튼의 모양·글자·색·hover). 코드에 없는 것(프로젝트 행 삭제, 포커스 이동, press·focus-visible)은 Figma 값·추정값. 이전 Figma 값(행 800×60·342×56, 18 Regular, 아이콘 24px, hover 바탕 #0D0D0D)은 기록용
 - 행 사이 간격: 위 필드와 add 행 `spacing.5` (20px)(코드 section gap 32 − 위 여백 12), 추가된 항목 행끼리 `spacing.8` (32px)(코드 section gap)
@@ -155,7 +155,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 키보드 | Tab으로 각 버튼·입력 이동, Enter·Space 실행. 추가 후 새 입력으로, 삭제 후 5절 순서로 포커스 이동 | Figma 없음(추정) |
 | aria | add 행 이름은 보이는 라벨("복수/부전공"). "+" 표시는 `aria-hidden="true"`. remove-button은 보이는 글자 "삭제"에 더해 `aria-label="{항목 이름} {번호} 삭제"`(예: "복수/부전공 2 삭제"). 삭제 결과는 `role="status"`로 알림 | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, UI 요소 3:1(배경 검정 캔버스 #000000)<br>add 라벨·"+": rest #999999 7.37, hover #FFFFFF 21.00<br>remove-button 글자: rest #999999 7.37, hover #E6E6E6 16.83<br>추가된 항목 행: `components/text-field.md` 7절 대비 행 | 계산값(WCAG 상대 휘도) |
-| 터치 영역 | 최소 24×24: add 행·remove-button 높이 14(글자 높이)로 **알려진 미달**(라이브 값 유지, 2026-10-22 라이브 기준으로 정정). 누르는 영역을 위아래 `padding`으로 24 이상 넓히고 음수 margin으로 겉 크기를 유지하는 방식은 접근성 개선 별도 결정<br>모바일 권장 44×44: 모두 미달 | WCAG 2.2 2.5.8 |
+| 터치 영역 | 최소 24×24: add 행·remove-button은 겉 높이 14(글자 높이)를 유지하고 위아래 `raw:5px` 투명 `padding` + 같은 크기 음수 margin으로 누르는 영역 높이를 24로 넓힘. remove-button 글자 "삭제"가 24보다 좁으면 좌우도 같은 방식으로 24까지 넓힘(2026-10-23 결정, ADOPT-03-21)<br>모바일 권장 44×44: 모두 미달 | WCAG 2.2 2.5.8 |
 | 포커스 링 | add 행·remove-button: outline 2px, offset 2px, `color.stroke.focus` (#68CBEC) 11.34:1. 추가된 입력은 text-field 규칙(보더·label 색, outline 없음) | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 해당 없음. 최대 개수 도달 시 add 행을 숨김(4절) | Figma 없음(추정) |
 
@@ -175,7 +175,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | `src/widgets/apply/ui/personal-info-section.tsx`, `src/widgets/apply/ui/personal-info-section.css.ts`, `src/widgets/apply/ui/question-section/question-section.tsx`, `src/widgets/apply/ui/question-section/question-section.css.ts` | 공용 컴포넌트 없음. 화면마다 직접 구현<br>- 복수/부전공: `addDegree`(add 행, 최대 3개), `degreeRow` + `removeDegreeButton`("삭제" 글자 버튼)<br>- 프로젝트: `addProject`("+ 프로젝트 추가하기"), 추가된 행 삭제 없음 |
-| frontend 차이 | 위와 같음 | ADOPT-03-21에서 고침. 명세와 다른 점(라이브 값을 명세로 채택한 add 글자·크기·hover, 삭제 글자 버튼·hover 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- add 행: `<div onClick>`(명세 `<button type="button">`), 키보드로 실행 불가<br>- add 글자: "+ " 기호가 이름에 포함됨(명세 `aria-hidden="true"`)<br>- 삭제: `aria-label` 없음(모든 삭제 버튼 이름이 "삭제")<br>- 프로젝트 추가 행: 삭제 버튼 없음<br>- 포커스: 추가·삭제 후 이동 없음, 전역 `outline: none`(ADOPT-01-03) |
+| frontend 차이 | 위와 같음 | ADOPT-03-21에서 고침. 명세와 다른 점(라이브 값을 명세로 채택한 add 글자·크기·hover, 삭제 글자 버튼·hover 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- add 행: `<div onClick>`(명세 `<button type="button">`), 키보드로 실행 불가<br>- add 글자: "+ " 기호가 이름에 포함됨(명세 `aria-hidden="true"`)<br>- 삭제: `aria-label` 없음(모든 삭제 버튼 이름이 "삭제")<br>- 프로젝트 추가 행: 삭제 버튼 없음<br>- 포커스: 추가·삭제 후 이동 없음, 전역 `outline: none`(ADOPT-01-03)<br>- 누르는 영역 높이 14(글자 높이) → 위아래 `raw:5px` padding + 음수 margin으로 24(2026-10-23 결정) |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 관리자 콘솔 출석 이벤트 빠른 추가는 형태가 달라 이 명세 대상 아님. 입력은 ADOPT-07-03(2026-10-22 확인) |
 | FE 이름 ↔ 명세 이름 | 위와 같음 | `addDegree`·`addProject` ↔ add 행. `degreeRow` ↔ 추가된 항목 행. `removeDegreeButton` ↔ remove-button |
 
@@ -186,6 +186,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 값 | 위치 | 근거 | 토큰 추가 필요 여부 |
 | --- | --- | --- | --- |
 | `raw:14px/400` | add 라벨·remove-button 글자. `typography.text-1`은 14/300 | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` | 필요 여부 별도 이슈 |
+| `raw:5px` | add 행·remove-button 누르는 영역 위아래 확장(padding + 음수 margin) | Figma 없음(추정) | 불필요 |
 | 2px, offset 2px | focus-visible outline | Figma 없음(추정) | 불필요 |
 | 0.2s ease-in-out | 전환 | design-reference 4.3 | 불필요 |
 
@@ -195,4 +196,3 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
   - Figma 추정(약): press 없음. 추가된 행 입력 포커스는 Active_Focus(5775:9707, 보라 아래 보더, label 14 Light 보라). close 세트 5755:10062는 Default·Hover(5755:10063, #F96466)만 있음
 - 삭제 확인 없음·삭제 후 포커스 순서·`role="status"` 알림: Figma 없음(추정)
   - Figma 추정(약): Active 5775:9680의 close 클릭 → 바로 Default(5188:453)로 돌아가 삭제 확인 없음. 포커스·알림은 추정 유지
-- add 행·remove-button 누르는 영역 확장(24×24 미달): 라이브 값 유지, 접근성 개선 별도 결정

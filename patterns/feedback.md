@@ -15,7 +15,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 피드백 (feedback)
@@ -56,7 +56,7 @@ last_updated: 2026-10-22
 | 오래 걸리는 요청 진행: 지원서 제출 | 로딩 모달 + 제출 버튼 pending. 요청 완료 후 결과형 모달 | `components/modal.md` 5절 로딩 모달, `components/button.md` 5절 |
 | 짧은 요청 진행·완료: 임시저장, 사전 알림 신청 처리 중 | 버튼 pending(`aria-busy="true"`, 라벨 유지) + 상태 알림 영역 `role="status"`. 모달을 띄우지 않음 | `components/button.md` 4절·5절 |
 | 짧은 요청 실패: 임시저장 실패 등 Figma 모달이 없는 실패 | 버튼을 rest로 되돌리고 상태 알림 영역 `role="alert"`로 알림 | `components/button.md` 5절 |
-| 되돌릴 수 없는 동작 확인(예·아니오): 지원서 제출 전 확인, 부문 변경 | Figma에 확인형 모달 없음. 디자이너가 종류를 추가하기 전까지 기존 `confirm()` 유지(7절) | `components/modal.md` 11절 |
+| 되돌릴 수 없는 동작 확인(예·아니오): 지원서 제출 전 확인, 부문 변경 | 확인형 모달(confirm-submit·confirm-track-change). 취소·확인 2개, 초기 포커스 취소. 문구는 라이브(frontend 코드) 문구(2026-10-23 결정) | `components/modal.md` 3·5절 |
 | Figma에 해당 모달이 없는 결과 | 새 모달 문구를 지어 쓰지 않음. 3절 대응표의 임시 수단을 쓰고 7절에 올림 | `components/modal.md` 3절("제목·설명 문구는 Figma 원문 그대로") |
 
 - 판단 순서
@@ -116,12 +116,12 @@ A4 소표(`SERVER_ERROR_MESSAGES`의 서버 오류 코드별)
 
 #### confirm 2곳
 
-ADOPT-04-02 완료 확인(`alert(` 0건) 대상이 아님. 확인형 모달이 Figma에 없어 유지함.
+ADOPT-04-02 완료 확인(`alert(` 0건) 대상이 아님. 확인형 모달 confirm-submit·confirm-track-change로 교체함(2026-10-23 결정, `components/modal.md` 3절).
 
 | # | 파일 | 위치 | 현재 문구 | 대체 수단 | 비고 |
 | --- | --- | --- | --- | --- | --- |
-| C1 | `src/pages/apply-page.tsx` | `handleSubmit` 제출 전 확인 | 제출하면 중복 제출이 불가합니다. 제출하시겠습니까? | Figma에 없음. 디자이너가 확인형을 추가할 때까지 `window.confirm` 유지 | 확인 후 로딩 모달 → 결과형 모달 순서(아래 "alert가 아닌 모달 사용처") |
-| C2 | `src/widgets/apply/ui/personal-info-section.tsx` | `handleTrackChange` 부문 변경 | 부문을 변경할 경우 {현재 부문} 부문의 기존 임시저장 내역이 사라지게 됩니다. 계속 진행하시겠습니까? | Figma에 없음. C1과 같음 | 코드 주석에 "모달 컴포넌트로 교체" 계획 있음 |
+| C1 | `src/pages/apply-page.tsx` | `handleSubmit` 제출 전 확인 | 제출하면 중복 제출이 불가합니다. 제출하시겠습니까? | 모달 confirm-submit(제목 "제출하면 중복 제출이 불가합니다." / 설명 "제출하시겠습니까?") | 확인 후 로딩 모달 → 결과형 모달 순서(아래 "alert가 아닌 모달 사용처") |
+| C2 | `src/widgets/apply/ui/personal-info-section.tsx` | `handleTrackChange` 부문 변경 | 부문을 변경할 경우 {현재 부문} 부문의 기존 임시저장 내역이 사라지게 됩니다. 계속 진행하시겠습니까? | 모달 confirm-track-change. 확인 → 이전 부문 임시저장 삭제 후 새 부문 선택, 취소 → 이전 부문 유지 | 코드 주석에 "모달 컴포넌트로 교체" 계획 있음 |
 
 #### alert가 아닌 모달 사용처
 
@@ -131,7 +131,9 @@ Figma 모달 중 현재 코드가 `alert()`로 처리하지 않는 곳. ADOPT-04
 | --- | --- | --- | --- | --- |
 | loading | 제출 중 표시 없음. 제출 버튼 상태 변화도 없음 | `src/pages/apply-page.tsx`(`handleSubmit`), `src/widgets/apply/model/use-submit-application.ts` | 제출 요청 시작 시 로딩 모달을 열고 제출 버튼 pending. 완료 시 로딩 모달을 닫고 A8·A9 모달을 엶 | Figma 5164:5587, `components/modal.md` 5절 |
 | info-not-open | `status.is_active === false`이면 모달 없이 홈으로 이동(`Navigate`) | `src/pages/apply-page.tsx` | 지원 진입 시 안내형 모달. 신청 버튼은 사전 알림 신청 영역으로 이동 | Figma 4243:4452 |
-| info-closed | info-not-open과 같은 분기(구분 없음) | `src/pages/apply-page.tsx` | 모집 마감이면 info-closed. 두 경우를 나눌 기준 데이터는 7절 | Figma 4243:4480 |
+| info-closed | info-not-open과 같은 분기(구분 없음) | `src/pages/apply-page.tsx` | 모집 마감이면 info-closed | Figma 4243:4480 |
+
+- 모집 상태 판정(라이브, 2026-10-23 결정): `GET /api/v1/recruitment/status` 응답 `is_active`가 true면 지원 가능(지원하기 brand), false면 지원 불가(지원하기 disabled). 마감 일시는 `GET /api/v1/recruitment/deadline`. `is_active`가 false이고 현재 시각이 마감 일시 이후면 info-closed, 그 밖은 info-not-open. 근거 코드 `src/widgets/recruiting/ui/apply-section/apply-section.tsx`, `components/button.md` 4절
 
 - 지원 진입 버튼("지원하기"): `src/widgets/recruiting/ui/recruiting-hero-section/recruiting-hero-section.tsx`, `src/entities/track/ui/track-card/track-card.tsx`. 안내형 모달을 지원서 화면 진입 후에 띄울지, 진입 버튼을 누를 때 띄울지는 7절
 
@@ -160,8 +162,8 @@ Figma 모달 중 현재 코드가 `alert()`로 처리하지 않는 곳. ADOPT-04
 | Do | Don't |
 | --- | --- |
 | 입력 필드 값이 원인이면 필드 아래 문구로 알림 | 필수 항목 누락을 모달이나 `alert()` 한 줄로 몰아 알림(A7 현재 방식) |
-| 모달은 Figma 7종 상황에만, 문구는 `components/modal.md` 3절 원문 | 상황마다 새 모달 문구를 지음, 지원서용 success·failure를 사전 알림에 재사용 |
-| 안내형만 버튼 2개(닫기·신청), 나머지는 닫기 1개 | 결과형에 확인·취소 2개, 로딩 모달에서 닫기를 없애거나 비활성화 |
+| 모달은 `components/modal.md` 3절 9종 상황에만, 문구는 3절 원문 | 상황마다 새 모달 문구를 지음, 지원서용 success·failure를 사전 알림에 재사용 |
+| 안내형(닫기·신청)·확인형(취소·확인)만 버튼 2개, 나머지는 닫기 1개 | 결과형에 확인·취소 2개, 로딩 모달에서 닫기를 없애거나 비활성화 |
 | 짧은 요청은 버튼 pending + `role="status"` | 짧은 요청마다 로딩 모달을 띄움 |
 | 상태 알림 영역을 미리 DOM에 두고 문구만 바꿈 | 알림 순간에 live region 요소를 새로 삽입 |
 | 알림은 이벤트 처리 함수나 효과(effect)에서 엶 | 렌더링 중에 `alert()` 호출(A10 현재 방식) |
@@ -177,13 +179,9 @@ Figma 모달 중 현재 코드가 `alert()`로 처리하지 않는 곳. ADOPT-04
 
 ## 7. 미확인
 
-- 확인형 모달(예·아니오): C1·C2가 `confirm()`을 씀. Figma에 없음(`components/modal.md` 11절). 종류 추가 여부 디자이너 확인 필요. 추가 전까지 `confirm()` 유지. 문구는 `patterns/voice-and-tone.md` 2.1 확인 질문 규칙(합쇼체 의문 "~하시겠습니까?")을 따르고, 확인형 모달이 추가되면 같은 문구를 옮김
-  - Figma 추정(디자이너): 확인형 variant(취소·확인, 초기 포커스 취소) 추가 권고. `confirm()`은 스타일·초점 복귀·화면 읽기 프로그램 안내를 통제할 수 없음
 - Figma에 해당 모달이 없는 알림 4가지: 사전 알림 신청 완료(A3), 서버 오류(A4 일부·A5), 로그인 필요(A6), 이미 제출된 지원서(A10). 2.3절 임시 수단은 추정. 모달 종류 추가 여부 디자이너 확인 필요
   - Figma 추정(디자이너): 모달 추가 없이 임시 수단 확정 가능. A3은 버튼 pending 후 `role="status"`, A4·A5는 `role="alert"`, A6·A10은 홈 이동 후 상태 영역 문구
 - A6 로그인 필요: 홈 이동 후 로그인 오버레이를 여는 방식은 추정. 로그인 후 지원서 화면으로 돌아오는 흐름 포함 여부 확인 필요
   - Figma 추정(약): 복귀 포함. 이동 전 경로를 보관하고 로그인 성공 시 지원서 화면으로 돌아옴(SC 3.3.7)
-- info-not-open과 info-closed 구분 기준: 현재 코드는 `status.is_active`만 봄. 모집 시작 전과 마감 후를 나눌 데이터(모집 기간)를 응답에서 쓸지 백엔드 확인 필요
-  - Figma 추정(디자이너): 백엔드 확인 사항. 응답에 모집 시작·종료 일시를 넣어 시작 전 not-open, 종료 후 closed. 데이터가 없으면 not-open 문구 하나만 씀
 - 안내형 모달을 띄우는 시점: 지원 진입 버튼을 누를 때(리크루팅 화면) 또는 지원서 화면 진입 후. Figma에 모달이 놓인 화면 인스턴스가 없어 판단 근거 없음(`components/modal.md` 11절 backdrop 항목)
   - Figma 추정(약): 지원 진입 버튼을 누를 때 띄움(신청 버튼 목적지인 사전 알림 영역이 리크루팅 화면에 있음). 지원서 URL 직접 접근은 지원서 화면에서 같은 모달, 닫으면 홈으로 이동

@@ -12,7 +12,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 선택 카드 (selection-card)
@@ -66,7 +66,7 @@ last_updated: 2026-10-22
 - radius 8: `radius.xs` 토큰(#73, 2026-10-22 추가). COMPONENT-15-02의 "수치로 기재"는 토큰 추가로 대체됨
 - 높이 고정. 폭은 Group 행을 3등분(`flex: 1 1 0`)해 데스크톱 800 폭에서 253이 됨(3×253 + 2×20 = 799)
 - 값 기준(2026-10-22 라이브 기준으로 정정): 선택 카드는 라이브·frontend 코드에 없어 Figma 값을 씀
-- 라벨 글자: Figma 18 Bold(`typography.body-3`, 데스크톱)·15 Bold(`raw:15px/700`, 모바일). 이전에 대비 기준으로 `typography.body-2` (20/700)로 올린 결정은 되돌림. 보라 바탕 위 글자 대비 미달은 7절 알려진 미달
+- 라벨 글자: Figma 18 Bold(`typography.body-3`, 데스크톱)·15 Bold(`raw:15px/700`, 모바일). 글자 크기는 그대로 두고 selected 바탕을 어둡게 해 대비를 맞춤(4절, 2026-10-23 결정)
   - 상태가 바뀌어도 글자 크기는 같게 둠(선택 시 줄 길이가 변하지 않게)
 - Figma 4266:7629(Selected)의 패딩 30 / 49는 고정 크기·가운데 정렬이라 결과가 같아 쓰지 않음
 
@@ -89,11 +89,12 @@ focus-visible 칸은 rest 색을 유지하고 root에 outline을 더함.
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | default | — / `color.palette.gray.100` (#E6E6E6) / `color.palette.gray.600` (#666666) 1px | — / `color.palette.gray.100` (#E6E6E6) / `color.palette.gray.100` (#E6E6E6) 1px | hover 값 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | Figma 5188:8868, Figma 5188:8870, Figma 4266:8040, Figma 없음(추정, press·focus-visible) |
-| selected | `color.bg.brand-solid` (#7A64F9) / `color.palette.gray.100` (#E6E6E6) / — | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | Figma 4266:7629, Figma 5188:8873, Figma 없음(추정, hover·press·focus-visible) |
+| selected | `color.palette.purple.300` (#493C95) / `color.palette.gray.100` (#E6E6E6) / `color.stroke.brand` (#7A64F9) 1px | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 직접 계산(2026-10-23, rest 바탕·보더), Figma 5188:8873(라벨), Figma 없음(추정, hover·press·focus-visible) |
 
 - default 라벨: `color.palette.gray.100` (#E6E6E6). 컴포넌트 원본(4266:7628)만 #999999이고, 화면 인스턴스 데스크톱 6개(Figma 4266:7989~4266:7991, 4266:8040·4266:8041)와 6714:13860·6714:13861, 인터랙션 세트(5188:8868)가 모두 #E6E6E6임(확인됨)
-- selected 라벨: 인터랙션 세트(5188:8873)·모바일 세트(7578:9516)의 #E6E6E6(`color.palette.gray.100`)을 씀. 컴포넌트 원본 4266:7629만 #FFFFFF. 이전에 대비 기준으로 #FFFFFF를 고른 결정은 되돌림(2026-10-22 라이브 기준으로 정정). 보라 위 3.35:1로 알려진 미달(7절)
-- selected 보더: Figma에 없음. 바탕과 같은 색이라 보더 1px 자리는 `transparent`로 두어 크기가 변하지 않게 함
+- selected 라벨: 인터랙션 세트(5188:8873)·모바일 세트(7578:9516)의 #E6E6E6(`color.palette.gray.100`)을 씀. 컴포넌트 원본 4266:7629만 #FFFFFF
+- selected 바탕: `color.palette.purple.300` (#493C95). Figma 값 `color.bg.brand-solid` (#7A64F9)는 라벨 #E6E6E6과 3.35:1로 미달이라 바꿈. 카드는 라이브에 없어 변경 비용 없음. #E6E6E6 / #493C95 7.12(2026-10-23 결정, 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목")
+- selected 보더: `color.stroke.brand` (#7A64F9) 1px(2026-10-23 결정). 근거: #493C95 바탕은 검정 캔버스 대비 2.36:1이라 바탕만으로는 선택 표시(UI 요소) 3:1에 못 미침. 보라 보더는 캔버스 대비 5.02:1. hover는 바탕 없이 보더만 #E6E6E6으로 바뀌어 #493C95를 쓰지 않으므로 selected와 겹치지 않음(selected는 채운 카드 + 보라 보더, hover는 빈 카드 + 밝은 보더)
 - selected의 hover·press: 다시 눌러도 바뀌는 것이 없어(네이티브 라디오는 해제되지 않음) rest 유지
 - 포커스 트리거: 숨긴 input의 `:focus-visible`. 스타일은 root에 그림(`label:has(input:focus-visible)` 또는 input을 root 앞 형제로 두고 `input:focus-visible + root`)
 - 비동기 상태(pending·loading): 해당 없음. 선택은 화면 값만 바꿈. 부문 변경 확인은 5절
@@ -109,7 +110,9 @@ focus-visible 칸은 rest 색을 유지하고 root에 outline을 더함.
 - 부문 변경 확인(임시저장 내역이 있을 때)
   - 이미 선택된 부문을 다른 부문으로 바꾸면 기존 부문 임시저장 내역이 지워지므로 확인 모달(COMPONENT-07)을 띄움
   - 방향키 이동도 선택 변경이므로 같은 확인을 거침
-  - 취소: 이전 부문 선택으로 되돌리고 포커스를 이전 카드에 둠. 확인: 새 부문 유지, 포커스는 새 카드로 돌아옴
+  - 모달 문구(라이브): 제목 "부문을 변경할 경우 {현재 부문} 부문의 기존 임시저장 내역이 사라지게 됩니다." / 설명 "계속 진행하시겠습니까?"(`components/modal.md` confirm-track-change). 근거 코드 `src/widgets/apply/ui/personal-info-section.tsx`
+  - 취소: 이전 부문 선택을 유지(되돌림)하고 포커스를 이전 카드에 둠
+  - 확인: 이전 부문의 임시저장 내역을 삭제한 뒤 새 부문을 선택함. 포커스는 새 카드로 돌아옴
   - `window.confirm` 사용 금지(PATTERN-01, ADOPT-04)
 - 비동기 중 동작: 해당 없음(4절)
 
@@ -140,7 +143,7 @@ focus-visible 칸은 rest 색을 유지하고 root에 outline을 더함.
 | role | 카드마다 네이티브 `<input type="radio">`. 묶음은 `<fieldset>` + `<legend>`("부문을 선택해주세요"). 제목을 화면 제목 요소로 유지해야 하면 `role="radiogroup"` + `aria-labelledby` | Figma 없음(추정) |
 | 키보드 | 묶음당 Tab 정지 1곳, 방향키 이동·선택·순환, Space 선택. 네이티브 라디오와 같은 `name`으로 얻음. `onKeyDown` 직접 구현 금지 | Figma 없음(추정) |
 | aria | 이름은 보이는 라벨(부문 이름). icon은 `aria-hidden="true"`. input에 `required`. 누락 시 묶음에 `aria-invalid="true"`와 메시지 id를 `aria-describedby`로 연결 | Figma 없음(추정) |
-| 대비 | 기준: 글자 4.5:1, 큰 글자(Bold 18.67px 이상)·UI 요소 3:1<br>default 라벨 #E6E6E6 / 검정 캔버스: 16.83<br>default 보더 #666666 / 검정: 3.66, hover 보더 #E6E6E6: 16.83(UI 요소 통과)<br>selected 바탕 #7A64F9 / 검정: 5.02(선택 표시 UI 요소 통과)<br>selected 라벨 #E6E6E6 / #7A64F9: 3.35. 데스크톱 18 Bold·모바일 15 Bold 모두 큰 글자가 아니라 **알려진 미달**(Figma 값 유지, 2026-10-22 라이브 기준으로 정정)<br>icon #999999 / #7A64F9: 1.47. 장식이라 기준 대상 아님 | 계산값(WCAG 상대 휘도), `docs/wbs/20-token.md` 대비표 |
+| 대비 | 기준: 글자 4.5:1, 큰 글자(Bold 18.67px 이상)·UI 요소 3:1<br>default 라벨 #E6E6E6 / 검정 캔버스: 16.83<br>default 보더 #666666 / 검정: 3.66, hover 보더 #E6E6E6: 16.83(UI 요소 통과)<br>selected 바탕 #493C95 / 검정: 2.36, selected 보더 #7A64F9 / 검정: 5.02(선택 표시 UI 요소는 보더로 통과)<br>selected 라벨 #E6E6E6 / #493C95: 7.12(2026-10-23 결정으로 #7A64F9 3.35에서 바꿈)<br>icon #999999 / #493C95: 3.12. 장식이라 기준 대상 아님 | 계산값(WCAG 상대 휘도), `docs/wbs/20-token.md` 대비표 |
 | 터치 영역 | 최소 24×24, 모바일 권장 44×44 모두 통과(카드 전체가 `<label>`, 253×80 / 342×56) | WCAG 2.2 2.5.8 |
 | 포커스 링 | 숨긴 input 대신 root에 그림. outline 2px, offset 2px. 검정 캔버스 위 `color.stroke.focus` (#68CBEC) 11.34:1. 보라 카드 안쪽에 그리면 2.26:1로 미달이라 offset으로 카드 밖에 그림 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 해당 없음(4절 disabled 행 없음). 필요해지면 `components/radio.md`처럼 `<fieldset disabled>`와 사유 글자 | Figma 없음(추정) |
@@ -162,7 +165,7 @@ focus-visible 칸은 rest 색을 유지하고 root에 outline을 더함.
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | 없음 | 선택 카드 컴포넌트 없음. 지원 부문은 `src/widgets/apply/ui/personal-info-section.tsx`에서 `RadioGroup`(`name="track"`, 세로 원형 라디오 목록)으로 구현됨. 최신 Figma 지원 폼(8801:6062, 라디오 8811:5682~8811:5684)도 라디오 목록이라 화면 구성은 frontend와 같음. 카드 유지 여부는 11절 |
-| frontend 차이 | `src/widgets/apply/ui/personal-info-section.tsx` | ADOPT-03-20에서 고침. 명세와 다른 점<br>- 모양: 원형 라디오 목록(명세 카드 253×80 가로 3개)<br>- 위치: 지원자 정보 단계 안 질문(이전 Figma는 "지원 안내사항 및 동의" 화면 4266:8034. 최신 Figma 8801:6062는 frontend와 같이 지원자 정보 단계 라디오 목록)<br>- 부문 변경 확인: `window.confirm`(명세 모달 COMPONENT-07, 취소 시 이전 선택 복원)<br>- 묶음 role·포커스 표시: `components/radio.md` 9절 frontend 차이와 같음(ADOPT-03-13) |
+| frontend 차이 | `src/widgets/apply/ui/personal-info-section.tsx` | ADOPT-03-20에서 고침. 명세와 다른 점<br>- 모양: 원형 라디오 목록(명세 카드 253×80 가로 3개)<br>- 위치: 지원자 정보 단계 안 질문(이전 Figma는 "지원 안내사항 및 동의" 화면 4266:8034. 최신 Figma 8801:6062는 frontend와 같이 지원자 정보 단계 라디오 목록)<br>- 부문 변경 확인: `window.confirm`(명세 모달 COMPONENT-07 confirm-track-change, 동작은 같음: 확인 시 이전 부문 임시저장 삭제, 취소 시 이전 선택 유지)<br>- 묶음 role·포커스 표시: `components/radio.md` 9절 frontend 차이와 같음(ADOPT-03-13) |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 관리자 콘솔의 선택은 라디오·셀렉트라 ADOPT-07-03(입력·셀렉트)에서 다룸. 이 카드형은 관리자 콘솔에 없음(2026-10-22 확인) |
 | FE 이름 ↔ 명세 이름 | — | 해당 없음(컴포넌트 없음). Figma 이름 "지원 폼 탭"·"지원폼_부문 선택 버튼" ↔ selection-card |
 

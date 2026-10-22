@@ -20,7 +20,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 탭 (tab)
@@ -112,10 +112,10 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| default | `color.palette.gray.800` (#333333) / `color.fg.on-inverse` (#000000) / — | `color.palette.gray.600` (#666666) / `color.fg.on-inverse` (#000000) / — | hover 값 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/shared/components/fixed-tab/fixed-tab.css.ts`(rest·hover), Figma 5639:10001, Figma 없음(추정, press·focus-visible, 라이브 없음) |
+| default | `color.palette.gray.800` (#333333) / `color.fg.default` (#FFFFFF) / — | `color.palette.gray.600` (#666666) / `color.fg.on-inverse` (#000000) / — | hover 값 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/shared/components/fixed-tab/fixed-tab.css.ts`(rest 바탕·hover), 직접 계산(2026-10-23, rest 글자), Figma 5639:10001, Figma 없음(추정, press·focus-visible, 라이브 없음) |
 | selected | `color.bg.neutral-solid` (#FFFFFF) / `color.fg.on-inverse` (#000000) / — | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/shared/components/fixed-tab/fixed-tab.css.ts`, Figma 5639:10003 |
 
-- default rest 글자: 라이브·Figma 모두 검정(#333333 위 1.66:1). 이전에 대비 기준으로 `color.fg.default`로 바꾼 결정은 되돌림. 7절 알려진 미달(2026-10-22 라이브 기준으로 정정)
+- default rest 글자: `color.fg.default` (#FFFFFF). 라이브·Figma 값 검정(#333333 위 1.66:1)은 대비 미달이라 라이브 값 원칙의 예외로 바꿈. #FFFFFF / #333333 12.63(2026-10-23 결정, 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"). frontend 수정은 ADOPT-03-14
 - default hover: 라이브 #666666 바탕 + 검정 글자(3.66:1, 20 Bold 큰 글자 통과). 이전 명세의 흰 글자는 라이브 값으로 바꿈(2026-10-22 라이브 기준으로 정정)
 - 모바일 box: 라이브는 데스크톱과 같은 색 체계(#333333 / #FFFFFF, 검정 글자). Figma 모바일 색 체계(#1A1A1A / #6250C7, Figma 7249:14310)는 라이브에 없어 쓰지 않음(2026-10-22 라이브 기준으로 정정)
 - 모바일은 터치 환경이라 hover 색을 적용하지 않음
@@ -209,7 +209,7 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 | role | box·underline·category: 컨테이너 `role="tablist"`, 항목 `<button type="button" role="tab">`, 내용 `role="tabpanel"`<br>text: `<nav aria-label="주 메뉴">` 안 `<ul>`·`<li>`·`<a href>`. tab role 금지 | Figma 없음(추정) |
 | 키보드 | 탭 목록: ←·→(가로) / ↑·↓(세로), Home·End, Enter·Space로 선택, 수동 활성화. 패널은 Tab으로 진입<br>text: Tab으로 이동, Enter로 이동 | Figma 없음(추정) |
 | aria | 탭: `aria-selected="true"` 또는 `"false"`, `aria-controls="{패널 id}"`, `id` 지정<br>탭 목록: 보이는 제목이 없으면 `aria-label`(예: "트랙", "자료 종류", "질문 분류"). category 데스크톱은 `aria-orientation="vertical"`<br>패널: `aria-labelledby="{탭 id}"`, 패널 안 첫 요소가 포커스 대상이 아니면 `tabindex="0"`. 선택되지 않은 패널은 `hidden`<br>text: 현재 페이지 링크에 `aria-current="page"`. 접근 이름은 보이는 글자와 같게 둠("~으로 이동" 같은 `aria-label` 덧붙이지 않음) | Figma 없음(추정) |
-| 대비 | 기준: 글자 4.5:1, 큰 글자(Bold 18.67px 이상 또는 Regular 24px 이상)·UI 요소 3:1<br>text: 흰 글자 대 검정 21.00<br>box: default 검정/#333333 1.66(알려진 미달, 데스크톱 20 Bold·모바일 16/600 모두), hover 검정/#666666 3.66(데스크톱 20 Bold 큰 글자 통과), selected 검정/#FFFFFF 21.00, default 바탕/캔버스 1.66<br>underline: default #999999/#000000 7.37, selected 21.00, 아래 선 #FFFFFF/#000000 21.00<br>category: default 7.37, Figma hover #CCCCCC/#1A1A1A 10.84, selected 21.00, selected hover #FFFFFF/#1A1A1A 17.40<br>category 데스크톱 default와 selected는 글자색만 다름(#FFFFFF 대 #999999 2.85, SC 1.4.1 알려진 미달)<br>알려진 미달은 `patterns/accessibility.md` 2.2 표에 모음(2026-10-22 라이브 기준으로 정정) | 직접 계산(2026-10-22), `docs/wbs/20-token.md` 대비표 |
+| 대비 | 기준: 글자 4.5:1, 큰 글자(Bold 18.67px 이상 또는 Regular 24px 이상)·UI 요소 3:1<br>text: 흰 글자 대 검정 21.00<br>box: default 흰 글자/#333333 12.63(2026-10-23 결정으로 검정 1.66에서 바꿈), hover 검정/#666666 3.66(데스크톱 20 Bold 큰 글자 통과), selected 검정/#FFFFFF 21.00, default 바탕/캔버스 1.66<br>underline: default #999999/#000000 7.37, selected 21.00, 아래 선 #FFFFFF/#000000 21.00<br>category: default 7.37, Figma hover #CCCCCC/#1A1A1A 10.84, selected 21.00, selected hover #FFFFFF/#1A1A1A 17.40<br>category 데스크톱 default와 selected는 글자색만 다름(#FFFFFF 대 #999999 2.85, SC 1.4.1 알려진 미달)<br>알려진 미달은 `patterns/accessibility.md` 2.2 표에 모음(2026-10-22 라이브 기준으로 정정) | 직접 계산(2026-10-22), `docs/wbs/20-token.md` 대비표 |
 | 터치 영역 | 최소 24×24: text는 글자 높이 18이라 링크 영역에 위아래 `raw:3px` 이상을 더해 24 이상 확보(Figma 없음(추정)), 그 외 통과<br>모바일 권장 44×44: box 100×49·underline 35.5 높이 중 underline이 미달 | WCAG 2.2 2.5.8 |
 | 포커스 링 | `color.stroke.focus` (#68CBEC), 2px, offset 2px. 검정 캔버스 위 11.34:1. box selected(흰 바탕)도 링은 바탕 밖 캔버스 위에 놓임 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 해당 없음. 비활성 탭을 두지 않음. 필요해지면 `aria-disabled="true"`로 포커스는 유지(WAI-ARIA 탭 패턴 권고: 비활성 탭도 방향키 이동 대상에 남겨 존재를 알림. 버튼의 네이티브 `disabled` 규칙과 다른 예외) | Figma 없음(추정) |
@@ -233,7 +233,7 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 | frontend(underline) | `src/pages/archive-page.tsx`, `src/pages/archive-page.css.ts` | 공용 컴포넌트 없이 페이지에서 직접 `tab`·`tabRow` 스타일. 목록 간격 40px(`spacing.10`), 목록 아래 1px #333333 |
 | frontend(category) | `src/widgets/faq/ui/faq-content-section.tsx`, `src/widgets/faq/ui/faq-content-section.css.ts` | `<nav>` 안 `<button>`, `tabVariants` |
 | frontend(text) | `src/widgets/common/ui/tab-bar/tab-bar.tsx`, `src/widgets/common/ui/tab-bar/tab-bar.css.ts` | `NavLink`(현재 페이지에 `aria-current="page"` 자동 부여)와 `navItem`·`navItemActive`. 탭바 레이아웃은 범위 밖 |
-| frontend 차이 | 위 파일 | 수정 예정(ADOPT-03·04). 명세와 다른 점(라이브 값을 명세로 채택한 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 네 곳 모두 `role="tablist"`·`tab`·`tabpanel`·`aria-selected`·방향키 없음<br>- FAQ: 탭 목록을 `<nav>`로 감쌈(페이지 이동이 아니므로 tablist여야 함)<br>- category: hover 바탕·글자 변화 없음(명세는 Figma hover `color.bg.layer` / `color.fg.neutral`)<br>- text: `aria-label="{메뉴}으로 이동"`<br>- 포커스: 전역 `outline: none`, `:focus-visible` 없음<br>- 리크루팅 링크에 탭 스타일 재사용(8절) |
+| frontend 차이 | 위 파일 | 수정 예정(ADOPT-03·04). 명세와 다른 점(라이브 값을 명세로 채택한 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 네 곳 모두 `role="tablist"`·`tab`·`tabpanel`·`aria-selected`·방향키 없음<br>- FAQ: 탭 목록을 `<nav>`로 감쌈(페이지 이동이 아니므로 tablist여야 함)<br>- category: hover 바탕·글자 변화 없음(명세는 Figma hover `color.bg.layer` / `color.fg.neutral`)<br>- text: `aria-label="{메뉴}으로 이동"`<br>- 포커스: 전역 `outline: none`, `:focus-visible` 없음<br>- 리크루팅 링크에 탭 스타일 재사용(8절)<br>- box default 글자 검정(#000000) → `color.fg.default` (#FFFFFF)(2026-10-23 결정, ADOPT-03-14) |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-08(탭), 값은 ADOPT-05 기준 |
 | FE 이름 ↔ 명세 이름 | `src/shared/components/fixed-tab/fixed-tab.tsx` | fixed-tab(`FixedButton`) ↔ box. `isActive` ↔ selected. archive `tab.active` ↔ underline selected. faq `tabVariants.active` ↔ category selected. tab-bar `navItemActive` ↔ text selected |
 

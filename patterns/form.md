@@ -19,7 +19,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 폼 (form)
@@ -239,4 +239,3 @@ last_updated: 2026-10-22
   - Figma 추정(약): 세로 간격은 진행 막대→본문 `spacing.16` (64px), 섹션 사이 `spacing.16`, 섹션 제목→첫 필드 `spacing.8` (32px), 같은 섹션 필드 사이 `spacing.6` (24px) 제안. 모바일 시안이 생기면 덮어씀
 - "(선택)" 표시: Figma 없음. 문구·위치 디자이너 확인 필요
   - Figma 추정(약): 제목 뒤 공백 + "(선택)", 제목과 같은 크기, `color.fg.muted` (#999999, 검정 위 7.37) 제안
-- 진행 막대 단계 수: Figma 3단계(최종안 8801:6001 포함), frontend 4단계(추가 정보). 4번째 단계 유지 여부는 기획·FE 결정(`components/progress-bar.md` 11절)

@@ -14,7 +14,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 모달 (modal)
@@ -31,11 +31,10 @@ last_updated: 2026-10-22
 ## 1. 개요
 
 - 용도: 화면 흐름을 멈추고 결과·안내·오류를 알린 뒤 사용자의 확인(닫기) 또는 다음 동작(신청)을 받는 흰 표면 대화 상자
-- 구성: 종류 7개(안내 2·입력 오류 2·성공·로딩·실패), 모달 전용 버튼 2종(닫기·신청)
-- 사용 화면: 지원서 작성(제출 중·성공·실패), 리크루팅·지원 진입(지원 기간 아님·모집 마감), 사전 알림 신청(이메일 재입력·이메일 중복)
+- 구성: 종류 9개(안내 2·입력 오류 2·성공·로딩·실패·확인 2), 모달 전용 버튼 2종(닫기·신청). 확인형은 같은 두 버튼을 취소·확인 라벨로 씀
+- 사용 화면: 지원서 작성(제출 확인·부문 변경 확인·제출 중·성공·실패), 리크루팅·지원 진입(지원 기간 아님·모집 마감), 사전 알림 신청(이메일 재입력·이메일 중복)
 - 범위 밖
   - 소셜 로그인 팝업(Figma 8012:14485, 8046:6861, 8046:9450): 어두운 바탕 #1A1A1A·로그인 버튼 3개로 구조가 다른 별도 화면 조각. 이 명세의 모달이 아님. 현재 코드는 `src/features/auth/ui/login-overlay.tsx`
-  - 확인형(예·아니오) 대화 상자: Figma에 없음. 11절 참조
 - 관련 명세: `components/button.md`(일반 버튼, COMPONENT-01. 모달 안 버튼은 이 명세가 정의함), `patterns/accessibility.md`(PATTERN-03)
 
 ## 2. Anatomy
@@ -44,14 +43,15 @@ last_updated: 2026-10-22
 | --- | --- | --- | --- |
 | backdrop | ○ | 화면 전체를 덮는 반투명 검정 막. 뒤 화면 조작 차단 | `raw:rgba(0,0,0,0.6)` |
 | root | ○ | 흰 표면 상자. 데스크톱 441×235(최소 높이), 2px 보더, 내용을 가로·세로 가운데 정렬 | `color.bg.surface-inverse` (#FFFFFF), 보더 `color.palette.gray.200` (#CCCCCC) 2px, `radius.full` (40px) |
-| icon | ○ | 종류 표시 아이콘. 느낌표 48(안내·입력 오류·실패), 체크 48(성공), 스피너 42(로딩) | 느낌표 `color.fg.on-inverse` (#000000) |
+| icon | ○ | 종류 표시 아이콘. Material Symbols Rounded 세트: 느낌표 `error-rounded` 48(안내·입력 오류·실패·확인), 체크 `check_circle` 48(성공), 스피너 `progress_activity` 42(로딩) | 세 아이콘 모두 `color.fg.on-inverse` (#000000) |
 | title | ○ | 한 줄 제목. 가운데 정렬. `aria-labelledby` 대상 | `typography.body-2` (20/700), `color.fg.on-inverse` (#000000) |
-| description | ○ | 한 줄 설명. 가운데 정렬. `aria-describedby` 대상 | `typography.body-4` (18/400), `color.fg.muted` (#999999) |
+| description | ○ | 한 줄 설명. 가운데 정렬. `aria-describedby` 대상 | `typography.body-4` (18/400), `color.palette.gray.600` (#666666) |
 | actions | ○ | 버튼 줄. 1개(닫기) 또는 2개(닫기·신청). 가운데 정렬 | gap `raw:19px` |
 | button-close | ○ | 닫기 버튼 130×44 | 4절 modal-close |
 | button-primary | × | 신청 버튼 130×44. 안내형에만 있음 | 4절 modal-primary |
 
-- 설명 글자색: 모달은 라이브에 없어 Figma 값 `color.fg.muted` (#999999)를 씀. 흰 위 2.85:1로 알려진 미달(7절). 이전에 대비 기준으로 `color.palette.gray.600` (#666666)으로 바꾼 결정은 되돌림(2026-10-22 라이브 기준으로 정정)
+- 아이콘(2026-10-23 결정): 느낌표는 Figma 4170:7422가 Material Symbols `error-rounded` 인스턴스(벡터)라 그대로 씀. 성공 체크(Figma 5164:5570)·스피너(Figma 5164:5617)는 Figma에 래스터만 있어 같은 세트의 Material Symbols Rounded `check_circle`·`progress_activity`로 대체함. 출처 Google Material Symbols, 라이선스 Apache License 2.0. 색 `color.fg.on-inverse` (#000000), 크기 48 / 48 / 42 유지
+- 설명 글자색: `color.palette.gray.600` (#666666). Figma 값 `color.fg.muted` (#999999)는 흰 위 2.85:1로 미달이라 바꿈. 모달은 라이브에 없어 변경 비용 없음. #666666 / #FFFFFF 5.74(2026-10-23 결정, 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목")
 - 간격(위에서 아래)
   - icon → title: `raw:9px`
   - title → description: `raw:9px`
@@ -71,11 +71,15 @@ last_updated: 2026-10-22
 | success | 성공 | 지원서 제출이 성공적으로 완료되었습니다. / BOAZ에 지원해주셔서 감사합니다. | 체크 48 | 닫기 | `alertdialog` | Figma 5164:5542 |
 | loading | 로딩 | 지원서를 제출 중입니다. / 잠시만 기다려주세요. | 스피너 42 | 닫기 | `dialog` + `aria-busy="true"` | Figma 5164:5587 |
 | failure | 실패 | 제출에 실패하였습니다. / 다시 한 번 확인해주세요. | 느낌표 48 | 닫기 | `alertdialog` | Figma 5164:5621 |
+| confirm-submit | 확인: 지원서 제출 | 제출하면 중복 제출이 불가합니다. / 제출하시겠습니까? | 느낌표 48 | 취소·확인 | `alertdialog` | 코드 `src/pages/apply-page.tsx` |
+| confirm-track-change | 확인: 부문 변경 | 부문을 변경할 경우 {현재 부문} 부문의 기존 임시저장 내역이 사라지게 됩니다. / 계속 진행하시겠습니까? | 느낌표 48 | 취소·확인 | `alertdialog` | 코드 `src/widgets/apply/ui/personal-info-section.tsx` |
 
 - 버튼 규칙
   - 안내형 2종: 닫기(왼쪽)·신청(오른쪽) 2개
+  - 확인형 2종: 취소(왼쪽, 닫기 버튼 모양)·확인(오른쪽, 신청 버튼 모양) 2개. 버튼 모양은 Figma 없음(추정)
   - 나머지 5종: 닫기 1개. 로딩도 닫기 있음(Figma 5164:5587). 동작은 5절
-- 제목·설명 문구는 Figma 원문 그대로 씀. 문구 변경은 이 표를 함께 고침
+- 제목·설명 문구는 Figma 원문 그대로 씀. Figma에 없는 2종(confirm-submit·confirm-track-change)은 라이브(frontend 코드) 문구를 씀(2026-10-23 결정). 문구 변경은 이 표를 함께 고침
+- confirm-submit 문구는 코드에서 한 문장 줄이라 제목(사실)·설명(질문)으로 나눔
 - Figma 구조 차이 정리
   - 성공(5164:5542): 설명이 아이콘·제목 묶음 밖에 있어 간격이 15
   - 로딩(5164:5587): 스피너가 제목 묶음 밖에 있어 간격이 15
@@ -120,9 +124,9 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| default | `color.palette.gray.1000` (#000000) / `color.fg.default` (#FFFFFF) / — | `color.bg.brand-solid` (#7A64F9) / `color.fg.default` (#FFFFFF) / — | `color.bg.brand-solid-press` (#2C2459) / `color.fg.default` (#FFFFFF) / — | rest 유지 / outline `color.stroke.focus-inverse` (#7A64F9) 2px, offset 2px | Figma 4243:4438, Figma 4243:4440, Figma 없음(추정, press·focus-visible) |
+| default | `color.palette.gray.1000` (#000000) / `color.fg.default` (#FFFFFF) / — | `color.bg.brand-solid-hover` (#493C95) / `color.fg.default` (#FFFFFF) / — | `color.bg.brand-solid-press` (#2C2459) / `color.fg.default` (#FFFFFF) / — | rest 유지 / outline `color.stroke.focus-inverse` (#7A64F9) 2px, offset 2px | Figma 4243:4438, 직접 계산(2026-10-23, hover), Figma 없음(추정, press·focus-visible) |
 
-- modal-primary hover: 모달은 라이브에 없어 Figma 값 `color.bg.brand-solid` (#7A64F9)를 씀. 18 Regular 흰 글자와 4.18:1로 알려진 미달(7절). 이전에 대비 기준으로 `color.bg.brand-solid-hover` (#493C95)로 바꾼 결정은 되돌림(2026-10-22 라이브 기준으로 정정)
+- modal-primary hover: `color.bg.brand-solid-hover` (#493C95). Figma 값 `color.bg.brand-solid` (#7A64F9)는 18 Regular 흰 글자와 4.18:1로 미달이라 바꿈. 모달은 라이브에 없어 변경 비용 없음. #FFFFFF / #493C95 8.88(2026-10-23 결정, 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목")
 - 포커스 링: 모달 안 모든 버튼은 `color.stroke.focus-inverse` (#7A64F9). 트리거 `:focus-visible`. `color.stroke.focus`(하늘색)는 흰 위 대비가 낮아 쓰지 않음
 - disabled 행은 두지 않음. 모달 버튼은 항상 누를 수 있음(로딩 모달의 닫기 포함)
 - selected·invalid·completed 행은 두지 않음. 모달과 버튼의 상태가 아니기 때문임
@@ -145,6 +149,10 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
   - Tab·Shift+Tab은 모달 안 버튼 사이에서만 순환함(뒤 화면은 inert)
   - 닫힌 뒤 기억한 트리거로 포커스를 돌려보냄. 트리거가 사라졌으면 `<main>`의 첫 제목으로 보냄
 - 신청 버튼(안내형): 모달을 닫고 사전 알림 신청 영역으로 이동함. 포커스는 이메일 입력으로 보냄
+- 확인형(confirm-submit·confirm-track-change)
+  - 초기 포커스: 취소(되돌리기 쉬운 동작). Esc는 취소와 같음
+  - confirm-submit: 확인 → 모달을 닫고 제출 요청 시작(로딩 모달), 취소 → 모달만 닫고 지원서 유지
+  - confirm-track-change: 확인 → 이전 부문 임시저장 내역 삭제 후 새 부문 선택, 취소 → 이전 부문 선택 유지. 근거 코드 `src/widgets/apply/ui/personal-info-section.tsx`(`components/selection-card.md` 5절)
 - 로딩 모달
   - 제출 요청 시작과 함께 엶. `aria-busy="true"`
   - 닫기·Esc: 모달만 닫음. 요청은 취소하지 않음
@@ -185,7 +193,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | role | `<dialog>` + `showModal()`<br>안내·입력 오류·성공·실패: `role="alertdialog"`<br>로딩: 기본 `dialog` 역할 유지 | Figma 없음(추정) |
 | 키보드 | 열면 닫기 버튼에 포커스. Tab 순환은 모달 안에서만. Esc = 닫기. 닫히면 트리거로 포커스 복귀 | Figma 없음(추정) |
 | aria | `aria-modal="true"`, `aria-labelledby`=title id, `aria-describedby`=description id<br>로딩: `aria-busy="true"`<br>아이콘은 장식이므로 `aria-hidden="true"`(종류는 제목 문구가 전달함) | Figma 없음(추정) |
-| 대비 | 기준: 글자 4.5:1, 큰 글자·UI 요소 3:1<br>제목 #000000 / #FFFFFF: 21.00<br>설명 `color.fg.muted` / #FFFFFF: 2.85로 **알려진 미달**(Figma 값 유지, 2026-10-22 라이브 기준으로 정정)<br>닫기 rest #000000 / #E6E6E6: 16.83, hover / #CCCCCC: 13.08, press / #999999: 7.37<br>신청 rest #FFFFFF / #000000: 21.00, hover / #7A64F9: 4.18로 18 Regular **알려진 미달**(Figma 값 유지, 2026-10-22 라이브 기준으로 정정), press / #2C2459: 13.97<br>닫기 바탕 #E6E6E6 / 흰 표면: 1.25. 버튼 경계는 글자로 식별되므로 WCAG 1.4.11 대상 아님<br>느낌표 아이콘 #000000 / #FFFFFF: 21.00 | 계산값(WCAG 상대 휘도), `docs/wbs/20-token.md` 대비표 |
+| 대비 | 기준: 글자 4.5:1, 큰 글자·UI 요소 3:1<br>제목 #000000 / #FFFFFF: 21.00<br>설명 #666666 / #FFFFFF: 5.74(2026-10-23 결정으로 #999999 2.85에서 바꿈)<br>닫기 rest #000000 / #E6E6E6: 16.83, hover / #CCCCCC: 13.08, press / #999999: 7.37<br>신청 rest #FFFFFF / #000000: 21.00, hover / #493C95: 8.88(2026-10-23 결정으로 #7A64F9 4.18에서 바꿈), press / #2C2459: 13.97<br>닫기 바탕 #E6E6E6 / 흰 표면: 1.25. 버튼 경계는 글자로 식별되므로 WCAG 1.4.11 대상 아님<br>느낌표 아이콘 #000000 / #FFFFFF: 21.00 | 계산값(WCAG 상대 휘도), `docs/wbs/20-token.md` 대비표 |
 | 터치 영역 | 최소 24×24: 130×44 통과<br>모바일 권장 44×44: 130×44 통과 | WCAG 2.2 2.5.8 |
 | 포커스 링 | `color.stroke.focus-inverse` (#7A64F9), 2px, offset 2px. 흰 표면 위 4.18:1 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 해당 없음. 모달 버튼은 비활성 상태가 없음 | Figma 4243:4439 |
@@ -198,8 +206,8 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 열면 닫기 버튼에 포커스, 닫으면 트리거로 복귀 | 닫은 뒤 포커스를 `<body>`에 남김 |
 | 모달 안 포커스 링 `color.stroke.focus-inverse` | 흰 표면 위에 `color.stroke.focus` |
 | 로딩 모달 닫기는 모달만 닫고 요청은 유지, 결과는 결과 모달로 알림 | 로딩 모달 닫기로 결과 알림까지 생략 |
-| 입력 형식 오류는 입력 필드 아래 문구(COMPONENT-02)가 우선, 모달은 Figma 7종 상황에만 | 모든 오류를 `alert()`·모달로 띄움 |
-| 7종 문구를 3절 표와 같게 씀 | 화면마다 문구를 새로 지음 |
+| 입력 형식 오류는 입력 필드 아래 문구(COMPONENT-02)가 우선, 모달은 3절 9종 상황에만 | 모든 오류를 `alert()`·모달로 띄움 |
+| 9종 문구를 3절 표와 같게 씀 | 화면마다 문구를 새로 지음 |
 
 ## 9. 코드 대응
 
@@ -207,8 +215,8 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | --- | --- | --- |
 | frontend | 없음 | 모달 컴포넌트 코드 없음. 브라우저 `alert()`·`confirm()`으로 대신함 |
 | frontend 대체 지점(제출) | `src/widgets/apply/model/use-submit-application.ts` | 제출 성공 `alert` → success, 실패 `alert` → failure. 제출 중 표시 없음 → loading 추가 |
-| frontend 대체 지점(제출 확인) | `src/pages/apply-page.tsx` | 제출 전 `window.confirm`("제출하면 중복 제출이 불가합니다…"): 확인형으로 Figma에 없음(11절)<br>이미 제출된 경우 `alert` 후 홈 이동: Figma에 없음<br>모집 기간 아님: 모달 없이 홈으로 이동(`Navigate`). Figma는 info-not-open·info-closed 모달 |
-| frontend 대체 지점(지원서 입력) | `src/widgets/apply/ui/personal-info-section.tsx` | 부문 변경 `window.confirm`: 확인형으로 Figma에 없음<br>필수 항목 누락 `window.alert`: 입력 필드 오류 문구(COMPONENT-02) 대상 |
+| frontend 대체 지점(제출 확인) | `src/pages/apply-page.tsx` | 제출 전 `window.confirm`("제출하면 중복 제출이 불가합니다…") → confirm-submit<br>이미 제출된 경우 `alert` 후 홈 이동: Figma에 없음<br>모집 기간 아님: 모달 없이 홈으로 이동(`Navigate`). Figma는 info-not-open·info-closed 모달 |
+| frontend 대체 지점(지원서 입력) | `src/widgets/apply/ui/personal-info-section.tsx` | 부문 변경 `window.confirm` → confirm-track-change<br>필수 항목 누락 `window.alert`: 입력 필드 오류 문구(COMPONENT-02) 대상. 모달 아님(PATTERN-02, ADOPT-03-22) |
 | frontend 대체 지점(사전 알림 신청) | `src/features/notice/notice-form.tsx` | 이메일 빈 값·형식 오류 `alert` → error-email-invalid<br>`DUPLICATE_EMAIL` → error-email-duplicate(코드 문구 "이미 구독 신청된 이메일입니다." → Figma 문구로 교체)<br>신청 완료 `alert`·서버 오류 `alert`: Figma에 해당 종류 없음(11절) |
 | frontend 대체 지점(로그인 필요) | `src/shared/router/protected-route.tsx` | 로그인 필요 `alert`: Figma에 없음. 로그인 오버레이로 대체 여부는 범위 밖 |
 | frontend 참고 | `src/shared/styles/zIndex.css.ts`, `src/features/auth/ui/login-overlay.css.ts` | `zIndex.modal` 3은 사용처 없음, 탭바(200)보다 낮아 쓸 수 없음<br>login-overlay backdrop `rgba(0, 0, 0, 0.6)`·z-index 1000: 이 명세 backdrop 색의 근거 |
@@ -229,6 +237,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | `raw:10px` | 모달 버튼 패딩 | Figma 4243:4438 | 불필요 |
 | 130×44 | 모달 버튼 크기 | Figma 4243:4439 | 불필요 |
 | 48px / 42px | 느낌표·체크 아이콘 / 스피너 크기 | Figma 4170:7422, Figma 5164:5570, Figma 5164:5617 | 불필요 |
+| Material Symbols Rounded `error-rounded`·`check_circle`·`progress_activity` | 느낌표·체크·스피너 아이콘(벡터). 출처 Google Material Symbols, 라이선스 Apache License 2.0 | Figma 4170:7422(느낌표, 같은 세트 인스턴스), Figma 없음(추정, 체크·스피너는 Figma에 래스터만 있어 같은 세트로 대체) | 불필요(아이콘 자산) |
 | `calc(100% - 32px)` | 모바일 너비 | Figma 없음(추정) | 불필요 |
 | z-index 없음(top layer) | `<dialog>` `showModal()` | Figma 없음(추정) | 불필요. `<dialog>`를 못 쓰는 경우에만 탭바 200·로그인 오버레이 1000보다 높은 값 필요(design-reference 4.7) |
 | `raw:1s` linear 무한 | 스피너 회전 | Figma 없음(추정) | 불필요 |
@@ -243,11 +252,8 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
   - Figma 추정(약): Components 페이지 전체에 dim·overlay 노드와 OVERLAY 연결이 없고 팝업창 변형 인스턴스 0개. 코드 값 유지
 - 모바일 모달: Figma Mobile 페이지에 없음. 6절 값은 전부 추정
   - Figma 추정(약): Mobile 포함 팝업창 인스턴스 0개. 6절 추정 유지
-- 성공 아이콘(Figma 5164:5570)·스피너(Figma 5164:5617)는 래스터 이미지. 벡터 아이콘·색 지정 필요. 스피너 회전 속도 Figma 없음
-  - Figma 추정(디자이너): 체크·스피너 SVG와 색 요청 필요. 회전 속도는 명세에서 정함(예: 1s linear)
-- 확인형 대화 상자(예·아니오): 제출 전 확인, 부문 변경 확인이 코드에서 `confirm()`으로 쓰이나 Figma에 없음. 종류 추가 여부 디자이너 확인 필요
-  - Figma 추정(디자이너): 팝업창 세트(Figma 4243:4479) 7종에 없음 확인. 추가 여부 질문
-- 사전 알림 신청 완료·서버 오류 모달: 코드에는 있으나 Figma 7종에 없음. success·failure 문구는 지원서 제출 전용
-  - Figma 추정(디자이너): Figma 7종에 없음 확인. 확인형 대화 상자와 묶어 질문
+- 스피너 회전 속도: Figma 없음. 명세 추정값 `raw:1s` linear 무한 반복(5절)
+- 사전 알림 신청 완료·서버 오류 모달: 코드에는 있으나 3절 9종에 없음. success·failure 문구는 지원서 제출 전용
+  - Figma 추정(디자이너): Figma 7종에 없음 확인. 추가 여부 질문
 - 성공 제목(Figma 5164:5546) 너비 367로 내용 묶음 279를 넘음. 명세는 안쪽 여백 32 기준 최대 377로 수용함
   - Figma 추정(약): 명세 수용 유지. 디자이너 질문 불필요

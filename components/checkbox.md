@@ -13,7 +13,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 체크박스 (checkbox)
@@ -78,7 +78,7 @@ last_updated: 2026-10-22
 | box | 24×24 | 20×20 | `raw:5px` | — | — | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts`(크기), Figma 5946:10028(radius·보더, 라이브 없음) |
 | table-cell | 16×16 원, 테두리 1px | 같음 | `radius.full` (40px) | — | — | 코드 `src/shared/components/radio-button/radio-button.css.ts` |
 | agreement row | 글자 폭 × 24 | 부모 폭 × 24(상자 20×20) | — | 상자–라벨 gap `raw:10px` / 모바일 `spacing.4` (16px) | `typography.body-3` / 모바일 `typography.body-5` | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` |
-| toggle | 글자 폭 × 22(패딩 4×2 + 글자 14) | 글자 폭 × 18 | `radius.xs` (8px) | `spacing.1` (4px) / `spacing.3` (12px) / 모바일 `spacing.1` (4px) / `spacing.2` (8px) | `raw:14px/400` / 모바일 `raw:10px/400` | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` |
+| toggle | 글자 폭 × 22(패딩 4×2 + 글자 14), 누르는 영역 높이 24 | 글자 폭 × 18, 누르는 영역 높이 24 | `radius.xs` (8px) | `spacing.1` (4px) / `spacing.3` (12px) / 모바일 `spacing.1` (4px) / `spacing.2` (8px) | `raw:14px/400` / 모바일 `raw:10px/400` | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` |
 | detail | 부모 폭 × 내용 높이 | 부모 폭 × 내용 높이 | `radius.sm` (12px) | `spacing.5` (20px) / 모바일 `raw:14px` / `spacing.3` (12px) | 안내 문단 `typography.body-5` / 모바일 `raw:10px/400` | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` |
 
 - 값 기준(2026-10-22 라이브 기준으로 정정): 지원서 화면은 모집 기간이 아니라 라이브에서 볼 수 없어 frontend 코드 값을 라이브 값으로 씀(상자 크기, 표 칸 원 모양, row 간격, 라벨·toggle·detail 글자, toggle 문구, detail 보더·패딩·간격). 코드가 브라우저 기본 모양에 맡긴 상자 모양(radius·보더·체크 표시)과 코드에 없는 상태(hover·press·indeterminate·disabled·focus-visible)는 Figma 값·추정값
@@ -186,7 +186,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 키보드 | Tab으로 포커스, Space로 전환. toggle은 Enter·Space | Figma 없음(추정) |
 | aria | 이름: `<label for>` 또는 감싸는 `<label>`. 라벨 텍스트에 toggle 문구가 섞이지 않게 toggle을 label 밖에 둠<br>라벨이 없는 표 칸: `aria-label="<행 이름> <열 이름>"`<br>indeterminate: 스크립트 속성으로 설정(`aria-checked="mixed"`는 네이티브가 자동 노출)<br>toggle: `aria-expanded`, `aria-controls="<detail id>"` | Figma 없음(추정) |
 | 대비 | 기준: UI 요소 3:1, 글자 4.5:1<br>unchecked 보더 #999999 대 검정 7.37<br>checked 상자 #7A64F9 대 검정 5.02, 체크 #000000 대 #7A64F9 5.02<br>hover 보더 #CCCCCC 대 검정 13.08, press 보더 #7A64F9 대 검정 5.02<br>약관 라벨 #FFFFFF 대 검정 21.00<br>toggle 글자 #E6E6E6 대 검정 16.83, 보더 #999999 7.37, press 글자 #999999 7.37<br>detail 안내 문단 #CCCCCC 대 #1A1A1A 10.84, detail 보더 #666666 대 #1A1A1A 3.03<br>disabled: #333333 대 검정 1.66, #999999 대 #666666 2.02. WCAG 1.4.11·1.4.3 비활성 예외 | 계산값(WCAG 상대 휘도) |
-| 터치 영역 | 최소 24×24: 데스크톱 상자 24×24 통과. 모바일 상자 20×20은 label 또는 투명 영역으로 24×24 이상 확보. table-cell 16×16은 칸 전체를 `<label>`로 감싸 24×24 이상 확보. toggle 높이 22(모바일 18)는 **알려진 미달**(라이브 값 유지, 2026-10-22 라이브 기준으로 정정)<br>모바일 권장 44×44: 약관 동의 row는 높이 24로 미달. 라벨까지 클릭 영역이라 가로는 충분함 | WCAG 2.2 2.5.8 |
+| 터치 영역 | 최소 24×24: 데스크톱 상자 24×24 통과. 모바일 상자 20×20은 label 또는 투명 영역으로 24×24 이상 확보. table-cell 16×16은 칸 전체를 `<label>`로 감싸 24×24 이상 확보. toggle은 겉 높이 22(모바일 18)를 유지하고 `::before`(투명, 위아래로 확장)로 누르는 영역 높이를 24로 넓힘. 데스크톱 위아래 `raw:1px`, 모바일 `raw:3px`(2026-10-23 결정, ADOPT-03-12)<br>모바일 권장 44×44: 약관 동의 row는 높이 24로 미달. 라벨까지 클릭 영역이라 가로는 충분함 | WCAG 2.2 2.5.8 |
 | 포커스 링 | 굵기 2px, offset 2px<br>검정 캔버스 위: `color.stroke.focus` (#68CBEC) 11.34:1<br>흰 표면 위: `color.stroke.focus-inverse` (#7A64F9) 4.18:1 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 네이티브 `disabled`. 색만으로 구분하지 않고 비활성 사유를 화면에 표시 | Figma 없음(추정) |
 
@@ -207,7 +207,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | --- | --- | --- |
 | frontend | `src/widgets/apply/ui/agreement-step/agreement-step.tsx`, `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` | 약관 동의형. 네이티브 `<input type="checkbox">` + `accentColor: '#7964F9'`(브라우저 기본 상자). 공용 체크박스 컴포넌트 없음 |
 | frontend | `src/shared/components/radio-button/radio-button.tsx`, `src/widgets/apply/ui/table-question.tsx` | 단독 체크박스. `RadioButton`에 `type="checkbox"`를 넘겨 사용(표 문항 `multiple`). 모양은 라디오 원형 16px |
-| frontend 차이 | 위와 같음 | 수정 예정(ADOPT-03). 명세와 다른 점(라이브 값을 명세로 채택한 표 칸 원 모양·toggle 문구·detail 보더·모바일 글자 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 상자: 브라우저 기본 모양(accent-color). 명세는 Figma radius 5, 1px #999999 보더<br>- checked 색: #7964F9(#7A64F9 오타. 명세 `color.bg.brand-solid`, ADOPT-03-05)<br>- 표 문항: `label=""`로 이름 없음(명세 `aria-label`)<br>- 표 문항: input을 1px로 숨겨 포커스 표시 없음<br>- toggle: `<label>` 안의 `<button>`이라 체크박스 이름에 "전문 보기"가 포함됨<br>- toggle: `aria-expanded`·`aria-controls` 없음<br>- detail: max-height 0으로만 숨겨 접힌 상태에서도 화면 읽기 프로그램이 읽음<br>- 포커스: 전역 `outline: none`, `:focus-visible` 없음 |
+| frontend 차이 | 위와 같음 | 수정 예정(ADOPT-03). 명세와 다른 점(라이브 값을 명세로 채택한 표 칸 원 모양·toggle 문구·detail 보더·모바일 글자 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 상자: 브라우저 기본 모양(accent-color). 명세는 Figma radius 5, 1px #999999 보더<br>- checked 색: #7964F9(#7A64F9 오타. 명세 `color.bg.brand-solid`, ADOPT-03-05)<br>- 표 문항: `label=""`로 이름 없음(명세 `aria-label`)<br>- 표 문항: input을 1px로 숨겨 포커스 표시 없음<br>- toggle: `<label>` 안의 `<button>`이라 체크박스 이름에 "전문 보기"가 포함됨<br>- toggle: `aria-expanded`·`aria-controls` 없음<br>- detail: max-height 0으로만 숨겨 접힌 상태에서도 화면 읽기 프로그램이 읽음<br>- 포커스: 전역 `outline: none`, `:focus-visible` 없음<br>- toggle: 누르는 영역이 겉 크기와 같음(높이 22, 모바일 18) → `::before`로 높이 24(2026-10-23 결정) |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-03(입력·셀렉트·날짜 입력), 값은 ADOPT-05 기준 |
 | FE 이름 ↔ 명세 이름 | `src/shared/components/radio-button/radio-button.tsx` | `RadioButton type="checkbox"` ↔ standalone. 공용 체크박스 컴포넌트를 따로 만들 때 이름은 `Checkbox` |
 
@@ -226,6 +226,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | `raw:14px` | 모바일 detail 위아래 패딩 | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` | 불필요 |
 | `raw:1.6` | detail 안내 문단 행간 | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` | 필요 여부 별도 이슈 |
 | 2px, offset 2px | focus-visible outline | Figma 없음(추정) | 불필요 |
+| `raw:1px`, `raw:3px` | toggle 누르는 영역 위아래 확장(데스크톱·모바일, `::before`) | Figma 없음(추정) | 불필요 |
 | 0.2s ease-in-out | 상태 전환 | design-reference 4.3 | 불필요 |
 
 ## 11. 미확인

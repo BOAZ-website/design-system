@@ -13,7 +13,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 진행 표시줄 (progress-bar)
@@ -39,13 +39,12 @@ last_updated: 2026-10-22
 | 슬롯 | 필수 | 설명 | 적용 토큰 |
 | --- | --- | --- | --- |
 | root | ○ | `<div role="progressbar">`. 막대를 가로로 나열 | 3절 |
-| segment | ○ | 단계 하나를 뜻하는 막대. `<span aria-hidden="true">`. 1px 테두리, 끝이 둥근 모양 | `color.stroke.weak` (#333333), `radius.md` (20px) |
+| segment | ○ | 단계 하나를 뜻하는 막대. `<span aria-hidden="true">`. 1px 테두리, 끝이 둥근 모양 | `color.palette.gray.600` (#666666), `radius.md` (20px) |
 | segment(현재) | ○ | 현재 단계 막대. 바탕을 채움 | `color.palette.gray.100` (#E6E6E6) |
 
-- segment 개수 = 단계 수(N). 명세는 N단계 공식을 씀
-  - Figma: 3단계(지원자 정보·공통 질문·부문 질문). 지원 폼 화면 13개가 모두 3칸이고, 최종안(Figma 8801:6001, 막대 Figma 8801:6004·8801:6065)도 3칸이며 면접 가능 시간 질문을 지원자 정보 단계 안에 넣음
-  - frontend 지원서: 4단계(지원자 정보 입력·공통 질문·부문 질문·추가 정보). 4번째 단계는 Figma 근거 없음
-  - 3단계·4단계 중 어느 쪽으로 갈지는 기획·FE 결정(11절)
+- segment 개수 = 단계 수(N). 명세는 N단계 공식을 쓰고 기본값은 4(N = 4)
+  - 라이브 기준 4단계: 지원자 정보 입력·공통 질문·부문 질문·추가 정보. 근거 코드 `src/pages/apply-page.tsx`(`STEPS`)(2026-10-23 결정)
+  - Figma(기록용): 3단계(지원자 정보·공통 질문·부문 질문). 지원 폼 화면 13개가 모두 3칸이고, 최종안(Figma 8801:6001, 막대 Figma 8801:6004·8801:6065)도 3칸이며 면접 가능 시간 질문을 지원자 정보 단계 안에 넣음
 - 단계 이름 글자는 이 컴포넌트에 없음. 단계 이름은 바로 아래 페이지 제목(`<h1>`)이 보여 줌
 
 ## 3. Variants·Sizes
@@ -63,7 +62,7 @@ last_updated: 2026-10-22
 | root | 최대 800×10 | 폼 폭 100%×10 | — | 0, segment gap `spacing.5` (20px) | — | 코드 `src/shared/components/progress-bar/progress-bar-section.css.ts` |
 | segment | (800 − 20×(N−1)) / N × 10. 4단계 185×10 | 같은 식(root 폭 기준) | `radius.md` (20px) | — | — | 코드 `src/shared/components/progress-bar/progress-bar.css.ts` |
 
-- 값 기준(2026-10-22 라이브 기준으로 정정): 지원서 화면은 모집 기간이 아니라 라이브에서 볼 수 없어 frontend 코드 값을 라이브 값으로 씀. gap 20(Figma 22), 테두리 #333333(Figma 화면 #666666)
+- 값 기준(2026-10-22 라이브 기준으로 정정): 지원서 화면은 모집 기간이 아니라 라이브에서 볼 수 없어 frontend 코드 값을 라이브 값으로 씀. gap 20(Figma 22). 테두리는 대비 때문에 코드 #333333 대신 #666666(4절, 2026-10-23 결정)
 
 - 폭: segment는 `flex: 1`로 같은 폭을 나눔. 단계 수가 바뀌어도 root 800은 유지함
 - 높이 10px 고정. 10px 높이에 `radius.md` (20px)를 주면 양 끝이 반원이 됨
@@ -74,11 +73,12 @@ last_updated: 2026-10-22
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
-| default | 투명 / — / `color.stroke.weak` (#333333) 1px | — | — | — | 코드 `src/shared/components/progress-bar/progress-bar.css.ts` |
-| selected | `color.palette.gray.100` (#E6E6E6) / — / `color.stroke.weak` (#333333) 1px | — | — | — | 코드 `src/shared/components/progress-bar/progress-bar.css.ts` |
-| completed | default와 같음(투명 / — / `color.stroke.weak` (#333333) 1px) | — | — | — | 코드 `src/shared/components/progress-bar/progress-bar.css.ts` |
+| default | 투명 / — / `color.palette.gray.600` (#666666) 1px | — | — | — | 직접 계산(2026-10-23, 테두리) |
+| selected | `color.palette.gray.100` (#E6E6E6) / — / `color.palette.gray.600` (#666666) 1px | — | — | — | 코드 `src/shared/components/progress-bar/progress-bar.css.ts` |
+| completed | default와 같음(투명 / — / `color.palette.gray.600` (#666666) 1px) | — | — | — | 코드 `src/shared/components/progress-bar/progress-bar.css.ts` |
 
-- default 테두리: 코드 #333333(`color.stroke.weak`). Figma 화면 인스턴스는 #666666(흰색 불투명도 0.4)이고 컴포넌트 원본(Figma 2009:3442)만 #333333임. 코드 값을 씀(2026-10-22 라이브 기준으로 정정)
+- default 테두리: `color.palette.gray.600` (#666666). 코드 값 `color.stroke.weak` (#333333)은 검정 대비 1.66:1로 UI 요소 3:1 미달이라 바꿈. #666666 / #000000 3.66(2026-10-23 결정, 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"). Figma 화면 인스턴스 값(#666666, 흰색 불투명도 0.4)과도 같음
+- selected 테두리도 같은 #666666로 둠. segment 테두리 색을 하나로 유지하기 위함(2026-10-23 결정). selected 바탕 #E6E6E6 대 테두리 #666666 4.60
 - selected: 현재 단계. Figma 화면 인스턴스(4852:9891)는 첫 단계 막대를 채움
 - completed: 지난 단계. 2단계 화면(Figma 4852:10227, 2158:4378, 1656:3183)과 3단계 화면(Figma 1656:3321, 2363:5464 등)도 현재 단계만 채움. 지난 단계는 채우지 않음. 예외는 가장 오래된 시안 1658:3357(보라, 지난 단계도 채움)뿐
 - Figma 2158:4498(첫째·셋째 채움)은 옛 화면 한 곳에만 있는 인스턴스 덮어쓰기 오류라 무시함
@@ -120,7 +120,7 @@ last_updated: 2026-10-22
 | role | root `role="progressbar"`. segment는 `<span aria-hidden="true">`. `<button>` 금지(누를 수 없는 요소가 Tab 대상이 되고 이름 없는 버튼으로 읽힘) | Figma 없음(추정) |
 | 키보드 | 해당 없음. Tab 대상이 아님 | Figma 없음(추정) |
 | aria | `aria-label="지원서 작성 단계"`<br>`aria-valuemin="1"`, `aria-valuemax="N"`(단계 수), `aria-valuenow="k"`(현재 단계, 1부터)<br>`aria-valuetext="k/N단계, <단계 이름>"`(예: "2/4단계, 공통 질문"). 숫자 대신 단계 수와 이름을 읽게 함 | Figma 없음(추정) |
-| 대비 | 기준: UI 요소 3:1<br>selected 바탕 #E6E6E6 대 검정 16.83<br>default 테두리 #333333 대 검정 1.66으로 **알려진 미달**(UI 3:1, 코드 값 유지, 2026-10-22 라이브 기준으로 정정)<br>selected 바탕 #E6E6E6 대 테두리 #333333 10.12 | 계산값(검정 캔버스 #000000 기준) |
+| 대비 | 기준: UI 요소 3:1<br>selected 바탕 #E6E6E6 대 검정 16.83<br>default 테두리 #666666 대 검정 3.66(2026-10-23 결정으로 #333333 1.66에서 바꿈)<br>selected 바탕 #E6E6E6 대 테두리 #666666 4.60 | 계산값(검정 캔버스 #000000 기준) |
 | 터치 영역 | 해당 없음. 누를 수 없음 | — |
 | 포커스 링 | 해당 없음. 포커스를 받지 않음 | — |
 | 비활성 표시 | 해당 없음. 비활성 상태가 없음 | — |
@@ -147,7 +147,7 @@ last_updated: 2026-10-22
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | `src/shared/components/progress-bar/progress-bar.tsx`, `src/shared/components/progress-bar/progress-bar.css.ts`, `src/shared/components/progress-bar/progress-bar-section.tsx`, `src/shared/components/progress-bar/progress-bar-section.css.ts` | `ProgressBar`: segment 하나(`isCurrentStep`)<br>`ProgressBarSection`: `currentStep`(0부터)을 받아 4개를 나열<br>사용: `src/widgets/apply/ui/apply-title-section.tsx`(`showProgressBar`), 호출은 `src/pages/apply-page.tsx` |
-| frontend 차이 | 위와 같음 | ADOPT-03-18에서 고침. 명세와 다른 점(라이브 값을 명세로 채택한 gap 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- segment가 `<button type="button">`(명세 `<span aria-hidden="true">`)<br>- root에 `role="progressbar"`·`aria-value*` 없음<br>- 단계 이름 목록이 `progress-bar-section.tsx`와 `apply-page.tsx`에 따로 있음(값도 "지원자 정보"·"지원자 정보 입력"으로 다름)<br>- 단계 변경 시 제목으로 포커스 이동 없음 |
+| frontend 차이 | 위와 같음 | ADOPT-03-18에서 고침. 명세와 다른 점(라이브 값을 명세로 채택한 gap 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- segment가 `<button type="button">`(명세 `<span aria-hidden="true">`)<br>- root에 `role="progressbar"`·`aria-value*` 없음<br>- 단계 이름 목록이 `progress-bar-section.tsx`와 `apply-page.tsx`에 따로 있음(값도 "지원자 정보"·"지원자 정보 입력"으로 다름)<br>- 단계 변경 시 제목으로 포커스 이동 없음<br>- segment 테두리 #333333 → `color.palette.gray.600` (#666666)(2026-10-23 결정) |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 관리자 콘솔에 단계 진행 화면이 없어 대응 ADOPT 없음(2026-10-22 확인) |
 | FE 이름 ↔ 명세 이름 | `src/shared/components/progress-bar/progress-bar.tsx` | `ProgressBarSection` ↔ root, `ProgressBar` ↔ segment, `isCurrentStep` ↔ selected |
 
@@ -163,6 +163,5 @@ last_updated: 2026-10-22
 
 ## 11. 미확인
 
-- 단계 수: Figma 3단계(최종안 Figma 8801:6001 포함), frontend 4단계(추가 정보). 4번째 단계를 유지할지 기획·FE 결정 필요
 - 모바일 시안: Figma 없음(추정)
   - Figma 추정(약): 모바일 전용 시안 없음. Mobile 페이지 인스턴스 6439:12303은 800 폭 데스크톱 막대라 "폼 폭 100%" 유지

@@ -14,7 +14,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 버튼 (button)
@@ -75,7 +75,7 @@ last_updated: 2026-10-22
 | neutral-lg | 250×68 | — | `radius.sm` (12px) | `raw:21px` / `raw:33px`, gap `spacing.5` (20px) | `typography.body-2` | Figma 5152:9048 |
 | neutral-md | 부모 폭 × 70(측정 458×70) | 부모 폭 100% × 28(측정 350×28) | `raw:10px` / 모바일 `raw:4px` | `raw:22px` / `raw:37px`, 모바일 `raw:9px` / `raw:22px`, gap `raw:10px` | `typography.body-2` / 모바일 `raw:8px/700` | 코드 `src/shared/components/button/button.css.ts` |
 | glass | 154×44 | 132×40 | `radius.full` (40px) | `raw:13px` / `raw:51px` / `raw:12px` / `raw:47px` / 모바일 0(고정 크기, 가운데 정렬) | `typography.body-2-mobile` | Figma 5239:3922, Figma 7064:9879(라이브 없음) |
-| text-link | 글자 폭 × 24 | 글자 폭 × 16 | — | gap `spacing.2` (8px) | `typography.headline-3` / 모바일 `typography.body-5` | 코드 `src/widgets/apply/ui/question-section/question-section.css.ts` |
+| text-link | 글자 폭 × 24 | 글자 폭 × 16, 누르는 영역 높이 24 | — | gap `spacing.2` (8px) | `typography.headline-3` / 모바일 `typography.body-5` | 코드 `src/widgets/apply/ui/question-section/question-section.css.ts` |
 | neutral-md-wide | — | 160×52 | `radius.sm` (12px) | `raw:21px` / `raw:33px` | 모바일 `typography.body-2-mobile` | Figma 7225:13942(라이브 없음) |
 | outlined | 고정 없음(높이 41 = 패딩 10×2 + 아이콘 20 + 보더 0.5×2) | 데스크톱과 같음 | `radius.full` (40px) | `raw:10px` / `spacing.4` (16px), gap `raw:10px`, 아이콘 20px | `typography.body-3` | 코드 `src/shared/components/button/button.css.ts`, 코드 `src/widgets/apply/ui/apply-title-section.tsx` |
 
@@ -111,6 +111,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | default | `color.bg.brand-solid` (#7A64F9) / `color.fg.on-brand` (#FFFFFF) / — | `color.bg.brand-solid-hover` (#493C95) / `color.fg.on-brand` (#FFFFFF) / — | `color.bg.brand-solid-press` (#2C2459) / `color.fg.muted` (#999999) / — | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/shared/components/button/button.css.ts`(rest·hover), Figma 5875:9833(press, 라이브 없음), Figma 없음(추정, focus-visible, 라이브 없음) |
 | disabled | `color.palette.gray.400` (#999999) / `color.fg.on-brand` (#FFFFFF) / — | — | — | — | 코드 `src/shared/components/button/button.css.ts` |
 
+- "지원하기" 활성 조건(라이브): `GET /api/v1/recruitment/status` 응답 `is_active`가 true면 brand, false면 disabled. 마감일은 `GET /api/v1/recruitment/deadline`으로 받음. 근거 코드 `src/widgets/recruiting/ui/apply-section/apply-section.tsx`(트랙 카드에 `isActive` 전달), 코드 `src/widgets/recruiting/ui/recruiting-hero-section/recruiting-hero-section.tsx`
 - brand disabled: 라이브 회색 #999999 바탕 + 흰 글자(리크루팅 "지원하기", 모집 기간 아님). Figma `color.bg.disabled` (#666666) / `color.fg.disabled` (#999999)에서 라이브 값으로 바꿈(2026-10-22 라이브 기준으로 정정)
 
 ### neutral
@@ -206,7 +207,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
   - brand-pill-md: 10/400, 패딩 8 / 16
   - neutral-md: 8/700, 패딩 9 / 22, radius `raw:4px`, 폭 100%
   - 카카오 문의(brand-small + 아이콘)는 옵션을 켜지 않아 18/700 유지, 아이콘만 16px
-  - text-link: 16/400(`typography.body-5`)
+  - text-link: 16/400(`typography.body-5`). 겉 높이 16은 유지하고 위아래 `raw:4px` 투명 `padding` + 같은 크기 음수 margin으로 누르는 영역 높이를 24로 넓힘(2026-10-23 결정, ADOPT-03-09)
 - Figma 모바일 노드(라이브에 없는 버튼의 기준)
   - 프레임: Figma 7064:14053
   - glass 132×40: Figma 7064:9879
@@ -221,7 +222,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 키보드 | Tab으로 포커스, Enter·Space(button) / Enter(a)로 실행 | Figma 없음(추정) |
 | aria | 이름은 보이는 라벨과 같음. 아이콘 전용은 `aria-label`. 장식 아이콘·화살표는 `aria-hidden="true"`. pending은 `aria-busy="true"` | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, 큰 글자(Bold 18.67px 이상 또는 Regular 24px 이상)·UI 요소 3:1<br>brand: rest 흰 글자 4.18, hover 8.88, press 4.90. 큰 글자 통과는 brand-wide(24/700)·brand-pill-md 데스크톱(20/700)뿐<br>brand 알려진 미달(4.18 < 4.5): brand-small 18/700(데스크톱·카카오 모바일), brand-small 모바일 16/700, brand-pill-md 모바일 10/400<br>neutral: rest 21.00, hover 16.83, press 3.66(큰 글자만 해당). 모바일 neutral-md 8/700 press 3.66 미달<br>glass: rest 흰 글자 약 18.2(검정 캔버스에 합성한 #151519 기준), hover 그라데이션 위는 미계산<br>text-link: rest 21.00, hover 10.02(불투명도 0.7, #B3B3B3 상당), press 3.66(데스크톱 24px Bold 큰 글자 통과, 모바일 16/400 미달)<br>outlined: 흰 글자·흰 보더 대 검정 캔버스 21.00, hover #1A1A1A 위 흰 글자 17.40<br>disabled: brand #999999 위 흰 글자 2.85, neutral #333333 위 검정 글자 1.66. WCAG 1.4.3 비활성 예외<br>알려진 미달은 `patterns/accessibility.md` 2.2 표에 모음(2026-10-22 라이브 기준으로 정정) | 직접 계산(2026-10-22), `docs/wbs/20-token.md` 대비표 |
-| 터치 영역 | 최소 24×24: 모바일 text-link(높이 16)는 미달, 그 외 통과<br>모바일 권장 44×44: brand-small 115×36, 카카오 198×40, brand-pill-md 91×28, neutral-md 높이 28, glass 132×40이 미달 | WCAG 2.2 2.5.8 |
+| 터치 영역 | 최소 24×24: 모바일 text-link는 겉 높이 16에 위아래 `raw:4px` padding + 음수 margin으로 누르는 영역 24 확보(2026-10-23 결정), 그 외 통과<br>모바일 권장 44×44: brand-small 115×36, 카카오 198×40, brand-pill-md 91×28, neutral-md 높이 28, glass 132×40이 미달 | WCAG 2.2 2.5.8 |
 | 포커스 링 | 굵기 2px, offset 2px<br>검정 캔버스 위: `color.stroke.focus` (#68CBEC) 11.34:1<br>흰 표면 위: `color.stroke.focus-inverse` (#7A64F9) 4.18:1<br>보라 버튼 안쪽 링: 2.26:1로 기준 미달 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 네이티브 `disabled`. 색만으로 구분하지 않고 비활성 사유를 화면에 표시 | Figma 5188:8718 |
 
@@ -241,7 +242,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | `src/shared/components/button/button.tsx`, `src/shared/components/button/button.css.ts` | 네이티브 `<button>` 사용<br>`preset="<variant>_<color>"` 11종. 앞 값 variant: wide, large, large-round, medium, medium-round, small-round, mini. 뒤 값 color: primary, outlined, white, glass<br>`hasIcon`: 아이콘 표시<br>`responsive`: 모바일 크기 적용(기본값 꺼짐)<br>사용 중 preset<br>- `wide_primary`: 지원서 제출·약관 동의 다음<br>- `small-round_primary`: 리크루팅 히어로·트랙 카드·FAQ 문의<br>- `small-round_outlined`: 지원서 임시저장<br>- `medium-round_primary`: 사전 알림 신청<br>- `medium_white`: 컨퍼런스 자세히 보기<br>`medium-icon_white`: 타입에만 있고 css·호출부 없음 |
-| frontend 차이 | 위와 같음 | 수정 예정(ADOPT-03). 명세와 다른 점(라이브 값을 명세로 채택한 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 포커스: `:focus-visible` 없음, 전역 `outline: none`<br>- press: `:active` 없음<br>- disabled: glass 없음<br>- glass 바탕: 검정 그라데이션(명세는 Figma rgba 0.1. 탭바 glass 버튼은 라이브에 없음)<br>- text-link: `widgets/apply/ui/question-section/`의 `<div onClick>`<br>- pending: notice-form이 disabled + 라벨 교체("신청 중...") |
+| frontend 차이 | 위와 같음 | 수정 예정(ADOPT-03). 명세와 다른 점(라이브 값을 명세로 채택한 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 포커스: `:focus-visible` 없음, 전역 `outline: none`<br>- press: `:active` 없음<br>- disabled: glass 없음<br>- glass 바탕: 검정 그라데이션(명세는 Figma rgba 0.1. 탭바 glass 버튼은 라이브에 없음)<br>- text-link: `widgets/apply/ui/question-section/`의 `<div onClick>`<br>- pending: notice-form이 disabled + 라벨 교체("신청 중...")<br>- text-link 모바일: 누르는 영역 높이 16 → 위아래 `raw:4px` padding + 음수 margin으로 24(2026-10-23 결정, ADOPT-03-09) |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-02(버튼), 값은 ADOPT-05 기준 |
 | FE 이름 ↔ 명세 이름 | `src/shared/components/button/button.tsx` | wide ↔ brand-wide(부모 폭 100%). large-white(large+white) ↔ neutral-lg 250×68. medium-white ↔ neutral-md(`hasIcon`으로 아이콘 표시). medium-icon_white ↔ neutral-md + 아이콘(타입에만 있음). medium-primary ↔ brand 사각(Figma 없음, 추정). large-round ↔ brand-pill-lg 250×56. medium-round ↔ brand-pill-md 191×54. small-round ↔ brand-small 131×42 / glass 154×44(`small-round_glass`). mini ↔ 명세에 없음(옛 검색 Tag 버튼, `components/tag.md` 3절 끝). small-round_outlined ↔ outlined |
 
@@ -271,6 +272,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 20px, 16px | 카카오 문의·outlined 아이콘 크기 | 코드 `src/widgets/faq/ui/faq-title-section.tsx`, 코드 `src/widgets/apply/ui/apply-title-section.tsx` | 불필요 |
 | 24px | brand-pill-lg 아이콘 크기 | Figma 5252:5632 | 불필요 |
 | 2px, offset 2px | focus-visible outline | Figma 없음(추정) | 불필요 |
+| `raw:4px` | text-link 모바일 누르는 영역 위아래 확장(padding + 음수 margin) | Figma 없음(추정) | 불필요 |
 | 0.2s ease-in-out | 전환 | design-reference 4.3 | 불필요 |
 | 0.2s ease | text-link 불투명도 전환 | 코드 `src/widgets/apply/ui/question-section/question-section.css.ts` | 불필요 |
 | `cursor: progress` | pending | Figma 없음(추정) | 불필요 |

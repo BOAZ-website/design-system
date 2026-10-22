@@ -17,7 +17,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 검색 자동완성 (search-autocomplete)
@@ -36,6 +36,8 @@ last_updated: 2026-10-22
 - 용도: 검색어를 자유롭게 입력하고, 입력에 따라 걸러진 결과 목록(제안)에서 하나를 고르거나 입력값 그대로 검색하는 입력
 - 구성: 검색 입력(search-field) + 결과 패널(results). 결과 패널은 결과 목록(listbox)·빈 결과·로딩·실패 4가지 내용 중 하나를 보임
 - 사용 화면: 아카이빙(프로젝트·블로그·활동사진 탭의 검색·필터 막대)
+- 보류 범위(2026-10-23 결정): 결과 패널(panel·listbox·option·match·status-row), combobox 속성(`role="combobox"`·`aria-expanded`·`aria-controls`·`aria-activedescendant`), 키보드 목록 이동, 결과 선택은 보류함. 라이브는 검색어 입력 → 300ms 뒤 `keyword`로 아카이브 목록 재조회 → 아래 카드 목록이 결과를 보여 주며, 카드 목록이 같은 결과를 보여 주고 아카이브 글 수가 적어 패널이 필요 없다고 봄. 보류 범위 내용은 지우지 않고 기록용으로 둠. 나중에 도입하면 목록은 기존 `keyword` 검색 결과 상위 항목으로 채움(새 API 불필요)
+- 지금 유효한 범위: 입력(접근 이름, placeholder, 300ms 디바운스), 빈 결과 문구 "검색 결과가 없습니다."(라이브, 카드 목록 자리), 결과 수를 알리는 `role="status"` 영역(live-region)
 - 관련 명세
   - `components/select.md`(COMPONENT-03): 목록 패널·항목 상태·`aria-activedescendant` 규칙의 원본. 이 명세는 같은 규칙을 쓰고 차이만 정의함
   - `components/text-field.md`(COMPONENT-02): 입력 규칙(접근 이름, placeholder만으로 이름을 주지 않음, `:focus-within`)의 원본
@@ -55,13 +57,13 @@ last_updated: 2026-10-22
 | --- | --- | --- | --- |
 | root | ○ | 검색 입력과 결과 패널을 묶는 상대 위치 컨테이너. 패널 위치의 기준 | — |
 | search-icon | ○ | 입력 앞 돋보기 아이콘 28px. 장식 | `color.fg.default` (#FFFFFF) |
-| input | ○ | `<input type="search">`. `role="combobox"` 요소이며 DOM 포커스를 계속 가짐. 빈 값이면 placeholder "검색" | `typography.body-1`, 값 `color.fg.default` (#FFFFFF), placeholder `color.fg.muted` (#999999) |
-| panel | × | 입력 아래 결과 패널. 입력값이 1자 이상일 때만 보임. 보더 1px, 모서리 둥글게, 넘침 자름 | `color.stroke.weak` (#333333), `radius.md` (20px) |
-| listbox | × | 결과가 있을 때 panel 안의 목록. `role="listbox"` | `color.bg.layer` (#1A1A1A) |
-| option | × | 결과 한 건. 한 줄, 넘치면 말줄임 | `typography.body-1`, 4절 |
-| match | × | option 글자 중 검색어와 일치하는 부분. `<mark>`로 감쌈. 바탕 없음 | `color.fg.default` (#FFFFFF). 일치하지 않는 부분은 `color.fg.muted` (#999999) |
-| status-row | × | 빈 결과·로딩·실패 문구 한 줄. listbox 대신 panel 안에 보임. 선택할 수 없음 | `color.bg.layer` (#1A1A1A), `color.fg.muted` (#999999), `typography.body-4` / 모바일 `raw:10px/400` |
-| live-region | ○ | 화면에 보이지 않는 `role="status"` 영역. 결과 수를 알림 | — |
+| input | ○ | `<input type="search">`. 빈 값이면 placeholder "검색". `role="combobox"`로 DOM 포커스를 계속 갖는 규칙은 보류(2026-10-23 결정) | `typography.body-1`, 값 `color.fg.default` (#FFFFFF), placeholder `color.fg.muted` (#999999) |
+| panel | × | 보류(2026-10-23 결정). 입력 아래 결과 패널. 입력값이 1자 이상일 때만 보임. 보더 1px, 모서리 둥글게, 넘침 자름 | `color.stroke.weak` (#333333), `radius.md` (20px) |
+| listbox | × | 보류(2026-10-23 결정). 결과가 있을 때 panel 안의 목록. `role="listbox"` | `color.bg.layer` (#1A1A1A) |
+| option | × | 보류(2026-10-23 결정). 결과 한 건. 한 줄, 넘치면 말줄임 | `typography.body-1`, 4절 |
+| match | × | 보류(2026-10-23 결정). option 글자 중 검색어와 일치하는 부분. `<mark>`로 감쌈. 바탕 없음 | `color.fg.default` (#FFFFFF). 일치하지 않는 부분은 `color.fg.muted` (#999999) |
+| status-row | × | 보류(2026-10-23 결정). 빈 결과·로딩·실패 문구 한 줄. listbox 대신 panel 안에 보임. 선택할 수 없음 | `color.bg.layer` (#1A1A1A), `color.fg.muted` (#999999), `typography.body-4` / 모바일 `raw:10px/400` |
+| live-region | ○ | 화면에 보이지 않는 `role="status"` 영역. 결과 수를 알림(패널 없이도 유효, 카드 목록 결과 수 기준) | — |
 
 ## 3. Variants·Sizes
 
@@ -124,7 +126,7 @@ rest는 상호작용이 없을 때의 모습임.
   - selected: 고른 결과는 입력값으로 들어가고 패널이 닫힘. 목록에 남는 선택 상태가 없음
 - press 열은 `—`: 입력에 누름 상태가 없음
 
-### option
+### option(보류, 2026-10-23 결정)
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
@@ -140,7 +142,9 @@ rest는 상호작용이 없을 때의 모습임.
   - 제목에 일치 글자가 없는 결과(다른 필드로 걸린 결과)는 전체를 `color.fg.muted`로 보임(Figma 3613:7556 "ㄹㅇㄹㅇ")
 - 일치 판정: 공백·대소문자를 그대로 둔 부분 문자열 포함(대소문자만 무시). Figma 예시는 모두 단어 앞 일치이나 포함 일치로 정함(11절)
 
-### status-row(빈 결과·로딩·실패)
+### status-row(빈 결과·로딩·실패, 보류, 2026-10-23 결정)
+
+- 빈 결과 문구 "검색 결과가 없습니다."는 패널 없이 라이브와 같이 카드 목록 자리에 보이는 것으로 유효함. 아래 패널 안 행 규칙은 보류
 
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
@@ -159,6 +163,9 @@ rest는 상호작용이 없을 때의 모습임.
   - `aria-busy` 등 나머지 규칙은 5절
 
 ## 5. Behavior
+
+- 지금 유효한 동작(라이브 기준, 2026-10-23 결정): 입력이 멈추고 300ms 뒤 `keyword`로 아카이브 목록을 다시 조회하고 아래 카드 목록이 결과를 보여 줌. 응답 후 live-region 문구를 "검색 결과 N건" 또는 "검색 결과가 없습니다."로 바꿈(아래 "결과 수 알림")
+- 아래 combobox 패턴·패널 열림·닫힘·필터링 강조·option 클릭·키보드 목록 이동·`aria-busy`(panel) 항목은 보류(2026-10-23 결정). 기록용으로 둠
 
 - 요소 선택: ARIA APG "목록 자동완성 combobox(Combobox With List Autocomplete)" 패턴
   - input: `<input type="search" role="combobox">`. `enterkeyhint="search"`(모바일 키보드에 "검색" 키)
@@ -229,9 +236,9 @@ rest는 상호작용이 없을 때의 모습임.
 
 | 항목 | 요구 | 근거 |
 | --- | --- | --- |
-| role | input: `role="combobox"`(편집 가능한 `<input type="search">`)<br>목록: `role="listbox"`, 결과: `role="option"`<br>status-row: 일반 요소(option 아님). 결과가 0건이면 listbox를 그리지 않음<br>live-region: `role="status"`(화면에서 숨김, `aria-live="polite"` 내장) | Figma 없음(추정) |
-| 키보드 | ↓·↑ 이동, Alt+↓ 열기, Enter 선택 또는 검색 확정, Esc 닫기(닫혀 있으면 지움), Tab 선택 없이 이동, Home·End·←·→ 커서 이동(5절) | Figma 없음(추정) |
-| aria | input: `aria-autocomplete="list"`, `aria-expanded`(listbox가 보일 때 `true`, 결과 0건·닫힘이면 `false`), `aria-controls`(listbox id), `aria-activedescendant`(활성 option id, 활성 없음·닫힘이면 제거)<br>이름: 보이는 label이 없어 `aria-label`로 줌. 탭에 따라 "프로젝트 검색"·"블로그 검색"·"활동사진 검색". placeholder만으로 이름을 주지 않음(text-field 명세와 같음)<br>listbox: `aria-label="검색 결과"`<br>option: 활성 항목에 `aria-selected="true"`(APG 목록 자동완성 규칙. 이 컴포넌트에는 선택 상태가 따로 없음)<br>match: `<mark>`. 화면 읽기 프로그램은 제목 전체를 읽음<br>panel: 응답 대기 중 `aria-busy="true"`<br>search-icon: `aria-hidden="true"` | Figma 없음(추정) |
+| role | 유효: input `<input type="search">`, live-region `role="status"`<br>보류(2026-10-23 결정): input `role="combobox"`(편집 가능한 `<input type="search">`)<br>목록: `role="listbox"`, 결과: `role="option"`<br>status-row: 일반 요소(option 아님). 결과가 0건이면 listbox를 그리지 않음<br>live-region: `role="status"`(화면에서 숨김, `aria-live="polite"` 내장) | Figma 없음(추정) |
+| 키보드 | 유효: Tab으로 input 진입, Enter로 검색 확정. 보류(2026-10-23 결정): ↓·↑ 이동, Alt+↓ 열기, Enter 선택 또는 검색 확정, Esc 닫기(닫혀 있으면 지움), Tab 선택 없이 이동, Home·End·←·→ 커서 이동(5절) | Figma 없음(추정) |
+| aria | 유효: input 이름 `aria-label`(아래), live-region `role="status"`, search-icon `aria-hidden="true"`<br>보류(2026-10-23 결정): input `aria-autocomplete="list"`, `aria-expanded`(listbox가 보일 때 `true`, 결과 0건·닫힘이면 `false`), `aria-controls`(listbox id), `aria-activedescendant`(활성 option id, 활성 없음·닫힘이면 제거)<br>이름: 보이는 label이 없어 `aria-label`로 줌. 탭에 따라 "프로젝트 검색"·"블로그 검색"·"활동사진 검색". placeholder만으로 이름을 주지 않음(text-field 명세와 같음)<br>listbox: `aria-label="검색 결과"`<br>option: 활성 항목에 `aria-selected="true"`(APG 목록 자동완성 규칙. 이 컴포넌트에는 선택 상태가 따로 없음)<br>match: `<mark>`. 화면 읽기 프로그램은 제목 전체를 읽음<br>panel: 응답 대기 중 `aria-busy="true"`<br>search-icon: `aria-hidden="true"` | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, 큰 글자(24px 이상)·UI 요소 3:1<br>입력값 #FFFFFF / 검정 캔버스: 21.00, placeholder #999999 / 검정: 7.37<br>option rest: match #FFFFFF / #1A1A1A 17.40, 나머지 #999999 / #1A1A1A 6.11<br>option hover·활성: match #FFFFFF / #333333 12.63, 나머지 #999999 / #333333 4.43. 24px Regular는 큰 글자라 3:1 기준으로 통과. 모바일 12px에 활성 바탕이 오면 미달(11절)<br>status-row #999999 / #1A1A1A: 6.11. 라이브 빈 결과 문구 #999999 / 검정 캔버스: 7.37(모바일 10px도 통과)<br>match와 나머지 글자 사이 #FFFFFF / #999999: 2.85. 3:1 미만이라 강조는 색 차이로만 구분됨. 강조는 보조 정보(검색어는 사용자가 이미 앎)라 기준 대상에서 뺌(11절)<br>패널 보더 `color.stroke.weak` / 검정 캔버스: 1.66. 패널은 행 글자로 식별되므로 보더는 장식으로 봄(select chip 보더와 같은 판단) | 계산값(WCAG 상대 휘도) |
 | 터치 영역 | 최소 24×24: 데스크톱 행 50, 모바일 행 28·입력 줄 28 모두 통과<br>모바일 권장 44×44: 모바일 결과 행(높이 28) 미달. 입력은 막대 342×44 전체를 누르면 input에 포커스가 가도록 해 44 확보 | WCAG 2.2 2.5.8 |
 | 포커스 링 | input 줄: `color.stroke.focus` (#68CBEC) outline 2px, offset 2px. 검정 캔버스 위 11.34:1<br>option: 링 없음, 활성 바탕(`color.palette.gray.800`)으로 표시 | `docs/wbs/20-token.md` 대비표 |
@@ -257,7 +264,7 @@ rest는 상호작용이 없을 때의 모습임.
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | `src/widgets/archive/ui/search-overlay/search-overlay.tsx`, `src/widgets/archive/ui/search-overlay/search-overlay.css.ts` | search-field만 있음. 결과 패널(자동완성) 코드는 없음<br>`SearchOverlay`: 돋보기 아이콘 + `<input type="text">`, props `value`·`onChange`·`placeholder`(기본 "검색")<br>사용처: `src/pages/archive-page.tsx`의 `filterBar`. 입력값을 `src/shared/hooks/use-debounce.ts`로 300ms 묶어 카드 목록 조회의 `keyword`로 넘김(입력하면 카드 목록이 바로 걸러짐)<br>빈 결과: 같은 화면 카드 영역의 "검색 결과가 없습니다."(`emptyState`) |
-| frontend 차이 | 위와 같음 | ADOPT-03-16에서 고침. 명세와 다른 점<br>- 결과 패널·일치 글자 강조·status-row 없음<br>- `role="combobox"`·`aria-expanded`·`aria-controls`·`aria-activedescendant` 없음<br>- 접근 이름: placeholder만 있음(`aria-label` 없음)<br>- 결과 수 알림(`role="status"`) 없음<br>- 포커스 표시: 없음(전역 `outline: none`)<br>- `type="text"`(명세 `type="search"` + `enterkeyhint="search"`)<br>- 막대 클릭 시 input 포커스: 컨테이너 `<div onClick>`으로 구현됨(동작은 명세와 같음)<br>- 같은 값: 데스크톱 글자 24 Regular, 패딩 2.5rem 1.2rem, gap 0.8rem, 아이콘 2.8rem |
+| frontend 차이 | 위와 같음 | ADOPT-03-16에서 고침. 명세와 다른 점<br>- 접근 이름: placeholder만 있음(`aria-label` 없음)<br>- 결과 수 알림(`role="status"`) 없음<br>- 포커스 표시: 없음(전역 `outline: none`, ADOPT-01-03)<br>보류 범위라 지금 고치지 않음(2026-10-23 결정)<br>- 결과 패널·일치 글자 강조·status-row 없음<br>- `role="combobox"`·`aria-expanded`·`aria-controls`·`aria-activedescendant` 없음<br>- `type="text"`(명세 `type="search"` + `enterkeyhint="search"`)<br>- 막대 클릭 시 input 포커스: 컨테이너 `<div onClick>`으로 구현됨(동작은 명세와 같음)<br>- 같은 값: 데스크톱 글자 24 Regular, 패딩 2.5rem 1.2rem, gap 0.8rem, 아이콘 2.8rem |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-03(입력·셀렉트·날짜 입력), 값은 ADOPT-05 기준 |
 | FE 이름 ↔ 명세 이름 | `src/widgets/archive/ui/search-overlay/search-overlay.tsx` | `SearchOverlay` ↔ search-field. `styles.container` ↔ 입력 줄, `styles.icon` ↔ search-icon, `styles.input` ↔ input. 결과 패널 대응 이름 없음 |
 
@@ -282,27 +289,9 @@ rest는 상호작용이 없을 때의 모습임.
 
 ## 11. 미확인
 
-- Figma 두 벌의 차이: 첫 시안(Figma 3613:7592, 710×225, 행 45, 행 바탕 없음, 활성 행 #1A1A1A radius 12)과 인터랙션 세트(Figma 5980:12235, 720×250, 행 50, 행 바탕 #1A1A1A, hover #333333, 패널 보더·radius 20). 명세는 인터랙션 세트를 따름. 디자이너 확인 필요
-  - Figma 추정(약·색 / 디자이너·치수): 최신 화면(Figma 4817:9008)은 detach된 프레임 Figma 4817:9392를 씀. 색은 세트와 같음(패널 #1A1A1A·보더 #333333, 활성 행 #333333), 치수는 첫 시안과 같음(710 폭, 행 45, radius 12). 질문 범위는 치수(행 45/50, 폭 710/720, radius 12/20). 인터랙션 세트 권고
-- 로딩·실패 상태: Figma·라이브 모두 없음. status-row 모양과 문구는 추정. 빈 결과 문구·글자는 라이브 값으로 해소됨(2026-10-22 라이브 기준으로 정정). PATTERN-01·PATTERN-04 확정 시 문구 맞춤
-  - Figma 추정(디자이너): Figma에 없음. 패널 행 하나에 #999999 문구 권고
-- 일치 판정 방식: Figma 예시는 모두 단어 앞 일치("Real" → "Really", "Reality"). 명세는 포함 일치(대소문자 무시)로 정함. 단어 앞 일치만 할지 디자이너 확인 필요
-  - Figma 추정(약): 대소문자 무시와 한 제목 안 모든 일치 부분 강조는 Figma에서 확인(Figma 4817:9397, 3613:7562, 7091:5776). 단어 앞·포함 일치는 판정 불가라 포함 일치 유지
-- "ㄹㅇㄹㅇ" 결과 행(Figma 3613:7556, 전체 회색): 제목에 일치 글자가 없는 결과로 해석함. 초성 검색 등 다른 의도인지 확인 필요
-  - Figma 추정(약): 세 곳 모두 강조 없음(Figma 4817:9401, 3613:7556, 7091:5769). 초성 검색은 도입하지 않는 쪽 권고
-- 결과 선택 시 동작: 아카이빙에 상세 페이지가 없어 "제목을 입력값으로 넣고 검색 적용"으로 정함. 외부 링크(GitHub·Medium 등)로 바로 이동할지 확인 필요
-  - Figma 추정(디자이너): 화면 프로토타입 연결 0개(Figma 4817:9008). 명세 결정 유지
-- 결과 제안 데이터 출처: 자동완성 전용 API가 없음. 현재 탭 목록 API(`keyword`) 첫 페이지 앞 5건을 쓸지, 별도 API를 둘지 backend와 결정 필요
-  - Figma 추정(디자이너): Figma 범위 밖. backend 결정 사항
-- 강조 대비: match #FFFFFF와 나머지 #999999 사이 2.85:1로 색 차이만으로 구분됨. 강조는 보조 정보로 보아 기준 대상에서 뺐음. 밑줄 등 색 외 표시를 더할지 디자이너 확인 필요
-  - Figma 추정(디자이너): 세 시안 모두 색으로만 강조(굵기·밑줄 없음, Figma 4817:9393). 밑줄 추가 여부 질문
-- 모바일 활성 바탕 대비: 하드웨어 키보드로 모바일 결과를 활성화하면 12px #999999 / #333333 4.43:1로 미달. 모바일 Figma에 hover 변형이 없음(Figma 7091:5763)
-  - Figma 추정(디자이너): 모바일 세트는 Default 변형 하나뿐이고 reactions 없음. 활성 행 바탕 대신 포커스 링만 쓰거나 나머지 글자를 #CCCCCC로 올리는 안 권고
+- 결과 패널을 둘지: 결과 패널은 라이브에 없고 추천 API도 없음. 패널을 둘지 기획 확인 대기. 둔다면 목록은 기존 `keyword` 검색 결과 상위 항목으로 채움(새 API 불필요)(2026-10-23 결정으로 보류)
+- 보류 범위의 세부 항목은 보류 범위라 확인하지 않음: Figma 두 벌의 치수 차이(행 45/50, 폭 710/720, radius 12/20), 로딩·실패 행 모양과 문구, 일치 판정 방식(단어 앞·포함), "ㄹㅇㄹㅇ" 결과 행 해석, 결과 선택 시 동작, 강조 색 차이 2.85:1, 모바일 활성 행 대비 4.43:1, 모바일 패널과 막대 사이 간격, option 오른쪽 패딩. 패널을 도입할 때 다시 확인함
 - 입력 줄 포커스 표시: Figma에 Focus 상태 없고 라이브도 전역 `outline: none`으로 없음. outline은 추정
   - Figma 추정(디자이너): Figma 전체에 Focus 변형 없음. 접근성 결정이라 명세 outline 유지 권고
 - 지우기(X) 버튼: Figma 없음. 브라우저 기본 버튼을 숨기고 Esc 두 번으로 지우게 함. 버튼 추가 여부 확인 필요
   - Figma 추정(약): 입력이 들어간 최신 화면(Figma 4817:9342, 모바일 7091:5782)에도 ✕ 없음
-- 모바일 패널과 막대 사이 간격: Figma 모바일 프레임에 패널이 막대와 떨어져 있어 미확인(Figma 7091:5772)
-  - Figma 추정(약): 8px(`spacing.2`). 입력 상태 막대(Figma 7091:5782) 아래 끝에서 패널(Figma 7091:5772)까지 8. 모바일 패널은 radius 8, 보더 #333333, 행 28
-- option 오른쪽 패딩: Figma 글자 상자 폭 540 고정. 대칭 `raw:36px`은 추정
-  - Figma 추정(약): 행 패딩 8·10·8·36이라 오른쪽은 10(Figma 4817:9393, 3613:7554). 말줄임 처리가 있으면 차이는 작음
