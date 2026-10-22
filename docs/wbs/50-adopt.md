@@ -153,3 +153,4 @@
 | ADOPT-07-06 | 카드·태그·배지 | 화면 파일의 배지 직접 마크업 0건 |
 | ADOPT-07-07 | 빈 상태·불러오기 실패 안내(현재 약 13개 파일이 각자 문구·모양을 씀) | 대상 파일이 공용 컴포넌트를 씀 |
 | ADOPT-07-08 | 탭(현재 1개 화면) | 해당 화면이 공용 컴포넌트를 씀 |
+| ADOPT-07-09 | 페이지 이동(현재 아카이빙 관리 1개 화면 `src/pages/content-archive/ui/ArchivingSection.tsx`). 동작·접근성은 `components/pagination.md`(번호형이면 `<nav aria-label>`, 현재 페이지 `aria-current="page"`, 처음·끝 화살표 `aria-disabled`)를 따르고 값은 ADOPT-05 기준. 2026-10-22 COMPONENT-12 작성으로 추가 | 해당 화면이 공용 컴포넌트를 씀 |

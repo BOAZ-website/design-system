@@ -162,7 +162,7 @@ focus-visible 칸은 rest 색을 유지하고 root에 outline을 더함.
 | --- | --- | --- |
 | frontend | 없음 | 선택 카드 컴포넌트 없음. 지원 부문은 `src/widgets/apply/ui/personal-info-section.tsx`에서 `RadioGroup`(`name="track"`, 세로 원형 라디오 목록)으로 구현됨 |
 | frontend 차이 | `src/widgets/apply/ui/personal-info-section.tsx` | ADOPT-03-20에서 고침. 명세와 다른 점<br>- 모양: 원형 라디오 목록(명세 카드 253×80 가로 3개)<br>- 위치: 지원자 정보 단계 안 질문(Figma는 "지원 안내사항 및 동의" 화면, 4266:8034)<br>- 부문 변경 확인: `window.confirm`(명세 모달 COMPONENT-07, 취소 시 이전 선택 복원)<br>- 묶음 role·포커스 표시: `components/radio.md` 9절 frontend 차이와 같음(ADOPT-03-13) |
-| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 대응 ADOPT-07 기능 ID 없음, 값은 ADOPT-05 기준 |
+| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 관리자 콘솔의 선택은 라디오·셀렉트라 ADOPT-07-03(입력·셀렉트)에서 다룸. 이 카드형은 관리자 콘솔에 없음(2026-10-22 확인) |
 | FE 이름 ↔ 명세 이름 | — | 해당 없음(컴포넌트 없음). Figma 이름 "지원 폼 탭"·"지원폼_부문 선택 버튼" ↔ selection-card |
 
 ## 10. 비토큰 값
