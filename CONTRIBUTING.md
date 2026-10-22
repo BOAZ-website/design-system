@@ -71,6 +71,7 @@ CI `Tokens Build`는 커밋된 `dist/`가 빌드 결과와 다르면 실패합�
 
 - 제목은 `[Type] 내용` 양식입니다. 티켓이 있으면 티켓 키를 앞에 둡니다. (예: `[Docs] COMPONENT-01 button 명세`)
 - 허용 Type: `[Feat]` `[Fix]` `[Docs]` `[Style]` `[Refactor]` `[Test]` `[Chore]` `[Hotfix]`
+- `[Hotfix]`는 PR 제목·`hotfix/*` 브랜치에만 씁니다. 커밋 훅에는 `hotfix` type이 없으므로 커밋 메시지는 `fix: 설명 (#번호)`로 씁니다.
 - 작업 기준은 노션 WBS([`docs/wbs/`](./docs/wbs)는 사본)이고, GitHub 이슈는 노션 티켓과 1:1입니다.
 - 이슈·Milestone은 디자인 시스템 리드가 Phase를 시작할 때 그 Phase 것만 만들고 담당자를 배정합니다. 명세 담당과 AI 도구는 이슈·Milestone·라벨을 만들지 않습니다.
 - 배정받은 이슈 번호를 커밋 메시지 `(#번호)`, PR 본문 `Issue Number`, 브랜치 이름에 씁니다. 번호가 없으면 커밋하지 말고 디자인 시스템 리드에게 요청합니다.
