@@ -98,8 +98,8 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-04-01 | 상태: unchecked, checked(보라). Figma에 hover·disabled·indeterminate 없음 → 명세에서 새로 정의하고 `Figma 없음(추정)` 표시. 체크박스 크기·모서리·체크 모양과 Figma 노드 ID가 문서에 없어 노션 티켓에서 노드 ID를 받아 `docs/design-reference.md` 5절에 먼저 적는 것을 선행으로 둠 | States 표 |
-| COMPONENT-04-02 | 약관 동의형(체크박스 + 전문 보기·닫기 버튼) 조합. 노드 ID 없음(04-01과 같이 선행) | Variants 표 |
+| COMPONENT-04-01 | 상태: unchecked, checked(보라 #7A64F9). Figma에 hover·disabled·indeterminate 없음 → 명세에서 새로 정의하고 `Figma 없음(추정)` 표시. 노드·크기·모서리는 `docs/design-reference.md` 5.8.1(데스크톱 `5946:10027` 24×24, 모바일 `7578:14600` 20×20, radius 5) | States 표 |
+| COMPONENT-04-02 | 약관 동의형(체크박스 + 라벨 + 전문 보기·전문 닫기 버튼) 조합. 세트 `5799:10193`, 버튼 `4266:7630`·`4266:7631`(design-reference 5.8.1) | Variants 표 |
 
 ## COMPONENT-05 radio
 
@@ -133,7 +133,7 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | COMPONENT-07-01 | 구조: 441×235, radius 40(`radius.full`), 흰 표면(`bg.surface-inverse`)·2px 보더 `color.palette.gray.200` #CCCCCC, 아이콘 48(! · ✓ · 스피너) + 제목(`typography.body-2`, `fg.on-inverse`) + 설명(`typography.body-4` 18 Regular, `color.palette.gray.600` #666666. 흰 위 `fg.muted` #999999는 2.85:1이라 쓰지 않음) + 버튼 130×44(radius 20 `radius.md`. 닫기 바탕 `color.palette.gray.100` #E6E6E6·글자 `fg.on-inverse`, 신청 바탕 `color.palette.gray.1000`·글자 `fg.default`). 시맨틱이 없는 색은 TOKEN-05 "시맨틱으로 만들지 않는 색"대로 팔레트를 직접 참조함 | Anatomy 절(모달 창 4412:7387) |
-| COMPONENT-07-02 | 종류 7개: 안내 2(지원 기간 아님·모집 마감), 입력 오류 2(이메일 재입력·이메일 중복), 성공, 로딩, 실패. 종류별 노드 ID와 문구가 문서에 없어 노션 티켓에서 받아 `docs/design-reference.md` 5.8에 먼저 적는 것을 선행으로 둠 | Variants 표 |
+| COMPONENT-07-02 | 종류 7개: 안내 2(지원 기간 아님·모집 마감), 입력 오류 2(이메일 재입력·이메일 중복), 성공, 로딩, 실패. 종류별 노드 ID와 문구는 `docs/design-reference.md` 5.8 표 | Variants 표 |
 | COMPONENT-07-03 | 버튼 규칙: 안내형 2개(닫기·신청), 나머지 1개(닫기). 로딩 모달도 닫기 버튼 있음(Figma 5164:5587) | Variants 표 |
 | COMPONENT-07-04 | `role="alertdialog"`, 포커스 가두기·반환, Esc 닫기. 모달 안 버튼의 포커스 링은 `stroke.focus-inverse`(흰 표면 위 4.18:1) | Accessibility 절 |
 
