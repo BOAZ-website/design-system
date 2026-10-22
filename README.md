@@ -19,8 +19,8 @@ tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/ (build artifacts)
 
 ## Components & Patterns
 
-- `components/` — 컴포넌트 명세 (작성 예정)
-- `patterns/` — 패턴·가이드라인: feedback, form, accessibility, voice & tone (작성 예정)
+- [`components/`](./components) — 컴포넌트 명세. Phase 2부터 `components/<id>.md`로 추가합니다. 양식은 [`components/_template.md`](./components/_template.md)입니다.
+- `patterns/` — 패턴·가이드라인: feedback, form, accessibility, voice & tone (Phase 3에서 작성)
 
 ## Installation
 
@@ -47,10 +47,12 @@ vars.color.palette.purple[100]; // "var(--boaz-color-palette-purple-100)"
 
 ## Documentation
 
+처음 합류했다면 [`CONTRIBUTING.md`의 "처음 합류했다면"](./CONTRIBUTING.md#처음-합류했다면)부터 읽습니다.
+
 - [`docs/design-reference.md`](./docs/design-reference.md) — 디자인 참조: Figma 원본 색·타이포·컴포넌트·에셋 기록
 - [`docs/wbs/`](./docs/wbs) — 구축 로드맵 (WBS·명세서)
-- [`AGENTS.md`](./AGENTS.md) — 토큰 명명 규칙, 작업 절차, breaking change 정책
-- [`CONTRIBUTING.md`](./CONTRIBUTING.md) — 개발 환경, 협업 규약
+- [`AGENTS.md`](./AGENTS.md) — 토큰 명명 규칙, 토큰·명세 작업 절차, breaking change 정책, 문서 작성 규칙
+- [`CONTRIBUTING.md`](./CONTRIBUTING.md) — 처음 합류했을 때의 순서, 권한 체크리스트, 개발 환경, 브랜치·리뷰·커밋 규약
 
 ## License
 
