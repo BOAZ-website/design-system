@@ -69,7 +69,7 @@ last_updated: 2026-10-22
 | brand-pill-md | 180×56 | — | `radius.full` (40px) | `spacing.4` (16px) / `raw:29px` / `spacing.4` / `raw:28px` | `typography.body-2` | Figma 5875:9828 |
 | brand-small | 130×44 | 112×36 | `radius.md` (20px) | `raw:10px` | `typography.body-2` / 모바일 `typography.body-2-mobile` | Figma 5639:10028, Figma 7142:13884 |
 | neutral-lg | 250×68 | — | `radius.sm` (12px) | `raw:21px` / `raw:33px`, gap `spacing.5` (20px) | `typography.body-2` | Figma 5152:9048 |
-| neutral-md | 200×68 | 160×44 | 데스크톱 `radius.sm` (12px) / 모바일 `raw:8px` | `raw:21px` / `raw:33px`, gap `raw:10px` | `typography.body-2` / 모바일 `typography.body-2-mobile` | Figma 5915:9776, Figma 7289:14366 |
+| neutral-md | 200×68 | 160×44 | 데스크톱 `radius.sm` (12px) / 모바일 `radius.xs` (8px) | `raw:21px` / `raw:33px`, gap `raw:10px` | `typography.body-2` / 모바일 `typography.body-2-mobile` | Figma 5915:9776, Figma 7289:14366 |
 | glass | 154×44 | 132×40 | `radius.full` (40px) | `raw:13px` / `raw:51px` / `raw:12px` / `raw:47px` | `typography.body-2-mobile` | Figma 5239:3922, Figma 7064:9879 |
 | text-link | 144×29 | — | — | gap `raw:10px` | `typography.headline-3` | Figma 5152:8869, Figma 5411:9043 |
 | mini(검색 Tag) | 97×43 | — | — | — | — | design-reference 5.1 |
@@ -179,7 +179,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
   - 크기: 3절 Sizes의 모바일 열
   - 글자: `typography.body-2-mobile` (16/600)
   - brand-small radius: `radius.md` 유지
-  - neutral-md(160×44) radius: `raw:8px`
+  - neutral-md(160×44) radius: `radius.xs` (8px)
 - Figma 모바일 노드
   - 프레임: Figma 7064:14053
   - brand 112×36: Figma 7142:13884
@@ -226,7 +226,6 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 | 값 | 위치 | 근거 | 토큰 추가 필요 여부 |
 | --- | --- | --- | --- |
-| `raw:8px` | 모바일 neutral-md radius | Figma 7289:14366 | 검토 필요. checkbox 전문 토글·selection-card와 함께 사용처 3곳(별도 이슈로 결정) |
 | `raw:30px` | brand-wide 좌우 패딩 | Figma 5188:8826 | 불필요 |
 | `raw:28px`, `raw:29px` | brand-pill 패딩 | Figma 5252:5632, Figma 5875:9828 | 불필요 |
 | `raw:10px` | brand-small 패딩, 아이콘·화살표 gap | Figma 5639:10028, Figma 5152:8869 | 불필요. spacing 4·8·12 사이 값 |

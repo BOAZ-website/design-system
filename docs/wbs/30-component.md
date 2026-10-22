@@ -223,7 +223,7 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | COMPONENT-15-01 | 부문 선택 버튼 253×80, radius 8, 1px #666666, selected 보라 배경. 라디오 그룹 의미 | `components/selection-card.md`(4266:7628·7629) |
-| COMPONENT-15-02 | radius 8은 radius 토큰에 없어 명세에 수치로 기재 | `components/selection-card.md` |
+| COMPONENT-15-02 | radius 8은 `radius.xs` 토큰으로 씀(2026-10-22 사용처 4곳 확인으로 토큰 추가, #73. 이전 결정은 수치 기재) | `components/selection-card.md` |
 
 ## COMPONENT-16 form-add-button (P1)
 

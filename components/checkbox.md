@@ -55,7 +55,7 @@ last_updated: 2026-10-22
 | row | ○ | 체크박스 + 라벨 + 전문 버튼 가로 배치. 387×24, gap 16 | `spacing.4` (16px) |
 | checkbox | ○ | 단독 체크박스 24×24 | 위 표 |
 | label | ○ | "개인정보 필수항목 수집 및 이용 동의". `<label for>`로 input과 연결 | `typography.body-3` (18/700), `color.fg.default` (#FFFFFF) |
-| toggle | ○ | 전문 보기·전문 닫기 버튼. 76×24, radius `raw:8px`, 1px 보더, 바탕 없음 | `color.stroke.neutral` (#999999), `typography.text-1` (14/300), `color.palette.gray.100` (#E6E6E6), padding `spacing.1` (4px) / `spacing.3` (12px) |
+| toggle | ○ | 전문 보기·전문 닫기 버튼. 76×24, radius `radius.xs` (8px), 1px 보더, 바탕 없음 | `color.stroke.neutral` (#999999), `typography.text-1` (14/300), `color.palette.gray.100` (#E6E6E6), padding `spacing.1` (4px) / `spacing.3` (12px) |
 | detail | ○ | 펼침 카드 `지원폼_전문 카드`. row 아래 20px. 폭 800 | `color.bg.layer` (#1A1A1A), `radius.sm` (12px), `typography.body-4` (18/400), `color.fg.default` (#FFFFFF), row와의 간격 `spacing.5` (20px) |
 
 ## 3. Variants·Sizes
@@ -75,7 +75,7 @@ last_updated: 2026-10-22
 | --- | --- | --- | --- | --- | --- | --- |
 | box | 24×24 | 20×20 | `raw:5px` | — | — | Figma 5946:10028, Figma 7578:14601 |
 | agreement row | 387×24 | 미확인 | — | gap `spacing.4` (16px) | `typography.body-3` / 모바일 `typography.body-5` | Figma 5799:10186, 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` |
-| toggle | 76×24 | 80×24 | `raw:8px` | `spacing.1` (4px) / `spacing.3` (12px) | `typography.text-1` / 모바일 미확인 | Figma 4266:7630, design-reference 5.8.1 |
+| toggle | 76×24 | 80×24 | `radius.xs` (8px) | `spacing.1` (4px) / `spacing.3` (12px) | `typography.text-1` / 모바일 미확인 | Figma 4266:7630, design-reference 5.8.1 |
 | detail | 800×내용 높이 | 부모 폭 100% | `radius.sm` (12px) | `spacing.5` (20px) | `typography.body-4` / 모바일 `typography.body-4-mobile` | Figma 5799:10200, 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` |
 
 - padding 값 순서: 2개는 세로 / 가로
@@ -210,7 +210,6 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 값 | 위치 | 근거 | 토큰 추가 필요 여부 |
 | --- | --- | --- | --- |
 | `raw:5px` | box radius | Figma 5946:10028, Figma 7578:14601 | 불필요(체크박스 1곳). 두 번째 사용처가 생기면 제안 |
-| `raw:8px` | toggle radius | Figma 4266:7630 | 불필요. 버튼 모바일 neutral-md(`components/button.md`)와 같은 값. 사용처 3곳이 되면 제안 |
 | `raw:2px` | 모바일 box 터치 영역 확장 | Figma 없음(추정) | 불필요 |
 | `raw:0.35s` ease | detail 펼침·접힘 전환 | 코드 `src/widgets/apply/ui/agreement-step/agreement-step.css.ts` | 불필요(모션 토큰 범위 밖) |
 | 체크 표시·가로 막대 모양 | glyph. Figma 벡터(상자 + 체크 구멍) 24×24 / 20×20 | Figma 5946:10032, Figma 7578:14605 | 불필요(아이콘 자산) |

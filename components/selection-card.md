@@ -38,7 +38,7 @@ last_updated: 2026-10-22
 
 | 슬롯 | 필수 | 설명 | 적용 토큰 |
 | --- | --- | --- | --- |
-| root | ○ | `<label>`. 카드 전체가 누를 영역. 고정 크기, 내용 가로·세로 가운데 정렬. 보더 1px, radius 8 | `raw:8px`, 색은 4절 |
+| root | ○ | `<label>`. 카드 전체가 누를 영역. 고정 크기, 내용 가로·세로 가운데 정렬. 보더 1px, radius 8 | `radius.xs` (8px), 색은 4절 |
 | input | ○ | 네이티브 `<input type="radio">`. 시각적 숨김(clip). `display:none` 금지(`components/radio.md` 2절과 같음) | — |
 | icon | × | 지름 32 원(모바일 28). 부문 아이콘 자리. 장식이라 `aria-hidden="true"` | `color.palette.gray.400` (#999999) |
 | label | ○ | 부문 이름 한 줄. icon과 gap 16px | `typography.body-2` / 모바일 `typography.body-2-mobile`, gap `spacing.4` (16px) |
@@ -58,10 +58,10 @@ last_updated: 2026-10-22
 
 | size | 데스크톱(px) | 모바일(px) | radius | padding | 글자 | 근거 |
 | --- | --- | --- | --- | --- | --- | --- |
-| card | 253×80 | 342×56 | `raw:8px` | 0(고정 크기, 내용 가운데 정렬), icon–label gap `spacing.4` (16px) | `typography.body-2` / 모바일 `typography.body-2-mobile` | Figma 4266:7628, Figma 5188:8868, Figma 7578:9510 |
+| card | 253×80 | 342×56 | `radius.xs` (8px) | 0(고정 크기, 내용 가운데 정렬), icon–label gap `spacing.4` (16px) | `typography.body-2` / 모바일 `typography.body-2-mobile` | Figma 4266:7628, Figma 5188:8868, Figma 7578:9510 |
 | icon | 32×32 | 28×28 | `radius.full` (40px) | — | — | Figma 4266:7487, Figma 7578:9511 |
 
-- radius 8: radius 토큰(`radius.sm` 12, `radius.md` 20, `radius.full` 40)에 없어 `raw:8px`로 적음(COMPONENT-15-02, design-reference 3.1). 10절
+- radius 8: `radius.xs` 토큰(#73, 2026-10-22 추가). COMPONENT-15-02의 "수치로 기재"는 토큰 추가로 대체됨
 - 높이 고정. 폭은 Group 행을 3등분(`flex: 1 1 0`)해 데스크톱 800 폭에서 253이 됨(3×253 + 2×20 = 799)
 - 라벨 글자: Figma 18 Bold(데스크톱)·15 Bold(모바일). 보라 바탕 흰 글자 대비 때문에 `typography.body-2` (20/700)로 올림. 근거는 7절 대비 행
   - 상태가 바뀌어도 글자 크기는 같게 둠(선택 시 줄 길이가 변하지 않게). default 행도 `typography.body-2`
@@ -127,7 +127,7 @@ focus-visible 칸은 rest 색을 유지하고 root에 outline을 더함.
   - icon: 28×28
   - 글자: `typography.body-2-mobile` (16/600). Figma 15 Bold는 토큰이 없어 가장 가까운 값으로 맞춤(button.md brand-wide 모바일과 같은 처리)
   - 배치: 세로 목록, 간격 `spacing.3` (12px)(추정)
-  - radius `raw:8px`, 보더 1px, icon–label gap `spacing.4` 그대로
+  - radius `radius.xs` (8px), 보더 1px, icon–label gap `spacing.4` 그대로
 - 769~1365px: 데스크톱 값. 묶음 폭이 줄면 카드 폭도 3등분으로 줄어듦. 카드 폭이 200 아래로 내려가면 세로 목록으로 바꿈(추정)
 - Figma 모바일 노드: 세트 Figma 7578:9509(Default 7578:9510, Active 7578:9516). 모바일 화면 인스턴스 없음(배치 값 추정)
 
@@ -171,7 +171,6 @@ focus-visible 칸은 rest 색을 유지하고 root에 outline을 더함.
 
 | 값 | 위치 | 근거 | 토큰 추가 필요 여부 |
 | --- | --- | --- | --- |
-| `raw:8px` | card radius | Figma 4266:7628, Figma 7578:9510 | 사용처 3곳째(button.md 모바일 neutral-md, checkbox.md toggle, 이 명세). checkbox.md 10절 기준("3곳이 되면 제안")에 따라 radius 8 토큰 추가를 별도 이슈로 제안 필요 |
 | 253×80, 342×56 | card 크기 | Figma 4266:7628, Figma 7578:9510 | 불필요 |
 | 32px, 28px | icon 원 지름 | Figma 4266:7487, Figma 7578:9511 | 불필요 |
 | 1px | 보더 굵기 | Figma 4266:7628 | 불필요 |
