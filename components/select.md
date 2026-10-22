@@ -114,7 +114,7 @@ rest는 상호작용이 없을 때의 모습임.
   - 열림(`aria-expanded="true"`) 동안 text-field의 focus 표시(하단 `color.stroke.brand` (#7A64F9), label `color.fg.brand` (#7A64F9))를 유지함(Figma 5395:3847, Figma 5395:646)
   - 목록이 닫히고 포커스가 trigger에 남으면 focus 표시 유지, 포커스가 떠나면 text-field의 해당 행으로 돌아감
   - invalid 상태에서 열면 열림 동안 focus 표시가 우선함(닫히면 invalid 표시로 돌아감)
-- disabled: text-field에 disabled 행이 없어 정의하지 않음(11절)
+- field 트리거 disabled: text-field에 disabled 행이 없어 정의하지 않음(11절). chip 트리거와 option의 disabled는 아래 표에서 정의함
 
 ### trigger: chip
 
@@ -180,7 +180,7 @@ rest는 상호작용이 없을 때의 모습임.
 | 목록 열림·닫힘 | 없음 | — | design-reference 5.6 |
 | chevron 회전 | 없음(아이콘 교체) | — | 코드 `src/widgets/archive/ui/track-filter/track-filter.tsx` |
 
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 

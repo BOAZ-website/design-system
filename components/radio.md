@@ -78,7 +78,7 @@ radio-group은 같은 질문에 속한 라디오 묶음임. 질문 제목이 묶
 | 보기 사이 세로 간격 | `spacing.5` (20px) | `spacing.5` (20px) | Figma 2391:5943, Figma 6454:8278, Figma 8103:16395 |
 | 질문 제목 글자 | `typography.headline-2` (30/700) `color.fg.default` (#FFFFFF) | `typography.body-3` (18/700) | Figma 2009:4225, Figma 8103:16394 |
 | 질문 제목 → 첫 보기 | `spacing.12` (48px) | `spacing.5` (20px) | Figma 5980:10947, Figma 8103:16393 |
-| 필수 표시 | 표시 기호 없음. 지원서 질문은 모두 필수이며 누락은 제출 시 메시지로 알림 | 같음 | Figma 2009:4228, Figma 없음(추정) |
+| 필수 표시 | 필수 표시 기호 없음. 선택 질문(`is_required`가 false)만 제목 뒤에 "(선택)"을 붙임(`patterns/form.md` 2.1). 누락은 다음 페이지·제출 때 메시지로 알림 | 같음 | Figma 2009:4228, Figma 없음(추정) |
 | 누락 메시지 | 목록 아래. 글자·색은 text-field 명세의 필수 항목 누락 상태를 따름 | 같음 | 코드 `src/widgets/apply/ui/personal-info-section.tsx` |
 | 표형 질문 행 이름 | `typography.headline-3` (24/700) `color.fg.brand` (#7A64F9) | `raw:16px Medium`(16/500) `color.fg.brand` (#7A64F9) | Figma 2391:5870, Figma 6454:8277 |
 | 행 이름 상자 | 위아래 `raw:10px` 패딩, 아래 보기 목록과 `raw:10px` 간격 | 같음 | Figma 1672:4427, Figma 1672:4430 |
@@ -128,7 +128,7 @@ focus-visible 칸은 rest 색을 유지하고 circle에 outline을 더함.
 | dot transform(scale 0 → 1) | 0.2s | cubic-bezier(0.4,0,0.2,1) | design-reference 4.3 |
 | label color | 0.2s | ease | Figma 없음(추정) |
 
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 
@@ -200,6 +200,6 @@ focus-visible 칸은 rest 색을 유지하고 circle에 outline을 더함.
 - 모바일 질문 제목 → 첫 보기 20px: Figma 8103:16393이 자동 배치가 아닌 그룹이라 좌표로 잰 값
 - selected의 hover·press, default의 press, 모든 focus-visible: Figma에 없음(추정)
 - disabled: Figma에 없음. `color.palette.gray.600` (#666666) 추정값
-- 필수 표시 기호: Figma 질문 컴포넌트(2009:4228)에 없음. 선택 질문이 생기면 표시 규칙을 다시 정해야 함
+- "(선택)" 표시: Figma 질문 컴포넌트(2009:4228)에 없음. 문구·위치는 `patterns/form.md` 7절과 함께 디자이너 확인
 - 면접 시간 선택 표(Figma 8812:5792, 수정사항 페이지. 원만 있는 라디오 인스턴스는 그 안의 8812:5750): 라디오를 가로 격자로 배치하고 원만 둔 칸이 있음. 확정 화면인지 확인 필요. label-hidden variant의 근거로만 씀
 - 모바일 터치 영역 44×44: Figma 간격(20px)으로는 미달. 패딩 확장 방식은 추정

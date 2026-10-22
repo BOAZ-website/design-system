@@ -9,7 +9,7 @@ BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세
 1. 디자인 시스템 리드에게 아래 "합류 체크리스트"의 권한과 맡을 티켓의 GitHub 이슈 번호를 요청합니다.
 2. [`README.md`](./README.md)로 저장소 구성(`tokens/` → `dist/`, `components/`, `patterns/`)을 봅니다.
 3. [`AGENTS.md`](./AGENTS.md)의 원칙, 토큰 이름 규칙, 명세 작업 절차, 문서 작성 규칙을 읽습니다.
-4. [`docs/wbs/00-wbs.md`](./docs/wbs/00-wbs.md)의 "읽는 법"·"Phase"·"인수인계"를 읽습니다. 이어서 맡은 티켓이 있는 명세서(예: `docs/wbs/30-component.md`)를 읽습니다.
+4. [`docs/wbs/00-wbs.md`](./docs/wbs/00-wbs.md)의 "읽는 법"·"Phase"·"인수인계"를 읽습니다. 이어서 맡은 티켓이 있는 작업 정의서(예: `docs/wbs/30-component.md`)를 읽습니다.
 5. 값의 근거는 [`docs/design-reference.md`](./docs/design-reference.md)와 `docs/wbs/20-token.md`의 대비표에서 찾습니다.
 6. 아래 "개발 환경"의 커밋 훅을 켭니다. 명세만 고치면 `npm ci`와 빌드는 건너뜁니다.
 7. `dev`에서 브랜치를 만들고 `components/_template.md`를 복사해 명세를 씁니다. Phase 2의 첫 티켓은 COMPONENT-01(button)입니다.
@@ -99,7 +99,7 @@ PR 본문 "상세 내용"에 아래를 확인했다고 적습니다.
 
 ### 머지 후
 
-1. 이슈가 닫혔는지, 명세서(`docs/wbs/30-component.md` 등)의 "GitHub 이슈" 칸에 번호가 있는지 확인합니다.
+1. 이슈가 닫혔는지, 작업 정의서(`docs/wbs/30-component.md` 등)의 "GitHub 이슈" 칸에 번호가 있는지 확인합니다.
 2. 노션 티켓 상태를 완료로 바꾸고 PR 링크를 적습니다. 노션 편집 권한이 없으면 디자인 시스템 리드에게 요청합니다.
 3. `docs/wbs/00-wbs.md`의 티켓 상태가 `완료(#이슈번호)`인지 확인합니다. 빠졌으면 별도 PR로 넣습니다. 노션을 먼저 고치고 사본을 맞춥니다.
 

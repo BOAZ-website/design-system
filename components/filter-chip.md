@@ -125,7 +125,7 @@ last_updated: 2026-10-22
 | background-color, border-color, color | 0.2s | ease-in-out | design-reference 4.3 |
 | chevron 방향 | 없음(아이콘 교체) | — | 코드 `src/widgets/archive/ui/track-filter/track-filter.tsx` |
 
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 

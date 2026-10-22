@@ -208,7 +208,7 @@ rest는 상호작용이 없을 때의 모습임.
 | 패널 열림·닫힘 | 없음 | — | design-reference 5.6 |
 
 - Figma 프로토타입의 Default→Hover 연결은 전환 없음(즉시)(Figma 5875:6265). select option과 맞춰 0.2s를 씀
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 

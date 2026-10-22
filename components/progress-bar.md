@@ -95,7 +95,7 @@ last_updated: 2026-10-22
 | --- | --- | --- | --- |
 | background-color | 0.1s | ease | design-reference 4.3 |
 
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 
@@ -140,7 +140,7 @@ last_updated: 2026-10-22
 | --- | --- | --- |
 | frontend | `src/shared/components/progress-bar/progress-bar.tsx`, `src/shared/components/progress-bar/progress-bar.css.ts`, `src/shared/components/progress-bar/progress-bar-section.tsx`, `src/shared/components/progress-bar/progress-bar-section.css.ts` | `ProgressBar`: segment 하나(`isCurrentStep`)<br>`ProgressBarSection`: `currentStep`(0부터)을 받아 4개를 나열<br>사용: `src/widgets/apply/ui/apply-title-section.tsx`(`showProgressBar`), 호출은 `src/pages/apply-page.tsx` |
 | frontend 차이 | 위와 같음 | ADOPT-03-18에서 고침. 명세와 다른 점<br>- segment가 `<button type="button">`(명세 `<span aria-hidden="true">`)<br>- root에 `role="progressbar"`·`aria-value*` 없음<br>- gap 20px(명세 `raw:22px`)<br>- 단계 이름 목록이 `progress-bar-section.tsx`와 `apply-page.tsx`에 따로 있음(값도 "지원자 정보"·"지원자 정보 입력"으로 다름)<br>- 단계 변경 시 제목으로 포커스 이동 없음 |
-| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 대응 ADOPT-07 기능 ID 없음, 값은 ADOPT-05 기준 |
+| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 관리자 콘솔에 단계 진행 화면이 없어 대응 ADOPT 없음(2026-10-22 확인) |
 | FE 이름 ↔ 명세 이름 | `src/shared/components/progress-bar/progress-bar.tsx` | `ProgressBarSection` ↔ root, `ProgressBar` ↔ segment, `isCurrentStep` ↔ selected |
 
 ## 10. 비토큰 값

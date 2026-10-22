@@ -138,7 +138,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | color(remove-button 아이콘) | 0.2s | ease-in-out | design-reference 4.3 |
 | 추가된 항목 행 | `components/text-field.md` 5절과 같음 | — | Figma 없음(추정) |
 
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 - 행이 생기고 지워질 때 높이 애니메이션은 두지 않음(Figma 없음(추정))
 
 ## 6. 반응형
@@ -182,7 +182,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | --- | --- | --- |
 | frontend | `src/widgets/apply/ui/personal-info-section.tsx`, `src/widgets/apply/ui/personal-info-section.css.ts`, `src/widgets/apply/ui/question-section/question-section.tsx`, `src/widgets/apply/ui/question-section/question-section.css.ts` | 공용 컴포넌트 없음. 화면마다 직접 구현<br>- 복수/부전공: `addDegree`(add 행, 최대 3개), `degreeRow` + `removeDegreeButton`("삭제" 글자 버튼)<br>- 프로젝트: `addProject`("+ 프로젝트 추가하기"), 추가된 행 삭제 없음 |
 | frontend 차이 | 위와 같음 | ADOPT-03-21에서 고침. 명세와 다른 점<br>- add 행: `<div onClick>`(명세 `<button type="button">`), 키보드로 실행 불가<br>- add 글자: "+ " 기호를 글자로 씀, 14 Regular(명세 `typography.body-4` 18, 아이콘)<br>- add 높이·hover 바탕: 없음(명세 60 고정, hover `color.palette.gray.950`)<br>- 삭제: "삭제" 글자 버튼, hover #E6E6E6(명세 빼기 아이콘, hover `color.fg.critical`), `aria-label` 없음<br>- 프로젝트 추가 행: 삭제 버튼 없음<br>- 포커스: 추가·삭제 후 이동 없음, 전역 `outline: none`(ADOPT-01-03) |
-| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 대응 ADOPT-07 기능 ID 없음, 값은 ADOPT-05 기준 |
+| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 관리자 콘솔 출석 이벤트 빠른 추가는 형태가 달라 이 명세 대상 아님. 입력은 ADOPT-07-03(2026-10-22 확인) |
 | FE 이름 ↔ 명세 이름 | 위와 같음 | `addDegree`·`addProject` ↔ add 행. `degreeRow` ↔ 추가된 항목 행. `removeDegreeButton` ↔ remove-button |
 
 ## 10. 비토큰 값

@@ -1,8 +1,8 @@
-# ADOPT 앱 적용 명세서
+# ADOPT 앱 적용 작업 정의서
 
 기준일 2026-10-11, 2026-10-21 앱 코드 대조 후 ADOPT-01·02·05·06 정정 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
 
-## 명세서 목적
+## 작업 정의서 목적
 
 - 두 앱이 `v0.1.0` 토큰을 git 태그로 설치해 쓰게 함
 - 관리자 콘솔의 화면별 값(색·모서리·그림자·글자 크기)과 공용 컴포넌트를 통일함(ADOPT-05~07)
@@ -28,6 +28,7 @@
 | ADOPT-01-01 | `pnpm add github:BOAZ-website/design-system#v0.1.0`. 앱 진입점(`src/app` 전역 스타일)에서 `@boaz/design-system/tokens.css`를 한 번 import함. `tokens` 모듈의 `vars`는 `var(--boaz-*)` 문자열만 담고 있어 이 CSS가 없으면 모든 값이 정의되지 않은 변수가 됨(빌드·타입 검사는 통과하고 화면만 깨짐) | `package.json` 의존성, 브라우저에서 `:root`에 `--boaz-*` 변수 존재 |
 | ADOPT-01-02 | `theme.css.ts`의 값 출처를 `@boaz/design-system/tokens`의 `vars`로 바꿈. 기존 키 이름은 유지하고 `color.css.ts`·`font.css.ts`·`radius.css.ts` 안에서 토큰으로 대응시킴. 호출부(`themeVars.color` 243곳, `fontSize`·`fontWeight`·`lineHeight`·`letterSpacing` 각 29~31곳, `radius` 2곳)는 그대로 둠. <br>**색 대응표:** `color.primary.100/200/300` → `palette.purple.100/200/300`, `grayscale.white/black` → `gray.0/1000`, `grayscale.100~950` → `gray.100~950`, `sub.lightblue_100` → `lightblue.100`, `error.red_100/red_200` → `red.100/900`. radius는 이름이 같은데 값이 다르므로(앱 `xs 12·sm 20·md 24·lg 40`, 토큰 `sm 12·md 20·full 40`) 키별로 지정함: `xs` → `radius.sm`, `sm` → `radius.md`, `lg` → `radius.full`, `md` 24는 토큰이 없어 로컬 값 유지. 토큰에 없는 값은 로컬 값 유지: `fontSize` 8·10·22·28·32·36·38·80, `fontWeight.medium`(500), `lineHeight`(비율), `letterSpacing`, `fontFamily`(토큰은 `Pretendard, sans-serif`라 `Pretendard Variable`·`Paperlogy` 지정이 사라짐) | 호출부 변경 0건, 화면 차이 없음, 로컬 유지 값마다 "토큰 없음" 주석 |
 | ADOPT-01-03 | 전역 `outline: none`(`global.css.ts:49`) 제거, `:focus-visible` 적용 | 키보드 Tab 이동 시 버튼 포커스 표시 |
+| ADOPT-01-04 | `prefers-reduced-motion: reduce`일 때 전환 제거, 배경 장식 무한 애니메이션 5개 정지, 스피너 정지 이미지. 2026-10-22 PATTERN-03 작성으로 추가 | `patterns/accessibility.md` 2.4 규칙대로 OS 동작 줄이기 설정 시 움직임 없음 |
 
 ## ADOPT-02 frontend_admin 토큰 연결
 
@@ -49,7 +50,7 @@
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 두 주 | ADOPT-01, COMPONENT-01~16(`review` 이상. 03-09~15는 COMPONENT-01~08, 03-16~21은 COMPONENT-09~16) | 4 | `BOAZ-website/frontend` |
+| 두 주 | ADOPT-01, COMPONENT-01~16(`review` 이상. 03-09~15는 COMPONENT-01~08, 03-16~21은 COMPONENT-09~16, 03-22·23은 PATTERN-02·04) | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -74,6 +75,8 @@
 | ADOPT-03-19 | 필터 칩·태그 칩(03-11 외): 부문 트리거 높이 48 → 44, 패딩을 `components/select.md` 3절 값으로<br>selected 라벨을 값만으로("{값} 부문" → "{값}")<br>03-11에서 추가하는 ✕에 `aria-label="{값} 선택 해제"` | `components/filter-chip.md`·`components/tag-chip.md` 9절 frontend 차이 항목 모두 해소 |
 | ADOPT-03-20 | 선택 카드: 지원 부문 원형 라디오 목록을 명세 카드(253×80, 가로 3개, selected 보라 바탕)로 교체<br>부문 변경 확인 `window.confirm` → 모달(COMPONENT-07), 취소 시 이전 선택 복원<br>묶음 role·포커스 표시는 ADOPT-03-13에서 처리. 질문 위치(Figma는 "지원 안내사항 및 동의" 화면)는 화면 흐름 변경이라 범위 밖 | `components/selection-card.md` 9절 frontend 차이 중 위치 외 항목 모두 해소, `rg "window.confirm" src` 0건 |
 | ADOPT-03-21 | 항목 추가 버튼: add 행 `<div onClick>` → `<button type="button">`<br>"+ " 글자 → 더하기 아이콘, 글자 14 → `--boaz-typography-body-4-size`, 높이 60(모바일 56) 고정, hover 바탕 `--boaz-color-palette-gray-950`<br>삭제: "삭제" 글자 → 빼기 아이콘 버튼, hover `--boaz-color-fg-critical`, `aria-label` 추가. 프로젝트 행에도 삭제 버튼 추가<br>추가 후 새 입력칸, 삭제 후 이웃 행으로 포커스 이동 | `components/form-add-button.md` 9절 frontend 차이 항목 모두 해소, 키보드(Tab·Enter)로 항목 추가·삭제 가능 |
+| ADOPT-03-22 | 지원서 폼 검증 동작(PATTERN-02): 다음 페이지 `window.alert` 제거 → 필드 아래 오류 문구 + 첫 오류 필드 포커스, 제출하기 비활성 해제, 빈 필드 blur 시 누락 오류 제거, 한 줄 필드 간격 1/2 줄 `spacing.5`·1/3 줄 22px, 단계 이동 시 단계 제목 포커스, 선택 질문 "(선택)" 표시. 2026-10-22 PATTERN-02 작성으로 추가 | `patterns/form.md` 6절 frontend 차이 모두 해소 |
+| ADOPT-03-23 | 문구 정리(PATTERN-04): "해 주세요" 띄어쓰기 5곳을 "해주세요"로(`login-widget.tsx`, `personal-info-section.tsx`, `question-section.tsx`), 사전 알림 신청 완료 문구 합쇼체·느낌표 제거, Figma 원문과 다른 문구 2곳 맞춤. 2026-10-22 PATTERN-04 작성으로 추가 | `patterns/voice-and-tone.md` 6절 frontend 차이 모두 해소 |
 
 ## ADOPT-04 frontend `alert()` → 모달 교체
 
@@ -85,6 +88,7 @@
 | --- | --- | --- |
 | ADOPT-04-01 | 공용 Modal 컴포넌트(`shared/components/modal`) | 컴포넌트 존재 |
 | ADOPT-04-02 | `alert()` 10곳을 PATTERN-01-03 대응표대로 교체 | `rg "alert\(" src` 0건 |
+| ADOPT-04-03 | `alert()`가 아닌 모달 사용처 3건 적용: 지원서 제출 중 loading 모달, 지원 진입 시 지원 기간 아님·모집 마감 안내 모달(현재 `Navigate`로 홈 이동). 2026-10-22 PATTERN-01 작성으로 추가 | `patterns/feedback.md` 2.3 "alert가 아닌 모달 사용처" 표 3건 적용 |
 
 ## ADOPT-05 frontend_admin 값 기준 확정
 
@@ -149,3 +153,4 @@
 | ADOPT-07-06 | 카드·태그·배지 | 화면 파일의 배지 직접 마크업 0건 |
 | ADOPT-07-07 | 빈 상태·불러오기 실패 안내(현재 약 13개 파일이 각자 문구·모양을 씀) | 대상 파일이 공용 컴포넌트를 씀 |
 | ADOPT-07-08 | 탭(현재 1개 화면) | 해당 화면이 공용 컴포넌트를 씀 |
+| ADOPT-07-09 | 페이지 이동(현재 아카이빙 관리 1개 화면 `src/pages/content-archive/ui/ArchivingSection.tsx`). 동작·접근성은 `components/pagination.md`(번호형이면 `<nav aria-label>`, 현재 페이지 `aria-current="page"`, 처음·끝 화살표 `aria-disabled`)를 따르고 값은 ADOPT-05 기준. 2026-10-22 COMPONENT-12 작성으로 추가 | 해당 화면이 공용 컴포넌트를 씀 |

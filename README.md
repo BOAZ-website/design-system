@@ -50,7 +50,7 @@ vars.color.palette.purple[100]; // "var(--boaz-color-palette-purple-100)"
 처음 합류했다면 [`CONTRIBUTING.md`의 "처음 합류했다면"](./CONTRIBUTING.md#처음-합류했다면)부터 읽습니다.
 
 - [`docs/design-reference.md`](./docs/design-reference.md) — 디자인 참조: Figma 원본 색·타이포·컴포넌트·에셋 기록
-- [`docs/wbs/`](./docs/wbs) — 구축 로드맵 (WBS·명세서)
+- [`docs/wbs/`](./docs/wbs) — 구축 로드맵 (WBS·작업 정의서). 작업 정의서는 할 일과 완료 조건을 정하고, 결과물의 정의는 `components/`·`patterns/`의 명세서에 있습니다.
 - [`AGENTS.md`](./AGENTS.md) — 토큰 명명 규칙, 토큰·명세 작업 절차, breaking change 정책, 문서 작성 규칙
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — 처음 합류했을 때의 순서, 권한 체크리스트, 개발 환경, 브랜치·리뷰·커밋 규약
 

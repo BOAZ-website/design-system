@@ -130,7 +130,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 점 background-color, border-color | 0.2s | ease | design-reference 4.3 |
 | 화살표 color | 0.2s | ease | Figma 없음(추정) |
 
-- reduced-motion(사용자가 동작 줄이기를 설정한 경우): PATTERN-03-04 확정 전까지 전환을 제거함
+- reduced-motion(사용자가 동작 줄이기를 설정한 경우): 전환을 제거함(`patterns/accessibility.md` PATTERN-03-04)
 
 ## 6. 반응형
 
@@ -176,7 +176,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | --- | --- | --- |
 | frontend | `src/shared/components/pagination/pagination.tsx`, `src/shared/components/pagination/pagination.css.ts`, `src/shared/hooks/use-pagination.ts` | props: `currentPage`, `totalPages`, `onPageChange`, `maxDots`(기본 5)<br>사용 화면: `src/pages/archive-page.tsx`(아카이빙), `src/widgets/curriculum/ui/review-section/review-section.tsx`(후기, 모바일 `maxDots={7}`)<br>아이콘: `src/shared/assets/icons/ic_chevron_left.svg`·`ic_chevron_right.svg`(50 viewBox) |
 | frontend 차이 | 위와 같음 | ADOPT-03-17에서 고침. 명세와 다른 점<br>- default 점 테두리: 흰색(명세 `color.stroke.neutral` #999999)<br>- 점 hover·화살표 press 없음<br>- 현재 페이지 점: `disabled`(명세 `aria-current="page"`, Tab 대상 유지)<br>- 화살표 비활성: 네이티브 `disabled` + opacity 0.2(명세 `aria-disabled` + `color.palette.gray.800`)<br>- `<nav>`에 `aria-label` 없음<br>- 화살표 크기: 데스크톱 35px, 모바일 16px(명세 48·50px. 모바일 16px는 24×24 미달)<br>- 화살표–점 gap: 데스크톱 40px, 모바일 20px(명세 `spacing.5`·`raw:30px`)<br>- 모바일 점: 12px 균일(명세 scaled 20·15·10)<br>- 점 버튼 누르는 영역: 원 크기와 같음(명세 24×24)<br>- 후기 모바일 `maxDots={7}`(명세 5)<br>- `:focus-visible` 없음(전역 `outline: none`, ADOPT-01) |
-| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. 대응 ADOPT-07 기능 ID 없음, 값은 ADOPT-05 기준 |
+| frontend_admin | `src/pages/content-archive/ui/ArchivingSection.tsx` | 관리자 콘솔은 이 명세의 값을 따르지 않음. ADOPT-07-09(동작·접근성만 이 명세), 값은 ADOPT-05 기준 |
 | FE 이름 ↔ 명세 이름 | `src/shared/components/pagination/pagination.css.ts` | `dot.default` ↔ default, `dot.active` ↔ selected. `arrowButton:disabled` ↔ disabled |
 
 ## 10. 비토큰 값
@@ -204,4 +204,3 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 - 데스크톱 화살표–점 묶음 gap: 컴포넌트 원본 2653:6538은 40, 화면 인스턴스(3328:6385·4817:7572)와 Components 세트(5239:823)는 20. 명세는 20(`spacing.5`). 디자이너 확인 필요
 - 옛 데스크톱 시안: 커리큘럼(1678:2469, 화살표 35·gap 40)과 아카이빙(1073:2209·1161:4329, scaled 점)에 다른 값이 남아 있음. 명세는 Components 페이지 세트를 기준으로 함
 - 점 버튼 24×24와 gap `raw:11px`·`spacing.3`: Figma에 누르는 영역 정의 없음(추정)
-- 관리자 콘솔: 페이지 이동 UI가 있으나(아카이빙 관리, 출석 이벤트 관리) ADOPT-07에 대응 기능 ID 없음
