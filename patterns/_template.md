@@ -6,7 +6,7 @@ status: draft               # draft | review | stable (전이 조건은 docs/wbs
 figma:                      # 근거로 쓴 Figma 노드 ID 목록. 링크·파일 키·캡처는 적지 않음
   - "4412:7387"
 figma_verified: false       # Figma를 직접 열어 확인했으면 true
-tokens_version: v0.1.0      # 이 명세가 기준으로 삼은 토큰 태그
+tokens_version: v0.1.1      # 이 명세가 기준으로 삼은 토큰 태그
 owner: 명세 담당            # 역할명(CONTRIBUTING.md 역할 표). 실명 금지
 last_updated: 2026-10-22    # YYYY-MM-DD. 명세를 고치는 PR이 갱신
 ---
