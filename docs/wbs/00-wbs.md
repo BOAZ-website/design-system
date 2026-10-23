@@ -86,29 +86,25 @@
 - 관리자 콘솔 티켓은 ADOPT-02 → 05 → 06 → 07 순서로 컴포넌트 명세(Phase 2)를 기다리지 않고 바로 시작함. 관리자 콘솔이 개발 중이라 화면이 늘기 전에 기준을 맞추기 위함(2026-10-11 결정)
 - `v0.1.0` 발행 후 ADOPT-05는 토큰 설치(ADOPT-02)를 선행으로 두게 됨(2026-10-21 정정)
 - 관리자 콘솔은 2026년 12월 오픈이 목표이고 오픈일은 미정. 그래서 ADOPT-02·05는 오픈 전에 끝냄. ADOPT-06·07은 오픈 전 완료를 목표로 하되 오픈 뒤로 넘길 수 있음
-- Phase 2(COMPONENT-01~08)는 디자인 시스템 명세 담당, ADOPT-02·05~07은 관리자 콘솔 담당이 맡음. 한 사람이 둘 다 맡으면 ADOPT-02·05를 먼저 하고 Phase 2를 진행함
+- Phase 4(ADOPT-01~07)는 FE 팀이 맡음(2026-10-23 결정). frontend(ADOPT-01·03·04)와 frontend_admin(ADOPT-02·05~07) 모두 해당 앱 저장소에서 진행함
 - COMPONENT-01~08은 서로 선행이 없음. COMPONENT-01(button)을 먼저 끝내 양식을 확정하고 나머지는 그 양식으로 씀
 
-### 인수인계(Phase 2부터)
+### 인수인계(Phase 4)
 
-Phase 0·1은 디자인 시스템 리드(현재 인프라 담당)가 끝냈고, Phase 2부터는 새로 합류하는 프론트엔드 담당자(명세 담당 역할)가 맡음. 처음 읽는 순서와 권한은 `CONTRIBUTING.md` "처음 합류했다면"·"합류 체크리스트"에 있음
+Phase 0~3(토큰·컴포넌트 16종·패턴 4종 명세)은 디자인 시스템 리드(현재 인프라 담당)가 끝냄. 명세는 모두 `status: review`이고 미확인 절에 남은 질문 없음(검색 결과 패널 보류 한 줄만 있음, 2026-10-23). Phase 4 앱 적용은 FE 팀이 맡음(2026-10-23 결정)
 
-명세 담당으로 배정받으면 다음과 같음.
-
-- 준비돼 있는 것: 명세 양식(`components/_template.md`), 작업 절차(`AGENTS.md`), 협업 규칙(`CONTRIBUTING.md`), 정정이 끝난 티켓(#48 완료)
-- 리드가 배정 전에 처리하는 것: 저장소 쓰기·Figma 열람·노션 편집 권한, Phase 2 Milestone, COMPONENT-01~08의 GitHub 이슈
-- 명세 담당이 하는 것: 이슈 번호를 받아 COMPONENT-01(button)을 작성하고 PR을 냄. 이 명세가 나머지 7개의 양식이 됨
-- 리드가 배정 후에 하는 것: PR 리뷰, status 변경 승인, `docs/wbs` 변경의 노션 반영, 릴리스 태그
+- 준비돼 있는 것: 토큰 `v0.1.1`, 명세 `components/`·`patterns/`, 앱별 할 일 `docs/wbs/50-adopt.md`, 작업 절차(`AGENTS.md`), 협업 규칙(`CONTRIBUTING.md`)
+- 리드가 시작 전에 처리하는 것: Phase 4 Milestone, 앱 저장소(frontend·frontend_admin) 이슈 생성(FE 팀 승인 후), Figma 열람·노션 편집 권한
+- FE 팀이 하는 것: 앱 저장소에서 ADOPT 티켓별 이슈·PR. 명세와 다른 값을 발견하면 이 저장소에 명세 수정 이슈를 냄
+- 리드가 하는 것: 명세 질문 응답, 명세 수정, ADOPT 완료 후 해당 명세 `status: stable` 전환, `docs/wbs` 변경의 노션 반영
 
 | 구분 | 할 일 | 담당 |
 | --- | --- | --- |
-| 배정 전 | Phase 1 Milestone 닫기, Phase 2 Milestone과 COMPONENT-01~08 이슈 생성, `30-component.md` "GitHub 이슈" 칸 채우기 | 디자인 시스템 리드 |
-| 배정 전 | 관리자 콘솔 경로(ADOPT-02·05)를 병행하면 Phase 4 Milestone과 해당 앱 저장소 이슈 생성 | 디자인 시스템 리드 |
-| 배정 전 | 저장소 쓰기·Figma 열람·노션 편집 권한 부여 | 디자인 시스템 리드 |
-| 배정 후 | COMPONENT-01 작성. 첫 명세가 나머지 7개의 양식이 됨 | 명세 담당 |
-| 배정 후 | 명세 PR 리뷰·status 변경 승인 | 리뷰어(`2nd-frontend` 팀원. 없으면 디자인 시스템 리드, CONTRIBUTING.md "리뷰와 머지") |
-| 배정 후 | `docs/wbs` 변경의 노션 반영, 릴리스 태그 | 디자인 시스템 리드 |
-| 배정 후 첫 주 | ADOPT-06·07 규모 재산정, `frontend_admin/CLAUDE.md` 린트·공용 컴포넌트 설명 정정(앱 저장소 이슈) | 디자인 시스템 리드 |
+| 시작 전 | Phase 4 Milestone과 앱 저장소 이슈 생성, 권한 부여 | 디자인 시스템 리드 |
+| 진행 | 관리자 콘솔(ADOPT-02 → 05 → 06 → 07)은 2026-12 오픈 전 ADOPT-02·05 완료 | FE 팀 |
+| 진행 | frontend(ADOPT-01 → 03·04) | FE 팀 |
+| 첫 주 | ADOPT-06·07 규모 재산정, `frontend_admin/CLAUDE.md` 린트·공용 컴포넌트 설명 정정(앱 저장소 이슈) | FE 팀, 디자인 시스템 리드 확인 |
+| 완료 후 | 적용된 명세 `status: stable` 전환 | 디자인 시스템 리드 |
 
 ---
 
