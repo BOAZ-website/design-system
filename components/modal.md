@@ -66,11 +66,11 @@ last_updated: 2026-10-23
 | --- | --- | --- | --- | --- | --- | --- |
 | info-not-open | 안내: 지원 기간 아님 | 지금은 지원 기간이 아닙니다. / 사전 알림을 신청해보세요. | 느낌표 48 | 닫기·신청 | `alertdialog` | Figma 4243:4452 |
 | info-closed | 안내: 모집 마감 | 모집이 마감되었습니다. / 사전 알림을 신청해보세요. | 느낌표 48 | 닫기·신청 | `alertdialog` | Figma 4243:4480 |
-| error-email-invalid | 입력 오류: 이메일 재입력 | 이메일을 다시 입력해주시길 바랍니다. / 다시 한 번 확인해주세요. | 느낌표 48 | 닫기 | `alertdialog` | Figma 4243:4492 |
-| error-email-duplicate | 입력 오류: 이메일 중복 | 이미 사전 알림이 신청된 이메일입니다. / 다시 한 번 확인해주세요. | 느낌표 48 | 닫기 | `alertdialog` | Figma 4243:4504 |
+| error-email-invalid | 입력 오류: 이메일 재입력 | 이메일 형식이 올바르지 않습니다. / 이메일을 다시 입력해주세요.(빈 값은 아래 목록) | 느낌표 48 | 닫기 | `alertdialog` | Figma 4243:4492 |
+| error-email-duplicate | 입력 오류: 이메일 중복 | 이미 사전 알림이 신청된 이메일입니다. / 다른 이메일을 입력해주세요. | 느낌표 48 | 닫기 | `alertdialog` | Figma 4243:4504 |
 | success | 성공 | 지원서 제출이 성공적으로 완료되었습니다. / BOAZ에 지원해주셔서 감사합니다. | 체크 48 | 닫기 | `alertdialog` | Figma 5164:5542 |
 | loading | 로딩 | 지원서를 제출 중입니다. / 잠시만 기다려주세요. | 스피너 42 | 닫기 | `dialog` + `aria-busy="true"` | Figma 5164:5587 |
-| failure | 실패 | 제출에 실패하였습니다. / 다시 한 번 확인해주세요. | 느낌표 48 | 닫기 | `alertdialog` | Figma 5164:5621 |
+| failure | 실패 | 제출에 실패하였습니다. / 잠시 후 다시 제출해주세요. | 느낌표 48 | 닫기 | `alertdialog` | Figma 5164:5621 |
 | confirm-submit | 확인: 지원서 제출 | 제출하면 중복 제출이 불가합니다. / 제출하시겠습니까? | 느낌표 48 | 취소·확인 | `alertdialog` | 코드 `src/pages/apply-page.tsx` |
 | confirm-track-change | 확인: 부문 변경 | 부문을 변경할 경우 {현재 부문} 부문의 기존 임시저장 내역이 사라지게 됩니다. / 계속 진행하시겠습니까? | 느낌표 48 | 취소·확인 | `alertdialog` | 코드 `src/widgets/apply/ui/personal-info-section.tsx` |
 
@@ -78,12 +78,16 @@ last_updated: 2026-10-23
   - 안내형 2종: 닫기(왼쪽)·신청(오른쪽) 2개
   - 확인형 2종: 취소(왼쪽, 닫기 버튼 모양)·확인(오른쪽, 신청 버튼 모양) 2개. 버튼 모양은 Figma 없음(추정)
   - 나머지 5종: 닫기 1개. 로딩도 닫기 있음(Figma 5164:5587). 동작은 5절
-- 제목·설명 문구는 Figma 원문 그대로 씀. Figma에 없는 2종(confirm-submit·confirm-track-change)은 라이브(frontend 코드) 문구를 씀(2026-10-23 결정). 문구 변경은 이 표를 함께 고침
+- 제목·설명 문구는 Figma 원문 그대로 씀. 예외: 입력 오류 2종·실패는 `patterns/voice-and-tone.md` 2.3 "고친 예"를 씀(2026-10-23 결정, Figma 원문 2문장 "다시 한 번 확인해주세요."는 확인 대상이 없음)
+  - error-email-invalid 빈 값: "이메일이 입력되지 않았습니다. / 이메일을 입력해주세요."(같은 variant, 원인에 따라 문구만 다름)
+  - Figma 원문(근거, 기록용): 4243:4492 "이메일을 다시 입력해주시길 바랍니다. / 다시 한 번 확인해주세요.", 4243:4504 "이미 사전 알림이 신청된 이메일입니다. / 다시 한 번 확인해주세요.", 5164:5621 "제출에 실패하였습니다. / 다시 한 번 확인해주세요."
+- Figma에 없는 2종(confirm-submit·confirm-track-change)은 라이브(frontend 코드) 문구를 씀(2026-10-23 결정). 문구 변경은 이 표를 함께 고침
 - confirm-submit 문구는 코드에서 한 문장 줄이라 제목(사실)·설명(질문)으로 나눔
 - Figma 구조 차이 정리
   - 성공(5164:5542): 설명이 아이콘·제목 묶음 밖에 있어 간격이 15
   - 로딩(5164:5587): 스피너가 제목 묶음 밖에 있어 간격이 15
   - 명세는 7종 모두 2절 간격(9 / 9 / 15)으로 통일함
+  - 성공 제목(Figma 5164:5546) 너비 367: 내용 묶음 279보다 넓으나 안쪽 여백 32 기준 최대 377 안이라 그대로 수용함
 
 ### Sizes
 
@@ -128,6 +132,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 - modal-primary hover: `color.bg.brand-solid-hover` (#493C95). Figma 값 `color.bg.brand-solid` (#7A64F9)는 18 Regular 흰 글자와 4.18:1로 미달이라 바꿈. 모달은 라이브에 없어 변경 비용 없음. #FFFFFF / #493C95 8.88(2026-10-23 결정, 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목")
 - 포커스 링: 모달 안 모든 버튼은 `color.stroke.focus-inverse` (#7A64F9). 트리거 `:focus-visible`. `color.stroke.focus`(하늘색)는 흰 위 대비가 낮아 쓰지 않음
+  - Figma·라이브 모두 Focus 상태가 없음. 포커스 표시 정책(2026-10-23 결정, ADOPT-01-03)에 따르고, 흰 표면 위 색은 `patterns/accessibility.md` 2.1 규칙대로 `-inverse`를 씀
 - disabled 행은 두지 않음. 모달 버튼은 항상 누를 수 있음(로딩 모달의 닫기 포함)
 - selected·invalid·completed 행은 두지 않음. 모달과 버튼의 상태가 아니기 때문임
 - 비동기 상태: loading variant가 담당함. `aria-busy="true"`는 5절
@@ -152,7 +157,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 - 확인형(confirm-submit·confirm-track-change)
   - 초기 포커스: 취소(되돌리기 쉬운 동작). Esc는 취소와 같음
   - confirm-submit: 확인 → 모달을 닫고 제출 요청 시작(로딩 모달), 취소 → 모달만 닫고 지원서 유지
-  - confirm-track-change: 확인 → 이전 부문 임시저장 내역 삭제 후 새 부문 선택, 취소 → 이전 부문 선택 유지. 근거 코드 `src/widgets/apply/ui/personal-info-section.tsx`(`components/selection-card.md` 5절)
+  - confirm-track-change: 확인 → 이전 부문 임시저장 내역 삭제 후 새 부문 선택, 취소 → 이전 부문 선택 유지. 근거 코드 `src/widgets/apply/ui/personal-info-section.tsx`(`components/radio.md` 5절, 2026-10-23 결정으로 라디오 목록 동작)
 - 로딩 모달
   - 제출 요청 시작과 함께 엶. `aria-busy="true"`
   - 닫기·Esc: 모달만 닫음. 요청은 취소하지 않음
@@ -179,12 +184,12 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 - 모바일에서 바뀌는 속성(모두 `Figma 없음(추정)`)
   - 너비: `calc(100% - 32px)`(좌우 `spacing.4` 16px 여백), 최대 441
   - 안쪽 여백: `spacing.6` (24px)
-  - 제목: `typography.body-2-mobile` (16/600). 20 Bold로는 "이메일을 다시 입력해주시길 바랍니다."(297px)가 한 줄에 들어가지 않음
+  - 제목: `typography.body-2-mobile` (16/600). 20 Bold로는 긴 제목이 한 줄에 들어가지 않음(예: Figma 원문 "이메일을 다시 입력해주시길 바랍니다." 297px)
   - 설명: `typography.body-4-mobile` (15/400)
   - 버튼: 130×44 유지(터치 44 충족). 두 버튼 줄이 들어가지 않으면 세로로 쌓고 신청을 위에 둠
   - radius·보더·간격: 데스크톱과 같음
 - 769~1365px: 데스크톱 값 사용
-- Figma 모바일 노드: 없음(Mobile 페이지에 모달 없음, 11절)
+- Figma 모바일 노드: 없음(Mobile 페이지에 모달 없음). 6절 값은 모두 추정
 
 ## 7. Accessibility
 
@@ -217,7 +222,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | frontend 대체 지점(제출) | `src/widgets/apply/model/use-submit-application.ts` | 제출 성공 `alert` → success, 실패 `alert` → failure. 제출 중 표시 없음 → loading 추가 |
 | frontend 대체 지점(제출 확인) | `src/pages/apply-page.tsx` | 제출 전 `window.confirm`("제출하면 중복 제출이 불가합니다…") → confirm-submit<br>이미 제출된 경우 `alert` 후 홈 이동: Figma에 없음<br>모집 기간 아님: 모달 없이 홈으로 이동(`Navigate`). Figma는 info-not-open·info-closed 모달 |
 | frontend 대체 지점(지원서 입력) | `src/widgets/apply/ui/personal-info-section.tsx` | 부문 변경 `window.confirm` → confirm-track-change<br>필수 항목 누락 `window.alert`: 입력 필드 오류 문구(COMPONENT-02) 대상. 모달 아님(PATTERN-02, ADOPT-03-22) |
-| frontend 대체 지점(사전 알림 신청) | `src/features/notice/notice-form.tsx` | 이메일 빈 값·형식 오류 `alert` → error-email-invalid<br>`DUPLICATE_EMAIL` → error-email-duplicate(코드 문구 "이미 구독 신청된 이메일입니다." → Figma 문구로 교체)<br>신청 완료 `alert`·서버 오류 `alert`: Figma에 해당 종류 없음(11절) |
+| frontend 대체 지점(사전 알림 신청) | `src/features/notice/notice-form.tsx` | 이메일 빈 값·형식 오류 `alert` → error-email-invalid<br>`DUPLICATE_EMAIL` → error-email-duplicate(코드 문구 "이미 구독 신청된 이메일입니다." → Figma 문구로 교체)<br>신청 완료 `alert`·서버 오류 `alert`: Figma에 해당 종류 없음. 모달을 추가하지 않고 상태 알림 영역(신청 완료 `role="status"`, 서버 오류 `role="alert"`)을 씀(2026-10-23 결정, `patterns/feedback.md` 2.3) |
 | frontend 대체 지점(로그인 필요) | `src/shared/router/protected-route.tsx` | 로그인 필요 `alert`: Figma에 없음. 로그인 오버레이로 대체 여부는 범위 밖 |
 | frontend 참고 | `src/shared/styles/zIndex.css.ts`, `src/features/auth/ui/login-overlay.css.ts` | `zIndex.modal` 3은 사용처 없음, 탭바(200)보다 낮아 쓸 수 없음<br>login-overlay backdrop `rgba(0, 0, 0, 0.6)`·z-index 1000: 이 명세 backdrop 색의 근거 |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-04(모달), 값은 ADOPT-05 기준 |
@@ -246,14 +251,4 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 ## 11. 미확인
 
-- 닫기 hover·press, 신청 press, 모든 버튼 focus-visible: Figma 없음. 추정값(Figma 4243:4439 세트에 primary·hover·closed 3종만 있음)
-  - Figma 추정(약): 버튼 세트 규칙 적용. 신청 press #2C2459(Figma 5639:10031), 닫기는 neutral 계열(#CCCCCC → #999999)
-- backdrop: Figma 모달 창(4412:7387)과 모든 페이지에 모달 인스턴스·배경 막이 없음. 색은 코드 login-overlay 값으로 추정
-  - Figma 추정(약): Components 페이지 전체에 dim·overlay 노드와 OVERLAY 연결이 없고 팝업창 변형 인스턴스 0개. 코드 값 유지
-- 모바일 모달: Figma Mobile 페이지에 없음. 6절 값은 전부 추정
-  - Figma 추정(약): Mobile 포함 팝업창 인스턴스 0개. 6절 추정 유지
-- 스피너 회전 속도: Figma 없음. 명세 추정값 `raw:1s` linear 무한 반복(5절)
-- 사전 알림 신청 완료·서버 오류 모달: 코드에는 있으나 3절 9종에 없음. success·failure 문구는 지원서 제출 전용
-  - Figma 추정(디자이너): Figma 7종에 없음 확인. 추가 여부 질문
-- 성공 제목(Figma 5164:5546) 너비 367로 내용 묶음 279를 넘음. 명세는 안쪽 여백 32 기준 최대 377로 수용함
-  - Figma 추정(약): 명세 수용 유지. 디자이너 질문 불필요
+- 해당 없음.

@@ -22,7 +22,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 셀렉트(드롭다운) (select)
@@ -54,11 +54,11 @@ last_updated: 2026-10-22
 | label | ○ | field: 필드 이름. 값이 없으면 자리 표시 글자로 보이고, 값이 있거나 열리면 위로 작아짐. chip: 현재 값 또는 필터 이름("전체 부문", "기수") | `typography.body-4`, `typography.text-1` |
 | value | × | field에서 고른 값. chip은 label이 값을 겸함 | `typography.body-4`, `color.fg.default` (#FFFFFF) |
 | icon-start | × | chip 부문 필터의 부문 아이콘 24px(모바일 16px) | — |
-| chevron | × | 펼침 화살표 24px(모바일 16px). 열리면 위 방향. chip 필수, field는 없음(Figma 드롭다운 세트 9개 모두 없음, `components/text-field.md` 3절). field 추가 여부만 11절 | `color.fg.default` (#FFFFFF) |
+| chevron | × | 펼침 화살표 24px(모바일 16px). 열리면 위 방향. chip 필수, field는 없음(Figma 드롭다운 세트 9개 모두 없음, `components/text-field.md` 3절. 라이브 코드 `src/shared/components/dropdown/dropdown.tsx`에도 없음, 2026-10-22 값 규칙) | `color.fg.default` (#FFFFFF) |
 | clear | × | chip에 값이 선택됐을 때 chevron 자리에 오는 닫기(X) 아이콘. 필터 해제. trigger와 별도 `<button>` | `color.fg.default` (#FFFFFF) |
 | listbox | ○ | 펼친 목록 패널. `role="listbox"` | `color.bg.layer` (#1A1A1A), `radius.sm`, `radius.md` |
 | option | ○ | 목록 항목. `role="option"` | `typography.body-4`, 4절 |
-| check | × | selected 항목 끝의 체크 아이콘 20px. 색만으로 선택을 구분하지 않기 위해 둠(7절) | `color.fg.brand` (#7A64F9) |
+| check | × | selected 항목 끝의 체크 아이콘 20px. 색만으로 선택을 구분하지 않기 위해 둠(2026-10-23 결정, PATTERN-03-03·WCAG 1.4.1. 라이브 코드·Figma 옵션 세트 5393:997·2057:4208에는 없어 라이브 모습이 바뀜, ADOPT-03-11) | `color.fg.brand` (#7A64F9) |
 
 ## 3. Variants·Sizes
 
@@ -154,7 +154,7 @@ rest는 상호작용이 없을 때의 모습임.
 
 - 요소 선택: 커스텀 listbox(ARIA APG "select-only combobox" 패턴)를 씀
   - 이유: Figma 목록 모양(검정 패널, hover·selected 색)을 네이티브 `<select>`의 펼친 목록으로는 그릴 수 없음
-  - 네이티브 `<select>`는 쓰지 않음. 예외는 11절
+  - 네이티브 `<select>`는 쓰지 않음. 예외 없음: 라이브 출생 연·월·일 목록도 커스텀 목록임(코드 `src/widgets/apply/ui/personal-info-section.tsx`의 `DropdownField`, 2026-10-22 값 규칙)
 - 클릭·탭
   - trigger를 누르면 열림·닫힘 전환
   - option을 누르면 값 선택 후 닫힘. 포커스는 trigger
@@ -211,9 +211,9 @@ rest는 상호작용이 없을 때의 모습임.
 | aria | trigger: `aria-expanded`(열림 `true`/닫힘 `false`), `aria-controls`(listbox id), `aria-haspopup="listbox"`, `aria-activedescendant`(열렸을 때 활성 option id, 닫히면 제거)<br>이름: field는 `<label>` 또는 `aria-labelledby`로 필드 이름, chip은 `aria-label`("부문 필터", "기수 필터")<br>option: `aria-selected="true"`는 선택된 항목에만, 비활성은 `aria-disabled="true"`<br>field invalid: `aria-invalid="true"` + `aria-describedby`(에러 메시지 id), 필수는 `aria-required="true"`<br>clear: `aria-label`("{값} 선택 해제(COMPONENT-10-02, `components/tag-chip.md`)")<br>아이콘(부문·chevron·check)은 `aria-hidden="true"` | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, 큰 글자·UI 요소 3:1<br>option default 흰 글자 / `color.bg.layer`: 17.40, hover 바탕 위 12.63<br>option selected `color.fg.brand` / `color.bg.layer`: 4.16, 키보드 활성 바탕 #333333 위 3.02. field-list 16 Regular·chip-list 18 Regular 모두 큰 글자가 아니라 **알려진 미달**(라이브 값 유지, 2026-10-22 라이브 기준으로 정정). check 아이콘(UI 요소)은 3:1 기준으로 rest 통과, 활성 3.02로 통과<br>field placeholder `color.fg.muted` / 검정 캔버스: 7.37<br>field 하단 보더: `color.stroke.neutral` 7.37, `color.stroke.brand` 5.02, `color.stroke.critical` 7.04<br>chip 보더 `color.stroke.weak` / 검정 캔버스: 1.66. 트리거는 글자로 식별되므로 보더는 장식으로 봄<br>disabled: WCAG 1.4.3 비활성 예외 | 계산값(WCAG 상대 휘도) |
 | 터치 영역 | 최소 24×24: 전 size 통과(모바일 chip 높이 32, chip-list 항목 28·32)<br>모바일 권장 44×44: 모바일 chip(높이 32), chip-list 모바일 항목(높이 28·32), 모바일 clear 아이콘(16×16) 미달. clear는 누르는 영역을 24×24 이상으로 넓힘 | WCAG 2.2 2.5.8 |
-| 포커스 링 | chip: `color.stroke.focus` (#68CBEC) outline 2px, offset 2px. 검정 캔버스 위 11.34:1, `color.bg.layer` 위 9.40:1<br>field: text-field 명세와 같음(하단 `color.stroke.brand` + label `color.fg.brand`)<br>option: 링 없음, 활성 바탕으로 표시 | `docs/wbs/20-token.md` 대비표, 계산값 |
+| 포커스 링 | chip: `color.stroke.focus` (#68CBEC) outline 2px, offset 2px. 검정 캔버스 위 11.34:1, `color.bg.layer` 위 9.40:1(2026-10-23 결정, 모든 focus-visible을 이 정책으로 통일, ADOPT-01-03)<br>field: text-field 명세와 같음(하단 `color.stroke.brand` + label `color.fg.brand`)<br>option: 링 없음, 활성 바탕으로 표시 | `docs/wbs/20-token.md` 대비표, 계산값 |
 | 비활성 표시 | trigger는 `aria-disabled="true"`(포커스 가능 유지)로 표시하고 열지 않음. 비활성 사유를 화면에 표시<br>option은 `aria-disabled="true"`, 활성 이동 시 건너뛰지 않고 선택만 막음 | Figma 없음(추정) |
-| 선택 표시 | 색만으로 구분하지 않음: selected option에 check 아이콘 + `aria-selected` | PATTERN-03-03 |
+| 선택 표시 | 색만으로 구분하지 않음: selected option에 check 아이콘 + `aria-selected`(2026-10-23 결정) | PATTERN-03-03 |
 
 ## 8. Do / Don't
 
@@ -265,10 +265,4 @@ rest는 상호작용이 없을 때의 모습임.
 
 ## 11. 미확인
 
-- selected check 아이콘: Figma에 없음. PATTERN-03-03(색만으로 구분하지 않음) 때문에 추정으로 추가함. 디자이너 확인 필요
-  - Figma 추정(디자이너): 옵션 세트 5393:997 4변형, 2057:4208 모두 아이콘 없음. 권고 추가 유지(WCAG 1.4.1)
-- field 트리거 chevron(펼침 화살표): Figma 드롭다운 세트 9개와 최신 화면 4곳 모두 없음 확인(`components/text-field.md` 3절). 추가 여부만 디자이너 선택 사항
-- chip 트리거·option disabled: Figma 없음. 추정값
-  - Figma 추정(디자이너): Figma 없음. 쓰는 곳이 없어 정의하지 않는 방안 권고
-- 네이티브 `<select>` 예외: 출생 연도처럼 항목이 많은 모바일 목록은 OS 선택기가 더 쓰기 쉬움. 네이티브 허용 여부는 PATTERN-02(폼 패턴)에서 결정 필요
-  - Figma 추정(디자이너): Figma 근거 없음(정책 판단). 권고 모바일에서 항목 10개가 넘는 목록(연도)만 허용
+- 해당 없음.

@@ -34,7 +34,7 @@ last_updated: 2026-10-23
 - 사용 화면
   - 지원서 동의 단계: 개인정보 필수항목 수집 및 이용 동의(약관 동의형)
   - 지원서 표 문항(복수 선택): 행·열 칸마다 단독 체크박스
-  - 면접 가능 시간 표(Figma 8812:5893, 지원 폼 안 사본 8812:5894): 제목 "면접 가능 시간 (복수 선택)"의 다중 선택 표. 무응답 허용(안내문 "응답이 없을 경우, 모든 면접 시간이 불가능한 것으로 간주")이라 누락 오류 문구 없음. Figma는 칸을 16×16 원(라디오 모양)으로 그림. 모양은 11절
+  - 면접 가능 시간 표(Figma 8812:5893, 지원 폼 안 사본 8812:5894): 제목 "면접 가능 시간 (복수 선택)"의 다중 선택 표. 무응답 허용(안내문 "응답이 없을 경우, 모든 면접 시간이 불가능한 것으로 간주")이라 누락 오류 문구 없음. Figma는 칸을 16×16 원(라디오 모양)으로 그림. 모양은 3절 table-cell
 - 관련 명세: `components/button.md`(동의 후 "지원서 작성" 버튼 disabled 규칙, COMPONENT-01), `components/radio.md`(라디오, COMPONENT-05), `components/card.md`(카드 바탕, COMPONENT-08)
 
 ## 2. Anatomy
@@ -112,7 +112,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 - 포커스 트리거: `:focus-visible`(input과 toggle 각각에 그림)
 - 포커스 링
-  - 결정: 체크박스 포커스는 `color.stroke.focus` (#68CBEC) 2px outline
+  - 결정: 체크박스 포커스는 `color.stroke.focus` (#68CBEC) 2px outline. Figma·라이브 모두 Focus 상태가 없음. (2026-10-23 결정) 모든 focus-visible은 `color.stroke.focus` 정책(ADOPT-01-03)으로 확정함. 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"
   - 흰 표면(모달) 위 체크박스: `color.stroke.focus-inverse` (#7A64F9)
 - checked 체크 표시 색
   - Figma 세 세트(5946:10032 데스크톱, 7578:14605 모바일, 5799:10178)와 이전 판 4266:7303 모두 상자에 체크 모양 구멍을 뚫은 벡터임. 칠이 없어 검정 캔버스가 비침
@@ -231,8 +231,4 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 ## 11. 미확인
 
-- hover·press·disabled·indeterminate·focus-visible: Figma 없음. 추정값(Figma 5946:10027 세트에 Unchecked·Checked 2개만 있음)
-  - Figma 추정(디자이너): reactions는 클릭(ON_CLICK) 토글만 있음. 질문 "체크박스 hover·press 색을 라디오처럼 흰 보더로 둘지?" 권고 라디오 Hover(흰 링)와 같은 규칙
-- toggle hover·press·focus-visible: Figma 없음. 추정값(Figma 4266:7630, Figma 4266:7631)
-  - Figma 추정(디자이너): 4266:7630·4266:7631에 변형 없음. 추정값 유지
-- 면접 가능 시간 표 칸 모양: 라이브(코드)·Figma(8812:5893) 모두 16×16 원이라 3절 table-cell로 정함(2026-10-22 라이브 기준으로 정정). 다중 선택을 원 모양으로 보이는 점은 디자이너 확인 대상
+- 해당 없음.

@@ -22,7 +22,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 카드 (card)
@@ -69,7 +69,7 @@ last_updated: 2026-10-22
 | variant | 용도 | 슬롯 | 클릭 | hover 동작 | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | project | 아카이빙 프로젝트 | thumbnail, eyebrow, title, tags(부문·기수), actions(GitHub·SlideShare) | 카드 전체 링크 + 아이콘 링크 | 바탕 그라데이션·보더 #2C3F61(4절 hover 효과 A). 아이콘은 각자 hover | Figma 5236:822, Figma 5236:823, Figma 1728:3724 |
-| blog | 아카이빙 블로그(Medium 글) | tags(부문), title, description, meta(날짜), thumbnail(오른쪽) | 카드 전체 링크 | hover 효과 A. 단 바탕에 #0A0A0A 층이 없음(11절) | Figma 5236:877, Figma 5236:879 |
+| blog | 아카이빙 블로그(Medium 글) | tags(부문), title, description, meta(날짜), thumbnail(오른쪽) | 카드 전체 링크 | Figma hover(4절 blog 항목). hover 효과 A(라이브 project·photo 값)와 다름: 바탕색 층 없이 그라데이션 2겹, 그라데이션 보더 2px. 라이브에 hover 없음 | Figma 5236:877, Figma 5236:879 |
 | photo | 아카이빙 활동사진 | thumbnail(위), title, meta(날짜), tags(기수) | 카드 전체 링크 | hover 효과 A. 썸네일 자리 채움 `raw:rgba(255,255,255,0.6)`은 rest·hover 모두 같음 | Figma 5236:920, Figma 5980:12389, Figma 6363:11807 |
 | target | 리크루팅 지원 대상 | 아이콘(97×97), 설명 글 | 없음 | 바탕 `color.palette.gray.800` (#333333) → `color.palette.gray.600` (#666666) | Figma 5411:10346, Figma 5411:10348 |
 | recruit | 리크루팅 모집 부문 | title·캐릭터 이미지(rest), description(hover), actions(지원하기 버튼) | 카드는 없음. 안의 버튼만 | 바탕 `color.palette.gray.800` (#333333) → `color.bg.layer` (#1A1A1A). 제목·캐릭터 이미지 숨김, 설명 글 나타남. 버튼은 같은 자리 유지 | Figma 8838:12513, Figma 8796:5269, Figma 8796:5274, Figma 8796:5279 |
@@ -78,6 +78,7 @@ last_updated: 2026-10-22
 
 - 대상 카드 바탕 #333333은 `color.palette.gray.800`으로 적음(`docs/wbs/20-token.md` "시맨틱으로 만들지 않는 색")
 - "분야" 카드는 Figma에 없어 두지 않음(2026-10-22 정정)
+- project 카드 전체 링크: Figma는 카드에 클릭 동작이 없고 아이콘에만 URL이 있음(Figma 5236:822). 라이브는 발표 자료(SlideShare) URL이 있으면 카드 전체를 링크로 감싸므로 값 기준(2026-10-22 결정, 라이브에 있는 UI는 라이브 값)에 따라 카드 전체 링크로 정함. 근거 코드 `src/shared/components/archive/project-card.tsx`
 - 클릭이 없는 카드(target·recruit·review)에는 hover를 넣되 커서를 바꾸지 않음. recruit의 hover는 설명 글을 보여 주는 동작이라 키보드 포커스에도 같은 모습을 줌(5절)
 
 ### Sizes
@@ -118,7 +119,10 @@ hover 효과 A(project·photo, 라이브 값. 2026-10-22 라이브 기준으로 
   - 2겹: 위 #7A64F9 불투명도 0.2 → 아래 #7A64F9 불투명도 0
 - 보더: 1px #2C3F61 + 안쪽 outline 1px #2C3F61(offset -2px). 보더 굵기가 바뀌지 않아 레이아웃 이동 없음
 - 값은 10절 `raw:linear-gradient` 행
-- blog: 라이브에 hover가 없어 Figma hover(Figma 5236:879. #7A64F9→#999999·#666666→#6498F9 그라데이션 각 0.2, 그라데이션 보더 2px)를 유지함
+- blog: 라이브(코드 `src/shared/components/archive/blogcard.css.ts`)에 hover가 없어 Figma hover(Figma 5236:879)를 씀. hover 효과 A와 값이 다름
+  - 바탕: 바탕색 층 없음(Figma project hover 5236:823에 있는 #0A0A0A 층이 blog에는 없음). 가로 그라데이션 2겹(왼쪽 → 오른쪽) #7A64F9→#999999, #666666→#6498F9, 각 불투명도 0.2
+  - 보더: 세로 그라데이션 2겹 2px(안쪽), #7A64F9→#7A64F9 투명, #3B5A93 투명→#6498F9, 각 불투명도 0.2
+  - 값은 10절 blog hover 행(2026-10-23 Figma 재확인)
 
 ### project · blog · photo
 
@@ -164,6 +168,7 @@ hover 효과 A(project·photo, 라이브 값. 2026-10-22 라이브 기준으로 
 | default | `color.bg.layer` (#1A1A1A) / 이름·글 `color.fg.default` (#FFFFFF), 기수·부문 `color.fg.brand` (#7A64F9) / — | — | — | — | Figma 1132:1299, Figma 7289:14365 |
 
 - 포커스 트리거: 클릭 가능한 카드는 제목 링크의 `:focus-visible`. 링은 stretched-link 가상 요소(`::after`)에 그려 카드 전체를 감쌈. recruit는 `:focus-within`. faq는 질문 버튼의 `:focus-visible`
+- 포커스 링 값: Figma·라이브 모두 Focus 상태가 없음. (2026-10-23 결정) 모든 focus-visible은 `color.stroke.focus` 정책(ADOPT-01-03)으로 확정함. 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"
 - 비동기 상태(pending·loading): 해당 없음. 카드는 링크·펼침만 하고 요청을 보내지 않음. 목록 불러오기 중 표시는 페이지 담당
 - disabled 행 없음: 카드는 비활성 상태가 없음. recruit 안 지원하기 버튼의 disabled는 `components/button.md`를 따름
 - invalid·completed 행 없음: 입력·진행 상태가 없는 표면이기 때문임
@@ -285,7 +290,7 @@ hover 효과 A(project·photo, 라이브 값. 2026-10-22 라이브 기준으로 
 | `raw:#2C3F61` | project·photo hover 보더·안쪽 outline | 코드 `src/shared/components/archive/project-card.css.ts` | 필요 여부 별도 이슈(팔레트에 없음) |
 | `raw:rgba(255,255,255,0.6)` | photo 썸네일 자리 채움(이미지 없을 때) | Figma 5236:915, Figma 5980:12396, Figma 6363:11808 | 불필요. rest·hover 두 상태에 같은 값으로 있어 hover 오버레이가 아님 |
 | `raw:linear-gradient(180deg, rgba(104,203,236,0), rgba(104,203,236,0.2))`, `raw:linear-gradient(180deg, rgba(122,100,249,0.2), rgba(122,100,249,0))` | hover 효과 A 바탕 2겹(project·photo) | 코드 `src/shared/components/archive/project-card.css.ts` | 필요 여부 별도 이슈 |
-| `raw:linear-gradient(180deg, rgba(122,100,249,0.2), rgba(153,153,153,0))`, `raw:linear-gradient(180deg, rgba(102,102,102,0), rgba(100,152,249,0.2))` | blog hover 바탕 2겹(라이브 없음, Figma) | Figma 5236:879 | 필요(button glass hover와 같은 값. COMPONENT-01과 함께 판단) |
+| `raw:linear-gradient(90deg, rgba(122,100,249,0.2), rgba(153,153,153,0))`, `raw:linear-gradient(90deg, rgba(102,102,102,0), rgba(100,152,249,0.2))` | blog hover 바탕 2겹(라이브 없음, Figma. 가로 방향, 2026-10-23 Figma 재확인으로 180deg에서 정정) | Figma 5236:879 | 필요(button glass hover와 같은 값. COMPONENT-01과 함께 판단) |
 | `raw:linear-gradient(180deg, rgba(122,100,249,0.2), rgba(122,100,249,0))`, `raw:linear-gradient(180deg, rgba(59,90,147,0), rgba(100,152,249,0.2))` 2px | blog hover 보더 2겹(라이브 없음, Figma) | Figma 5236:879 | 필요 여부 위와 함께 판단 |
 | `raw:21px`, `raw:17px`, `raw:15px`, `raw:38px`, `raw:42px`, `raw:27px`, `raw:39px`, `raw:26px`, `raw:35px`, `raw:2px` | 카드 패딩 | 3절 Sizes 근거 노드 | 불필요 |
 | `raw:13px`, `raw:10px`, `raw:20px`(target 글 좌우) | review gap, target 글 여백, faq 모바일 답변 gap | 코드 `src/widgets/curriculum/ui/review-card-list/review-card.css.ts`, Figma 5411:10346, Figma 7289:14449 | 불필요 |
@@ -303,7 +308,4 @@ hover 효과 A(project·photo, 라이브 값. 2026-10-22 라이브 기준으로 
 
 ## 11. 미확인
 
-- project 카드 자체 링크: Figma는 카드에 클릭 동작이 없고 아이콘에만 URL이 있음. 명세는 frontend 동작(발표 자료로 이동)을 따라 카드 전체 링크로 정함. 디자이너 확인 필요(Figma 5236:823)
-  - Figma 추정(약): 원본에 ON_HOVER만 있고 ON_CLICK 없음. 클릭 대상은 동작 정책이라 카드 전체 링크 유지(Figma 5236:822)
-- 모든 variant의 press·focus-visible: Figma·라이브 모두 없음(추정)
-  - Figma 추정(약): 카드 세트 변형에 press·focus 없음. 포커스는 정책 값으로 확정 가능
+- 해당 없음.

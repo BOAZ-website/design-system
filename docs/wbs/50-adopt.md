@@ -70,7 +70,7 @@
 | ADOPT-03-17 | 페이지네이션: 화살표 press 추가<br>현재 점 `disabled` → `aria-current="page"`(Tab 대상 유지), 화살표 비활성 `disabled` → `aria-disabled`, `<nav>`에 `aria-label`<br>누르는 영역: 점 버튼(데스크톱·모바일)·모바일 화살표 겉 크기 유지, `::before`로 24×24. 모바일 점 사이 gap 10 → 12(2026-10-23 결정) | `components/pagination.md` 9절 frontend 차이 항목 모두 해소, 화면 읽기 프로그램이 현재 페이지를 읽음 |
 | ADOPT-03-18 | 진행 표시줄: segment `<button>` → `<span aria-hidden="true">`, root에 `role="progressbar"`·`aria-value*` 추가<br>단계 이름 목록을 하나로 통합(현재 `progress-bar-section.tsx`·`apply-page.tsx` 두 곳, 값도 다름)<br>단계 전환 시 페이지 제목으로 포커스 이동<br>segment 테두리 #333333 → #666666(검정 위 3.66, 2026-10-23 결정) | `components/progress-bar.md` 9절 frontend 차이 항목 모두 해소, Tab 이동 대상에 segment 없음 |
 | ADOPT-03-19 | 필터 칩·태그 칩(03-11 외): 03-11에서 추가하는 ✕에 `aria-label="{값} 선택 해제"` | `components/filter-chip.md`·`components/tag-chip.md` 9절 frontend 차이 항목 모두 해소 |
-| ADOPT-03-20 | 선택 카드: 지원 부문 원형 라디오 목록을 명세 카드(253×80, 가로 3개, selected 보라 바탕)로 교체<br>부문 변경 확인 `window.confirm` → 모달(COMPONENT-07), 취소 시 이전 선택 복원<br>묶음 role·포커스 표시는 ADOPT-03-13에서 처리. 질문 위치(Figma는 "지원 안내사항 및 동의" 화면)는 화면 흐름 변경이라 범위 밖 | `components/selection-card.md` 9절 frontend 차이 중 위치 외 항목 모두 해소, `rg "window.confirm" src` 0건 |
+| ADOPT-03-20 | 지원 부문 변경 확인: `window.confirm` → 모달 confirm-track-change(COMPONENT-07), 취소 시 이전 선택 복원. 지원 부문은 라디오 목록 유지(2026-10-23 결정, 선택 카드는 사용처 없음이라 구현하지 않음). 묶음 role·포커스 표시는 ADOPT-03-13에서 처리 | `components/radio.md` 9절 frontend 차이의 부문 변경 확인 항목 해소, `rg "window.confirm" src` 0건 |
 | ADOPT-03-21 | 항목 추가 버튼: add 행 `<div onClick>` → `<button type="button">`, "+" 표시는 `aria-hidden="true"`<br>삭제 버튼에 `aria-label="{항목 이름} {번호} 삭제"` 추가. 프로젝트 행에도 삭제 버튼 추가<br>추가 후 새 입력칸, 삭제 후 이웃 행으로 포커스 이동<br>누르는 영역: add 행·삭제 버튼 겉 높이 14 유지, 위아래 5px 투명 padding + 음수 margin으로 24(2026-10-23 결정) | `components/form-add-button.md` 9절 frontend 차이 항목 모두 해소, 키보드(Tab·Enter)로 항목 추가·삭제 가능 |
 | ADOPT-03-22 | 지원서 폼 검증 동작(PATTERN-02): 다음 페이지 `window.alert` 제거 → 필드 아래 오류 문구 + 첫 오류 필드 포커스, 제출하기 비활성 해제, 빈 필드 blur 시 누락 오류 제거, 단계 이동 시 단계 제목 포커스, 선택 질문 "(선택)" 표시. 2026-10-22 PATTERN-02 작성으로 추가 | `patterns/form.md` 6절 frontend 차이 모두 해소 |
 | ADOPT-03-23 | 문구 정리(PATTERN-04): "해 주세요" 띄어쓰기 5곳을 "해주세요"로(`login-widget.tsx`, `personal-info-section.tsx`, `question-section.tsx`), 사전 알림 신청 완료 문구 합쇼체·느낌표 제거, Figma 원문과 다른 문구 2곳 맞춤. 2026-10-22 PATTERN-04 작성으로 추가 | `patterns/voice-and-tone.md` 6절 frontend 차이 모두 해소 |
@@ -84,7 +84,7 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | ADOPT-04-01 | 공용 Modal 컴포넌트(`shared/components/modal`) | 컴포넌트 존재 |
-| ADOPT-04-02 | `alert()` 10곳을 PATTERN-01-03 대응표대로 교체 | `rg "alert\(" src` 0건 |
+| ADOPT-04-02 | `alert()` 10곳을 PATTERN-01-03 대응표대로 교체. Figma에 모달이 없는 알림(A3·A4 일부·A5·A6·A10)은 모달을 추가하지 않고 대응표 수단(상태 알림 영역·로그인 오버레이)을 씀(2026-10-23 결정) | `rg "alert\(" src` 0건 |
 | ADOPT-04-03 | `alert()`가 아닌 모달 사용처 3건 적용: 지원서 제출 중 loading 모달, 지원 진입 시 지원 기간 아님·모집 마감 안내 모달(현재 `Navigate`로 홈 이동). 2026-10-22 PATTERN-01 작성으로 추가 | `patterns/feedback.md` 2.3 "alert가 아닌 모달 사용처" 표 3건 적용 |
 
 ## ADOPT-05 frontend_admin 값 기준 확정

@@ -13,7 +13,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 라디오 (radio)
@@ -32,9 +32,9 @@ last_updated: 2026-10-22
 - 용도: 보기 여러 개 중 하나만 고르는 입력. 원형 16px + 라벨 한 줄
 - 구성: 라디오 한 개(radio)와 라디오 묶음(radio-group). 묶음 규칙은 3절 "Group" 표
 - 사용 화면: 지원서 작성(지원 부문, 병역 이수 여부, 대학원 진학 여부, 표형 질문의 기술 경험 수준)
-  - 지원 부문: 최신 지원 폼(Figma 8801:6062)은 지원자 정보 단계에서 라디오 목록 3개(Figma 8811:5682~8811:5684)로 받음. 라벨 색은 4절(라이브 코드 값)
+  - 지원 부문: 최신 지원 폼(Figma 8801:6062)은 지원자 정보 단계에서 라디오 목록 3개(Figma 8811:5682~8811:5684)로 받음. 라벨 색은 4절(라이브 코드 값). 라디오 목록 유지(2026-10-23 결정, 라이브·최신 Figma 모두 라디오). 부문 변경 확인은 5절
   - 면접 가능 시간 표(Figma 8812:5893)는 원 모양으로 그려졌으나 "(복수 선택)" 다중 선택이라 라디오가 아님. `components/checkbox.md` 사용처
-- 관련 명세: `components/checkbox.md`(여러 개 선택, COMPONENT-04), `components/text-field.md`(필수 항목 누락 메시지, COMPONENT-02), `components/selection-card.md`(부문 선택 카드, 라디오 그룹 의미, COMPONENT-15), `patterns/accessibility.md`(PATTERN-03)
+- 관련 명세: `components/checkbox.md`(여러 개 선택, COMPONENT-04), `components/text-field.md`(필수 항목 누락 메시지, COMPONENT-02), `components/selection-card.md`(COMPONENT-15, 사용처 없음(2026-10-23 결정). 이전 Figma 부문 선택 카드 기록용), `components/modal.md`(COMPONENT-07, 부문 변경 확인 confirm-track-change), `patterns/accessibility.md`(PATTERN-03)
 
 ## 2. Anatomy
 
@@ -44,7 +44,7 @@ last_updated: 2026-10-22
 | input | ○ | 네이티브 `<input type="radio">`. 화면에서 숨기되 포커스는 받음(시각적 숨김, `display:none` 금지) | — |
 | circle | ○ | 16×16 원. 테두리 1px. selected에서 안쪽 점 표시 | `radius.full` (40px), `color.stroke.neutral` (#999999), `color.stroke.brand` (#7A64F9) |
 | dot | ○ | circle 안쪽 폭의 62.5%(약 9px) 점. selected에서만 보임 | `color.bg.brand-solid` (#7A64F9) |
-| label | × | 보기 글자 한 줄. label-hidden variant에서만 생략하고 `aria-label`로 이름을 줌 | `typography.body-4`(모바일 같음) |
+| label | ○ | 보기 글자 한 줄. 생략하지 않음(라벨 없는 원만 쓰는 변형은 두지 않음, 3절) | `typography.body-4`(모바일 같음) |
 
 ## 3. Variants·Sizes
 
@@ -53,9 +53,9 @@ last_updated: 2026-10-22
 | variant | 용도 | 근거 |
 | --- | --- | --- |
 | default | 원 + 라벨. 지원서 모든 단일 선택 질문 | Figma 2007:3436, Figma 2007:3437, Figma 5188:409 |
-| label-hidden | 원만 보임. 단일 선택 격자 표처럼 행·열 머리글이 라벨 역할을 할 때. 현재 Figma 화면에 단일 선택 격자 표는 없음 | Figma 없음(추정) |
 
 - Figma `Radio Button` 세트(5188:409, 인터랙션 정의)와 지원폼 라디오(2007:3436·3437, 화면 사용)는 같은 모양임. 세트는 Default·Hover·Selected 3종, 지원폼은 Default·Selected 2종
+- 라벨 없이 원만 보이는 변형은 두지 않음(2026-10-23 결정). 라이브 단일 선택 표는 행마다 라벨 있는 세로 목록(코드 `src/widgets/apply/ui/table-question.tsx`)이고, 라벨 없는 칸은 다중 선택 표뿐이라 `components/checkbox.md` table-cell이 맡음
 - 2391:5869·5870(24 Bold 라벨)은 라디오가 아니라 표형 질문의 행 이름임. 묶음의 제목이므로 아래 Group 표에 적음
 
 ### Sizes
@@ -81,7 +81,7 @@ radio-group은 같은 질문에 속한 라디오 묶음임. 질문 제목이 묶
 | 보기 사이 세로 간격 | `spacing.5` (20px) | `spacing.4` (16px) | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` |
 | 질문 제목 글자 | `typography.headline-2` (30/700) `color.fg.default` (#FFFFFF) | `typography.headline-3` (24/700) `color.fg.default` (#FFFFFF) | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` |
 | 질문 제목 → 첫 보기 | `raw:40px`(섹션 gap 32 + 목록 위 8) | `raw:58px`(섹션 gap 50 + 목록 위 8) | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` |
-| 필수 표시 | 필수 표시 기호 없음. 선택 질문(`is_required`가 false)만 제목 뒤에 "(선택)"을 붙임(`patterns/form.md` 2.1). 누락은 다음 페이지·제출 때 메시지로 알림 | 같음 | Figma 2009:4228, Figma 없음(추정) |
+| 필수 표시 | 필수 표시 기호 없음. 필수가 아닌 질문(`is_required`가 false)만 제목 뒤에 "(선택)"을 붙임(2026-10-23 결정, `patterns/form.md` 2.1. 면접 시간 안내문 Figma 8812:5895가 무응답을 허용해 필수가 아닌 문항이 있음). 누락은 다음 페이지·제출 때 메시지로 알림 | 같음 | Figma 2009:4228, Figma 없음(추정) |
 | 누락 메시지 | 목록 아래. 글자·색은 text-field 명세의 필수 항목 누락 상태를 따름 | 같음 | 코드 `src/widgets/apply/ui/personal-info-section.tsx` |
 | 표형 질문 행 이름 | `typography.headline-3` (24/700) `color.fg.brand` (#7A64F9) | `typography.body-3` (18/700) `color.fg.brand` (#7A64F9) | 코드 `src/widgets/apply/ui/question-section/question-section.css.ts` |
 | 행 이름 상자 | 위아래 `raw:10px` 패딩, 아래 보기 목록과 `raw:10px` 간격 | 같음 | Figma 1672:4427, Figma 1672:4430 |
@@ -89,7 +89,7 @@ radio-group은 같은 질문에 속한 라디오 묶음임. 질문 제목이 묶
 
 - 표형 질문(예: "데이터 베이스(관계형 DB, NoSQL 등)" 행마다 경험 수준 4개 중 하나 선택)은 행 하나가 radio-group 하나임. 행 이름이 그 묶음의 legend
 - 모바일 묶음 제목·행 이름: 라이브(코드) 24 Bold·18 Bold. Figma 모바일 화면(6454:7308 18 SemiBold, 6454:8277 16 Medium)에서 코드 값으로 바꿈(2026-10-22 라이브 기준으로 정정)
-- 행 이름 Figma 2종: 흰색(2391:5869, 사용처 0곳)과 보라(2391:5870, 사용처 26곳). 명세는 보라 하나만 씀. 흰색의 의미는 11절
+- 행 이름 Figma 2종: 흰색(2391:5869, 사용처 0곳)과 보라(2391:5870, 사용처 26곳). 라이브(코드)가 보라 #7A64F9이므로 값 기준(2026-10-22 결정)에 따라 보라 하나만 씀. 근거 코드 `src/widgets/apply/ui/question-section/question-section.css.ts`(`stackQuestion`). 흰색 변형은 쓰지 않음
 
 ## 4. States
 
@@ -107,6 +107,7 @@ focus-visible 칸은 rest 색을 유지하고 circle에 outline을 더함.
 - disabled: `color.fg.disabled` (#999999)는 미선택 테두리 #999999와 같아 구분되지 않음. 한 단계 어두운 `color.palette.gray.600` (#666666)을 씀
   - disabled 행 둘째 줄은 비활성 묶음에 선택 값이 남아 있을 때의 표시임
 - 포커스 트리거: 숨긴 input의 `:focus-visible`. 스타일은 형제 선택자로 circle에 그림(`input:focus-visible + circle`)
+- 포커스 링 값: Figma·라이브 모두 Focus 상태가 없음. (2026-10-23 결정) 모든 focus-visible은 `color.stroke.focus` 정책(ADOPT-01-03)으로 확정함. 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"
 - 비동기 상태: 해당 없음. 선택은 즉시 화면 값만 바꾸고 서버 요청을 하지 않음(저장은 버튼이 담당)
 - invalid 행은 두지 않음. 누락은 묶음 단위로 3절 Group의 누락 메시지로 보여 주고 원·라벨 색은 바꾸지 않음
 - completed 행은 두지 않음. 선택 완료는 selected가 담당함
@@ -124,6 +125,13 @@ focus-visible 칸은 rest 색을 유지하고 circle에 outline을 더함.
 - 포커스 이동·복귀: 선택 후 포커스를 그 보기에 유지함. 제출 시 누락이 있으면 첫 누락 묶음의 첫 보기로 포커스를 옮김(Figma 없음(추정))
 - 비동기 중 동작: 해당 없음(4절)
 - 같은 묶음은 모든 input에 같은 `name`을 줌. `name`이 다르면 방향키 이동과 한 개 선택이 깨짐
+- 지원 부문 변경 확인(2026-10-23 결정으로 `components/selection-card.md`에서 옮김. 근거 코드 `src/widgets/apply/ui/personal-info-section.tsx` `handleTrackChange`)
+  - 이미 선택된 부문을 다른 부문으로 바꾸면 기존 부문 임시저장 내역이 지워지므로 확인 모달(COMPONENT-07 confirm-track-change)을 띄움
+  - 방향키 이동도 선택 변경이므로 같은 확인을 거침
+  - 모달 문구(라이브): 제목 "부문을 변경할 경우 {현재 부문} 부문의 기존 임시저장 내역이 사라지게 됩니다." / 설명 "계속 진행하시겠습니까?"(`components/modal.md` 3절)
+  - 취소: 이전 부문 선택을 유지(되돌림)하고 포커스를 이전 보기에 둠
+  - 확인: 이전 부문의 임시저장 내역을 삭제한 뒤 새 부문을 선택함. 포커스는 새 보기로 돌아옴
+  - `window.confirm` 사용 금지(PATTERN-01, ADOPT-03-20)
 
 ### 전환
 
@@ -154,9 +162,9 @@ focus-visible 칸은 rest 색을 유지하고 circle에 outline을 더함.
 | --- | --- | --- |
 | role | 보기마다 네이티브 `<input type="radio">`. 묶음은 `<fieldset>` + `<legend>`(질문 제목·행 이름)를 기본으로 함. 제목을 `<h2>`로 유지해야 하면 묶음 요소에 `role="radiogroup"` + `aria-labelledby`(제목 id) | Figma 없음(추정) |
 | 키보드 | 묶음당 탭 정지 1곳. 방향키로 이동·선택하며 끝에서 순환. Space로 선택. 네이티브 라디오와 같은 `name`으로 얻음. 직접 `onKeyDown`을 만들지 않음 | Figma 없음(추정) |
-| aria | 이름은 보이는 라벨. label-hidden은 `aria-label`(예: "Python 3점"). 필수 묶음은 input에 `required`(또는 radiogroup에 `aria-required="true"`). 누락 시 묶음에 `aria-invalid="true"`와 메시지 id를 `aria-describedby`로 연결 | Figma 없음(추정) |
+| aria | 이름은 보이는 라벨. 필수 묶음은 input에 `required`(또는 radiogroup에 `aria-required="true"`). 누락 시 묶음에 `aria-invalid="true"`와 메시지 id를 `aria-describedby`로 연결 | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, UI 요소 3:1(배경 `color.bg.canvas` #000000)<br>라벨 #FFFFFF 21.00<br>circle 테두리: default #999999 7.37, hover #FFFFFF 21.00, selected #7A64F9 5.02<br>행 이름 `color.fg.brand` #7A64F9 5.02(`color.bg.layer` #1A1A1A 위 4.16, 24 Bold 큰 글자라 통과)<br>disabled #666666 3.66, WCAG 1.4.3 비활성 예외 | python3 WCAG 상대 휘도 계산값 |
-| 터치 영역 | 최소 24×24: 행 높이 18로 단독은 미달이나 보기 사이 20px(모바일 16px) 간격으로 24px 원이 겹치지 않아 간격 예외로 통과. label-hidden 16×16은 셀 전체를 `<label>`로 감싸 24×24 이상 확보<br>모바일 권장 44×44: 미달. 행 위아래 `raw:10px` 패딩으로 누를 영역을 늘리고 같은 크기의 음수 margin으로 간격을 보정함 | WCAG 2.2 2.5.8 |
+| 터치 영역 | 최소 24×24: 행 높이 18로 단독은 미달이나 보기 사이 20px(모바일 16px) 간격으로 24px 원이 겹치지 않아 간격 예외로 통과<br>모바일 권장 44×44: 미달. 행 위아래 `raw:10px` 패딩으로 누를 영역을 늘리고 같은 크기의 음수 margin으로 간격을 보정함(Figma 없음(추정)) | WCAG 2.2 2.5.8 |
 | 포커스 링 | 숨긴 input 대신 circle에 그림. `input:focus-visible + circle`에 outline 2px, offset 2px<br>검정 캔버스 위: `color.stroke.focus` (#68CBEC) 11.34:1<br>흰 표면 위: `color.stroke.focus-inverse` (#7A64F9) 4.18:1<br>전역 `outline: none`이 input에 걸려도 circle에 그리므로 영향 없음 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 네이티브 `disabled`(묶음 전체는 `<fieldset disabled>`). 사유를 묶음 아래 글자로 표시 | Figma 없음(추정) |
 
@@ -172,6 +180,7 @@ focus-visible 칸은 rest 색을 유지하고 circle에 outline을 더함.
 | `input:focus-visible + circle`에 outline | 포커스 표시 없이 숨긴 input만 둠 |
 | 여러 개 선택은 checkbox(COMPONENT-04) | 원형 라디오 모양에 `type="checkbox"`를 넣음 |
 | 선택 해제가 필요하면 "해당 없음" 보기 추가 | 선택된 라디오를 다시 눌러 해제 |
+| 부문 변경 확인은 모달 confirm-track-change, 취소 시 이전 선택 복원 | `window.confirm`, 취소 후에도 새 부문이 선택된 채로 남음 |
 | 선택은 점과 테두리 색으로 표시(라벨은 흰색) | 점 없이 라벨 색만으로 선택 표시 |
 
 ## 9. 코드 대응
@@ -179,9 +188,9 @@ focus-visible 칸은 rest 색을 유지하고 circle에 outline을 더함.
 | 대상 | 파일 | 비고 |
 | --- | --- | --- |
 | frontend | `src/shared/components/radio-button/radio-button.tsx`, `src/shared/components/radio-button/radio-button.css.ts`, `src/shared/components/radio-button/radio-group.tsx`, `src/shared/components/radio-button/radio-group.css.ts` | `RadioButton`(label, value, name, checked, onChange, type)<br>`RadioGroup`(name, options, value, onChange, className)<br>사용처<br>- `src/widgets/apply/ui/personal-info-section.tsx`: 지원 부문·병역 이수 여부·대학원 진학 여부<br>- `src/widgets/apply/ui/table-question.tsx`: 표형 질문 행마다 `RadioGroup`, 다중 선택 표는 `RadioButton type="checkbox"`<br>묶음 간격은 호출부 css(`radioButton`: gap 20px, 모바일 16px, 위 8px)가 정함. `radio-group.css.ts`의 `container`(gap 20px)는 쓰이지 않음 |
-| frontend 차이 | 위와 같음 | 수정 예정(ADOPT-03). 명세와 다른 점(라이브 값을 명세로 채택한 라벨 색·점 크기·모바일 보기 간격·모바일 글자 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 묶음: `<div>`. `role="radiogroup"`·`<fieldset>` 없음, 제목 `<h2>`와 연결 없음<br>- 포커스: `:focus-visible` 없음, 전역 `outline: none`<br>- hover: 없음(명세는 Figma circle 흰 테두리)<br>- 선택 해제: `RadioGroup`이 같은 값을 다시 받으면 null로 바꾸는 코드가 있음. 네이티브 라디오는 다시 눌러도 change가 일어나지 않아 실제로는 동작하지 않음. 명세는 해제 없음<br>- 표형 다중 선택: `type="checkbox"`의 이름·포커스 표시(`components/checkbox.md` 9절)<br>- disabled: 없음 |
+| frontend 차이 | 위와 같음 | 수정 예정(ADOPT-03). 명세와 다른 점(라이브 값을 명세로 채택한 라벨 색·점 크기·모바일 보기 간격·모바일 글자 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 묶음: `<div>`. `role="radiogroup"`·`<fieldset>` 없음, 제목 `<h2>`와 연결 없음<br>- 포커스: `:focus-visible` 없음, 전역 `outline: none`<br>- hover: 없음(명세는 Figma circle 흰 테두리)<br>- 선택 해제: `RadioGroup`이 같은 값을 다시 받으면 null로 바꾸는 코드가 있음. 네이티브 라디오는 다시 눌러도 change가 일어나지 않아 실제로는 동작하지 않음. 명세는 해제 없음<br>- 표형 다중 선택: `type="checkbox"`의 이름·포커스 표시(`components/checkbox.md` 9절)<br>- disabled: 없음<br>- 지원 부문 변경 확인: `window.confirm`(명세는 모달 confirm-track-change, 동작은 같음: 확인 시 이전 부문 임시저장 삭제, 취소 시 이전 선택 유지). ADOPT-03-20<br>- 필수가 아닌 질문 제목 뒤 "(선택)" 없음(`patterns/form.md` 6절, ADOPT-03-22) |
 | frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-03, 값은 ADOPT-05 기준 |
-| FE 이름 ↔ 명세 이름 | `src/shared/components/radio-button/radio-button.tsx` | `RadioButton` ↔ radio default. `RadioButton label=""` ↔ label-hidden. `RadioGroup` ↔ radio-group. CSS `radioCircle` ↔ circle, `::after` ↔ dot, `hiddenInput` ↔ input, `labelText` ↔ label |
+| FE 이름 ↔ 명세 이름 | `src/shared/components/radio-button/radio-button.tsx` | `RadioButton` ↔ radio default. `RadioGroup` ↔ radio-group. CSS `radioCircle` ↔ circle, `::after` ↔ dot, `hiddenInput` ↔ input, `labelText` ↔ label |
 
 ## 10. 비토큰 값
 
@@ -200,14 +209,4 @@ focus-visible 칸은 rest 색을 유지하고 circle에 outline을 더함.
 
 ## 11. 미확인
 
-- 행 이름 흰색(Figma 2391:5869): 사용처 0곳. "아직 답하지 않은 행"을 뜻하는지 디자이너 확인 필요. 명세는 보라(2391:5870)만 씀
-  - Figma 추정(디자이너): 2391:5869 사용 0회, 2391:5870 8회. 최신 면접 시간 표(8812:5893)는 행 이름을 #999999 18 Regular로 그림. 질문 "표형 행 이름 색은 보라인가 회색인가?" 권고 보라 유지
-- selected의 hover·press, default의 press, 모든 focus-visible: Figma에 없음(추정)
-  - Figma 추정(약): 세트 5188:409 reactions는 Default → 마우스 올림(ON_HOVER) → Hover(5188:410, 링·라벨 흰색) → 클릭 → Selected. Hover는 Default에서만 있음. 프로토타입의 Selected → 클릭 → Default(해제)는 따르지 않고 "해제 없음" 유지
-- disabled: Figma에 없음. `color.palette.gray.600` (#666666) 추정값
-  - Figma 추정(디자이너): Figma 없음. 추정값 유지
-- "(선택)" 표시: Figma 질문 컴포넌트(2009:4228)에 없음. 문구·위치는 `patterns/form.md` 7절과 함께 디자이너 확인
-  - Figma 추정(디자이너): 최신 화면(8801:6062) 질문 9개에 "(선택)" 없음. 면접 시간 안내문(8812:5895)이 무응답을 허용함. 질문 "필수 아닌 문항에 (선택)을 붙일지?"
-- label-hidden variant 유지 여부: 근거였던 면접 시간 표(8812:5750 칸)가 다중 선택이라 checkbox 대상이 됨. 단일 선택 격자 표가 생기기 전까지 추정 variant로 둠
-- 모바일 터치 영역 44×44: 라이브 간격(16px)으로는 미달. 패딩 확장 방식은 추정
-  - Figma 추정(디자이너): Figma 근거 없음. 추정 유지
+- 해당 없음.

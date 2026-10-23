@@ -40,7 +40,7 @@ last_updated: 2026-10-23
 | 텍스트 필드(예외) | outline 대신 아래쪽 보더 `color.stroke.brand` (#7A64F9) 1px + label 이동·축소·`color.fg.brand`. 드롭다운 결합형도 같음 | `components/text-field.md` 7절 |
 | select option | 링 없음. 활성 바탕으로 표시(`aria-activedescendant`) | `components/select.md` 7절 |
 
-- 텍스트 필드 예외의 한계: focus 보더와 빈 값 보더의 색 차이가 1.47로 작음. 색 조합으로는 3:1을 만들 수 없음(빈 값 보더를 어둡게 하면 보라와의 차이가 1.37로 더 줄어듦). focus 보더 대 검정 5.02라 SC 1.4.11은 통과하고, label 이동·색 변화와 함께 SC 2.4.7(포커스 표시)을 충족함. 상태 간 대비를 보는 SC 2.4.13(포커스 모양)은 AAA라 범위 밖. focus 보더 1px → 2px 확대를 권고함(7절)
+- 텍스트 필드 예외의 한계: focus 보더와 빈 값 보더의 색 차이가 1.47로 작음. 색 조합으로는 3:1을 만들 수 없음(빈 값 보더를 어둡게 하면 보라와의 차이가 1.37로 더 줄어듦). focus 보더 대 검정 5.02라 SC 1.4.11은 통과하고, label 이동·색 변화와 함께 SC 2.4.7(포커스 표시)을 충족함. 상태 간 대비를 보는 SC 2.4.13(포커스 모양)은 AAA라 범위 밖. focus 보더는 1px로 유지함(2026-10-23 결정. AA를 충족하고 2px 확대는 접근성 수정 범위 밖)
 - SC 번호 정정(2026-10-22): SC 2.4.11은 Focus Not Obscured(Minimum, 포커스된 요소가 가려지지 않음)이고 포커스 모양 기준은 SC 2.4.13(AAA)임. 이전 표기 "SC 2.4.11(포커스 표시)"는 오기
 
 ### 2.2 PATTERN-03-02 대비
@@ -81,13 +81,12 @@ last_updated: 2026-10-23
 | 모달 설명 글자 `color.fg.muted` #999999 | `color.bg.surface-inverse` #FFFFFF | 2.85 | 미달 | 쓰지 않음. 모달 설명은 `color.palette.gray.600`(아래 행, 2026-10-23 결정) |
 | `color.fg.default` #FFFFFF | `color.palette.gray.800` #333333 | 12.63 | 통과 | tab box default 글자(2026-10-23 결정, 2026-10-23 계산) |
 | `color.palette.gray.600` #666666 | `color.bg.surface-inverse` #FFFFFF | 5.74 | 통과 | 모달 설명 글자(2026-10-23 결정, 2026-10-23 계산) |
-| `color.palette.gray.100` #E6E6E6 | `color.palette.purple.300` #493C95 | 7.12 | 통과 | selection-card selected 라벨(2026-10-23 결정, 2026-10-23 계산) |
 | `color.palette.gray.600` #666666 | `color.bg.canvas` #000000 | 3.66 | UI 요소 통과 | progress-bar segment 테두리(2026-10-23 결정, 2026-10-23 계산). 글자로 쓰면 큰 글자만 통과 |
 | `color.stroke.weak` #333333 | `color.bg.layer` #1A1A1A | 1.38 | 장식 | 카드 경계를 보더에만 의존하지 않음(배경색 차이로 구분) |
 
 #### ADOPT에서 고칠 항목(2026-10-23 결정)
 
-라이브 값 원칙의 예외로 아래 항목만 명세 값을 바꾸고 frontend는 ADOPT에서 고침. 범위: 포커스 표시, 라이브 UI 중 대비가 크게 낮은 tab box 글자, 라이브에 없어 변경 비용이 없는 UI의 대비, 24×24 누르는 영역. 대비는 WCAG 상대 휘도 공식으로 2026-10-23 계산함.
+라이브 값 원칙의 예외로 아래 항목만 명세 값을 바꾸고 frontend는 ADOPT에서 고침. 범위: 포커스 표시, 라이브 UI 중 대비가 크게 낮은 tab box 글자, 라이브에 없어 변경 비용이 없는 UI의 대비, 24×24 누르는 영역, 색 이외의 선택 표시. 대비는 WCAG 상대 휘도 공식으로 2026-10-23 계산함.
 
 | 항목 | 바뀐 값 | 대비·크기 | ADOPT 행 |
 | --- | --- | --- | --- |
@@ -95,16 +94,16 @@ last_updated: 2026-10-23
 | tab box default 글자 | #000000 → `color.fg.default` (#FFFFFF), 바탕 #333333 | 1.66 → 12.63 | ADOPT-03-14 |
 | modal 설명 글자 | `color.fg.muted` (#999999) → `color.palette.gray.600` (#666666), 흰 표면 위 | 2.85 → 5.74 | ADOPT-04(모달 신규 구현) |
 | modal 신청 버튼 hover 바탕 | `color.bg.brand-solid` (#7A64F9) → `color.bg.brand-solid-hover` (#493C95), 흰 글자 18/400 | 4.18 → 8.88 | ADOPT-04(모달 신규 구현) |
-| selection-card selected 바탕 | `color.bg.brand-solid` (#7A64F9) → `color.palette.purple.300` (#493C95), 라벨 #E6E6E6 유지. 선택 표시용 보더 `color.stroke.brand` (#7A64F9) 1px 추가(바탕 대 캔버스 2.36이라 보더로 3:1 확보, 보더 대 캔버스 5.02) | 3.35 → 7.12 | ADOPT-03-20(카드 신규 구현) |
 | progress-bar segment 테두리 | `color.stroke.weak` (#333333) → `color.palette.gray.600` (#666666), 검정 위 | 1.66 → 3.66 | ADOPT-03-18 |
 | pagination 점 버튼·모바일 화살표 누르는 영역 | 원·아이콘 크기 유지, `::before`로 24×24. 모바일 점 사이 gap 10 → 12 | 20×20·12×12·16×16 → 24×24 | ADOPT-03-17 |
 | checkbox 약관 toggle 누르는 영역 | 겉 높이 22(모바일 18) 유지, `::before`로 높이 24 | 22·18 → 24 | ADOPT-03-12 |
 | form-add-button add 행·삭제 버튼 누르는 영역 | 겉 높이 14 유지, 위아래 5px 투명 padding + 음수 margin | 14 → 24 | ADOPT-03-21 |
+| select option selected 선택 표시 | 보라 글자색만 → 보라 글자색 + check 아이콘 20px `color.fg.brand` (#7A64F9). 라이브 코드·Figma에 없는 아이콘이 새로 생겨 라이브 모습이 바뀜 | 아이콘 대 `color.bg.layer` 4.16, 키보드 활성 바탕 위 3.02(UI 요소 3:1 통과) | ADOPT-03-11 |
 | button text-link 모바일 누르는 영역 | 겉 높이 16 유지, 위아래 4px 투명 padding + 음수 margin | 16 → 24 | ADOPT-03-09 |
 
 #### 알려진 미달(2026-10-22 라이브 기준으로 정정)
 
-위 "ADOPT에서 고칠 항목" 외에는 명세 값이 라이브 값(라이브에 없는 UI는 Figma 값)을 쓰고, 대비·크기 기준을 이유로 값을 바꾸지 않음. 아래는 그 결과 기준에 못 미치는 항목을 모은 것임. 비활성 요소(SC 1.4.3·1.4.11 예외)는 넣지 않음.
+위 "ADOPT에서 고칠 항목" 외에는 명세 값이 라이브 값(라이브에 없는 UI는 Figma 값)을 쓰고, 대비·크기 기준을 이유로 값을 바꾸지 않음. 아래는 그 결과 기준에 못 미치는 항목을 모은 것이며, 고치지 않고 알려진 미달로 확정함(2026-10-23 결정. 고칠 범위는 위 "ADOPT에서 고칠 항목" 표로 한정). 비활성 요소(SC 1.4.3·1.4.11 예외)는 넣지 않음.
 
 | 값(전경 / 배경) | 대비·크기 | 기준 | 위치 | 출처 | 근거 |
 | --- | --- | --- | --- | --- | --- |
@@ -112,12 +111,12 @@ last_updated: 2026-10-23
 | `color.fg.on-brand` #FFFFFF / `color.bg.brand-solid` #7A64F9, 모바일 16/700·10/400 | 4.18 | 4.5 | button brand-small 모바일, brand-pill-md 모바일 "사전 알림 신청" | 라이브 | `components/button.md` 6·7절 |
 | `color.fg.on-inverse` #000000 / `color.bg.neutral-solid-press` #666666, 모바일 8/700 | 3.66 | 4.5 | button neutral-md 모바일 press | 라이브(크기)·Figma(press) | `components/button.md` 7절 |
 | `color.palette.gray.600` #666666 / `color.bg.canvas` #000000, 모바일 16/400 | 3.66 | 4.5 | button text-link 모바일 press | 코드(크기)·Figma(press) | `components/button.md` 7절 |
-| `color.fg.default` #FFFFFF 대 `color.fg.muted` #999999 글자색 차이 | 2.85 | 색 이외 단서(SC 1.4.1) | tab category 데스크톱 default·selected(FAQ·아카이빙 분류 탭) | 라이브 | `components/tab.md` 7·11절 |
+| `color.fg.default` #FFFFFF 대 `color.fg.muted` #999999 글자색 차이 | 2.85 | 색 이외 단서(SC 1.4.1) | tab category 데스크톱 default·selected(FAQ·아카이빙 분류 탭) | 라이브 | `components/tab.md` 7절 |
 | `color.fg.brand` #7A64F9 / `color.bg.layer` #1A1A1A, 18/700·모바일 10/700 | 4.16 | 4.5(큰 글자 18.67px에 0.67px 부족) | card review 기수·부문("25기 분석") | 라이브 | `components/card.md` 3·7절 |
 | `color.fg.brand` #7A64F9 / `color.bg.layer` #1A1A1A, 16/400·18/400 | 4.16 | 4.5 | select option selected(field-list 16, chip-list 18) | 라이브·코드 | `components/select.md` 7절 |
 | `color.fg.brand` #7A64F9 / `color.palette.gray.800` #333333 | 3.02 | 4.5 | select option selected 키보드 활성 | 라이브·Figma | `components/select.md` 7절 |
 | `color.fg.muted` #999999 / `color.palette.gray.800` #333333, 모바일 12px | 4.43 | 4.5 | search-autocomplete 모바일 결과 행 키보드 활성(결과 패널은 2026-10-23 결정으로 보류) | Figma(결과 패널은 라이브 없음) | `components/search-autocomplete.md` 7·11절 |
-| 텍스트 필드 focus 보더 #7A64F9 대 빈 값 보더 #999999 색 차이 | 1.47 | 3(SC 2.4.13, AAA라 AA 범위 밖) | text-field focus. 라벨 이동·축소가 함께 일어나 SC 2.4.7·1.4.11은 충족 | Figma | `components/text-field.md` 7·11절 |
+| 텍스트 필드 focus 보더 #7A64F9 대 빈 값 보더 #999999 색 차이 | 1.47 | 3(SC 2.4.13, AAA라 AA 범위 밖) | text-field focus. 라벨 이동·축소가 함께 일어나 SC 2.4.7·1.4.11은 충족 | Figma | `components/text-field.md` 7절 |
 | `prefers-reduced-motion` 규칙 없음, 무한 애니메이션 5개(20~40s) | — | SC 2.3.3·2.2.2 | 리크루팅 배경 | 라이브 | 2.4, 코드 `src/shared/components/gradient-background/gradient-background.css.ts` |
 
 - reduced-motion 행은 값이 아니라 동작이 없는 경우임. 명세는 "없음"을 값으로 삼지 않고 2.4 규칙을 유지하며, frontend 수정은 ADOPT-01-04에서 다룸. 포커스 표시는 위 "ADOPT에서 고칠 항목"으로 옮김(ADOPT-01-03)
@@ -138,7 +137,7 @@ last_updated: 2026-10-23
 | 탭 box selected | 흰 바탕 + 검정 글자 + `aria-selected` | `components/tab.md` 7절 |
 | 텍스트 필드 invalid | 오류 문구 + `aria-invalid` + `aria-describedby`. 빨간 색만으로 표시하지 않음 | `components/text-field.md` 7·8절 |
 | 비활성 | `disabled`·`aria-disabled` + 비활성 사유 문구(2.5) | `components/button.md` 7절 |
-| 탭 category(예외, 미충족) | 글자색만 다름. 색 외 단서 없음. 2.2 미달 표 참조 | `components/tab.md` 11절 |
+| 탭 category(예외, 미충족) | 글자색만 다름. 색 외 단서 없음. 2.2 미달 표 참조 | `components/tab.md` 7절 |
 
 ### 2.4 PATTERN-03-04 reduced-motion(SC 2.3.3, 2.2.2 참고)
 
@@ -163,7 +162,7 @@ last_updated: 2026-10-23
 | 테마·login-overlay opacity 전환 | 0.2~0.3s | 제거 | design-reference 4.3 |
 
 - 스피너 처리: 래스터 이미지라 회전을 CSS `animation`으로 줌. reduced-motion에서는 같은 이미지를 회전 없이 보임
-- SC 2.2.2(5초 넘게 자동으로 움직이는 정보는 멈추는 수단 필요): 배경 장식 5개는 정보가 아니라 장식이라 적용 대상이 아닐 수 있으나 판단은 7절에 남김
+- SC 2.2.2(5초 넘게 자동으로 움직이는 정보는 멈추는 수단 필요): 배경 장식 5개에 상시 일시정지 버튼을 두지 않음. 일시정지 버튼은 라이브 모습을 바꾸는 항목이라 "ADOPT에서 고칠 항목" 밖이고, 2.2 "알려진 미달" reduced-motion 행으로 둠(2026-10-23 결정). reduced-motion 대응(위 표)은 ADOPT-01-04에서 적용
 
 ### 2.5 PATTERN-03-05 비활성 표시
 
@@ -207,8 +206,7 @@ last_updated: 2026-10-23
 | form-add-button | add 행·삭제 버튼 높이 14 | 통과(padding + 음수 margin으로 24, 2026-10-23 결정) | 미달 | 겉 크기 유지, 누르는 영역만 확장. ADOPT-03-21 | `components/form-add-button.md` 7절 |
 | pagination | 점 20×20(모바일 12×12), 모바일 화살표 16×16 | 통과(`::before`로 24×24, 모바일 점 gap 12, 2026-10-23 결정) | 미달 | 겉 크기 유지, 누르는 영역만 확장. ADOPT-03-17 | `components/pagination.md` 7절 |
 | radio | 행 높이 18 | 간격 예외로 통과 | 미달 | 위아래 `raw:10px` 패딩 + 음수 margin | `components/radio.md` 7절 |
-| radio | label-hidden 16×16 | 미달 | 미달 | 셀 전체를 `<label>`로 감싸 24×24 이상 | `components/radio.md` 7절 |
-| tab | box 모바일 100×49, text 높이 18, underline 높이 35.5 | 통과(text는 위아래 `raw:3px` 이상 추가) | underline 미달 | 유지(라이브 값) | `components/tab.md` 7·11절 |
+| tab | box 모바일 100×49, text 높이 18, underline 높이 35.5 | 통과(text는 위아래 `raw:3px` 이상 추가) | underline 미달 | 유지(라이브 값) | `components/tab.md` 7절 |
 | card | project 아이콘 링크 24×24 | 통과(최소값과 같음, gap 12 줄이지 않음) | 미달 | `padding`으로 44까지 확장 | `components/card.md` 7절 |
 | modal | 버튼 130×44 | 통과 | 통과 | — | `components/modal.md` 7절 |
 
@@ -261,9 +259,4 @@ last_updated: 2026-10-23
 
 ## 7. 미확인
 
-- 2.2 "알려진 미달"에 남은 항목: 명세 값은 라이브·Figma 값으로 유지함(2026-10-22 결정). 고칠 범위는 2026-10-23 결정으로 "ADOPT에서 고칠 항목" 표에 한정함
-- 텍스트 필드 focus 보더 2px로 키움 권고: 1px 보더 + label 이동으로 SC 2.4.7·1.4.11은 충족. 2px 확대는 디자이너 승인 대기(`components/text-field.md` 11절)
-- 배경 장식 애니메이션 5개에 일시정지 수단이 필요한지(SC 2.2.2 해석). reduced-motion 대응은 이 문서가 정하나 상시 정지 버튼 여부는 결정 필요
-  - Figma 추정(디자이너): 무한 반복 30~40초 애니메이션은 장식에도 SC 2.2.2를 적용하는 해석이 일반적이라 일시정지 토글 1개(기본값은 `prefers-reduced-motion` 따름) 권고. 위치·문구 결정 필요
-- Figma 노드를 직접 읽어 확인하지 않음(`figma_verified: false`). 값은 Phase 2 명세와 `docs/wbs/20-token.md`에서 옮김
-  - Figma 추정(디자이너): 값은 컴포넌트 명세 값이라 Figma 확인은 컴포넌트 쪽 항목에서 처리
+- 해당 없음.

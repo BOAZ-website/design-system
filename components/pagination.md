@@ -101,7 +101,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 - default 점 테두리: 라이브 흰색. Figma rest #999999(Figma 5239:861)에서 라이브 값으로 바꿈. hover(Figma 흰 테두리)는 rest와 같아짐(2026-10-22 라이브 기준으로 정정)
 - 현재 페이지 점(selected): 라이브는 네이티브 `disabled`로 표시함(누를 수 없고 Tab 순서에서 빠짐). 명세 접근성 요구는 `aria-current="page"`이며 7절에 유지함
 
-- 포커스 트리거: `:focus-visible`. outline은 버튼(점·화살표) 밖에 그림. 라이브는 전역 `outline: none`으로 포커스 표시 없음(기존 추정값 유지)
+- 포커스 트리거: `:focus-visible`. outline은 버튼(점·화살표) 밖에 그림. 라이브는 전역 `outline: none`으로 포커스 표시 없음. Figma에도 Focus 변형 없음. (2026-10-23 결정) 모든 focus-visible은 `color.stroke.focus` 정책(ADOPT-01-03)으로 확정함. 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"
 - 비동기 상태(pending·loading): 해당 없음. 페이지 데이터 불러오기는 목록 쪽에서 표시함
 - invalid·completed 행 없음: 입력·진행 결과가 없는 이동 요소이기 때문임
 - 점 disabled 행 없음: 보이는 점은 모두 존재하는 페이지임
@@ -198,7 +198,4 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 ## 11. 미확인
 
-- 점 press: Figma·라이브 모두 없음. hover 값 유지로 추정
-  - Figma 추정(약): Press 변형 없음. Hover에서 ON_CLICK으로 Selected가 됨(Figma 5317:8810 → 5317:8812, Figma 5239:863 → 5239:865). hover 값 유지
-- 모든 focus-visible: Figma·라이브 모두 Focus 상태 없음(추정)
-  - Figma 추정(디자이너): Figma 전체에 Focus 변형 없음. 접근성 결정이라 유지 권고
+- 해당 없음.

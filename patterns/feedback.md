@@ -57,7 +57,7 @@ last_updated: 2026-10-23
 | 짧은 요청 진행·완료: 임시저장, 사전 알림 신청 처리 중 | 버튼 pending(`aria-busy="true"`, 라벨 유지) + 상태 알림 영역 `role="status"`. 모달을 띄우지 않음 | `components/button.md` 4절·5절 |
 | 짧은 요청 실패: 임시저장 실패 등 Figma 모달이 없는 실패 | 버튼을 rest로 되돌리고 상태 알림 영역 `role="alert"`로 알림 | `components/button.md` 5절 |
 | 되돌릴 수 없는 동작 확인(예·아니오): 지원서 제출 전 확인, 부문 변경 | 확인형 모달(confirm-submit·confirm-track-change). 취소·확인 2개, 초기 포커스 취소. 문구는 라이브(frontend 코드) 문구(2026-10-23 결정) | `components/modal.md` 3·5절 |
-| Figma에 해당 모달이 없는 결과 | 새 모달 문구를 지어 쓰지 않음. 3절 대응표의 임시 수단을 쓰고 7절에 올림 | `components/modal.md` 3절("제목·설명 문구는 Figma 원문 그대로") |
+| Figma에 해당 모달이 없는 결과 | 새 모달 문구를 지어 쓰지 않고 모달을 추가하지 않음. 2.3 대응표의 대체 수단을 씀(2026-10-23 결정, 2.1 판단 순서상 모달 대상이 아님) | `components/modal.md` 3절("제목·설명 문구는 Figma 원문 그대로") |
 
 - 판단 순서
   1. 특정 입력 필드의 값이 원인인가 → 인라인 에러(사전 알림 이메일만 예외)
@@ -87,23 +87,23 @@ last_updated: 2026-10-23
 
 - 기준: 저장소 `BOAZ-website/frontend`의 `src`에서 `alert(` 10곳, `confirm(` 2곳(2026-10-22 조사)
 - ADOPT-04-02 입력. ADOPT-04-02 완료 확인(`rg "alert\(" src` 0건)은 아래 A1~A10을 모두 바꾸면 충족됨
-- "대체 수단"이 `Figma에 없음`인 행은 임시 수단을 함께 적음. 임시 수단은 2.1 판단 순서를 적용한 추정이며 7절에서 디자이너 확인을 받음
+- "대체 수단"이 `Figma에 없음`인 행(A3·A4 일부·A5·A6·A10)은 모달을 추가하지 않고 적힌 수단으로 확정함(2026-10-23 결정, 2.1 판단 순서 적용 결과)
 - `components/modal.md` 9절의 5개 파일 대응을 한 곳씩으로 나눈 것이며 판정은 같음
 
 #### alert 10곳
 
 | # | 파일 | 위치(함수·조건) | 현재 문구 | 대체 수단 | 비고 |
 | --- | --- | --- | --- | --- | --- |
-| A1 | `src/features/notice/notice-form.tsx` | `doSubmit` 이메일 빈 값 | 이메일을 입력해주세요. | 모달 error-email-invalid | Figma 문구로 교체(Figma 4243:4492) |
-| A2 | `src/features/notice/notice-form.tsx` | `doSubmit` 이메일 형식 오류 | 유효하지 않은 이메일 형식입니다. | 모달 error-email-invalid | A1과 같은 모달 |
-| A3 | `src/features/notice/notice-form.tsx` | `mutate` `onSuccess` | 신청이 완료되었습니다! 모집 시작 시 이메일로 알려드릴게요. | Figma에 없음. 임시: 상태 알림 영역 `role="status"` | 모달 success 문구는 지원서 제출 전용이라 쓰지 않음(`components/modal.md` 11절). 문구 말투는 PATTERN-04-01에서 고침 |
+| A1 | `src/features/notice/notice-form.tsx` | `doSubmit` 이메일 빈 값 | 이메일을 입력해주세요. | 모달 error-email-invalid | `components/modal.md` 3절 문구(빈 값)로 교체(2026-10-23 결정, Figma 4243:4492 원문에서 고친 문구) |
+| A2 | `src/features/notice/notice-form.tsx` | `doSubmit` 이메일 형식 오류 | 유효하지 않은 이메일 형식입니다. | 모달 error-email-invalid | A1과 같은 모달. 문구는 형식 오류용(`components/modal.md` 3절) |
+| A3 | `src/features/notice/notice-form.tsx` | `mutate` `onSuccess` | 신청이 완료되었습니다! 모집 시작 시 이메일로 알려드릴게요. | Figma에 없음. 확정: 상태 알림 영역 `role="status"` | 모달 success 문구는 지원서 제출 전용이라 쓰지 않음(2026-10-23 결정). 문구 말투는 PATTERN-04-01에서 고침 |
 | A4 | `src/features/notice/notice-form.tsx` | `mutate` `onError` 서버 오류 코드별(`SERVER_ERROR_MESSAGES`) | 코드에 따라 다름. 아래 소표 | 코드별로 나눔. 아래 소표 | 한 `alert` 호출이 4가지 경우를 처리함 |
-| A5 | `src/features/notice/notice-form.tsx` | `mutate` `onError` 네트워크 오류 등 Axios 오류가 아닌 경우 | 서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요. | Figma에 없음. 임시: 상태 알림 영역 `role="alert"` | 모달 failure 문구는 지원서 제출 전용 |
-| A6 | `src/shared/router/protected-route.tsx` | 비로그인 상태로 지원서 경로 접근 | 로그인 후 지원이 가능합니다. | Figma에 없음. 임시: 홈 이동 후 로그인 오버레이(`src/features/auth/ui/login-overlay.tsx`)를 엶 | 로그인 오버레이는 `components/modal.md` 범위 밖. 열기 방식은 ADOPT-04에서 정함 |
+| A5 | `src/features/notice/notice-form.tsx` | `mutate` `onError` 네트워크 오류 등 Axios 오류가 아닌 경우 | 서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요. | Figma에 없음. 확정: 상태 알림 영역 `role="alert"` | 모달 failure 문구는 지원서 제출 전용 |
+| A6 | `src/shared/router/protected-route.tsx` | 비로그인 상태로 지원서 경로 접근 | 로그인 후 지원이 가능합니다. | Figma에 없음. 확정: 홈 이동 후 로그인 오버레이(`src/features/auth/ui/login-overlay.tsx`)를 엶 | 로그인 오버레이는 `components/modal.md` 범위 밖. 열기 방식은 ADOPT-04에서 정함. 로그인 후 지원서 화면으로 돌아오는 흐름은 두지 않음. 라이브와 같이 로그인 성공 시 홈으로 이동(코드 `src/pages/auth-callback-page.tsx`, 값 규칙 2026-10-22 결정) |
 | A7 | `src/widgets/apply/ui/personal-info-section.tsx` | `handleNext` 필수 항목 누락·형식 오류 | 입력하지 않은 항목이 있거나 형식이 올바르지 않습니다.\n항목을 다시 확인해 주세요. | 인라인 에러(모달 아님) | 필드별 invalid + 문구는 이미 이메일·전화번호에 있음. 부문·생년월일·병역·대학원·학년·학기·면접 가능 시간도 필드 오류 문구로 표시하고 첫 오류로 포커스 이동(PATTERN-02) |
 | A8 | `src/widgets/apply/model/use-submit-application.ts` | `onSuccess` | 지원서 제출이 성공적으로 완료되었습니다. | 모달 success | 닫기 후 홈 이동. 설명 "BOAZ에 지원해주셔서 감사합니다." 추가(Figma 5164:5542) |
-| A9 | `src/widgets/apply/model/use-submit-application.ts` | `onError` | 지원서 제출에 실패했습니다. | 모달 failure | Figma 문구 "제출에 실패하였습니다."로 교체(Figma 5164:5621) |
-| A10 | `src/pages/apply-page.tsx` | 렌더링 중 `draftQueryState.state === 'submitted'`(이미 제출) | 이미 제출된 지원서가 있습니다. | Figma에 없음. 임시: 홈 이동 후 상태 알림 영역 `role="status"` | 현재 렌더링 중 `alert` 호출(부수 효과). 코드 주석에 "제출 완료 전용 컴포넌트로 교체" 계획 있음 |
+| A9 | `src/widgets/apply/model/use-submit-application.ts` | `onError` | 지원서 제출에 실패했습니다. | 모달 failure | 제목 Figma 문구 "제출에 실패하였습니다.", 설명 "잠시 후 다시 제출해주세요."로 교체(2026-10-23 결정, Figma 5164:5621 원문 설명에서 고친 문구) |
+| A10 | `src/pages/apply-page.tsx` | 렌더링 중 `draftQueryState.state === 'submitted'`(이미 제출) | 이미 제출된 지원서가 있습니다. | Figma에 없음. 확정: 홈 이동 후 상태 알림 영역 `role="status"` | 현재 렌더링 중 `alert` 호출(부수 효과). 코드 주석에 "제출 완료 전용 컴포넌트로 교체" 계획 있음 |
 
 A4 소표(`SERVER_ERROR_MESSAGES`의 서버 오류 코드별)
 
@@ -112,7 +112,7 @@ A4 소표(`SERVER_ERROR_MESSAGES`의 서버 오류 코드별)
 | `DUPLICATE_EMAIL` | 이미 구독 신청된 이메일입니다. | 모달 error-email-duplicate | Figma 문구 "이미 사전 알림이 신청된 이메일입니다."로 교체(Figma 4243:4504) |
 | `INVALID_EMAIL_FORMAT` | 유효하지 않은 이메일 형식입니다. | 모달 error-email-invalid | 클라이언트 검사(A2)를 통과한 뒤 서버가 거부한 경우 |
 | `INVALID_INPUT_VALUE` | 이메일을 입력해주세요. | 모달 error-email-invalid | 같음 |
-| 그 밖의 코드 | 서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요. | Figma에 없음. 임시: 상태 알림 영역 `role="alert"` | A5와 같음 |
+| 그 밖의 코드 | 서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요. | Figma에 없음. 확정: 상태 알림 영역 `role="alert"` | A5와 같음 |
 
 #### confirm 2곳
 
@@ -135,7 +135,7 @@ Figma 모달 중 현재 코드가 `alert()`로 처리하지 않는 곳. ADOPT-04
 
 - 모집 상태 판정(라이브, 2026-10-23 결정): `GET /api/v1/recruitment/status` 응답 `is_active`가 true면 지원 가능(지원하기 brand), false면 지원 불가(지원하기 disabled). 마감 일시는 `GET /api/v1/recruitment/deadline`. `is_active`가 false이고 현재 시각이 마감 일시 이후면 info-closed, 그 밖은 info-not-open. 근거 코드 `src/widgets/recruiting/ui/apply-section/apply-section.tsx`, `components/button.md` 4절
 
-- 지원 진입 버튼("지원하기"): `src/widgets/recruiting/ui/recruiting-hero-section/recruiting-hero-section.tsx`, `src/entities/track/ui/track-card/track-card.tsx`. 안내형 모달을 지원서 화면 진입 후에 띄울지, 진입 버튼을 누를 때 띄울지는 7절
+- 안내형 모달을 띄우는 시점: 지원서 화면 진입 시(지원서 URL 직접 접근)에만 띄움. 지원 진입 버튼("지원하기", `src/widgets/recruiting/ui/recruiting-hero-section/recruiting-hero-section.tsx`, `src/entities/track/ui/track-card/track-card.tsx`)은 `is_active`가 false면 disabled(`disabled={!isActive}`)라 누를 수 없으므로 버튼에서는 띄우지 않음. 지원하기 버튼 활성을 `is_active`로 판정한다는 2026-10-23 결정(위 모집 상태 판정)에서 따름. 닫기를 누르면 라이브와 같이 홈으로 이동(코드 `src/pages/apply-page.tsx` `Navigate`)
 
 ## 3. 적용 컴포넌트
 
@@ -143,15 +143,15 @@ Figma 모달 중 현재 코드가 `alert()`로 처리하지 않는 곳. ADOPT-04
 | --- | --- | --- |
 | 모달 | 진입 차단(안내형), 서버 결과(결과형·입력 오류형), 지원서 제출 진행(로딩) | `components/modal.md` 3절·5절 |
 | 입력 필드 | 입력 검증 오류를 invalid 상태 + message로 표시 | `components/text-field.md` 4절·7절 |
-| 셀렉트·라디오 | 필수 선택 누락을 셀렉트 field invalid, 라디오 묶음 아래 누락 메시지로 표시(A7). 표 문항 체크박스 누락 표시는 명세에 없음(7절) | `components/select.md` 7절, `components/radio.md` 3절·7절 |
+| 셀렉트·라디오 | 필수 선택 누락을 셀렉트 field invalid, 라디오 묶음 아래 누락 메시지로 표시(A7). 표 문항 체크박스 누락 표시는 명세에 없음 | `components/select.md` 7절, `components/radio.md` 3절·7절 |
 | 버튼 | 요청 중 pending(`aria-busy="true"`, 라벨 유지), 진행·완료는 `role="status"`, 실패는 `role="alert"` | `components/button.md` 4절·5절 |
 
 ## 4. 예시
 
 | 상황 | 예 | 근거 |
 | --- | --- | --- |
-| 사전 알림 이메일 형식 오류 | 모달 "이메일을 다시 입력해주시길 바랍니다. / 다시 한 번 확인해주세요." + 닫기 | Figma 4243:4492 |
-| 사전 알림 이메일 중복 | 모달 "이미 사전 알림이 신청된 이메일입니다. / 다시 한 번 확인해주세요." + 닫기 | Figma 4243:4504 |
+| 사전 알림 이메일 형식 오류 | 모달 "이메일 형식이 올바르지 않습니다. / 이메일을 다시 입력해주세요." + 닫기(2026-10-23 결정, `patterns/voice-and-tone.md` 2.3 고친 예) | Figma 4243:4492 |
+| 사전 알림 이메일 중복 | 모달 "이미 사전 알림이 신청된 이메일입니다. / 다른 이메일을 입력해주세요." + 닫기(2026-10-23 결정, `patterns/voice-and-tone.md` 2.3 고친 예) | Figma 4243:4504 |
 | 지원 기간이 아닐 때 지원 진입 | 모달 "지금은 지원 기간이 아닙니다. / 사전 알림을 신청해보세요." + 닫기·신청 | Figma 4243:4452 |
 | 지원서 제출 | 로딩 모달 "지원서를 제출 중입니다. / 잠시만 기다려주세요." → 성공 모달 "지원서 제출이 성공적으로 완료되었습니다. / BOAZ에 지원해주셔서 감사합니다." | Figma 5164:5587, Figma 5164:5542 |
 | 지원서 이메일 형식 오류 | 이메일 필드 invalid + 아래 문구 "이메일 형식이 올바르지 않습니다." | `components/text-field.md` 4절 |
@@ -179,9 +179,4 @@ Figma 모달 중 현재 코드가 `alert()`로 처리하지 않는 곳. ADOPT-04
 
 ## 7. 미확인
 
-- Figma에 해당 모달이 없는 알림 4가지: 사전 알림 신청 완료(A3), 서버 오류(A4 일부·A5), 로그인 필요(A6), 이미 제출된 지원서(A10). 2.3절 임시 수단은 추정. 모달 종류 추가 여부 디자이너 확인 필요
-  - Figma 추정(디자이너): 모달 추가 없이 임시 수단 확정 가능. A3은 버튼 pending 후 `role="status"`, A4·A5는 `role="alert"`, A6·A10은 홈 이동 후 상태 영역 문구
-- A6 로그인 필요: 홈 이동 후 로그인 오버레이를 여는 방식은 추정. 로그인 후 지원서 화면으로 돌아오는 흐름 포함 여부 확인 필요
-  - Figma 추정(약): 복귀 포함. 이동 전 경로를 보관하고 로그인 성공 시 지원서 화면으로 돌아옴(SC 3.3.7)
-- 안내형 모달을 띄우는 시점: 지원 진입 버튼을 누를 때(리크루팅 화면) 또는 지원서 화면 진입 후. Figma에 모달이 놓인 화면 인스턴스가 없어 판단 근거 없음(`components/modal.md` 11절 backdrop 항목)
-  - Figma 추정(약): 지원 진입 버튼을 누를 때 띄움(신청 버튼 목적지인 사전 알림 영역이 리크루팅 화면에 있음). 지원서 URL 직접 접근은 지원서 화면에서 같은 모달, 닫으면 홈으로 이동
+- 해당 없음.

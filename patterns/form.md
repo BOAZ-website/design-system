@@ -66,8 +66,8 @@ last_updated: 2026-10-23
 | 목록 선택 열림 | 위쪽 끝, focus 표시 유지 | `components/select.md` 4절 |
 
 - 필수 표시 기호(`*`)를 두지 않음. Figma 질문 컴포넌트(2009:4228)·지원자 정보 화면(8801:6001)에 없고, 지원서 항목 대부분이 필수임
-- 대신 선택 항목에만 제목 뒤에 "(선택)"을 붙임. 대상: 복수/부전공 추가 필드, 추가 정보 단계의 선택 질문(`is_required`가 false인 질문). Figma 없음(추정)
-- 필수 항목은 코드에 `required`(네이티브 입력) 또는 `aria-required="true"`(combobox·radiogroup)로 표시함. `components/radio.md` 11절 "필수 표시 기호" 항목은 이 규칙으로 정리됨
+- 대신 선택 항목에만 제목 뒤에 공백 + "(선택)"을 붙임. 제목과 같은 글자 크기, 색 `color.fg.muted` (#999999, 검정 위 7.37). 대상: 복수/부전공 추가 필드, 추가 정보 단계의 선택 질문(`is_required`가 false인 질문). 필수가 아닌 질문 제목 뒤에 "(선택)"을 붙임(2026-10-23 결정, 면접 시간 안내문 Figma 8812:5895가 무응답을 허용해 필수가 아닌 문항이 있음). 글자 크기·색은 Figma·라이브(frontend 코드) 모두 없어 추정값. 라이브에는 "(선택)" 표시가 없어 ADOPT-03-22에서 추가함(6절)
+- 필수 항목은 코드에 `required`(네이티브 입력) 또는 `aria-required="true"`(combobox·radiogroup)로 표시함
 
 ### 2.2 PATTERN-02-02 검증 시점과 오류 문구 위치
 
@@ -126,7 +126,7 @@ last_updated: 2026-10-23
 | 오류 없음 | 다음 단계로 이동. 화면 맨 위로 스크롤하고 단계 제목 `<h1>`(`tabindex="-1"`)에 포커스 | Figma 없음(추정), 코드 `src/pages/apply-page.tsx` |
 | 제출하기 오류 없음 | 확인 모달 → 로딩 모달 → 결과 모달(PATTERN-01) | `patterns/feedback.md` |
 
-#### 네이티브 `<select>` 예외(`components/select.md` 11절 결정)
+#### 네이티브 `<select>` 예외(`components/select.md` 5절)
 
 - 결정: 공개 웹사이트 폼에서 네이티브 `<select>`를 쓰지 않음. 데스크톱·모바일 모두 `components/select.md`의 커스텀 listbox(field 트리거 + field-list)를 씀
 - 근거
@@ -154,17 +154,28 @@ last_updated: 2026-10-23
 
 #### 세로 간격
 
-| 위치 | 값 | 근거 |
-| --- | --- | --- |
-| 진행 막대 → 단계 본문 | `raw:120px` | Figma 8801:6003 |
-| 섹션(질문 묶음) 사이 | `raw:120px` | Figma 8801:6009 |
-| 섹션 제목 → 첫 필드 | `spacing.12` (48px) | Figma 8801:6010, Figma 8801:6038 |
-| 질문 제목 → 글자 수 안내 | `raw:10px` | Figma 2009:4228 |
-| 같은 섹션 안 필드·줄 사이 | `spacing.8` (32px) | Figma 8801:6013, Figma 8801:6022 |
-| 필드 → 오류 문구 | 한 줄 `spacing.3` (12px), 문단형 `spacing.2` (8px) | 코드 `src/widgets/apply/ui/personal-info-section.css.ts`, 코드 `src/shared/components/textfield-with-counter/textfield-with-counter.css.ts` |
-| 마지막 섹션 → 이동 버튼 줄 | `raw:120px` | Figma 8801:6005 |
+- 데스크톱 세로 간격(2026-10-23 결정으로 코드 값으로 바꿈): 지원서 화면은 라이브에서 볼 수 없어 값 규칙(2026-10-22 결정)에 따라 frontend 코드 값을 라이브 값으로 씀. 코드는 단계마다 값이 다름. 코드 값은 rem이며 `html` 글자 크기 62.5%라 1rem = 10px(코드 `src/shared/styles/global.css.ts`)
 
-- 모바일 세로 간격: Figma 모바일 지원 폼 화면이 없음(Mobile 페이지의 지원 폼 프레임 6439:12300 등은 1440 폭). 7절 참조
+| 위치(데스크톱) | 지원자 정보 입력 단계 | 질문 단계(공통 질문·부문 질문·추가 정보) | 근거 |
+| --- | --- | --- | --- |
+| 진행 막대 → 단계 제목 | `raw:120px` | `raw:120px` | 코드 `src/widgets/apply/ui/apply-title-section.css.ts` `container` gap |
+| 섹션(질문 묶음) 사이 | `raw:100px` | `raw:80px` | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` `container`, `src/widgets/apply/ui/question-section/question-section.css.ts` `container` |
+| 섹션 안 요소 사이(섹션 제목 → 첫 필드 포함) | `spacing.8` (32px) | `spacing.6` (24px) | 같은 두 파일의 `section` |
+| 질문 제목 → 글자 수 안내 | — | `spacing.2` (8px) | 코드 `src/widgets/apply/ui/question-section/question-section.css.ts` `titleContainer` |
+| 같은 묶음 안 필드·줄 사이 | `spacing.3` (12px) | — | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` `groupContainer` |
+| 필드 → 오류 문구 | 한 줄 `spacing.3` (12px) | 문단형 `spacing.2` (8px) | 코드 `src/widgets/apply/ui/personal-info-section.css.ts`, 코드 `src/shared/components/textfield-with-counter/textfield-with-counter.css.ts` |
+| 마지막 섹션 → 이동 버튼 줄 | `raw:100px` | 이전·다음 줄 `raw:120px`(섹션 사이 80 + `footerNav` 위 여백 40), 제출하기 `raw:80px` | 같은 두 파일의 `container`, `footerNav` |
+
+- Figma 기록용(데스크톱, Figma 8801:6003·8801:6009·8801:6010·8801:6038·2009:4228·8801:6013·8801:6022·8801:6005): 진행 막대 → 단계 본문 120, 섹션 사이 120, 섹션 제목 → 첫 필드 48, 질문 제목 → 글자 수 안내 10, 같은 섹션 안 필드·줄 사이 32, 마지막 섹션 → 이동 버튼 줄 120
+- 모바일 세로 간격: Figma 모바일 지원 폼 화면이 없음(Mobile 페이지의 지원 폼 프레임 6439:12300 등은 1440 폭). 값 규칙(2026-10-22 결정)에 따라 frontend 코드(라이브) 값을 씀. 코드는 단계마다 값이 다름
+
+| 위치(모바일) | 지원자 정보 입력 단계 | 질문 단계(공통 질문·부문 질문·추가 정보) | 근거 |
+| --- | --- | --- | --- |
+| 진행 막대 → 단계 제목 | `raw:120px` | `raw:120px` | 코드 `src/widgets/apply/ui/apply-title-section.css.ts` `container` gap(모바일 재정의 없음) |
+| 섹션(질문 묶음) 사이 | `raw:120px` | `spacing.10` (40px) | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` `container`, `src/widgets/apply/ui/question-section/question-section.css.ts` `container` |
+| 섹션 안 요소 사이(섹션 제목 → 첫 필드 포함) | `raw:50px` | `spacing.4` (16px) | 같은 두 파일의 `section` |
+| 같은 묶음 안 필드·줄 사이 | `spacing.3` (12px) | — | 코드 `src/widgets/apply/ui/personal-info-section.css.ts` `groupContainer` |
+| 마지막 섹션 → 이동 버튼 줄 | `raw:120px` | 이전·다음 줄 `raw:60px`(섹션 사이 40 + `footerNav` 위 여백 20), 제출하기 `spacing.10` (40px) | 같은 두 파일의 `container`, `footerNav` |
 
 #### 단계 진행
 
@@ -235,7 +246,4 @@ last_updated: 2026-10-23
 
 ## 7. 미확인
 
-- 모바일 지원 폼: Figma에 390 폭 지원 폼 화면이 없음. 한 줄 간격은 코드 값(12px), 세로 간격(120·48·32)의 모바일 값 미정
-  - Figma 추정(약): 세로 간격은 진행 막대→본문 `spacing.16` (64px), 섹션 사이 `spacing.16`, 섹션 제목→첫 필드 `spacing.8` (32px), 같은 섹션 필드 사이 `spacing.6` (24px) 제안. 모바일 시안이 생기면 덮어씀
-- "(선택)" 표시: Figma 없음. 문구·위치 디자이너 확인 필요
-  - Figma 추정(약): 제목 뒤 공백 + "(선택)", 제목과 같은 크기, `color.fg.muted` (#999999, 검정 위 7.37) 제안
+- 해당 없음.

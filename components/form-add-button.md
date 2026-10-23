@@ -119,9 +119,9 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
   - 새 입력의 접근 이름: "{항목 이름} {번호}"(예: "복수/부전공 2"). 보이는 label도 같은 글자
   - 최대 개수에 도달하면 add 행을 숨김. 이때 포커스는 방금 만든 입력에 있으므로 잃지 않음
 - 삭제
-  - remove-button을 누르면 확인 없이 그 행을 지움(값이 있어도 같음. 선택 항목이라 되돌릴 필요가 적음)
-  - 포커스 복귀: 다음 추가된 항목 행의 입력 → 없으면 이전 행의 입력 → 없으면 add 행
-  - 삭제 후 `role="status"` 영역에 "{항목 이름} {번호} 삭제됨"을 알림
+  - remove-button을 누르면 확인 없이 그 행을 지움(값이 있어도 같음. 선택 항목이라 되돌릴 필요가 적음). 라이브 코드도 확인 없이 지움(코드 `src/widgets/apply/ui/personal-info-section.tsx` `removeDegree`)
+  - 포커스 복귀: 다음 추가된 항목 행의 입력 → 없으면 이전 행의 입력 → 없으면 add 행(Figma 없음(추정))
+  - 삭제 후 `role="status"` 영역에 "{항목 이름} {번호} 삭제됨"을 알림(Figma 없음(추정))
   - 지운 뒤 남은 행 번호를 다시 매김
 - 키보드: Tab 순서는 입력 → remove-button → 다음 행 → add 행. Enter·Space로 실행
 - 터치에서는 hover 색을 적용하지 않음(`@media (hover: hover)`에서만)
@@ -156,7 +156,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | aria | add 행 이름은 보이는 라벨("복수/부전공"). "+" 표시는 `aria-hidden="true"`. remove-button은 보이는 글자 "삭제"에 더해 `aria-label="{항목 이름} {번호} 삭제"`(예: "복수/부전공 2 삭제"). 삭제 결과는 `role="status"`로 알림 | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, UI 요소 3:1(배경 검정 캔버스 #000000)<br>add 라벨·"+": rest #999999 7.37, hover #FFFFFF 21.00<br>remove-button 글자: rest #999999 7.37, hover #E6E6E6 16.83<br>추가된 항목 행: `components/text-field.md` 7절 대비 행 | 계산값(WCAG 상대 휘도) |
 | 터치 영역 | 최소 24×24: add 행·remove-button은 겉 높이 14(글자 높이)를 유지하고 위아래 `raw:5px` 투명 `padding` + 같은 크기 음수 margin으로 누르는 영역 높이를 24로 넓힘. remove-button 글자 "삭제"가 24보다 좁으면 좌우도 같은 방식으로 24까지 넓힘(2026-10-23 결정, ADOPT-03-21)<br>모바일 권장 44×44: 모두 미달 | WCAG 2.2 2.5.8 |
-| 포커스 링 | add 행·remove-button: outline 2px, offset 2px, `color.stroke.focus` (#68CBEC) 11.34:1. 추가된 입력은 text-field 규칙(보더·label 색, outline 없음) | `docs/wbs/20-token.md` 대비표 |
+| 포커스 링 | add 행·remove-button: outline 2px, offset 2px, `color.stroke.focus` (#68CBEC) 11.34:1(2026-10-23 결정, 모든 focus-visible을 이 정책으로 통일, ADOPT-01-03). 추가된 입력은 text-field 규칙(보더·label 색, outline 없음) | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 해당 없음. 최대 개수 도달 시 add 행을 숨김(4절) | Figma 없음(추정) |
 
 ## 8. Do / Don't
@@ -192,7 +192,4 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 ## 11. 미확인
 
-- add 행·remove-button의 press, 모든 focus-visible: Figma 없음(추정)
-  - Figma 추정(약): press 없음. 추가된 행 입력 포커스는 Active_Focus(5775:9707, 보라 아래 보더, label 14 Light 보라). close 세트 5755:10062는 Default·Hover(5755:10063, #F96466)만 있음
-- 삭제 확인 없음·삭제 후 포커스 순서·`role="status"` 알림: Figma 없음(추정)
-  - Figma 추정(약): Active 5775:9680의 close 클릭 → 바로 Default(5188:453)로 돌아가 삭제 확인 없음. 포커스·알림은 추정 유지
+- 해당 없음.

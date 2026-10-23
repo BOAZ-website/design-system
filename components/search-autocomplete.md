@@ -169,7 +169,7 @@ rest는 상호작용이 없을 때의 모습임.
 
 - 요소 선택: ARIA APG "목록 자동완성 combobox(Combobox With List Autocomplete)" 패턴
   - input: `<input type="search" role="combobox">`. `enterkeyhint="search"`(모바일 키보드에 "검색" 키)
-  - 브라우저 기본 지우기 버튼(`::-webkit-search-cancel-button`)은 숨김. Figma에 지우기 버튼이 없음(11절)
+  - 브라우저 기본 지우기 버튼(`::-webkit-search-cancel-button`)은 숨기고 별도 지우기(X) 버튼을 두지 않음. 라이브 코드(`src/widgets/archive/ui/search-overlay/search-overlay.tsx`, `type="text"`)와 Figma(4817:9342, 모바일 7091:5782) 모두 없음(2026-10-22 값 규칙)
   - 자동 선택 없음(`aria-autocomplete="list"`): 입력해도 첫 결과를 활성으로 만들지 않고 입력값을 바꾸지 않음
 - 패널 열림·닫힘
   - 열림: 입력값이 1자 이상이고 input에 포커스가 있을 때
@@ -241,7 +241,7 @@ rest는 상호작용이 없을 때의 모습임.
 | aria | 유효: input 이름 `aria-label`(아래), live-region `role="status"`, search-icon `aria-hidden="true"`<br>보류(2026-10-23 결정): input `aria-autocomplete="list"`, `aria-expanded`(listbox가 보일 때 `true`, 결과 0건·닫힘이면 `false`), `aria-controls`(listbox id), `aria-activedescendant`(활성 option id, 활성 없음·닫힘이면 제거)<br>이름: 보이는 label이 없어 `aria-label`로 줌. 탭에 따라 "프로젝트 검색"·"블로그 검색"·"활동사진 검색". placeholder만으로 이름을 주지 않음(text-field 명세와 같음)<br>listbox: `aria-label="검색 결과"`<br>option: 활성 항목에 `aria-selected="true"`(APG 목록 자동완성 규칙. 이 컴포넌트에는 선택 상태가 따로 없음)<br>match: `<mark>`. 화면 읽기 프로그램은 제목 전체를 읽음<br>panel: 응답 대기 중 `aria-busy="true"`<br>search-icon: `aria-hidden="true"` | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, 큰 글자(24px 이상)·UI 요소 3:1<br>입력값 #FFFFFF / 검정 캔버스: 21.00, placeholder #999999 / 검정: 7.37<br>option rest: match #FFFFFF / #1A1A1A 17.40, 나머지 #999999 / #1A1A1A 6.11<br>option hover·활성: match #FFFFFF / #333333 12.63, 나머지 #999999 / #333333 4.43. 24px Regular는 큰 글자라 3:1 기준으로 통과. 모바일 12px에 활성 바탕이 오면 미달(11절)<br>status-row #999999 / #1A1A1A: 6.11. 라이브 빈 결과 문구 #999999 / 검정 캔버스: 7.37(모바일 10px도 통과)<br>match와 나머지 글자 사이 #FFFFFF / #999999: 2.85. 3:1 미만이라 강조는 색 차이로만 구분됨. 강조는 보조 정보(검색어는 사용자가 이미 앎)라 기준 대상에서 뺌(11절)<br>패널 보더 `color.stroke.weak` / 검정 캔버스: 1.66. 패널은 행 글자로 식별되므로 보더는 장식으로 봄(select chip 보더와 같은 판단) | 계산값(WCAG 상대 휘도) |
 | 터치 영역 | 최소 24×24: 데스크톱 행 50, 모바일 행 28·입력 줄 28 모두 통과<br>모바일 권장 44×44: 모바일 결과 행(높이 28) 미달. 입력은 막대 342×44 전체를 누르면 input에 포커스가 가도록 해 44 확보 | WCAG 2.2 2.5.8 |
-| 포커스 링 | input 줄: `color.stroke.focus` (#68CBEC) outline 2px, offset 2px. 검정 캔버스 위 11.34:1<br>option: 링 없음, 활성 바탕(`color.palette.gray.800`)으로 표시 | `docs/wbs/20-token.md` 대비표 |
+| 포커스 링 | input 줄: `color.stroke.focus` (#68CBEC) outline 2px, offset 2px. 검정 캔버스 위 11.34:1(2026-10-23 결정, 모든 focus-visible을 이 정책으로 통일, ADOPT-01-03. Figma·라이브 모두 포커스 표시 없음)<br>option: 링 없음, 활성 바탕(`color.palette.gray.800`)으로 표시 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 해당 없음(4절, disabled 행 없음) | Figma 없음(추정) |
 | 상태 알림 | 결과 수·빈 결과·실패를 `role="status"`로 알림. 색이나 패널 모양만으로 알리지 않음 | PATTERN-03-03 |
 
@@ -289,9 +289,4 @@ rest는 상호작용이 없을 때의 모습임.
 
 ## 11. 미확인
 
-- 결과 패널을 둘지: 결과 패널은 라이브에 없고 추천 API도 없음. 패널을 둘지 기획 확인 대기. 둔다면 목록은 기존 `keyword` 검색 결과 상위 항목으로 채움(새 API 불필요)(2026-10-23 결정으로 보류)
-- 보류 범위의 세부 항목은 보류 범위라 확인하지 않음: Figma 두 벌의 치수 차이(행 45/50, 폭 710/720, radius 12/20), 로딩·실패 행 모양과 문구, 일치 판정 방식(단어 앞·포함), "ㄹㅇㄹㅇ" 결과 행 해석, 결과 선택 시 동작, 강조 색 차이 2.85:1, 모바일 활성 행 대비 4.43:1, 모바일 패널과 막대 사이 간격, option 오른쪽 패딩. 패널을 도입할 때 다시 확인함
-- 입력 줄 포커스 표시: Figma에 Focus 상태 없고 라이브도 전역 `outline: none`으로 없음. outline은 추정
-  - Figma 추정(디자이너): Figma 전체에 Focus 변형 없음. 접근성 결정이라 명세 outline 유지 권고
-- 지우기(X) 버튼: Figma 없음. 브라우저 기본 버튼을 숨기고 Esc 두 번으로 지우게 함. 버튼 추가 여부 확인 필요
-  - Figma 추정(약): 입력이 들어간 최신 화면(Figma 4817:9342, 모바일 7091:5782)에도 ✕ 없음
+- 결과 패널: 보류(2026-10-23 결정). 도입 시 다시 확인할 항목: 패널을 둘지(라이브·추천 API 없음, 둔다면 기존 `keyword` 검색 결과 상위 항목으로 채움), Figma 두 벌의 치수 차이(행 45/50, 폭 710/720, radius 12/20), 로딩·실패 행 모양과 문구, 일치 판정 방식(단어 앞·포함), "ㄹㅇㄹㅇ" 결과 행 해석, 결과 선택 시 동작, 강조 색 차이 2.85:1, 모바일 활성 행 대비 4.43:1, 모바일 패널과 막대 사이 간격, option 오른쪽 패딩

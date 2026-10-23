@@ -216,6 +216,8 @@
 
 ## COMPONENT-15 selection-card (P1)
 
+- 사용처 없음(2026-10-23 결정). 지원 부문 선택은 라이브·최신 Figma 모두 라디오 목록이라 `components/radio.md`를 씀. 명세는 이전 Figma 기록용으로 남김
+
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
 | 몇 시간 | COMPONENT-05 | 3 | #50 |

@@ -45,7 +45,7 @@ last_updated: 2026-10-23
   - category: FAQ 분류(지원·활동·기타), 데스크톱 세로 목록
 - 범위 경계
   - 탭바(상단 메뉴바) 자체의 레이아웃(1440×64, 로고 위치, 메뉴 간격 100, 지원하기 버튼)은 페이지 전용 조각이라 범위 밖(design-reference 5.2). 이 명세는 메뉴 항목 한 개의 글자·상태만 정함
-  - 지원 폼 탭(Figma 5188:8869, 모바일 7578:9510 342×56)은 부문 선택 카드라 이 명세에 넣지 않음. `components/selection-card.md`(COMPONENT-15, 라디오 그룹)에서 정함
+  - 지원 폼 탭(Figma 5188:8869, 모바일 7578:9510 342×56)은 부문 선택 카드라 이 명세에 넣지 않음. `components/selection-card.md`(COMPONENT-15, 라디오 그룹)에서 정함. 선택 카드는 사용처 없음(2026-10-23 결정, 지원 부문은 `components/radio.md` 라디오 목록)
 - 관련 명세: `components/button.md`(COMPONENT-01, 탭바 지원하기 glass 버튼), `components/selection-card.md`(COMPONENT-15), `components/filter-chip.md`(COMPONENT-09, 아카이빙 부문·기수 필터), `patterns/accessibility.md`(PATTERN-03)
 
 ## 2. Anatomy
@@ -103,7 +103,7 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | default | — / `color.fg.default` (#FFFFFF), `typography.body-4` / — | — / `color.fg.default` (#FFFFFF), `typography.body-3` / — | hover 값 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/widgets/common/ui/tab-bar/tab-bar.css.ts`(rest·hover), Figma 없음(추정, press·focus-visible, 라이브 없음) |
-| selected | — / `color.fg.default` (#FFFFFF), `typography.body-3` / — | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/widgets/common/ui/tab-bar/tab-bar.css.ts`, Figma 없음(추정, press·focus-visible, 라이브 없음) |
+| selected | — / `color.fg.default` (#FFFFFF), `typography.body-3` / — | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/widgets/common/ui/tab-bar/tab-bar.css.ts`, Figma 없음(추정, hover·press·focus-visible, 라이브 없음) |
 
 - text default 글자: 라이브 흰색 18 Regular, hover에서 Bold. Figma #B3B3B3·hover 흰색(굵기 유지)에서 라이브 값으로 바꿈(2026-10-22 라이브 기준으로 정정)
 - hover 때 굵기가 바뀌어 폭이 흔들리지 않도록 항목 폭을 Bold 기준으로 잡음
@@ -113,7 +113,7 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | default | `color.palette.gray.800` (#333333) / `color.fg.default` (#FFFFFF) / — | `color.palette.gray.600` (#666666) / `color.fg.on-inverse` (#000000) / — | hover 값 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/shared/components/fixed-tab/fixed-tab.css.ts`(rest 바탕·hover), 직접 계산(2026-10-23, rest 글자), Figma 5639:10001, Figma 없음(추정, press·focus-visible, 라이브 없음) |
-| selected | `color.bg.neutral-solid` (#FFFFFF) / `color.fg.on-inverse` (#000000) / — | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/shared/components/fixed-tab/fixed-tab.css.ts`, Figma 5639:10003 |
+| selected | `color.bg.neutral-solid` (#FFFFFF) / `color.fg.on-inverse` (#000000) / — | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/shared/components/fixed-tab/fixed-tab.css.ts`, Figma 5639:10003, Figma 없음(추정, hover·press·focus-visible, 라이브 없음) |
 
 - default rest 글자: `color.fg.default` (#FFFFFF). 라이브·Figma 값 검정(#333333 위 1.66:1)은 대비 미달이라 라이브 값 원칙의 예외로 바꿈. #FFFFFF / #333333 12.63(2026-10-23 결정, 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"). frontend 수정은 ADOPT-03-14
 - default hover: 라이브 #666666 바탕 + 검정 글자(3.66:1, 20 Bold 큰 글자 통과). 이전 명세의 흰 글자는 라이브 값으로 바꿈(2026-10-22 라이브 기준으로 정정)
@@ -125,7 +125,7 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 | 기본 상태 | rest | hover | press | focus-visible | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | default | — / `color.fg.muted` (#999999) / — | — / `color.fg.default` (#FFFFFF) / — | hover 값 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/pages/archive-page.css.ts`(rest·hover), Figma 없음(추정, press·focus-visible, 라이브 없음) |
-| selected | — / `color.fg.default` (#FFFFFF) / 아래 선 `color.fg.default` (#FFFFFF) 2px | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/pages/archive-page.css.ts`, Figma 없음(추정, press·focus-visible, 라이브 없음) |
+| selected | — / `color.fg.default` (#FFFFFF) / 아래 선 `color.fg.default` (#FFFFFF) 2px | rest 유지 | rest 유지 | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px | 코드 `src/pages/archive-page.css.ts`, Figma 없음(추정, hover·press·focus-visible, 라이브 없음) |
 
 - 아래 선 굵기: 라이브 2px. Figma 1px(Figma 5202:3687)에서 라이브 값으로 바꿈(2026-10-22 라이브 기준으로 정정)
 - 아래 선 색: 선 전용 흰색 시맨틱 토큰이 없어 `color.fg.default`를 선 색으로 씀(값 #FFFFFF)
@@ -146,7 +146,7 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 - 포커스 링
   - 트리거: `:focus-visible`
   - outline은 요소 밖(offset 2px)에 그림. 모든 variant가 검정 캔버스 위에 놓이므로 `color.stroke.focus` (#68CBEC)를 씀
-  - 라이브는 전역 `outline: none`으로 포커스 표시가 없음(코드 `src/shared/styles/global.css.ts`). Figma에도 없어 기존 추정값 유지
+  - 라이브는 전역 `outline: none`으로 포커스 표시가 없음(코드 `src/shared/styles/global.css.ts`). Figma에도 없음. (2026-10-23 결정) 모든 focus-visible은 `color.stroke.focus` 정책(ADOPT-01-03)으로 확정함. 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"
 - 비동기 상태: 해당 없음. 탭 전환 후 패널 내용 불러오기 중 표시는 패널 쪽 책임(5절)
 - disabled·invalid·completed 행은 두지 않음
   - disabled: Figma에 없고 사용 화면에 비활성 탭이 없음
@@ -209,7 +209,7 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 | role | box·underline·category: 컨테이너 `role="tablist"`, 항목 `<button type="button" role="tab">`, 내용 `role="tabpanel"`<br>text: `<nav aria-label="주 메뉴">` 안 `<ul>`·`<li>`·`<a href>`. tab role 금지 | Figma 없음(추정) |
 | 키보드 | 탭 목록: ←·→(가로) / ↑·↓(세로), Home·End, Enter·Space로 선택, 수동 활성화. 패널은 Tab으로 진입<br>text: Tab으로 이동, Enter로 이동 | Figma 없음(추정) |
 | aria | 탭: `aria-selected="true"` 또는 `"false"`, `aria-controls="{패널 id}"`, `id` 지정<br>탭 목록: 보이는 제목이 없으면 `aria-label`(예: "트랙", "자료 종류", "질문 분류"). category 데스크톱은 `aria-orientation="vertical"`<br>패널: `aria-labelledby="{탭 id}"`, 패널 안 첫 요소가 포커스 대상이 아니면 `tabindex="0"`. 선택되지 않은 패널은 `hidden`<br>text: 현재 페이지 링크에 `aria-current="page"`. 접근 이름은 보이는 글자와 같게 둠("~으로 이동" 같은 `aria-label` 덧붙이지 않음) | Figma 없음(추정) |
-| 대비 | 기준: 글자 4.5:1, 큰 글자(Bold 18.67px 이상 또는 Regular 24px 이상)·UI 요소 3:1<br>text: 흰 글자 대 검정 21.00<br>box: default 흰 글자/#333333 12.63(2026-10-23 결정으로 검정 1.66에서 바꿈), hover 검정/#666666 3.66(데스크톱 20 Bold 큰 글자 통과), selected 검정/#FFFFFF 21.00, default 바탕/캔버스 1.66<br>underline: default #999999/#000000 7.37, selected 21.00, 아래 선 #FFFFFF/#000000 21.00<br>category: default 7.37, Figma hover #CCCCCC/#1A1A1A 10.84, selected 21.00, selected hover #FFFFFF/#1A1A1A 17.40<br>category 데스크톱 default와 selected는 글자색만 다름(#FFFFFF 대 #999999 2.85, SC 1.4.1 알려진 미달)<br>알려진 미달은 `patterns/accessibility.md` 2.2 표에 모음(2026-10-22 라이브 기준으로 정정) | 직접 계산(2026-10-22), `docs/wbs/20-token.md` 대비표 |
+| 대비 | 기준: 글자 4.5:1, 큰 글자(Bold 18.67px 이상 또는 Regular 24px 이상)·UI 요소 3:1<br>text: 흰 글자 대 검정 21.00<br>box: default 흰 글자/#333333 12.63(2026-10-23 결정으로 검정 1.66에서 바꿈), hover 검정/#666666 3.66(데스크톱 20 Bold 큰 글자 통과), selected 검정/#FFFFFF 21.00, default 바탕/캔버스 1.66<br>underline: default #999999/#000000 7.37, selected 21.00, 아래 선 #FFFFFF/#000000 21.00<br>category: default 7.37, Figma hover #CCCCCC/#1A1A1A 10.84, selected 21.00, selected hover #FFFFFF/#1A1A1A 17.40<br>category 데스크톱 default와 selected는 글자색만 다름(#FFFFFF 대 #999999 2.85, SC 1.4.1 알려진 미달). 라이브 모습을 바꿔야 해 접근성 수정 범위 밖으로 정함(2026-10-23 결정, `patterns/accessibility.md` 2.2)<br>알려진 미달은 `patterns/accessibility.md` 2.2 표에 모음(2026-10-22 라이브 기준으로 정정) | 직접 계산(2026-10-22), `docs/wbs/20-token.md` 대비표 |
 | 터치 영역 | 최소 24×24: text는 글자 높이 18이라 링크 영역에 위아래 `raw:3px` 이상을 더해 24 이상 확보(Figma 없음(추정)), 그 외 통과<br>모바일 권장 44×44: box 100×49·underline 35.5 높이 중 underline이 미달 | WCAG 2.2 2.5.8 |
 | 포커스 링 | `color.stroke.focus` (#68CBEC), 2px, offset 2px. 검정 캔버스 위 11.34:1. box selected(흰 바탕)도 링은 바탕 밖 캔버스 위에 놓임 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 해당 없음. 비활성 탭을 두지 않음. 필요해지면 `aria-disabled="true"`로 포커스는 유지(WAI-ARIA 탭 패턴 권고: 비활성 탭도 방향키 이동 대상에 남겨 존재를 알림. 버튼의 네이티브 `disabled` 규칙과 다른 예외) | Figma 없음(추정) |
@@ -259,7 +259,4 @@ press는 Figma·라이브 모두 없어 hover 값을 유지함(추정).
 
 ## 11. 미확인
 
-- category 데스크톱 default와 selected가 글자색으로만 구분됨(#FFFFFF 대 #999999 2.85:1, WCAG 1.4.1 색 이외 단서 없음). 라이브 값이라 유지하고 알려진 미달로 기록. 굵기·아래 선 등 추가 단서는 접근성 개선 별도 결정
-  - Figma 추정(디자이너): 네 변형 모두 24 Bold, 차이는 글자색과 hover 바탕뿐. underline과 같은 흰 아래 선 추가 권고
-- 모든 variant의 press·focus-visible, selected의 hover(category 제외): Figma·라이브 모두 없음. 추정값
-  - Figma 추정(약): text·underline은 Hover 변형, category는 Hover-Selected 변형만 있음. press·focus는 전 variant에 없음
+- 해당 없음.

@@ -164,7 +164,7 @@ Phase 0·1은 디자인 시스템 리드(현재 인프라 담당)가 끝냈고, 
 | COMPONENT-12 | pagination | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
 | COMPONENT-13 | tag | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
 | COMPONENT-14 | progress-bar | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
-| COMPONENT-15 | selection-card | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-05 | 완료(#50) |
+| COMPONENT-15 | selection-card(사용처 없음, 2026-10-23 결정) | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-05 | 완료(#50) |
 | COMPONENT-16 | form-add-button | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
 | REPO-07 | `v0.2.0` 릴리스 | 저장소·규칙 | 3 | 몇 시간 | PATTERN-01~04, COMPONENT-09~16 | 대기 |
 | ADOPT-01 | frontend 토큰 연결 | 앱 적용 | 4 | 하루이틀 | REPO-06 | 대기 |

@@ -14,7 +14,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 ---
 
 # 텍스트 필드 (text-field)
@@ -62,7 +62,7 @@ last_updated: 2026-10-22
 | paragraph | 질문 답변 등 여러 줄 입력. counter 포함, 입력에 따라 높이가 늘어남 | Figma 2009:3439, Figma 2009:3440, Figma 2009:3441 |
 | dropdown-trigger | 생년월일·학년·졸업 시점 등 목록 선택. 필드 본체는 single-line과 같은 모양, 펼친 목록은 COMPONENT-03 | Figma 5395:3803, Figma 5393:950, Figma 5395:3848, Figma 5395:647 |
 
-- 드롭다운 결합형 필드에 펼침 표시 아이콘(화살표) 없음. Figma 드롭다운 세트 9개(5395:3803·5395:3848·5393:950·5395:647·7604:13526·7885:15299·7885:15332·7885:15367 등)와 최신 지원 폼 화면 4곳(8801:6109·8801:6110·8801:6115·8801:6116) 모두 아이콘 없음. 열림은 `aria-expanded`와 목록 표시로 전달함(COMPONENT-03). 아이콘 추가 여부만 11절
+- 드롭다운 결합형 필드에 펼침 표시 아이콘(화살표) 없음. Figma 드롭다운 세트 9개(5395:3803·5395:3848·5393:950·5395:647·7604:13526·7885:15299·7885:15332·7885:15367 등)와 최신 지원 폼 화면 4곳(8801:6109·8801:6110·8801:6115·8801:6116) 모두 아이콘 없음. 열림은 `aria-expanded`와 목록 표시로 전달함(COMPONENT-03). 라이브 코드(`src/shared/components/dropdown/dropdown.tsx`)에도 없음(2026-10-22 값 규칙)
 - 폼 항목 추가 필드(Figma 5188:454, 2009:4216)는 COMPONENT-16에서 정의함
 
 ### Sizes
@@ -100,8 +100,8 @@ rest는 상호작용이 없을 때의 모습임. 텍스트 필드의 focus-visib
 | --- | --- | --- | --- | --- | --- |
 | default(빈 값) | — / label `color.fg.muted` (#999999), 입력 자리 18px / `color.stroke.neutral` (#999999) | — / label `color.fg.default` (#FFFFFF) / `color.palette.gray.0` (#FFFFFF) | — | — / label `color.fg.brand` (#7A64F9), 위로 축소 14px / `color.stroke.brand` (#7A64F9) | Figma 5152:8979, Figma 5152:8986, Figma 5239:3993 |
 | completed(값 있음) | — / label `color.fg.default` (#FFFFFF) 14px, input `color.palette.gray.100` (#E6E6E6) / `color.stroke.brand` (#7A64F9) | rest 유지 | — | — / label `color.fg.brand` (#7A64F9), input `color.palette.gray.100` (#E6E6E6) / `color.stroke.brand` (#7A64F9) | 코드 `src/shared/components/textfield/textfield.css.ts`(input·보더), Figma 5946:10316(label, 라이브 없음), Figma 5946:10318 |
-| invalid · 빈 값(필수 항목 누락) | `color.palette.red.900` (#190A0A) / label `color.fg.critical` (#F96466), 입력 자리 18px / `color.stroke.critical` (#F96466) | rest 유지 | — | rest 바탕·보더 유지 / label `color.fg.critical` (#F96466), 위로 축소 14px | Figma 2007:3426, Figma 없음(추정, hover·focus-visible) |
-| invalid · 값 있음(입력 에러) | `color.palette.red.900` (#190A0A) / label `color.fg.critical` (#F96466), input `color.palette.gray.100` (#E6E6E6) / `color.stroke.critical` (#F96466) | rest 유지 | — | rest 유지 | 코드 `src/shared/components/textfield/textfield.css.ts`(바탕·input·보더), Figma 2007:3425(label, 라이브 없음), Figma 없음(추정, hover·focus-visible) |
+| invalid · 빈 값(필수 항목 누락) | `color.palette.red.900` (#190A0A) / label `color.fg.critical` (#F96466), 입력 자리 18px / `color.stroke.critical` (#F96466) | rest 유지 | — | rest 바탕·보더 유지 / label `color.fg.critical` (#F96466), 위로 축소 14px | Figma 2007:3426, 코드 `src/shared/components/textfield/textfield.css.ts`(focus-visible 보더 빨강 유지), Figma 없음(추정, hover·focus-visible label) |
+| invalid · 값 있음(입력 에러) | `color.palette.red.900` (#190A0A) / label `color.fg.critical` (#F96466), input `color.palette.gray.100` (#E6E6E6) / `color.stroke.critical` (#F96466) | rest 유지 | — | rest 유지 | 코드 `src/shared/components/textfield/textfield.css.ts`(바탕·input·보더), Figma 2007:3425(label, 라이브 없음), 코드 `src/shared/components/textfield/textfield.css.ts`(focus-visible 보더 빨강 유지), Figma 없음(추정, hover) |
 
 ### paragraph
 
@@ -116,6 +116,7 @@ rest는 상호작용이 없을 때의 모습임. 텍스트 필드의 focus-visib
   - 입력 에러: 형식 검사 실패(이메일·전화번호). 검사 시점은 blur 후 또는 제출 시(PATTERN-02). message는 원인을 적음(예: "이메일 형식이 올바르지 않습니다.")
   - 글자 수 초과: 문단형에서 값 길이 > 최대. message "글자 수 제한을 초과했습니다", counter 예 "501/500"
 - invalid에서 값을 고쳐 조건이 풀리면 즉시 default·completed로 돌아감
+- invalid에 포커스가 들어와도 바탕·보더·label 빨강을 유지함. 라이브 코드가 error 상태의 `:focus` 보더를 빨강으로 둠(코드 `src/shared/components/textfield/textfield.css.ts`)
 - 값 있음(completed) rest 보더: 라이브(코드) 보라 `color.stroke.brand` (#7A64F9). Figma Filled 세트 Default(5946:10316)의 흰 보더에서 코드 값으로 바꿈(2026-10-22 라이브 기준으로 정정). 코드에 label이 없어 label 색(흰색 14px)은 Figma 값
 - 입력 글자색: 라이브(코드) 한 줄·문단 모두 `color.palette.gray.100` (#E6E6E6), invalid에서도 바뀌지 않음. Figma 한 줄 #FFFFFF·입력 에러 빨강에서 코드 값으로 바꿈(2026-10-22 라이브 기준으로 정정)
 - 값 있음·invalid의 hover 없음(rest 유지). Filled 세트 10개 모두 Hover 변형이 없고 reactions가 클릭(ON_CLICK) → Focus뿐임. 빈 값(Empty) 세트만 hover(ON_HOVER)가 있음. 입력 에러 2007:3425도 변형 없음
@@ -171,6 +172,7 @@ rest는 상호작용이 없을 때의 모습임. 텍스트 필드의 focus-visib
   - 글자: 입력 자리 label·input은 데스크톱과 같은 `typography.body-4` (18/400)(코드에 모바일 글자 변경 없음, 2026-10-22 라이브 기준으로 정정). 축소 label `typography.text-1-mobile` (12/300)(Figma, 코드에 label 없음)
   - hover: 적용하지 않음(터치)
   - message·counter: 데스크톱과 같은 `raw:14px/400`(코드)
+  - invalid 바탕·보더·글자색: 데스크톱과 같음(코드 `src/shared/components/textfield/textfield.css.ts`에 모바일 변경 없음. Figma 모바일 invalid·message 노드 없음)
 - Figma 모바일 노드
   - 프레임: Figma 7578:14642
   - full 342×56: Figma 7578:14643(빈 값), Figma 7578:14654(값 있음)
@@ -187,7 +189,7 @@ rest는 상호작용이 없을 때의 모습임. 텍스트 필드의 focus-visib
 | aria | invalid일 때 `aria-invalid="true"`. message·counter의 id를 `aria-describedby`로 연결. 필수는 `required`(또는 `aria-required="true"`). message 영역은 `aria-live="polite"`로 두어 나타날 때 읽힘. counter는 실시간 낭독하지 않음(초과 시 message로 알림). 경고 아이콘은 `aria-hidden="true"` | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, UI 요소 3:1<br>빈 값 label·보더 #999999 / #000000: 7.37<br>hover·값 있음 label #FFFFFF / #000000: 21.00<br>입력 글자 #E6E6E6 / #000000: 16.83, invalid 바탕 #190A0A 위 15.45<br>focus·completed 보더, focus label·counter #7A64F9 / #000000: 5.02(14px 포함 통과)<br>invalid label·message·보더 #F96466 / #190A0A: 6.47, 보더 / #000000: 7.04<br>focus 보더 대 빈 값 보더 색 차이 1.47:1로 작음. 라벨 위치·크기 변화가 함께 일어나 포커스가 구분됨 | `docs/wbs/20-token.md` 대비표, 계산값 |
 | 터치 영역 | 최소 24×24: 통과(높이 56~60, 폭 108 이상)<br>모바일 권장 44×44: 통과 | WCAG 2.2 2.5.8 |
-| 포커스 링 | outline 대신 아래쪽 보더 `color.stroke.brand` (#7A64F9) 1px + label 이동. 드롭다운 결합형도 같음. 흰 표면 위 필드는 없음 | Figma 5239:3993 |
+| 포커스 링 | outline 대신 아래쪽 보더 `color.stroke.brand` (#7A64F9) 1px + label 이동. 1px 유지(2026-10-23 결정. 보더 대 검정 5.02와 label 이동으로 SC 2.4.7·1.4.11 충족, 2px는 AA 범위 밖. `patterns/accessibility.md` 2.2 알려진 미달). 드롭다운 결합형도 같음. 흰 표면 위 필드는 없음 | Figma 5239:3993 |
 | 비활성 표시 | 해당 없음(4절, disabled 행 없음) | Figma 없음(추정) |
 
 ## 8. Do / Don't
@@ -232,11 +234,4 @@ rest는 상호작용이 없을 때의 모습임. 텍스트 필드의 focus-visib
 
 ## 11. 미확인
 
-- 모바일 invalid·message: Figma 없음. 추정값
-  - Figma 추정(약): 모바일 invalid·message 노드 없음. 문단형만 근거 있음(Mobile 6454:7955 문단 인스턴스 6454:8041·6454:8054·6454:8071·6454:8082): 필드 350×72, 글자 15 Regular #999999(`typography.body-4-mobile`), counter 12 ExtraLight #999999(`typography.text-1-mobile` 근사)
-- invalid의 focus 모습: Figma 없음. 바탕·보더·label을 빨강으로 유지함(추정)
-  - Figma 추정(디자이너): Figma 근거 없음. 질문 "오류 상태에서 포커스가 들어오면 빨강 유지인가, 보라로 바뀌는가?" 권고 빨강 유지(오류가 사라지지 않았으므로)
-- 드롭다운 결합형 펼침 표시 아이콘: Figma에 없음 확인(3절). 추가 여부만 디자이너 선택 사항
-- 포커스 표시 굵기: 보더 1px 색 변화(대비 차 1.47:1)와 label 이동으로 표시. 2px로 키울지 디자이너 확인 필요
-  - Figma 추정(디자이너): Figma 5946:10318은 1px. 권고 2px(label 이동이 있어도 보더 대비 차 1.47:1이 작음)
-  - 기준 정정: focus 보더 대 검정 5.02와 label 이동으로 SC 2.4.7·1.4.11 충족. 상태 간 3:1은 SC 2.4.13(AAA) 기준이라 AA 범위 밖. SC 2.4.11은 포커스 가림 기준이라 해당 없음(`patterns/accessibility.md` 2.1)
+- 해당 없음.

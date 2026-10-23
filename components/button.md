@@ -153,7 +153,7 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
   - 트리거: `:focus-visible`
   - outline은 요소 밖(offset 2px)에 그림
   - 버튼 안쪽 링은 보라 바탕 위 2.26:1로 기준 미달이라 쓰지 않음
-  - 라이브는 전역 `outline: none`으로 포커스 표시가 없음(코드 `src/shared/styles/global.css.ts`). Figma에도 Focus 상태가 없어 기존 추정값을 유지함
+  - 라이브는 전역 `outline: none`으로 포커스 표시가 없음(코드 `src/shared/styles/global.css.ts`). Figma에도 Focus 상태가 없음. (2026-10-23 결정) 모든 focus-visible은 `color.stroke.focus` 정책(ADOPT-01-03)으로 확정함. 근거 `patterns/accessibility.md` 2.2 "ADOPT에서 고칠 항목"
 - 비동기 상태(pending, 요청 처리 중): `Figma 없음(추정)`
   - 바탕: `color.bg.brand-solid-hover` (#493C95) 고정
   - hover·press 색 변화 없음
@@ -279,10 +279,4 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 ## 11. 미확인
 
-- glass press·disabled: Figma 없음(Figma 5239:3922 세트), 탭바 glass 버튼은 라이브에도 없음
-  - Figma 추정(약): reactions가 Default → Hover에서 끝나 press = hover 유지 권고. disabled는 헤더 지원하기에서 쓰지 않아 정의하지 않는 안 권고
-- text-link disabled: Figma 없음, 라이브(코드)에도 없음. 추정값
-  - Figma 추정(약): 사용 화면에 비활성 상황이 없어 정의 보류 권고
-- 모든 variant의 focus-visible: Figma에 Focus 상태가 없고 라이브도 전역 `outline: none`으로 없음(추정)
-  - Figma 추정(약): 버튼 세트 전체에 Focus 변형 없음. `color.stroke.focus` 정책 적용으로 확정 가능
-- outlined press: Figma·라이브 모두 없음. hover 값 유지로 추정
+- 해당 없음.

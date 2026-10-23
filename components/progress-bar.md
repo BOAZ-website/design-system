@@ -109,7 +109,7 @@ last_updated: 2026-10-23
 
 - 기준: 모바일 ≤768px, 데스크톱 ≥1366px, 769~1365px는 기본 스타일(design-reference 3.3)
 - 모바일에서 바뀌는 속성
-  - 폭: 폼 폭 100%(최대 800). segment는 같은 비율로 줄어듦
+  - 폭: 폼 폭 100%(최대 800). segment는 같은 비율로 줄어듦. 근거 코드 `src/shared/components/progress-bar/progress-bar-section.css.ts`(`width: 100%`, `maxWidth: 80rem`, 모바일 변경 없음). Figma 모바일 시안이 없어 라이브(코드) 값을 씀(2026-10-22 값 규칙)
   - 높이 10px·gap `spacing.5`·radius·색: 그대로
 - Figma 모바일 노드: 없음. Mobile 페이지 인스턴스(6439:12303)는 1440 프레임 안의 데스크톱 시안임
 
@@ -163,5 +163,4 @@ last_updated: 2026-10-23
 
 ## 11. 미확인
 
-- 모바일 시안: Figma 없음(추정)
-  - Figma 추정(약): 모바일 전용 시안 없음. Mobile 페이지 인스턴스 6439:12303은 800 폭 데스크톱 막대라 "폼 폭 100%" 유지
+- 해당 없음.
