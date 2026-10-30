@@ -47,6 +47,8 @@ last_updated: 2026-10-23
 
 ### 2.1 PATTERN-02-01 라벨: 빈 상태는 입력 자리, focus·입력 후 위로 축소
 
+- 이 절의 라벨 이동·축소는 text-field underline 모양(공개 홈페이지)에 적용함. box 모양(관리자 콘솔)은 라벨을 필드 위에 고정하고 축소하지 않음(2026-10-30 추가, `components/text-field.md` 5절)
+
 1. 모든 한 줄 입력·목록 선택 필드는 보이는 `<label>`을 둠. placeholder 속성으로 이름을 대신하지 않음
 2. 빈 값이고 포커스가 없으면 라벨은 입력 자리(필드 세로 가운데)에 `typography.body-4`로 보임
 3. 포커스가 들어오거나 값이 있으면 라벨은 필드 위쪽 끝으로 올라가 `typography.text-1`(모바일 `typography.text-1-mobile`)로 줄어듦. 값을 지워도 포커스가 있으면 위에 머묾

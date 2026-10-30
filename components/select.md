@@ -22,7 +22,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-23
+last_updated: 2026-10-30
 ---
 
 # 셀렉트(드롭다운) (select)
@@ -54,7 +54,7 @@ last_updated: 2026-10-23
 | label | ○ | field: 필드 이름. 값이 없으면 자리 표시 글자로 보이고, 값이 있거나 열리면 위로 작아짐. chip: 현재 값 또는 필터 이름("전체 부문", "기수") | `typography.body-4`, `typography.text-1` |
 | value | × | field에서 고른 값. chip은 label이 값을 겸함 | `typography.body-4`, `color.fg.default` (#FFFFFF) |
 | icon-start | × | chip 부문 필터의 부문 아이콘 24px(모바일 16px) | — |
-| chevron | × | 펼침 화살표 24px(모바일 16px). 열리면 위 방향. chip 필수, field는 없음(Figma 드롭다운 세트 9개 모두 없음, `components/text-field.md` 3절. 라이브 코드 `src/shared/components/dropdown/dropdown.tsx`에도 없음, 2026-10-22 값 규칙) | `color.fg.default` (#FFFFFF) |
+| chevron | × | 펼침 화살표 24px(모바일 16px). 열리면 위 방향. chip 필수, field는 없음(Figma 드롭다운 세트 9개 모두 없음, `components/text-field.md` 3절. 라이브 코드 `src/shared/components/dropdown/dropdown.tsx`에도 없음, 2026-10-22 값 규칙). 단, box 모양 field는 16px chevron `color.fg.muted`를 둠(`components/text-field.md` 2·3절, 2026-10-30 결정) | `color.fg.default` (#FFFFFF), box field `color.fg.muted` (#999999) |
 | clear | × | chip에 값이 선택됐을 때 chevron 자리에 오는 닫기(X) 아이콘. 필터 해제. trigger와 별도 `<button>` | `color.fg.default` (#FFFFFF) |
 | listbox | ○ | 펼친 목록 패널. `role="listbox"` | `color.bg.layer` (#1A1A1A), `radius.sm`, `radius.md` |
 | option | ○ | 목록 항목. `role="option"` | `typography.body-4`, 4절 |
@@ -66,7 +66,7 @@ last_updated: 2026-10-23
 
 | variant | 용도 | 근거 |
 | --- | --- | --- |
-| field | 지원서 입력. text-field와 같은 하단 보더형 트리거 + field-list. 열림·닫힘 2상태 | Figma 5395:3803, Figma 5395:3848, Figma 5393:950, Figma 5395:647 |
+| field | 지원서 입력. text-field와 같은 하단 보더형 트리거 + field-list. 열림·닫힘 2상태. 관리자 콘솔은 text-field box 모양(dropdown-trigger + box)을 씀 | Figma 5395:3803, Figma 5395:3848, Figma 5393:950, Figma 5395:647, `components/text-field.md` 3절(box) |
 | chip | 아카이빙 필터. 알약형 트리거("전체 부문"·"기수") + chip-list. 열림·닫힘 2상태 | Figma 3723:9261, Figma 3723:9269, Figma 3496:6393 |
 
 | 목록 | 모양 | 근거 |
@@ -115,12 +115,13 @@ rest는 상호작용이 없을 때의 모습임.
 ### trigger: field
 
 - field 트리거의 상태·색은 `components/text-field.md` 4절(dropdown-trigger)을 따름. 값이 선택된 트리거는 text-field의 completed 행임
+- box 모양 field 트리거는 `components/text-field.md` 4절 "box(모양)" 표를 따름. 열림 동안 포커스 링(outline)을 유지하고, disabled는 text-field box의 disabled 행을 씀(2026-10-30 결정)
 - 이 명세는 표를 따로 두지 않음. selected는 option 행 전용 이름이며 트리거 상태 이름으로 쓰지 않음
 - select만의 차이
   - 열림(`aria-expanded="true"`) 동안 text-field의 focus 표시(하단 `color.stroke.brand` (#7A64F9), label `color.fg.brand` (#7A64F9))를 유지함(Figma 5395:3847, Figma 5395:646)
   - 목록이 닫히고 포커스가 trigger에 남으면 focus 표시 유지, 포커스가 떠나면 text-field의 해당 행으로 돌아감
   - invalid 상태에서 열면 열림 동안 focus 표시가 우선함(닫히면 invalid 표시로 돌아감)
-- field 트리거 disabled: 정의하지 않음. Figma 드롭다운 세트 전부에 disabled가 없고(확인됨) text-field에도 disabled 행이 없음. chip 트리거와 option의 disabled는 아래 표에서 정의함
+- field 트리거 disabled(underline): 정의하지 않음. Figma 드롭다운 세트 전부에 disabled가 없고(확인됨) text-field underline에도 disabled 행이 없음. chip 트리거와 option의 disabled는 아래 표에서 정의함
 
 ### trigger: chip
 
@@ -211,7 +212,7 @@ rest는 상호작용이 없을 때의 모습임.
 | aria | trigger: `aria-expanded`(열림 `true`/닫힘 `false`), `aria-controls`(listbox id), `aria-haspopup="listbox"`, `aria-activedescendant`(열렸을 때 활성 option id, 닫히면 제거)<br>이름: field는 `<label>` 또는 `aria-labelledby`로 필드 이름, chip은 `aria-label`("부문 필터", "기수 필터")<br>option: `aria-selected="true"`는 선택된 항목에만, 비활성은 `aria-disabled="true"`<br>field invalid: `aria-invalid="true"` + `aria-describedby`(에러 메시지 id), 필수는 `aria-required="true"`<br>clear: `aria-label`("{값} 선택 해제(COMPONENT-10-02, `components/tag-chip.md`)")<br>아이콘(부문·chevron·check)은 `aria-hidden="true"` | Figma 없음(추정) |
 | 대비 | 기준: 글자 4.5:1, 큰 글자·UI 요소 3:1<br>option default 흰 글자 / `color.bg.layer`: 17.40, hover 바탕 위 12.63<br>option selected `color.fg.brand` / `color.bg.layer`: 4.16, 키보드 활성 바탕 #333333 위 3.02. field-list 16 Regular·chip-list 18 Regular 모두 큰 글자가 아니라 **알려진 미달**(라이브 값 유지, 2026-10-22 라이브 기준으로 정정). check 아이콘(UI 요소)은 3:1 기준으로 rest 통과, 활성 3.02로 통과<br>field placeholder `color.fg.muted` / 검정 캔버스: 7.37<br>field 하단 보더: `color.stroke.neutral` 7.37, `color.stroke.brand` 5.02, `color.stroke.critical` 7.04<br>chip 보더 `color.stroke.weak` / 검정 캔버스: 1.66. 트리거는 글자로 식별되므로 보더는 장식으로 봄<br>disabled: WCAG 1.4.3 비활성 예외 | 계산값(WCAG 상대 휘도) |
 | 터치 영역 | 최소 24×24: 전 size 통과(모바일 chip 높이 32, chip-list 항목 28·32)<br>모바일 권장 44×44: 모바일 chip(높이 32), chip-list 모바일 항목(높이 28·32), 모바일 clear 아이콘(16×16) 미달. clear는 누르는 영역을 24×24 이상으로 넓힘 | WCAG 2.2 2.5.8 |
-| 포커스 링 | chip: `color.stroke.focus` (#68CBEC) outline 2px, offset 2px. 검정 캔버스 위 11.34:1, `color.bg.layer` 위 9.40:1(2026-10-23 결정, 모든 focus-visible을 이 정책으로 통일, ADOPT-01-03)<br>field: text-field 명세와 같음(하단 `color.stroke.brand` + label `color.fg.brand`)<br>option: 링 없음, 활성 바탕으로 표시 | `docs/wbs/20-token.md` 대비표, 계산값 |
+| 포커스 링 | chip: `color.stroke.focus` (#68CBEC) outline 2px, offset 2px. 검정 캔버스 위 11.34:1, `color.bg.layer` 위 9.40:1(2026-10-23 결정, 모든 focus-visible을 이 정책으로 통일, ADOPT-01-03)<br>field: text-field 명세와 같음(하단 `color.stroke.brand` + label `color.fg.brand`). box 모양 field는 `color.stroke.focus` outline 2px, offset 2px(text-field 7절)<br>option: 링 없음, 활성 바탕으로 표시 | `docs/wbs/20-token.md` 대비표, 계산값 |
 | 비활성 표시 | trigger는 `aria-disabled="true"`(포커스 가능 유지)로 표시하고 열지 않음. 비활성 사유를 화면에 표시<br>option은 `aria-disabled="true"`, 활성 이동 시 건너뛰지 않고 선택만 막음 | Figma 없음(추정) |
 | 선택 표시 | 색만으로 구분하지 않음: selected option에 check 아이콘 + `aria-selected`(2026-10-23 결정) | PATTERN-03-03 |
 
@@ -235,7 +236,7 @@ rest는 상호작용이 없을 때의 모습임.
 | frontend(field) | `src/shared/components/dropdown/dropdown.tsx`, `src/shared/components/dropdown/dropdown.css.ts`, `src/shared/components/dropdown/dropdownField.tsx`, `src/shared/components/dropdown/dropdownField.css.ts` | `Dropdown`: 트리거 `<button>` + 목록 `<button>` 나열. props `options`·`value`·`placeholder`·`onChange`·`isError`<br>`DropdownField`: `Dropdown`에 내부 상태(`defaultValue`)를 더한 래퍼. `dropdownField.css.ts`의 `overlay`는 쓰는 곳 없음<br>사용처: `src/widgets/apply/ui/personal-info-section.tsx`(출생 연·월·일, 학년, 학기 등 7곳) |
 | frontend(chip) | `src/widgets/archive/ui/track-filter/track-filter.tsx`, `src/widgets/archive/ui/generation-filter/generation-filter.tsx` 및 각 `.css.ts` | 공용 컴포넌트가 아니라 위젯 안에 따로 구현됨. 부문(track)은 `createPortal`로 body에 목록을 띄움 |
 | frontend 차이 | 위와 같음 | 수정 예정(ADOPT-03). 명세와 다른 점(라이브 값을 명세로 채택한 글자·패딩·목록 간격·모서리·그림자·backdrop·chip 높이·전환 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- role·aria: `role="combobox"`·`listbox`·`option`, `aria-expanded`·`aria-activedescendant`·`aria-selected` 모두 없음<br>- 키보드: 방향키·Home/End·Esc·타이핑 검색 없음(목록 항목이 각각 Tab 대상)<br>- check 아이콘 없음<br>- field hover: 보더·label 변화 없음<br>- field focus·열림: label 이동·보라 보더 없음<br>- chip selected: chevron 유지, clear 아이콘 없음<br>- 부문 chevron: 열림·닫힘 아이콘 이름이 반대로 import됨(`ic_expand_more`를 `ChevronUpIcon`으로 씀)
-| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-03(입력·셀렉트·날짜 입력), 값은 ADOPT-05 기준 |
+| frontend_admin | 없음(ADOPT-07-03에서 패키지 `Select` field + text-field box로 교체) | 트리거 모양·색·크기는 `components/text-field.md` box와 그 9절 `theme.css` 덮어쓰기를 따름. 목록·키보드·aria는 이 명세. 값은 ADOPT-05 기준. 현재 직접 `<select>` 31곳, `src/shared/ui/SelectDropdown.tsx` |
 | FE 이름 ↔ 명세 이름 | 위와 같음 | `Dropdown`·`DropdownField` ↔ field. `TrackFilterOverlay` ↔ chip(부문). `GenerationFilterOverlay` ↔ chip(기수). `itemVariants.default`·`selected` ↔ option default·selected. `isError` ↔ invalid |
 
 ## 10. 비토큰 값
@@ -253,7 +254,7 @@ rest는 상호작용이 없을 때의 모습임.
 | `raw:rgba(0,0,0,0.5)` | chip 열림 때 화면 전체 반투명 막 | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts` | 필요 여부 별도 이슈(모달 COMPONENT-07 막과 함께 판단) |
 | `raw:10px 10px 20px 0 rgba(0,0,0,0.25)` | field-list 그림자 | 코드 `src/shared/components/dropdown/dropdown.css.ts` | 필요(그림자 토큰 없음. 모달 COMPONENT-07과 함께 판단) |
 | 28px / 16px | 부문 아이콘(데스크톱 / 모바일) | 코드 `src/widgets/archive/ui/track-filter/track-filter.tsx` | 불필요 |
-| 16px | chevron(데스크톱·모바일) | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts` | 불필요 |
+| 16px | chevron(데스크톱·모바일, chip과 box field) | 코드 `src/widgets/archive/ui/track-filter/track-filter.css.ts`, `components/text-field.md` 10절 | 불필요 |
 | 245px, 240px | field-list·chip-list(기수) 최대 높이 | 코드 `src/shared/components/dropdown/dropdown.css.ts`, 코드 `src/widgets/archive/ui/generation-filter/generation-filter.css.ts` | 불필요 |
 | 6px, 4px | 목록 스크롤바 폭(field-list·chip-list) | 코드 `src/shared/components/dropdown/dropdown.css.ts`, 코드 `src/widgets/archive/ui/generation-filter/generation-filter.css.ts` | 불필요 |
 | 24px / 16px | chip clear(데스크톱 / 모바일, 라이브 없음) | Figma 3723:9262, Figma 7089:5086 | 불필요 |

@@ -37,7 +37,7 @@ last_updated: 2026-10-23
 | 숨긴 input(radio) | input이 아니라 보이는 원에 `input:focus-visible + circle`로 그림. 전역 `outline: none`이 input에 걸려도 영향 없게 함 | `components/radio.md` 4·7절 |
 | checkbox | input을 숨기지 않고 `appearance: none`으로 그린 input 자체에 outline을 그림. 전문 보기 토글도 각각 그림 | `components/checkbox.md` 2·4절 |
 | 카드 | 카드 모서리를 따라 `::after`에 `border-radius: inherit`로 그림. 제목 `<a>` 자체 outline은 지움(링 이중 방지) | `components/card.md` 7절 |
-| 텍스트 필드(예외) | outline 대신 아래쪽 보더 `color.stroke.brand` (#7A64F9) 1px + label 이동·축소·`color.fg.brand`. 드롭다운 결합형도 같음 | `components/text-field.md` 7절 |
+| 텍스트 필드(예외) | underline 모양: outline 대신 아래쪽 보더 `color.stroke.brand` (#7A64F9) 1px + label 이동·축소·`color.fg.brand`. 드롭다운 결합형도 같음. box 모양(관리자 콘솔용, 2026-10-30 추가)은 예외 없이 outline `color.stroke.focus` 2px, offset 2px | `components/text-field.md` 7절 |
 | select option | 링 없음. 활성 바탕으로 표시(`aria-activedescendant`) | `components/select.md` 7절 |
 
 - 텍스트 필드 예외의 한계: focus 보더와 빈 값 보더의 색 차이가 1.47로 작음. 색 조합으로는 3:1을 만들 수 없음(빈 값 보더를 어둡게 하면 보라와의 차이가 1.37로 더 줄어듦). focus 보더 대 검정 5.02라 SC 1.4.11은 통과하고, label 이동·색 변화와 함께 SC 2.4.7(포커스 표시)을 충족함. 상태 간 대비를 보는 SC 2.4.13(포커스 모양)은 AAA라 범위 밖. focus 보더는 1px로 유지함(2026-10-23 결정. AA를 충족하고 2px 확대는 접근성 수정 범위 밖)
@@ -178,7 +178,7 @@ last_updated: 2026-10-23
 | radio | 네이티브 `disabled`(묶음 전체는 `<fieldset disabled>`) | `color.palette.gray.600` (#666666). 예외: default 테두리가 이미 #999999라 `color.fg.disabled`로는 구분되지 않아 한 단계 어두운 gray.600을 씀 | `components/radio.md` 4·7절 |
 | select trigger·option | `aria-disabled="true"`. 포커스 유지, 열지 않음(trigger). option은 이동 시 건너뛰지 않고 선택만 막음 | 명세 4절 | `components/select.md` 7절 |
 | tab(예외) | 비활성 탭을 두지 않음. 필요하면 `aria-disabled="true"`로 포커스 유지 | — | `components/tab.md` 7절 |
-| text-field·modal·card | 비활성 상태 없음 | — | 각 명세 7절 |
+| modal·card | 비활성 상태 없음. text-field는 box 모양에만 disabled가 있음(2026-10-30 추가, `components/text-field.md` 4절) | — | 각 명세 7절 |
 
 예외 정리
 
