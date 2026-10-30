@@ -14,7 +14,7 @@ figma:
 figma_verified: true
 tokens_version: v0.1.1
 owner: 디자인 시스템 리드
-last_updated: 2026-10-23
+last_updated: 2026-10-30
 ---
 
 # 버튼 (button)
@@ -31,8 +31,8 @@ last_updated: 2026-10-23
 ## 1. 개요
 
 - 용도: 동작 실행(제출·이동·신청)을 일으키는 클릭 요소
-- 구성: variant 5종(brand·neutral·glass·text-link·outlined)
-- 사용 화면: 전 화면(지원서 제출·약관 동의, 리크루팅 히어로, 트랙 카드, FAQ 문의, 사전 알림 신청, 컨퍼런스 상세, 탭바)
+- 구성: variant 6종(brand·neutral·glass·text-link·outlined·destructive)
+- 사용 화면: 전 화면(지원서 제출·약관 동의, 리크루팅 히어로, 트랙 카드, FAQ 문의, 사전 알림 신청, 컨퍼런스 상세, 탭바). destructive는 홈페이지 사용처가 없고 관리자 콘솔 확인 모달의 삭제·버리기 버튼에 씀
 - 관련 명세: `components/modal.md`(모달 안 버튼, COMPONENT-07), `patterns/accessibility.md`(PATTERN-03)
 
 ## 2. Anatomy
@@ -55,8 +55,15 @@ last_updated: 2026-10-23
 | glass | 탭바 지원하기. 반투명 바탕 | Figma 5239:3922, Figma 7064:9879 |
 | text-link | 이전·다음 이동. 바탕 없음. 24px Bold 글자 + 화살표 | Figma 5152:8869, Figma 5411:9043 |
 | outlined | 보조 동작(지원서 임시저장). 바탕 없음, 회색 1px 보더 | Figma 8103:17024, Figma 8103:17107 |
+| destructive | 되돌릴 수 없는 동작(삭제, 변경사항 버리기)의 실행. 빨간 채움 바탕. 확인 모달의 확인 버튼으로 씀 | Figma 없음(추정), 코드 `src/pages/content-faq/ui/FaqSection.tsx`(frontend_admin) |
 
 - outlined: Figma 버튼 세트에는 없고 login&save 페이지의 임시저장 버튼 프레임(컴포넌트 아님)에 있음. 시안 프레임 Figma 8103:17027, Figma 8103:17028
+- destructive(2026-10-30 결정, #82)
+  - Figma(홈페이지 전용)에 위험 버튼이 없음. 관리자 콘솔이 쓰는 모양을 variant로 둠. 크기가 아니라 모양이 달라 컴포넌트 CSS 변수가 아니라 variant로 추가함(`docs/wbs/45-ui.md` "관리자 콘솔 적용 방식")
+  - 모양은 채움형(빨간 바탕 + 대비 글자)으로 정함. 근거: 관리자 위험 동작 버튼 실측에서 확인 모달의 확인 버튼이 채움형(코드 `src/pages/content-faq/ui/FaqSection.tsx` `ConfirmModal`의 `danger`)이고, ADOPT-06-03이 위험 버튼을 `bg-destructive`(채움)로 바꾸기로 정함
+  - 외곽선형(코드 `src/pages/content-archive/ui/ArchivingSection.tsx` 편집 모달 "삭제" 1곳)과 옅은 바탕형(코드 `src/shared/ui/Btn.tsx` `danger`, import 0곳)은 variant로 두지 않음. 외곽선형 1곳은 ADOPT-07-02에서 destructive로 바꿈
+  - 아이콘만 있는 삭제 버튼(평소 회색, hover 때 빨간 글자. 관리자 9곳)은 이 variant 대상이 아님. 11절 미확인
+  - 빨간 채움이지만 위험 동작이 아닌 관리자 버튼(추가·저장·제출 6곳)은 destructive가 아니라 brand임(ADOPT-06-03 주 버튼 통일)
 
 ### Sizes
 
@@ -92,6 +99,7 @@ last_updated: 2026-10-23
 - brand-small 글자: 라이브 18 Bold(`typography.body-3`). 이전 결정(COMPONENT-01-03, 대비 근거로 20 Bold)은 되돌림. 흰 글자 4.18:1로 큰 글자 기준(18.67px) 미달, 7절 알려진 미달(2026-10-22 라이브 기준으로 정정)
 - glass 154×44의 radius: 5239:3921과 design-reference 5.2에 따라 `radius.full` (40px)
 - 검색 Tag 버튼 mini(97×43): 옛 시안 요소라 size로 두지 않음(`components/tag.md` 3절 끝)
+- destructive 크기: 새 size를 두지 않음. 홈페이지 기본값은 brand-small 값(131×42, `radius.full`, `typography.body-3`)을 씀(Figma 없음(추정)). 홈페이지 모달 안에서는 modal-button(`components/modal.md` 3절) 크기를 씀. 관리자 콘솔은 컴포넌트 CSS 변수(`--boaz-button-*`)를 덮어써 관리자 크기를 적용함(9절)
 - glass(탭바 지원하기): 라이브 화면에 없어 Figma 값을 씀. 글자 Figma 16 SemiBold(Figma 5239:3921, Figma 5239:3923, 헤더 탭바 Figma 1866:4188). 데스크톱 전용 16/600 토큰이 없어 `typography.body-2-mobile` (16/600)을 씀
   - 라이브 glass 효과(어두운 그라데이션 + 테두리 하이라이트, 코드 `src/shared/styles/glass.css.ts`)는 커리큘럼 박스(코드 `src/shared/components/curriculum-box/curriculum-box.tsx`)용이며 탭바 glass 버튼과 다른 값임. 커리큘럼 박스는 이 저장소 컴포넌트 명세 대상이 아님(`docs/wbs/30-component.md` 범위 밖 페이지 전용 조각)
 - glass 모바일 132×40: auto layout 패딩 0·gap 0, 고정 크기에 글자 가운데 정렬(Figma 7064:9879)
@@ -148,6 +156,20 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 
 - outlined disabled: 코드는 저장 중·저장 완료 동안 `disabled`를 걸지만 비활성 스타일이 없어 rest와 같게 보임. 라벨이 "저장 중..."·"저장 완료 ✓"로 바뀌어 상태를 알림(2026-10-22 라이브 기준으로 정정)
 
+### destructive
+
+| 기본 상태 | rest | hover | press | focus-visible | 근거 |
+| --- | --- | --- | --- | --- | --- |
+| default | `color.stroke.critical` (#F96466) / `color.bg.canvas` (#000000) / — | `raw:color-mix(in srgb, var(--boaz-color-stroke-critical) 90%, #000)` (#E05A5C) / `color.bg.canvas` (#000000) / — | `raw:color-mix(in srgb, var(--boaz-color-stroke-critical) 80%, #000)` (#C75052) / `color.bg.canvas` (#000000) / — | rest 유지 / outline `color.stroke.focus` (#68CBEC) 2px, offset 2px<br>흰 표면 위: `color.stroke.focus-inverse` (#7A64F9) | Figma 없음(추정), 코드 `src/pages/content-faq/ui/FaqSection.tsx`(frontend_admin, rest·hover 모양) |
+| disabled | `color.bg.disabled` (#666666) / `color.fg.disabled` (#999999) / — | — | — | — | Figma 없음(추정) |
+
+- 색 변수 선택(2026-10-30 결정)
+  - 바탕: `color.stroke.critical`. 위험을 나타내는 시맨틱 색 중 면·선(UI 요소)용 이름. 위험 바탕 전용 시맨틱(채움 바탕) 토큰이 없어 이 이름을 씀. 바탕 전용 토큰 추가 여부는 10절
+  - 글자: `color.bg.canvas`. 홈페이지 빨강 #F96466은 밝아 흰 글자가 2.98로 미달이고 검정 글자가 7.04로 통과함. 관리자 빨강 #C92A2D는 어두워 흰 글자가 필요함(5.45). 홈페이지는 검정 캔버스, 관리자는 흰 바탕이라 캔버스 색을 글자색으로 쓰면 두 앱 모두 대비를 만족함. `color.fg.on-inverse`(흰 바탕 위 검정 글자)는 관리자 neutral 버튼 글자도 바꾸게 되어 쓰지 않음
+  - hover·press: 위험 바탕 hover·press 토큰이 없어 `raw:color-mix`로 바탕 변수에 검정을 섞음(10%·20%). 바탕 변수를 섞으므로 관리자가 바탕 변수만 덮어써도 hover·press가 따라 바뀜. 홈페이지 결과값 hover #E05A5C, press #C75052
+- 비동기 상태(pending): brand와 같은 규칙. 바탕은 hover 값 고정
+- 위험 동작 버튼은 비활성으로 두기보다 누를 수 있게 두고 확인 모달에서 한 번 더 묻는 방식을 우선함(5절)
+
 - 포커스 링
   - 흰 표면(모달) 위 모든 variant: `color.stroke.focus-inverse` (#7A64F9)
   - 트리거: `:focus-visible`
@@ -187,6 +209,14 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 - 비활성
   - 네이티브 `disabled` 사용
   - 비활성 사유를 화면에 표시
+- destructive 사용 규칙(2026-10-30 결정)
+  - 되돌릴 수 없는 동작(삭제, 저장하지 않은 변경사항 버리기)에만 씀. 저장·추가·제출 같은 일반 주 동작은 brand
+  - 목록·편집 화면에서 바로 실행하지 않음. 확인 모달(관리자 `role="dialog"`, ADOPT-07-04)을 열고 모달의 확인 버튼에 destructive를 씀
+  - 확인 모달의 버튼 줄: 취소(왼쪽, neutral 또는 outlined)·실행(오른쪽, destructive). 모달을 열면 초기 포커스는 취소 버튼(`components/modal.md` 5절과 같음). Enter 한 번으로 삭제가 실행되지 않게 함
+  - 한 모달·한 버튼 줄에 destructive는 1개만 둠
+  - 라벨은 동작 동사로 씀("삭제", "변경사항 버리기"). "확인"·"예"를 쓰지 않음. 모달 제목·설명에 대상과 결과("삭제한 항목은 복구할 수 없음")를 적음
+  - 실행 중: `aria-busy="true"`·중복 실행 방지(위 비동기 규칙). 실패 시 모달을 닫지 않고 `role="alert"`로 알림
+  - 브라우저 기본 확인창(`window.confirm`)은 쓰지 않음. 관리자 콘솔의 기존 `confirm` 호출 교체는 ADOPT-07-04 범위
 
 ### 전환
 
@@ -225,6 +255,8 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 터치 영역 | 최소 24×24: 모바일 text-link는 겉 높이 16에 위아래 `raw:4px` padding + 음수 margin으로 누르는 영역 24 확보(2026-10-23 결정), 그 외 통과<br>모바일 권장 44×44: brand-small 115×36, 카카오 198×40, brand-pill-md 91×28, neutral-md 높이 28, glass 132×40이 미달 | WCAG 2.2 2.5.8 |
 | 포커스 링 | 굵기 2px, offset 2px<br>검정 캔버스 위: `color.stroke.focus` (#68CBEC) 11.34:1<br>흰 표면 위: `color.stroke.focus-inverse` (#7A64F9) 4.18:1<br>보라 버튼 안쪽 링: 2.26:1로 기준 미달 | `docs/wbs/20-token.md` 대비표 |
 | 비활성 표시 | 네이티브 `disabled`. 색만으로 구분하지 않고 비활성 사유를 화면에 표시 | Figma 5188:8718 |
+| 위험 표시(destructive) | 빨간색만으로 위험을 알리지 않음(SC 1.4.1). 라벨이 동작을 밝힘("삭제"). 확인 모달 제목·설명이 대상과 되돌릴 수 없음을 문구로 알림. 색각 이상 시 빨강·보라·초록이 비슷하게 보일 수 있음(ADOPT-05-04, `patterns/accessibility.md` 2.3 PATTERN-03-03) | Figma 없음(추정) |
+| 대비(destructive) | 홈페이지: rest `color.bg.canvas` 검정 글자 대 #F96466 7.04, hover #E05A5C 5.79, press #C75052 4.70. 모두 일반 글자 4.5 통과<br>바탕 대 검정 캔버스(UI 요소 3:1): rest 7.04, hover 5.79, press 4.70<br>홈페이지 흰 표면(모달) 위 바탕 #F96466 대 #FFFFFF 2.98로 UI 3:1 미달. 버튼은 안쪽 라벨(7.04)로 식별되므로 알려진 미달로 기록<br>관리자 덮어쓰기 후: 흰 글자 대 rest #C92A2D 5.45, hover #B52628 6.42, press #A12224 7.58. 바탕 대 흰 바탕 5.45<br>disabled: #666666 위 #999999 2.02. WCAG 1.4.3 비활성 예외 | 직접 계산(2026-10-30), `docs/wbs/20-token.md` 대비표, ADOPT-05-03 |
 
 ## 8. Do / Don't
 
@@ -236,6 +268,10 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 제출 중: `aria-busy` 설정, 중복 실행 방지, 라벨 유지 | disabled로 바꿔 포커스를 잃게 함, 라벨을 "신청 중..."으로 교체 |
 | 아이콘 전용 버튼에 `aria-label` | 이름이 빈 버튼 |
 | 비활성은 `disabled` + 사유 표시 | 색만 회색으로 바꿈 |
+| destructive는 삭제·버리기처럼 되돌릴 수 없는 동작에만, 확인 모달의 실행 버튼으로 씀 | 저장·추가·제출 버튼을 빨간 destructive로 만듦 |
+| destructive 라벨은 "삭제"처럼 동작을 적고, 모달 설명에 대상과 결과를 적음 | 라벨 "확인"·"예", 빨간색만으로 위험을 알림 |
+| 확인 모달 초기 포커스는 취소 버튼 | destructive 버튼에 초기 포커스, 한 버튼 줄에 destructive 2개 |
+| 관리자 색은 `theme.css`에서 시맨틱 변수를 덮어써 바꿈 | 관리자 위험색 #C92A2D를 패키지 CSS·토큰에 넣음 |
 
 ## 9. 코드 대응
 
@@ -243,7 +279,9 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | --- | --- | --- |
 | frontend | `src/shared/components/button/button.tsx`, `src/shared/components/button/button.css.ts` | 네이티브 `<button>` 사용<br>`preset="<variant>_<color>"` 11종. 앞 값 variant: wide, large, large-round, medium, medium-round, small-round, mini. 뒤 값 color: primary, outlined, white, glass<br>`hasIcon`: 아이콘 표시<br>`responsive`: 모바일 크기 적용(기본값 꺼짐)<br>사용 중 preset<br>- `wide_primary`: 지원서 제출·약관 동의 다음<br>- `small-round_primary`: 리크루팅 히어로·트랙 카드·FAQ 문의<br>- `small-round_outlined`: 지원서 임시저장<br>- `medium-round_primary`: 사전 알림 신청<br>- `medium_white`: 컨퍼런스 자세히 보기<br>`medium-icon_white`: 타입에만 있고 css·호출부 없음 |
 | frontend 차이 | 위와 같음 | 수정 예정(ADOPT-03). 명세와 다른 점(라이브 값을 명세로 채택한 항목은 2026-10-22 라이브 기준으로 정정하며 삭제)<br>- 포커스: `:focus-visible` 없음, 전역 `outline: none`<br>- press: `:active` 없음<br>- disabled: glass 없음<br>- glass 바탕: 검정 그라데이션(명세는 Figma rgba 0.1. 탭바 glass 버튼은 라이브에 없음)<br>- text-link: `widgets/apply/ui/question-section/`의 `<div onClick>`<br>- pending: notice-form이 disabled + 라벨 교체("신청 중...")<br>- text-link 모바일: 누르는 영역 높이 16 → 위아래 `raw:4px` padding + 음수 margin으로 24(2026-10-23 결정, ADOPT-03-09) |
-| frontend_admin | 없음 | 관리자 콘솔은 이 명세를 따르지 않음. ADOPT-07-02(버튼), 값은 ADOPT-05 기준 |
+| frontend_admin | 없음 | 관리자 콘솔은 이 명세의 색·크기를 따르지 않음. ADOPT-07-02(버튼), 값은 ADOPT-05 기준 |
+| frontend destructive | 없음 | 홈페이지에 위험 동작 버튼 없음. 지원서 복수·부전공 행의 "삭제"(`src/widgets/apply/ui/personal-info-section.tsx`)는 제출 전 입력 행을 지우는 회색 글자 버튼이라 destructive 대상이 아님 |
+| frontend_admin destructive | `src/pages/content-faq/ui/FaqSection.tsx`(`ConfirmModal` `danger`), `src/pages/content-archive/ui/ArchivingSection.tsx`(편집 모달 "삭제") | 현재 실측: 확인 모달 실행 버튼 `bg-red-600`·hover `bg-red-700`·흰 글자 `text-xs font-bold`·`px-4 py-2.5`(높이 36)·`rounded-lg`. 외곽선형 "삭제"는 `text-red-600`·`border-red-200`·hover `bg-red-50`·`text-xs font-medium`·`px-4 py-2.5`<br>ADOPT-06-03: 위험 버튼 바탕을 `bg-destructive`로 바꿈. ADOPT-07-02: 패키지 `Button` `variant="destructive"`로 교체<br>`theme.css` 덮어쓰기(2026-10-30 결정, 값은 ADOPT-05 기준)<br>- `--boaz-color-stroke-critical: #C92A2D`(ADOPT-05-03 `--destructive`). hover·press는 `color-mix`로 #B52628·#A12224가 됨<br>- `--boaz-color-bg-canvas: #FFFFFF`(ADOPT-05-01 바탕). 버튼 글자가 흰색이 됨<br>- `--boaz-color-stroke-focus: #6250C7`(ADOPT-05-02 `--ring`). 흰 간격 2px는 컴포넌트 offset 2px로 충족<br>- 비활성: `--boaz-color-bg-disabled`·`--boaz-color-fg-disabled`를 ADOPT-05-01 비활성 값으로 덮어씀<br>- 크기: `--boaz-button-height` 등 버튼 크기 변수를 ADOPT-07 크기 단계(36px, 표 행·툴바 32px)와 ADOPT-05-05 모서리로 덮어씀<br>- 위험 바탕 #FFF3F3은 채움형 destructive에서 쓰지 않음(배지·알림 바탕용) |
 | FE 이름 ↔ 명세 이름 | `src/shared/components/button/button.tsx` | wide ↔ brand-wide(부모 폭 100%). large-white(large+white) ↔ neutral-lg 250×68. medium-white ↔ neutral-md(`hasIcon`으로 아이콘 표시). medium-icon_white ↔ neutral-md + 아이콘(타입에만 있음). medium-primary ↔ brand 사각(Figma 없음, 추정). large-round ↔ brand-pill-lg 250×56. medium-round ↔ brand-pill-md 191×54. small-round ↔ brand-small 131×42 / glass 154×44(`small-round_glass`). mini ↔ 명세에 없음(옛 검색 Tag 버튼, `components/tag.md` 3절 끝). small-round_outlined ↔ outlined |
 
 ## 10. 비토큰 값
@@ -276,7 +314,11 @@ rest는 상호작용이 없을 때의 모습임. focus-visible 칸은 rest 색�
 | 0.2s ease-in-out | 전환 | design-reference 4.3 | 불필요 |
 | 0.2s ease | text-link 불투명도 전환 | 코드 `src/widgets/apply/ui/question-section/question-section.css.ts` | 불필요 |
 | `cursor: progress` | pending | Figma 없음(추정) | 불필요 |
+| `raw:color-mix(in srgb, var(--boaz-color-stroke-critical) 90%, #000)` | destructive hover 바탕(홈페이지 #E05A5C) | Figma 없음(추정). 위험 바탕 hover 토큰이 없음. 바탕 변수에서 계산해 관리자 덮어쓰기를 따라감. 검정 글자 5.79 | 필요 여부 별도 이슈(위험 채움 바탕과 hover·press 시맨틱 추가 검토) |
+| `raw:color-mix(in srgb, var(--boaz-color-stroke-critical) 80%, #000)` | destructive press 바탕(홈페이지 #C75052) | Figma 없음(추정). 검정 글자 4.70으로 4.5 통과하는 가장 어두운 단계 근처(75%면 4.22로 미달) | 위와 같음 |
 
 ## 11. 미확인
 
-- 해당 없음.
+- destructive 바탕에 `color.stroke.critical`, 글자에 `color.bg.canvas`를 쓰는 방식은 위험 채움 바탕 전용 시맨틱이 없어 택한 방식임. 전용 시맨틱(바탕·바탕 위 글자·hover·press) 추가 여부는 디자인 시스템 리드 판단(별도 이슈)
+- 관리자 `theme.css`가 `--boaz-color-bg-canvas`를 흰색으로 덮어쓰는지는 ADOPT-05에서 확정해야 함. 덮어쓰지 않으면 관리자 destructive 글자가 검정(#C92A2D 위 3.85)이 되어 일반 글자 기준 미달
+- 관리자 아이콘 전용 삭제 버튼(평소 회색, hover 빨강. `src/pages/content-faq/ui/FaqSection.tsx` `IconButton` `danger`, `src/pages/recruiting-manage/ui/RecruitmentManagePage.tsx` 5곳, `src/pages/system-accounts/ui/SystemAccountsPage.tsx`·`src/pages/content-reviews/ui/ReviewsSection.tsx`·`src/pages/content-curriculum/ui/CurriculumSection.tsx` 각 1곳)을 어떤 버튼 모양으로 옮길지 미정. 이 명세에 아이콘 전용 버튼 variant가 없음
