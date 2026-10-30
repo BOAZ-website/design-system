@@ -4,8 +4,8 @@
 
 ## 원칙
 
-- 이 저장소는 **기준(토큰·명세)** 을 만듭니다. 소비 앱(`frontend`, `frontend_admin`) 코드는 여기서 고치지 않고, 각 앱 저장소에 이슈를 따로 냅니다.
-- 원천은 `tokens/`, `components/`, `patterns/`입니다. `dist/`는 생성물이므로 직접 고치지 않습니다.
+- 이 저장소는 **기준(토큰·명세)과 두 앱이 함께 쓰는 React 컴포넌트**를 만듭니다. 소비 앱(`frontend`, `frontend_admin`) 코드는 여기서 고치지 않고, 각 앱 저장소에 이슈를 따로 냅니다.
+- 원천은 `tokens/`, `components/`·`patterns/`(명세), `src/`(컴포넌트 코드)입니다. `dist/`는 생성물이므로 직접 고치지 않습니다.
 - 공개 저장소입니다. 개인 정보(지원자 이름·이메일 등)·시크릿을 문서나 이미지에 넣지 않습니다. 외부 자료는 출처와 라이선스를 적습니다.
 
 ## 토큰 작업 절차
@@ -28,6 +28,17 @@
 4. `docs/wbs/30-component.md`의 해당 티켓 "완료 확인 방법"을 하나씩 대조합니다.
 5. PR 제목은 `[Docs] COMPONENT-01 button 명세` 꼴, 커밋 type은 `docs`입니다. 머지 전 status 전이 조건은 `docs/wbs/30-component.md` "status 전이"입니다.
 
+## 컴포넌트 구현 절차
+
+`src/components/<id>/` 컴포넌트를 구현할 때의 절차입니다. 파일 구성·스타일·접근성 규칙은 `docs/wbs/45-ui.md` "구현 규칙"을 따릅니다.
+
+1. 배정받은 UI 티켓 이슈 번호를 확인합니다. 없으면 커밋하지 않습니다.
+2. `components/<id>.md` 명세를 먼저 읽습니다. 값·상태·동작·접근성은 명세가 기준입니다. 명세와 다르게 구현해야 할 이유가 생기면 구현 PR에서 바꾸지 말고 명세 수정 이슈를 먼저 냅니다.
+3. 값은 `var(--boaz-*)` 토큰 변수로만 씁니다. 명세의 `raw:` 값만 CSS에 직접 적습니다.
+4. 상태 조합별 story와 키보드·aria 테스트를 함께 씁니다.
+5. `npm run build`로 만든 `dist/`를 같은 커밋에 넣습니다. `npm test`와 Storybook 빌드가 통과해야 합니다.
+6. `docs/wbs/45-ui.md`의 해당 티켓 "완료 확인 방법"을 하나씩 대조합니다. PR 제목은 `[Feat] UI-03 Button` 꼴, 커밋 type은 `feat`입니다.
+
 ## 토큰 이름 규칙
 
 | 계층 | 경로 | 예 | CSS 변수 |
@@ -48,7 +59,7 @@
 
 ## breaking 변경
 
-- 토큰 이름 삭제·변경은 소비 앱을 깨뜨립니다. PR 본문에 대체 이름과 영향 앱을 적고, 버전의 minor(0.x) 또는 major를 올립니다.
+- 토큰 이름 삭제·변경, 컴포넌트 export 이름·prop 이름 삭제·변경은 소비 앱을 깨뜨립니다. PR 본문에 대체 이름과 영향 앱을 적고, 버전의 minor(0.x) 또는 major를 올립니다.
 - 값만 바뀌는 변경은 patch입니다.
 - 토큰 추가는 breaking이 아니며 patch입니다(0.x에서 minor는 breaking 전용). 추가한 토큰을 앱이 쓰려면 릴리스가 필요하므로 PR 본문에 쓸 앱과 티켓을 적습니다.
 - 이름 삭제·변경 여부는 `git diff dev -- dist/tokens.d.ts`로 확인합니다. 소비 앱에서는 새 버전 설치 후 타입 검사(frontend `pnpm check-types`, frontend_admin `npm run check-types`)로 깨지는 곳을 찾습니다.
@@ -60,8 +71,8 @@
 
 ## 이슈 / Milestone
 
-- 작업 기준은 노션 WBS입니다(티켓 키 `REPO-`, `TOKEN-`, `COMPONENT-`, `PATTERN-`, `ADOPT-`). GitHub 이슈는 티켓과 1:1입니다.
-- Milestone과 이슈는 Phase를 시작할 때 디자인 시스템 리드(현재 인프라 담당)의 승인을 받고 그 Phase 것만 만듭니다. 명세 담당과 AI 도구는 직접 만들지 않습니다.
+- 작업 기준은 노션 WBS입니다(티켓 키 `REPO-`, `TOKEN-`, `COMPONENT-`, `PATTERN-`, `UI-`, `ADOPT-`). GitHub 이슈는 티켓과 1:1입니다.
+- Milestone과 이슈는 Phase를 시작할 때 디자인 시스템 리드(현재 인프라 담당)의 승인을 받고 그 Phase 것만 만듭니다. 구현 담당과 AI 도구는 직접 만들지 않습니다.
 
 ## 문서 작성 규칙
 

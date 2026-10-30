@@ -1,6 +1,6 @@
 # REPO 저장소·규칙 작업 정의서
 
-기준일 2026-09-28 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
+기준일 2026-09-28, 2026-10-30 컴포넌트 구현 추가로 REPO-07 정정·REPO-09 추가 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
 
 ## 작업 정의서 목적
 
@@ -9,7 +9,7 @@
 - 앱이 git 태그로 설치할 수 있게 버전을 발행함
 
 **범위:** 저장소 설정, 커밋 훅, 워크플로, 템플릿, CI, 문서(README·AGENTS.md·WBS), 릴리스 태그
-**범위 밖:** npm 배포, Storybook, 문서 사이트
+**범위 밖:** npm 레지스트리 배포, Storybook 사이트 배포, 문서 사이트. Storybook 구성은 UI-02에서 함
 
 ---
 
@@ -109,11 +109,27 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | PATTERN-01~04, COMPONENT-09~16 | 3 | 없음 |
+| 몇 시간 | UI-01~10 | 2 | 없음 |
+
+- 2026-10-30 정정: P0 컴포넌트 구현(UI-01~10)이 들어간 첫 버전으로 바꿈. React peer 의존성이 새로 생겨 설치 조건이 바뀌므로 minor를 올림
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| REPO-07-01 | `dev` → `main` 머지, version `0.2.0`, `v0.2.0` 태그·Release | `gh release view v0.2.0` |
+| REPO-07-01 | `dev` → `main` 머지, version `0.2.0`, `v0.2.0` 태그·Release(추가한 컴포넌트 목록, peer 의존성 안내) | `gh release view v0.2.0` |
+| REPO-07-02 | 빈 Vite + React 19 프로젝트에서 git 태그 설치 후 컴포넌트 import 확인 | `import { Button } from '@boaz/design-system'` 빌드 성공 |
+| REPO-07-03 | README "Installation"·"Usage"에 컴포넌트 설치·import 방법 추가 | README 해당 절 |
+
+## REPO-09 Phase 3 릴리스(`v0.2.x`)
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | UI-11~17 | 3 | 없음 |
+
+- 컴포넌트 추가는 breaking이 아니므로 patch(`AGENTS.md` "breaking 변경"). 번호는 그 사이 patch 릴리스 수에 따라 정함
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| REPO-09-01 | `dev` → `main` 머지, version 올림, 태그·Release(추가한 컴포넌트 목록) | `gh release view v0.2.<n>` |
 
 ## REPO-08 WBS·작업 정의서 작성
 

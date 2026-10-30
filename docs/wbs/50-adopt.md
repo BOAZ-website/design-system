@@ -1,10 +1,11 @@
 # ADOPT 앱 적용 작업 정의서
 
-기준일 2026-10-11, 2026-10-21 앱 코드 대조 후 ADOPT-01·02·05·06 정정 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
+기준일 2026-10-11, 2026-10-21 앱 코드 대조 후 ADOPT-01·02·05·06 정정, 2026-10-30 컴포넌트 교체 방식으로 ADOPT-03·04·07 정정 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
 
 ## 작업 정의서 목적
 
 - 두 앱이 `v0.1.1` 토큰(2026-10-22 `radius.xs` 추가)을 git 태그로 설치해 쓰게 함
+- 두 앱 화면의 직접 마크업을 이 저장소의 React 컴포넌트(UI 작업 정의서 `docs/wbs/45-ui.md`)로 교체함(ADOPT-03·04·07, 2026-10-30 결정)
 - 관리자 콘솔의 화면별 값(색·모서리·그림자·글자 크기)과 공용 컴포넌트를 통일함(ADOPT-05~07)
   - 디자인팀 Figma는 공개 홈페이지(검정 바탕) 전용이라 관리자 콘솔 디자인이 없음
   - 색은 Figma 정식 색(팔레트 토큰과 같은 값)을 씀. Figma에 없는 값 7개만 관리자 `theme.css`에 임시로 정함(ADOPT-05-03)
@@ -13,7 +14,7 @@
 - 이 저장소에서는 앱 코드를 고치지 않음. 티켓마다 **해당 앱 저장소에 이슈·PR**을 만듦. PR 1개로 닫히지 않는 티켓(ADOPT-03·06·07)은 앱 저장소에서 화면별·컴포넌트별 이슈로 나눔(2026-10-22 명세 작성으로 확장)
 
 **범위:** frontend, frontend_admin
-**범위 밖:** 화면 배치·흐름 재설계, frontend 컴포넌트 전면 교체
+**범위 밖:** 화면 배치·흐름 재설계, 명세가 없는 페이지 전용 조각의 교체
 
 ---
 
@@ -46,11 +47,11 @@
 
 ## ADOPT-03 frontend 값 불일치 정리
 
-**목적:** 조사에서 찾은 Figma와 다른 값과 접근성 결함을 고침. 각 컴포넌트 값의 기준은 `components/<id>.md`(COMPONENT-01~08)이며, 아래 표의 값은 명세 머지 후 같은지 확인하고 다르면 명세를 따름(2026-10-22 명세 작성으로 확장). 03-09부터는 컴포넌트별로 이슈·PR을 나눔. 03-16부터는 P1 명세(COMPONENT-09~16)의 9절 frontend 차이를 반영함(2026-10-22 P1 명세 작성으로 확장). 모달은 ADOPT-04, 전역 `outline: none`은 ADOPT-01-03에서 다룸
+**목적:** 조사에서 찾은 Figma와 다른 값과 접근성 결함을 고침. 각 컴포넌트 값의 기준은 `components/<id>.md`(COMPONENT-01~08)이며, 아래 표의 값은 명세 머지 후 같은지 확인하고 다르면 명세를 따름(2026-10-22 명세 작성으로 확장). 03-09~21은 직접 마크업을 패키지 컴포넌트(UI-03~17)로 교체해 처리함. 표에 적은 접근성 결함은 컴포넌트가 해결하므로 교체 후 화면에서 같은지 확인함. 03-09부터는 컴포넌트별로 이슈·PR을 나눔(2026-10-30 정정). 03-16부터는 P1 명세(COMPONENT-09~16)의 9절 frontend 차이를 반영함(2026-10-22 P1 명세 작성으로 확장). 모달은 ADOPT-04, 전역 `outline: none`은 ADOPT-01-03에서 다룸
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 두 주 | ADOPT-01, COMPONENT-01~16(`review` 이상. 03-09~15는 COMPONENT-01~08, 03-16~21은 COMPONENT-09~16, 03-22·23은 PATTERN-02·04) | 4 | `BOAZ-website/frontend` |
+| 두 주 | ADOPT-01, UI-03~17(03-09~15는 UI-03~10이 들어간 `v0.2.0`, 03-16~21은 UI-11~17이 들어간 버전), 03-22·23은 PATTERN-02·04 | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -79,11 +80,11 @@
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 하루이틀 | COMPONENT-07, PATTERN-01 | 4 | `BOAZ-website/frontend` |
+| 하루이틀 | UI-09(`v0.2.0`), PATTERN-01 | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-04-01 | 공용 Modal 컴포넌트(`shared/components/modal`) | 컴포넌트 존재 |
+| ADOPT-04-01 | 패키지 `Modal`(UI-09)을 씀. 앱 안에 모달 컴포넌트를 새로 만들지 않음(2026-10-30 정정) | `import { Modal } from '@boaz/design-system'` 사용처 존재 |
 | ADOPT-04-02 | `alert()` 10곳을 PATTERN-01-03 대응표대로 교체. Figma에 모달이 없는 알림(A3·A4 일부·A5·A6·A10)은 모달을 추가하지 않고 대응표 수단(상태 알림 영역·로그인 오버레이)을 씀(2026-10-23 결정) | `rg "alert\(" src` 0건 |
 | ADOPT-04-03 | `alert()`가 아닌 모달 사용처 3건 적용: 지원서 제출 중 loading 모달, 지원 진입 시 지원 기간 아님·모집 마감 안내 모달(현재 `Navigate`로 홈 이동). 2026-10-22 PATTERN-01 작성으로 추가 | `patterns/feedback.md` 2.3 "alert가 아닌 모달 사용처" 표 3건 적용 |
 
@@ -128,9 +129,9 @@
 
 ## ADOPT-07 frontend_admin 공용 컴포넌트
 
-**목적:** 화면마다 직접 마크업한 버튼·입력·모달·표를 공용 컴포넌트로 바꿈. 컴포넌트 코드는 이 저장소 범위 밖이라 `frontend_admin`의 `src/shared/ui`에 만듦. 컴포넌트별로 이슈·PR을 나눔
+**목적:** 화면마다 직접 마크업한 버튼·입력·모달·표를 공용 컴포넌트로 바꿈. 명세가 있는 종류(버튼, 입력·셀렉트, 모달, 카드·태그, 탭, 페이지 이동)는 패키지 컴포넌트(UI-03~10·14)를 쓰고, 명세가 없는 관리자 전용 종류(표, 빈 상태·불러오기 실패 안내, 날짜 입력)만 `frontend_admin`의 `src/shared/ui`에 만듦(2026-10-30 정정). 컴포넌트별로 이슈·PR을 나눔
 
-- 색·크기: ADOPT-05 기준을 따르며 COMPONENT 명세를 따르지 않음
+- 색·크기: ADOPT-05 기준을 따르며 COMPONENT 명세를 따르지 않음. 패키지 컴포넌트의 색·크기를 관리자 값으로 바꾸는 방식은 `docs/wbs/45-ui.md` 미결에서 정함
 - 동작·접근성(키보드, 포커스, role): 같은 종류의 COMPONENT 명세가 `review` 이상이면 그 Accessibility 절을 따름
 - 해당 COMPONENT 명세가 아직 없으면: ADOPT-07 이슈에 정한 동작을 그 COMPONENT 명세 작성 때 입력으로 씀
 - 모달: 관리자 모달은 확인·입력용이라 `role="dialog"`를 씀. COMPONENT-07의 `alertdialog`를 따르지 않음
@@ -138,16 +139,16 @@
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 한 주 | ADOPT-06 | 4 | `BOAZ-website/frontend_admin` |
+| 한 주 | ADOPT-06, UI-03~10·14(해당 컴포넌트가 들어간 버전) | 4 | `BOAZ-website/frontend_admin` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | ADOPT-07-01 | `src/shared/ui` 전체를 다시 쓸지·고칠지·지울지 결정. 2026-10-22 기준 import 0곳 4개(`Btn`, `SectionCard`, `Tag`, `CardHeader`)와 사용 중 7개(`CreateButton`, `DataLoadFailedNotice`, `DateTextInput`, `SelectDropdown`, `Tooltip`, `PdfPreviewModal`, `modalStyles`) | 결정이 이슈에 기록됨 |
-| ADOPT-07-02 | 버튼: 시맨틱 클래스 기반으로 다시 만들고 화면의 `<button>` 교체 | 화면 파일의 주 버튼 직접 마크업 0건 |
-| ADOPT-07-03 | 입력·셀렉트·날짜 입력(현재 직접 `<input>` 약 90, `<select>` 약 32) | 화면 파일의 직접 `<input>`·`<select>` 0건 |
-| ADOPT-07-04 | 모달: 오버레이, 닫기 버튼, Esc 닫기, 포커스 가두기 | 화면 파일의 모달 마크업이 공용 컴포넌트 호출로 바뀜 |
+| ADOPT-07-02 | 버튼: 화면의 `<button>`을 패키지 `Button`(UI-03)으로 교체 | 화면 파일의 주 버튼 직접 마크업 0건 |
+| ADOPT-07-03 | 입력·셀렉트는 패키지 `TextField`·`Select`(UI-04·05), 날짜 입력은 `src/shared/ui`(현재 직접 `<input>` 약 90, `<select>` 약 32) | 화면 파일의 직접 `<input>`·`<select>` 0건 |
+| ADOPT-07-04 | 모달: 패키지 `Modal`(UI-09)을 `role="dialog"`로 씀 | 화면 파일의 모달 마크업이 공용 컴포넌트 호출로 바뀜 |
 | ADOPT-07-05 | 표(현재 11개 화면이 직접 `<table>`) | 화면 파일의 직접 `<table>` 0건 |
-| ADOPT-07-06 | 카드·태그·배지 | 화면 파일의 배지 직접 마크업 0건 |
+| ADOPT-07-06 | 카드·태그는 패키지 `Card`·`Tag`(UI-10·15), 배지는 `src/shared/ui` | 화면 파일의 배지 직접 마크업 0건 |
 | ADOPT-07-07 | 빈 상태·불러오기 실패 안내(현재 약 13개 파일이 각자 문구·모양을 씀) | 대상 파일이 공용 컴포넌트를 씀 |
-| ADOPT-07-08 | 탭(현재 1개 화면) | 해당 화면이 공용 컴포넌트를 씀 |
-| ADOPT-07-09 | 페이지 이동(현재 아카이빙 관리 1개 화면 `src/pages/content-archive/ui/ArchivingSection.tsx`). 동작·접근성은 `components/pagination.md`(번호형이면 `<nav aria-label>`, 현재 페이지 `aria-current="page"`, 처음·끝 화살표 `aria-disabled`)를 따르고 값은 ADOPT-05 기준. 2026-10-22 COMPONENT-12 작성으로 추가 | 해당 화면이 공용 컴포넌트를 씀 |
+| ADOPT-07-08 | 탭: 패키지 `Tab`(UI-08)(현재 1개 화면) | 해당 화면이 공용 컴포넌트를 씀 |
+| ADOPT-07-09 | 페이지 이동: 패키지 `Pagination`(UI-14)(현재 아카이빙 관리 1개 화면 `src/pages/content-archive/ui/ArchivingSection.tsx`). 동작·접근성은 `components/pagination.md`(번호형이면 `<nav aria-label>`, 현재 페이지 `aria-current="page"`, 처음·끝 화살표 `aria-disabled`)를 따르고 값은 ADOPT-05 기준. 2026-10-22 COMPONENT-12 작성으로 추가 | 해당 화면이 공용 컴포넌트를 씀 |

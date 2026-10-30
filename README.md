@@ -2,7 +2,7 @@
 
 # BOAZ Design System
 
-BOAZ 공개 홈페이지와 관리자 콘솔이 함께 쓰는 디자인 언어입니다. 디자인 토큰과 컴포넌트·패턴 명세를 단일 원천(Single Source of Truth)으로 관리하고, Style Dictionary로 빌드해 CSS 변수와 Tailwind 테마로 배포합니다.
+BOAZ 공개 홈페이지와 관리자 콘솔이 함께 쓰는 디자인 언어입니다. 디자인 토큰과 컴포넌트·패턴 명세를 단일 원천(Single Source of Truth)으로 관리하고, Style Dictionary로 빌드해 CSS 변수와 Tailwind 테마로 배포합니다. 명세를 토대로 두 앱이 함께 쓰는 React 컴포넌트도 이 저장소에서 구현합니다(Phase 2부터).
 
 ## Architecture
 
@@ -19,8 +19,9 @@ tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/ (build artifacts)
 
 ## Components & Patterns
 
-- [`components/`](./components) — 컴포넌트 명세. Phase 2부터 `components/<id>.md`로 추가합니다. 양식은 [`components/_template.md`](./components/_template.md)입니다.
-- `patterns/` — 패턴·가이드라인: feedback, form, accessibility, voice & tone (Phase 3에서 작성)
+- [`components/`](./components) — 컴포넌트 명세 16종(`components/<id>.md`). 양식은 [`components/_template.md`](./components/_template.md)입니다.
+- [`patterns/`](./patterns) — 패턴·가이드라인: feedback, form, accessibility, voice & tone
+- `src/` — 명세를 구현한 React 컴포넌트. Phase 2(UI-01~10)에서 추가하며 첫 배포는 `v0.2.0`입니다. 할 일은 [`docs/wbs/45-ui.md`](./docs/wbs/45-ui.md)에 있습니다.
 
 ## Installation
 
@@ -51,7 +52,7 @@ vars.color.palette.purple[100]; // "var(--boaz-color-palette-purple-100)"
 
 - [`docs/design-reference.md`](./docs/design-reference.md) — 디자인 참조: Figma 원본 색·타이포·컴포넌트·에셋 기록
 - [`docs/wbs/`](./docs/wbs) — 구축 로드맵 (WBS·작업 정의서). 작업 정의서는 할 일과 완료 조건을 정하고, 결과물의 정의는 `components/`·`patterns/`의 명세서에 있습니다.
-- [`AGENTS.md`](./AGENTS.md) — 토큰 명명 규칙, 토큰·명세 작업 절차, breaking change 정책, 문서 작성 규칙
+- [`AGENTS.md`](./AGENTS.md) — 토큰 명명 규칙, 토큰·명세 작업 절차, 컴포넌트 구현 절차, breaking change 정책, 문서 작성 규칙
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — 처음 합류했을 때의 순서, 권한 체크리스트, 개발 환경, 브랜치·리뷰·커밋 규약
 
 ## License

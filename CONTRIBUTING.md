@@ -1,19 +1,19 @@
 # Contributing
 
-BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세 작업 절차, breaking 변경 규칙은 [`AGENTS.md`](./AGENTS.md)를 따릅니다.
+BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세 작업 절차, 컴포넌트 구현 절차, breaking 변경 규칙은 [`AGENTS.md`](./AGENTS.md)를 따릅니다.
 
 ## 처음 합류했다면
 
 첫 PR까지 아래 순서로 진행합니다. 권한 부여에 시간이 걸릴 수 있어 요청을 가장 먼저 합니다.
 
 1. 디자인 시스템 리드에게 아래 "합류 체크리스트"의 권한과 맡을 티켓의 GitHub 이슈 번호를 요청합니다.
-2. [`README.md`](./README.md)로 저장소 구성(`tokens/` → `dist/`, `components/`, `patterns/`)을 봅니다.
-3. [`AGENTS.md`](./AGENTS.md)의 원칙, 토큰 이름 규칙, 명세 작업 절차, 문서 작성 규칙을 읽습니다.
-4. [`docs/wbs/00-wbs.md`](./docs/wbs/00-wbs.md)의 "읽는 법"·"Phase"·"인수인계"를 읽습니다. 이어서 맡은 티켓이 있는 작업 정의서(예: `docs/wbs/30-component.md`)를 읽습니다.
+2. [`README.md`](./README.md)로 저장소 구성(`tokens/` → `dist/`, `components/`·`patterns/` 명세, `src/` 컴포넌트 코드)을 봅니다.
+3. [`AGENTS.md`](./AGENTS.md)의 원칙, 토큰 이름 규칙, 컴포넌트 구현 절차, 문서 작성 규칙을 읽습니다.
+4. [`docs/wbs/00-wbs.md`](./docs/wbs/00-wbs.md)의 "읽는 법"·"Phase"·"인수인계"를 읽습니다. 이어서 맡은 티켓이 있는 작업 정의서(구현은 `docs/wbs/45-ui.md`)와 그 티켓의 명세(`components/<id>.md`)를 읽습니다.
 5. 값의 근거는 [`docs/design-reference.md`](./docs/design-reference.md)와 `docs/wbs/20-token.md`의 대비표에서 찾습니다.
-6. 아래 "개발 환경"의 커밋 훅을 켭니다. 명세만 고치면 `npm ci`와 빌드는 건너뜁니다.
-7. `dev`에서 브랜치를 만들고 `components/_template.md`를 복사해 명세를 씁니다. Phase 2의 첫 티켓은 COMPONENT-01(button)입니다.
-8. "명세 PR 점검"을 확인한 뒤 base를 `dev`로 PR을 내고 리뷰어를 지정합니다.
+6. 아래 "개발 환경"의 커밋 훅을 켜고 `npm ci`를 실행합니다.
+7. `dev`에서 브랜치를 만들고 맡은 티켓을 구현합니다. Phase 2 구현은 UI-01(패키지 빌드 구성) → UI-02(Storybook) → UI-03(button, 구현 양식 확정) 순서로 시작합니다.
+8. "컴포넌트 PR 점검"(명세를 고쳤으면 "명세 PR 점검")을 확인한 뒤 base를 `dev`로 PR을 내고 리뷰어를 지정합니다.
 9. 리뷰어 승인 후 머지하고 "머지 후"의 세 가지를 처리합니다.
 
 이 저장소에서 쓰는 역할은 세 가지입니다.
@@ -21,8 +21,9 @@ BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세
 | 역할 | 하는 일 |
 | --- | --- |
 | 디자인 시스템 리드(현재 인프라 담당) | Phase 시작 승인, 이슈·Milestone 생성, 릴리스 태그, 서버 설정(권한·ruleset), 노션 WBS 반영, 결정 충돌 판정 |
-| 명세 담당 | 맡은 티켓의 명세 작성과 PR |
-| 리뷰어 | 명세 PR 검토·승인(작성자와 다른 사람) |
+| 구현 담당 | 맡은 UI 티켓의 컴포넌트 구현과 PR. 명세와 다른 점을 발견하면 명세 수정 이슈를 냄 |
+| 명세 담당 | 명세 수정 이슈의 명세 작성과 PR(현재 디자인 시스템 리드) |
+| 리뷰어 | 구현·명세 PR 검토·승인(작성자와 다른 사람) |
 
 ## 합류 체크리스트
 
@@ -34,7 +35,7 @@ BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세
 | Figma 원본(TF팀 디자인 파일) 열람 | 명세 작성 | 디자인 시스템 리드를 통해 디자인팀에 요청(파일 소유는 디자인팀) | 명세의 Figma 노드 ID를 열어 볼 수 있음 |
 | `frontend` 저장소 읽기 | 명세의 "코드 대응" 절 작성 | 공개 저장소라 권한 불필요. 별도로 클론함(읽기만 하고 이 저장소 PR에서 고치지 않음) | 경로를 확인할 수 있음 |
 | `frontend`·`frontend_admin` 쓰기 권한 | Phase 4(ADOPT) 티켓을 맡을 때만 | 디자인 시스템 리드 | 해당 저장소에 브랜치 push |
-| Node 24와 npm | 토큰을 고치거나 빌드할 때(명세만 고치면 불필요) | 본인 | `node -v`가 24, `npm run build` 성공 |
+| Node 24와 npm | 컴포넌트를 구현하거나 토큰을 고칠 때(명세만 고치면 불필요) | 본인 | `node -v`가 24, `npm run build` 성공 |
 
 - 라벨은 이슈·PR 제목의 `[Type]`으로 자동 붙으므로 라벨·Milestone을 만들 권한은 필요하지 않습니다.
 - Figma 접근이 늦어지면 `docs/design-reference.md`와 `docs/wbs/20-token.md`만으로 `status: draft`까지 쓸 수 있습니다. Figma 확인이 필요한 칸은 "미확인" 절에 남기고, Figma를 본 뒤 `review`로 올립니다.
@@ -49,7 +50,7 @@ npm ci
 npm run build                          # tokens/ → dist/
 ```
 
-명세(`components/`, `patterns/`)만 고치는 작업은 `npm ci`·빌드가 필요 없습니다.
+명세(`components/`, `patterns/`)만 고치는 작업은 `npm ci`·빌드가 필요 없습니다. 컴포넌트 테스트(`npm test`)와 Storybook(`npm run storybook`) 명령은 UI-01·02에서 추가합니다.
 
 ## 토큰 변경
 
@@ -84,6 +85,18 @@ CI `Tokens Build`는 커밋된 `dist/`가 빌드 결과와 다르면 실패합�
 - 영업일 2일 안에 리뷰어가 없으면 작성자가 CodeRabbit(자동 리뷰 도구) 코멘트를 해소하고 아래 "명세 PR 점검"을 PR 본문에 적습니다. 이 경우 `status: review`까지만 올려 머지할 수 있습니다.
 - `stable`은 작성자가 아닌 사람의 승인 없이 올리지 않습니다.
 - GitHub의 draft PR은 CodeRabbit이 리뷰하지 않으므로 명세 검토 목적에는 쓰지 않습니다. 명세의 `status: draft`와는 다른 것입니다.
+
+### 컴포넌트 PR 점검
+
+PR 본문 "상세 내용"에 아래를 확인했다고 적습니다.
+
+- [ ] 명세 `components/<id>.md`의 Variants·States·Behavior·Accessibility 절을 모두 구현했다(구현하지 않은 항목은 이유).
+- [ ] 값은 `var(--boaz-*)` 토큰 변수로만 썼다(명세의 `raw:` 값 제외).
+- [ ] 상태 조합별 story가 있고 Storybook 접근성 패널 위반이 없다.
+- [ ] 키보드·aria 동작 테스트가 있고 `npm test`가 통과했다.
+- [ ] `npm run build` 후 `dist/`를 같은 커밋에 넣었다.
+- [ ] 티켓의 "완료 확인 방법" 항목을 하나씩 대조했다.
+- [ ] `docs/wbs/00-wbs.md`의 티켓 상태를 `완료(#이슈번호)`로 바꿨다.
 
 ### 명세 PR 점검
 
