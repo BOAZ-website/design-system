@@ -40,7 +40,7 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | ADOPT-02-01 | `npm install git+https://github.com/BOAZ-website/design-system.git#v0.1.1`(https 명시. `github:` 축약은 lockfile에 ssh 주소로 기록될 수 있어 CI `npm ci`가 실패할 수 있음). `src/app/styles/index.css`에서 `./tailwind.css` import 바로 뒤, `./theme.css` 앞에 `@import '@boaz/design-system/tailwind-theme.css'`를 둠(`theme.css`의 `:root`가 `--boaz-*`를 참조하므로 그보다 앞이어야 하고, `theme.css` 안은 `@custom-variant`로 시작해 `@import`를 둘 수 없음) | `npm ci`·`npm run build` 성공, 브라우저에서 `:root`에 `--boaz-*` 변수 존재 |
-| ADOPT-02-02 | 관리자 콘솔이 쓰는 토큰 범위를 `CLAUDE.md`에 적음. 쓰는 것: 팔레트 색 변수(`--boaz-color-palette-*`)를 `theme.css`의 shadcn 변수(`--primary` 등) 값으로만 참조. 쓰지 않는 것: 시맨틱 색(`bg-boaz-bg-*`·`text-boaz-fg-*` 등. 검정 바탕 홈페이지 값이라 흰 바탕에서 쓰면 흰 글자·검정 면이 됨), `--spacing-boaz-*`·`--text-boaz-*`(px라 루트 14px 기준 rem 단계와 섞임), `rounded-boaz-*`(관리자는 `--radius` 계산값 사용) | 규칙 문서, `grep -rE 'boaz-(bg|fg|stroke|spacing|text|radius)' src` 0건 |
+| ADOPT-02-02 | 관리자 콘솔이 쓰는 토큰 범위를 `CLAUDE.md`에 적음. 쓰는 것: 팔레트 색 변수(`--boaz-color-palette-*`)를 `theme.css`의 shadcn 변수(`--primary` 등) 값으로만 참조. 시맨틱 색 변수(`--boaz-color-bg-*` 등)는 `theme.css`에서 관리자 값으로 덮어쓰는 용도로만 씀(패키지 컴포넌트 색 적용, 2026-10-30 정정). 쓰지 않는 것: 시맨틱 색 Tailwind 클래스(`bg-boaz-bg-*`·`text-boaz-fg-*` 등. 검정 바탕 홈페이지 값이라 화면 코드에서 쓰면 흰 글자·검정 면이 됨), `--spacing-boaz-*`·`--text-boaz-*`(px라 루트 14px 기준 rem 단계와 섞임), `rounded-boaz-*`(관리자는 `--radius` 계산값 사용). 컴포넌트 CSS 변수(`--boaz-button-*` 등)는 `theme.css` 덮어쓰기에만 씀 | 규칙 문서, `grep -rE 'boaz-(bg|fg|stroke|spacing|text|radius)' src --exclude=theme.css` 0건 |
 
 - ADOPT-05는 이 티켓 뒤에 진행함. `theme.css` 값을 처음부터 팔레트 변수로 적어 같은 줄을 두 번 고치지 않음(2026-10-21 정정)
 - 위 purple 변수 이름은 TOKEN-01에서 확정됨
@@ -102,7 +102,7 @@
 | ADOPT-05-02 | 강조색(Figma 보라): `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring` #6250C7(Primary-subtle-purple, 팔레트 purple-200), hover #493C95(purple-300), `--primary-foreground` #FFFFFF. #7A64F9(purple-100)는 흰 글자 4.18:1로 일반 글자 AA(4.5:1) 미달이고 관리자 버튼은 `text-xs`·`text-sm`이라 큰 글자 예외가 적용되지 않음. #6250C7은 6.01:1, #493C95는 8.88:1. 포커스 링은 #6250C7 2px에 흰 간격 2px(`ring-offset-2`)를 둠(간격이 없으면 주 버튼 위에서 1.00:1). 전역 `outline-ring/50`은 반투명이라 불투명으로 바꿈 | `--primary`·`--ring`·`--sidebar-primary`·`--sidebar-ring`이 `var(--boaz-color-palette-purple-200)`, hover가 `var(--boaz-color-palette-purple-300)` 참조. `--primary`와 `--destructive` 값이 다름. `theme.css`에 `/50` 포커스 없음 |
 | ADOPT-05-03 | Figma에 없는 값 7개를 `theme.css`에 정함. 주석에 "Figma 밖 값, 2026-10-11 결정, 디자인팀 값이 생기면 교체"를 적음. 보조 면(표 머리글·hover·배지 바탕) #F5F5F5(`--muted`·`--secondary`, 흰색과 Gray100 사이 단계가 없어 추가), 위험 글자·버튼 #C92A2D(`--destructive`, Error-red #F96466을 어둡게 함. #F96466은 흰 바탕 2.98:1로 미달)와 위험 바탕 #FFF3F3, 성공 글자 #047857(`--success`, Tailwind emerald-700)과 바탕 #ECFDF5, 경고 글자 #B45309(`--warning`, Tailwind amber-700)와 바탕 #FFFBEB. 각 글자색은 흰색·#F5F5F5·자기 바탕 위에서 4.5:1 이상(위험 5.45·5.00·5.03, 성공 5.48·5.03·5.21, 경고 5.02·4.61·4.84) | `theme.css`에 7개 값과 출처 주석 |
 | ADOPT-05-04 | 상태는 색만으로 구분하지 않음. 배지·알림에 아이콘이나 문구("성공", "실패")를 함께 둠. 색각 이상 시뮬레이션에서 성공·위험·경고가 거의 같은 색으로 보임 | `CLAUDE.md` 규칙 |
-| ADOPT-05-05 | 모서리 기준: 입력·버튼 `rounded-sm`, 카드·표 `rounded-md`, 팝업 `rounded-lg`, `rounded-xl` 이상 쓰지 않음(출결 화면 기준). `--radius`에서 계산되는 값과 맞는지 확인. 토큰의 `rounded-boaz-sm`(12px) 등은 관리자에서 쓰지 않음(ADOPT-02-02) | 기준과 `--radius` 대응표 |
+| ADOPT-05-05 | 모서리 기준: 입력·버튼 `rounded-sm`, 카드·표 `rounded-md`, 팝업 `rounded-lg`, `rounded-xl` 이상 쓰지 않음(출결 화면 기준). `--radius`에서 계산되는 값과 맞는지 확인. 토큰의 `rounded-boaz-sm`(12px) 등은 관리자에서 쓰지 않음(ADOPT-02-02). 2026-10-30 확인: `frontend_admin/CLAUDE.md`는 sm 4·md 6·lg 8px, `theme.css`의 `--radius` 계산값은 sm 6.5·md 8.5·lg 10.5px로 서로 다름. 이 티켓에서 하나로 정하고 컴포넌트 모서리 변수 덮어쓰기 값도 같이 정함 | 기준과 `--radius` 대응표 |
 | ADOPT-05-06 | 쓰지 않는 `.dark` 블록과 `@custom-variant dark` 줄 삭제(관리자 콘솔은 다크 모드를 켜는 코드가 없음) | `theme.css`에 `.dark` 없음 |
 | ADOPT-05-07 | 새 코드·수정 파일은 Tailwind 기본 팔레트(`slate-*`·`emerald-*` 등)와 `bg-white` 대신 시맨틱 클래스(`bg-background`·`bg-card`·`text-muted-foreground`·`text-destructive` 등)를 쓴다는 규칙을 CLAUDE.md에 추가. `src/shared/ui` 사용 현황 설명을 실제 import 현황에 맞게 고침 | 규칙 문서 |
 
@@ -131,7 +131,8 @@
 
 **목적:** 화면마다 직접 마크업한 버튼·입력·모달·표를 공용 컴포넌트로 바꿈. 명세가 있는 종류(버튼, 입력·셀렉트, 모달, 카드·태그, 탭, 페이지 이동)는 패키지 컴포넌트(UI-03~10·14)를 쓰고, 명세가 없는 관리자 전용 종류(표, 빈 상태·불러오기 실패 안내, 날짜 입력)만 `frontend_admin`의 `src/shared/ui`에 만듦(2026-10-30 정정). 컴포넌트별로 이슈·PR을 나눔
 
-- 색·크기: ADOPT-05 기준을 따르며 COMPONENT 명세를 따르지 않음. 패키지 컴포넌트의 색·크기를 관리자 값으로 바꾸는 방식은 `docs/wbs/45-ui.md` 미결에서 정함
+- 색·크기: ADOPT-05 기준을 따르며 COMPONENT 명세를 따르지 않음. 패키지 컴포넌트에는 `theme.css`에서 시맨틱 색 변수와 컴포넌트 크기 변수를 덮어써 적용함(`docs/wbs/45-ui.md` "관리자 콘솔 적용 방식", 2026-10-30 결정)
+- 크기 단계: 실측 기준 버튼 36px(표 행·툴바 32px), 입력 36px(모달 폼 40px). 기본값은 `:root`, 다른 크기는 그 자리 클래스로 지정함. 최종 단계 수는 ADOPT-06에서 정함
 - 동작·접근성(키보드, 포커스, role): 같은 종류의 COMPONENT 명세가 `review` 이상이면 그 Accessibility 절을 따름
 - 해당 COMPONENT 명세가 아직 없으면: ADOPT-07 이슈에 정한 동작을 그 COMPONENT 명세 작성 때 입력으로 씀
 - 모달: 관리자 모달은 확인·입력용이라 `role="dialog"`를 씀. COMPONENT-07의 `alertdialog`를 따르지 않음
