@@ -37,7 +37,8 @@
 3. 값은 `var(--boaz-*)` 토큰 변수로만 씁니다. 명세의 `raw:` 값만 CSS에 직접 적습니다.
 4. 상태 조합별 story와 키보드·aria 테스트(`src/components/<id>/<Name>.test.tsx`, Vitest·Testing Library)를 함께 씁니다. story 규칙은 아래와 같습니다.
    - title은 `Components/<PascalName>`입니다. variant별 story와 모든 상태를 한 화면에 모은 `AllStates` story를 하나 둡니다.
-   - `AllStates`에서 hover·press·focus-visible을 고정해 보여 줄 때는 `:hover` 등을 흉내 내지 않고, CSS Module이 함께 읽는 `data-*` 속성으로 지정합니다.
+   - `AllStates`에서 hover·press·focus-visible을 고정해 보일 때는 CSS에 별도 선택자나 `data-*` 속성을 만들지 않고 `storybook-addon-pseudo-states`의 `parameters.pseudo`(`hover`·`active`·`focusVisible`에 셀 id 선택자 배열)를 씁니다. 컴포넌트 CSS에는 실제 의사 클래스(`:hover`·`:active`·`:focus-visible`)만 둡니다.
+   - 참·거짓 상태를 나타내는 `data-*` 속성은 켜져 있으면 `''`(속성만 있음), 꺼져 있으면 속성을 빼서 렌더링하고, CSS는 `[data-x]`로 고릅니다. `data-x="false"`는 쓰지 않습니다.
    - 컴포넌트 CSS 변수 목록은 `parameters.docs.description.component`에 표로 적습니다.
    - 툴바 "바탕"에서 홈페이지(검정)와 관리자(흰색)를 전환해 두 바탕에서 모두 확인합니다. 관리자 색·크기 덮어쓰기 값은 `.storybook/admin-preset.css`에 있고, 컴포넌트를 구현하면 명세 9절의 크기 변수를 컴포넌트별 주석 소절로 묶어 추가합니다. 이 값은 Storybook 전용이며 패키지에 넣지 않습니다.
    - 바탕 전환은 `html`에도 `data-boaz-theme`을 붙이므로 Modal처럼 포털로 그리는 컴포넌트도 따로 설정하지 않아도 관리자 덮어쓰기가 적용됩니다.

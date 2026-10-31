@@ -335,6 +335,7 @@
   - 비활성 이동 버튼은 `<button disabled>` + `onClick` 이동으로 씀(라이브 "지원하기"와 같음). `href` 링크는 disabled·pending을 받지 않음
   - 크기는 `height` + 가운데 정렬로 정함. 위아래 padding 변수는 두지 않음(3절 높이와 padding 합이 맞지 않는 행이 있어 높이를 기준으로 함). text-link는 크기 변수를 읽지 않음(관리자 높이 덮어쓰기에서 제외)
   - brand·destructive 외 variant의 pending 색은 명세에 없어 hover 값 고정으로 맞춤(추정)
+  - `neutral-md-wide`(Figma 전용 모바일 크기, 라이브 사용처 없음)는 구현하지 않음. 필요해지면 size 값을 추가함(breaking 아님)
 
 ## COMPONENT-20 TextField 구현
 

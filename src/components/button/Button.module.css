@@ -1,0 +1,373 @@
+/*
+ * Button. 값은 components/button.md 3~6절. 색·글자·간격은 var(--boaz-*) 토큰 변수만 쓰고, 토큰에 없는 값은 `raw:` 주석을 단 값이다(명세 10절).
+ * 크기는 컴포넌트 CSS 변수 --boaz-button-{height,padding-x,font-size,line-height,radius,gap,icon-size} 로 읽고 명세 값을 fallback 으로 둔다.
+ * 이 파일은 그 변수를 선언하지 않는다. 관리자 콘솔이 theme.css 에서 덮어쓴다. text-link 는 크기 변수를 읽지 않는다.
+ * 포커스 링 굵기·간격과 누르는 영역 24×24 는 접근성 값이라 변수로 열지 않는다.
+ * hover·press·focus-visible 은 실제 의사 클래스만 쓴다. Storybook 의 고정 표시는 storybook-addon-pseudo-states 가 맡는다.
+ */
+.root {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-block-size: 24px;
+  min-inline-size: 24px;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  gap: var(--boaz-button-gap, 10px); /* raw:10px */
+  font-family: var(--boaz-font-family-base);
+  line-height: var(--boaz-button-line-height, 1); /* raw:1.0 */
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    color 0.2s ease-in-out,
+    opacity 0.2s ease;
+}
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  inline-size: var(--boaz-button-icon-size, var(--_icon, 20px));
+  block-size: var(--boaz-button-icon-size, var(--_icon, 20px));
+}
+
+.icon > svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.root:focus-visible {
+  outline: 2px solid var(--boaz-color-stroke-focus);
+  outline-offset: 2px;
+}
+
+/* 크기 */
+
+.root[data-size='brand-wide'] {
+  inline-size: 100%;
+  block-size: var(--boaz-button-height, 65px);
+  padding-inline: var(--boaz-button-padding-x, 0);
+  border-radius: var(--boaz-button-radius, 10px); /* raw:10px */
+  font-size: var(--boaz-button-font-size, var(--boaz-typography-headline-3-size));
+  font-weight: var(--boaz-typography-headline-3-weight);
+}
+
+.root[data-size='brand-pill-lg'] {
+  block-size: var(--boaz-button-height, 56px);
+  padding-inline: var(--boaz-button-padding-x, 28px); /* raw:28px */
+  border-radius: var(--boaz-button-radius, var(--boaz-radius-full));
+  --_icon: 24px; /* raw:24px */
+  font-size: var(--boaz-button-font-size, var(--boaz-typography-body-2-size));
+  font-weight: var(--boaz-typography-body-2-weight);
+}
+
+.root[data-size='brand-pill-md'] {
+  block-size: var(--boaz-button-height, 54px);
+  padding-inline: var(--boaz-button-padding-x, 38px); /* raw:38px */
+  border-radius: var(--boaz-button-radius, var(--boaz-radius-full));
+  font-size: var(--boaz-button-font-size, var(--boaz-typography-body-2-size));
+  font-weight: var(--boaz-typography-body-2-weight);
+}
+
+.root[data-size='brand-small'],
+.root[data-variant='destructive'] {
+  block-size: var(--boaz-button-height, 42px);
+  padding-inline: var(--boaz-button-padding-x, 33.5px); /* raw:33.5px */
+  border-radius: var(--boaz-button-radius, var(--boaz-radius-full));
+  font-size: var(--boaz-button-font-size, var(--boaz-typography-body-3-size));
+  font-weight: var(--boaz-typography-body-3-weight);
+}
+
+.root[data-size='brand-small'][data-icon-start] {
+  block-size: var(--boaz-button-height, 44px);
+}
+
+.root[data-size='neutral-lg'] {
+  block-size: var(--boaz-button-height, 68px);
+  padding-inline: var(--boaz-button-padding-x, 33px); /* raw:33px */
+  border-radius: var(--boaz-button-radius, var(--boaz-radius-sm));
+  gap: var(--boaz-button-gap, var(--boaz-spacing-5));
+  font-size: var(--boaz-button-font-size, var(--boaz-typography-body-2-size));
+  font-weight: var(--boaz-typography-body-2-weight);
+}
+
+.root[data-size='neutral-md'] {
+  inline-size: 100%;
+  block-size: var(--boaz-button-height, 70px);
+  padding-inline: var(--boaz-button-padding-x, 37px); /* raw:37px */
+  border-radius: var(--boaz-button-radius, 10px); /* raw:10px */
+  --_icon: 24px; /* raw:24px */
+  font-size: var(--boaz-button-font-size, var(--boaz-typography-body-2-size));
+  font-weight: var(--boaz-typography-body-2-weight);
+}
+
+.root[data-variant='glass'] {
+  block-size: var(--boaz-button-height, 44px);
+  padding-inline-start: var(--boaz-button-padding-x, 47px); /* raw:47px */
+  padding-inline-end: var(--boaz-button-padding-x, 51px); /* raw:51px */
+  border-radius: var(--boaz-button-radius, var(--boaz-radius-full));
+  font-size: var(--boaz-button-font-size, var(--boaz-typography-body-2-mobile-size));
+  font-weight: var(--boaz-typography-body-2-mobile-weight);
+}
+
+.root[data-variant='outlined'] {
+  block-size: var(--boaz-button-height, 41px);
+  padding-inline: var(--boaz-button-padding-x, var(--boaz-spacing-4));
+  border-radius: var(--boaz-button-radius, var(--boaz-radius-full));
+  border: 0.5px solid var(--boaz-color-palette-gray-0); /* raw:0.5px */
+  font-size: var(--boaz-button-font-size, var(--boaz-typography-body-3-size));
+  font-weight: var(--boaz-typography-body-3-weight);
+}
+
+/* text-link: 크기 변수를 읽지 않는다 */
+.root[data-variant='text-link'] {
+  inline-size: auto;
+  gap: var(--boaz-spacing-2);
+  padding: 0;
+  font-size: var(--boaz-typography-headline-3-size);
+  font-weight: var(--boaz-typography-headline-3-weight);
+  line-height: 1; /* raw:1.0 */
+}
+
+.root[data-variant='text-link'] .icon {
+  inline-size: 24px;
+  block-size: 24px;
+}
+
+/* 색·상태: rest → hover → press → pending → disabled */
+
+.root[data-variant='brand'] {
+  background-color: var(--boaz-color-bg-brand-solid);
+  color: var(--boaz-color-fg-on-brand);
+}
+
+@media (hover: hover) {
+  .root[data-variant='brand']:hover:not(:disabled):not([aria-busy='true']) {
+    background-color: var(--boaz-color-bg-brand-solid-hover);
+  }
+}
+
+.root[data-variant='brand']:active:not(:disabled):not([aria-busy='true']) {
+  background-color: var(--boaz-color-bg-brand-solid-press);
+  color: var(--boaz-color-fg-muted);
+}
+
+.root[data-variant='brand'][aria-busy='true'] {
+  cursor: progress;
+  background-color: var(--boaz-color-bg-brand-solid-hover);
+}
+
+.root[data-variant='brand']:disabled {
+  cursor: not-allowed;
+  background-color: var(--boaz-color-palette-gray-400);
+  color: var(--boaz-color-fg-on-brand);
+}
+
+.root[data-variant='neutral'] {
+  background-color: var(--boaz-color-bg-neutral-solid);
+  color: var(--boaz-color-fg-on-inverse);
+}
+
+@media (hover: hover) {
+  .root[data-variant='neutral']:hover:not(:disabled):not([aria-busy='true']) {
+    background-color: var(--boaz-color-palette-gray-100);
+  }
+}
+
+.root[data-variant='neutral']:active:not(:disabled):not([aria-busy='true']) {
+  background-color: var(--boaz-color-bg-neutral-solid-press);
+}
+
+.root[data-variant='neutral'][aria-busy='true'] {
+  cursor: progress;
+  background-color: var(--boaz-color-palette-gray-100);
+}
+
+.root[data-variant='neutral']:disabled {
+  cursor: not-allowed;
+  background-color: var(--boaz-color-palette-gray-800);
+}
+
+.root[data-variant='destructive'] {
+  background-color: var(--boaz-color-stroke-critical);
+  color: var(--boaz-color-bg-canvas);
+}
+
+@media (hover: hover) {
+  .root[data-variant='destructive']:hover:not(:disabled):not([aria-busy='true']) {
+    background-color: color-mix(in srgb, var(--boaz-color-stroke-critical) 90%, #000); /* raw:color-mix */
+  }
+}
+
+.root[data-variant='destructive']:active:not(:disabled):not([aria-busy='true']) {
+  background-color: color-mix(in srgb, var(--boaz-color-stroke-critical) 80%, #000); /* raw:color-mix */
+}
+
+.root[data-variant='destructive'][aria-busy='true'] {
+  cursor: progress;
+  background-color: color-mix(in srgb, var(--boaz-color-stroke-critical) 90%, #000); /* raw:color-mix */
+}
+
+.root[data-variant='destructive']:disabled {
+  cursor: not-allowed;
+  background-color: var(--boaz-color-bg-disabled);
+  color: var(--boaz-color-fg-disabled);
+}
+
+.root[data-variant='glass'] {
+  background-color: rgba(208, 207, 249, 0.1); /* raw:rgba(208,207,249,0.1) */
+  color: var(--boaz-color-fg-default);
+}
+
+.root[data-variant='glass']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  /* raw:linear-gradient 2겹. 각도는 추정 */
+  background-image:
+    linear-gradient(to bottom, rgba(122, 100, 249, 0.2), rgba(153, 153, 153, 0)),
+    linear-gradient(to bottom, rgba(102, 102, 102, 0), rgba(100, 152, 249, 0.2));
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+@media (hover: hover) {
+  .root[data-variant='glass']:hover:not(:disabled):not([aria-busy='true'])::before {
+    opacity: 1;
+  }
+}
+
+.root[data-variant='glass']:active:not(:disabled):not([aria-busy='true'])::before,
+.root[data-variant='glass'][aria-busy='true']::before {
+  opacity: 1;
+}
+
+.root[data-variant='glass'][aria-busy='true'] {
+  cursor: progress;
+}
+
+.root[data-variant='glass']:disabled {
+  cursor: not-allowed;
+  color: var(--boaz-color-fg-disabled);
+}
+
+.root[data-variant='text-link'] {
+  color: var(--boaz-color-fg-default);
+}
+
+@media (hover: hover) {
+  .root[data-variant='text-link']:hover:not(:disabled):not([aria-busy='true']) {
+    opacity: 0.7; /* raw:0.7 */
+  }
+}
+
+.root[data-variant='text-link']:active:not(:disabled):not([aria-busy='true']) {
+  color: var(--boaz-color-palette-gray-600);
+  opacity: 1;
+}
+
+.root[data-variant='text-link'][aria-busy='true'] {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.root[data-variant='text-link']:disabled {
+  cursor: not-allowed;
+  color: var(--boaz-color-fg-disabled);
+}
+
+.root[data-variant='outlined'] {
+  color: var(--boaz-color-fg-default);
+}
+
+@media (hover: hover) {
+  .root[data-variant='outlined']:hover:not(:disabled):not([aria-busy='true']) {
+    background-color: var(--boaz-color-palette-gray-900);
+  }
+}
+
+.root[data-variant='outlined']:active:not(:disabled):not([aria-busy='true']) {
+  background-color: var(--boaz-color-palette-gray-900);
+}
+
+.root[data-variant='outlined'][aria-busy='true'] {
+  cursor: progress;
+  background-color: var(--boaz-color-palette-gray-900);
+}
+
+.root[data-variant='outlined']:disabled {
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .root[data-variant='glass']::before {
+    transition: none;
+  }
+}
+
+/* 카카오 문의(brand-small + 아이콘)는 responsive 와 관계없이 모바일에서 높이 40, 아이콘 16 (명세 6절) */
+@media (max-width: 768px) {
+  .root[data-size='brand-small'][data-icon-start] {
+    block-size: var(--boaz-button-height, 40px);
+    --_icon: 16px;
+  }
+}
+
+/* 모바일 크기 전환은 responsive 를 켠 버튼만 (명세 6절) */
+@media (max-width: 768px) {
+  .root[data-responsive][data-size='brand-pill-md'] {
+    block-size: var(--boaz-button-height, 28px);
+    padding-inline: var(--boaz-button-padding-x, var(--boaz-spacing-4));
+    font-size: var(--boaz-button-font-size, 10px); /* raw:10px */
+    font-weight: 400; /* raw:400 */
+  }
+
+  .root[data-responsive][data-size='brand-small'] {
+    block-size: var(--boaz-button-height, 36px);
+    padding-inline: var(--boaz-button-padding-x, 29px); /* raw:29px */
+    font-size: var(--boaz-button-font-size, 16px); /* raw:16px */
+  }
+
+  .root[data-responsive][data-size='brand-small'][data-icon-start] {
+    block-size: var(--boaz-button-height, 40px);
+    padding-inline: var(--boaz-button-padding-x, 33.5px);
+    font-size: var(--boaz-button-font-size, var(--boaz-typography-body-3-size));
+  }
+
+  .root[data-responsive][data-size='neutral-md'] {
+    block-size: var(--boaz-button-height, 28px);
+    padding-inline: var(--boaz-button-padding-x, 22px); /* raw:22px */
+    border-radius: var(--boaz-button-radius, 4px); /* raw:4px */
+    font-size: var(--boaz-button-font-size, 8px); /* raw:8px */
+    --_icon: 8px; /* raw:8px */
+  }
+
+  .root[data-responsive][data-variant='glass'] {
+    inline-size: 132px; /* raw:132px */
+    block-size: var(--boaz-button-height, 40px);
+    padding-inline: var(--boaz-button-padding-x, 0);
+  }
+
+  /* 겉 높이 16 은 유지하고 위아래 4px 투명 padding + 음수 margin 으로 누르는 영역을 24 로 넓힌다 */
+  .root[data-responsive][data-variant='text-link'] {
+    padding-block: 4px; /* raw:4px */
+    margin-block: -4px; /* raw:4px */
+    font-size: var(--boaz-typography-body-5-size);
+    font-weight: var(--boaz-typography-body-5-weight);
+  }
+
+  .root[data-responsive][data-variant='text-link'] .icon {
+    inline-size: 16px;
+    block-size: 16px;
+  }
+}
