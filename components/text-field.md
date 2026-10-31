@@ -83,8 +83,8 @@ last_updated: 2026-10-30
 | size | 데스크톱(px) | 모바일(px) | radius | padding | 글자 | 근거 |
 | --- | --- | --- | --- | --- | --- | --- |
 | full | 800×60 | 342×56 | — | 0 | label `typography.body-4` → `typography.text-1`, input `typography.body-4` / 모바일 label `typography.body-4` → `typography.text-1-mobile`, input `typography.body-4` | Figma 5152:8979, Figma 7578:14644, Figma 7578:14655, 코드 `src/shared/components/textfield/textfield.css.ts`(글자) |
-| half | 390×60 | 164×56 | — | 0 | full과 같음 | Figma 5338:8777, Figma 7578:14665, Figma 7578:14679 |
-| third | 252×60 | 108×56 | — | 0 | full과 같음 | Figma 5338:8760, Figma 7578:14672, Figma 7578:14686 |
+| half | 390×60 | 164×56 | — | 0 | full과 같음 | Figma 5338:8777, Figma 7578:14665, Figma 7578:14679, Figma 2007:3427, Figma 2007:3428, Figma 2007:3431 |
+| third | 252×60 | 108×56 | — | 0 | full과 같음 | Figma 5338:8760, Figma 7578:14672, Figma 7578:14686, Figma 2007:3432, Figma 2007:3433, Figma 2007:3435 |
 | paragraph(full) | 800×입력 높이(입력에 따라 늘어남) | 342×입력 높이 | — | `raw:10px` / 0 | input `typography.body-4`(행간 `raw:1.0`), counter `raw:14px/400`(모바일 같음) | 코드 `src/shared/components/textfield-with-counter/textfield-with-counter.tsx`, Figma 2009:3439(padding) |
 | dropdown-trigger half | 390×60 | 164×60 | — | 0 | single-line과 같음 | Figma 5395:3804, Figma 7885:15332 |
 | dropdown-trigger third | 252×60 | 108×60 | — | 0 | single-line과 같음 | Figma 5946:10452, Figma 7885:15300 |
