@@ -1,0 +1,9 @@
+html,
+body {
+  margin: 0;
+}
+
+/* 포털처럼 래퍼 밖에 그려지는 내용도 선택한 바탕 위에서 보이고 대비 검사된다. */
+html[data-boaz-theme] {
+  background: var(--boaz-color-bg-canvas);
+}
