@@ -2,12 +2,10 @@
  * Storybook 전용 미리보기 값. 패키지에 포함되지 않는다.
  * 실제 관리자 값은 frontend_admin 의 theme.css 에 있고, 여기는 관리자 화면이 깨지지 않는지 보기 위한 예시다.
  * 시맨틱 색 덮어쓰기와 브랜드 색은 docs/wbs/30-component.md "관리자 배경 미리보기 값(2026-10-31 결정)"을 따른다.
+ * 여기서 덮어쓰지 않은 시맨틱 색(bg-layer, bg-neutral-solid, fg-brand 등)은 홈페이지 값이 남아 관리자 바탕에서 대비 미달이 날 수 있다.
+ * 이는 Storybook 오류가 아니라 ADOPT-05에서 관리자 값을 정할 입력이다. 값이 정해지면 여기에 추가한다.
+ * 컴포넌트 크기 변수는 컴포넌트마다 주석 소절(예: 버튼)로 묶어 추가한다.
  */
-html,
-body {
-  margin: 0;
-}
-
 [data-boaz-theme='admin'] {
   --boaz-color-bg-canvas: var(--boaz-color-palette-gray-0);
   --boaz-color-fg-default: var(--boaz-color-palette-gray-900);
@@ -21,7 +19,7 @@ body {
   --boaz-color-bg-brand-solid: var(--boaz-color-palette-purple-200);
   --boaz-color-bg-brand-solid-hover: var(--boaz-color-palette-purple-300);
 
-  /* 크기 예시. 컴포넌트를 구현할 때마다 명세 9절의 크기 변수를 여기에 추가한다. 모서리 4px 은 ADOPT-05-05 확정 전 임시 값. */
+  /* 버튼: 크기 예시. 모서리 4px 은 ADOPT-05-05 확정 전 임시 값 */
   --boaz-button-height: 36px;
   --boaz-button-radius: 4px;
 }

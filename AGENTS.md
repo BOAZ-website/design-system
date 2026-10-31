@@ -37,9 +37,11 @@
 3. 값은 `var(--boaz-*)` 토큰 변수로만 씁니다. 명세의 `raw:` 값만 CSS에 직접 적습니다.
 4. 상태 조합별 story와 키보드·aria 테스트(`src/components/<id>/<Name>.test.tsx`, Vitest·Testing Library)를 함께 씁니다. story 규칙은 아래와 같습니다.
    - title은 `Components/<PascalName>`입니다. variant별 story와 모든 상태를 한 화면에 모은 `AllStates` story를 하나 둡니다.
+   - `AllStates`에서 hover·press·focus-visible을 고정해 보여 줄 때는 `:hover` 등을 흉내 내지 않고, CSS Module이 함께 읽는 `data-*` 속성으로 지정합니다.
    - 컴포넌트 CSS 변수 목록은 `parameters.docs.description.component`에 표로 적습니다.
-   - 툴바 "바탕"에서 홈페이지(검정)와 관리자(흰색)를 전환해 두 바탕에서 모두 확인합니다. 관리자 색·크기 덮어쓰기 값은 `.storybook/admin-preset.css`에 있고, 컴포넌트를 구현하면 명세 9절의 크기 변수를 여기에 추가합니다. 이 값은 Storybook 전용이며 패키지에 넣지 않습니다.
-   - Modal처럼 포털로 그리는 컴포넌트는 포털이 붙는 요소에도 `data-boaz-theme` 속성을 지정해야 관리자 덮어쓰기가 적용됩니다.
+   - 툴바 "바탕"에서 홈페이지(검정)와 관리자(흰색)를 전환해 두 바탕에서 모두 확인합니다. 관리자 색·크기 덮어쓰기 값은 `.storybook/admin-preset.css`에 있고, 컴포넌트를 구현하면 명세 9절의 크기 변수를 컴포넌트별 주석 소절로 묶어 추가합니다. 이 값은 Storybook 전용이며 패키지에 넣지 않습니다.
+   - 바탕 전환은 `html`에도 `data-boaz-theme`을 붙이므로 Modal처럼 포털로 그리는 컴포넌트도 따로 설정하지 않아도 관리자 덮어쓰기가 적용됩니다.
+   - 접근성 패널은 위반을 표시만 합니다(`a11y.test: 'todo'`). COMPONENT-33까지 구현한 뒤 알려진 대비 미달 story만 예외로 두고 `'error'`로 바꿉니다.
 5. 공개할 컴포넌트는 `src/index.ts`에서 export합니다. 컴포넌트 CSS는 `dist/styles.css` 하나로 묶여 나옵니다.
 6. `npm run typecheck`, `npm test`, `npm run build`, `npm run build-storybook`이 통과해야 합니다(`storybook-static/`은 커밋하지 않음). `npm run build`는 토큰(`dist/tokens.*`)과 컴포넌트(`dist/index.js`·`index.d.ts`·`styles.css`)를 함께 만들며, 이 `dist/`를 같은 커밋에 넣습니다. CI `Tokens Build`가 `dist/`가 다르면 실패시킵니다.
 7. `docs/wbs/30-component.md`의 해당 티켓 "완료 확인 방법"을 하나씩 대조합니다. PR 제목은 `[Feat] COMPONENT-19 Button` 꼴, 커밋 type은 `feat`입니다.

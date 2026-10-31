@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react-vite';
+import { useEffect } from 'react';
 import '../dist/tokens.css';
+import './preview-base.css';
 import './admin-preset.css';
 
 // 바탕은 body 가 아니라 이 래퍼가 그린다. 관리자 덮어쓰기(admin-preset.css)도 이 속성에 걸린다.
@@ -20,21 +22,29 @@ const preview: Preview = {
   },
   initialGlobals: { surface: 'home' },
   decorators: [
-    (Story, context) => (
-      <div
-        data-boaz-theme={context.globals.surface}
-        style={{
-          minHeight: '100vh',
-          boxSizing: 'border-box',
-          padding: '1rem',
-          background: 'var(--boaz-color-bg-canvas)',
-          color: 'var(--boaz-color-fg-default)',
-          fontFamily: 'var(--boaz-font-family-base)',
-        }}
-      >
-        <Story />
-      </div>
-    ),
+    (Story, context) => {
+      const surface = context.globals.surface;
+      // html 에도 같은 속성을 둔다. 포털(Modal 등)이 래퍼 밖 body 에 붙어도 관리자 덮어쓰기와 바탕이 적용된다.
+      useEffect(() => {
+        document.documentElement.dataset.boazTheme = surface;
+      }, [surface]);
+      return (
+        <div
+          data-boaz-theme={surface}
+          style={{
+            // 단독 화면에서만 화면 높이를 채운다. Docs 페이지의 story 블록은 내용 높이만큼만 그린다.
+            minHeight: context.viewMode === 'story' ? '100vh' : undefined,
+            boxSizing: 'border-box',
+            padding: '1rem',
+            background: 'var(--boaz-color-bg-canvas)',
+            color: 'var(--boaz-color-fg-default)',
+            fontFamily: 'var(--boaz-font-family-base)',
+          }}
+        >
+          <Story />
+        </div>
+      );
+    },
   ],
   parameters: {
     layout: 'fullscreen',
