@@ -313,6 +313,8 @@
 | COMPONENT-18-03 | 접근성 검사 애드온(a11y) 추가 | story마다 접근성 패널 표시 |
 | COMPONENT-18-04 | CI에서 Storybook 빌드 실행 | Storybook 빌드 실패 시 CI 실패 |
 
+- 관리자 배경 미리보기 값(2026-10-31 결정): 명세 9절 색 덮어쓰기 목록에 brand 주 버튼 색 purple-200(#6250C7)·hover purple-300(#493C95)을 더함(ADOPT-05-02). 모서리 4px(관리자 콘솔 기준, ADOPT-05-05 결정 전 임시). 값은 `.storybook/`에만 두고 패키지에 넣지 않음
+
 ## COMPONENT-19 Button 구현
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
@@ -325,6 +327,14 @@
 | COMPONENT-19-02 | 4절 States 전부(disabled, hover·press·focus-visible). focus-visible은 `stroke.focus` 2px, offset 2px. 흰 표면 위는 `stroke.focus-inverse` | 상태별 story, 접근성 패널 위반 0건 |
 | COMPONENT-19-03 | 5절 Behavior의 pending(비동기 중) 표시와 중복 클릭 방지 | pending story, 테스트 |
 | COMPONENT-19-04 | 7절 Accessibility: `<button>` 요소, `type` 기본값 `button`, 아이콘만 있는 버튼의 `aria-label` | 테스트(Enter·Space 동작, 이름) |
+
+- 구현 결정(2026-10-31, 명세 공백은 라이브 사이트·frontend 코드 기준)
+  - size 값은 명세 3절 이름 그대로 씀(`brand-small`, `neutral-md` 등). variant와 맞지 않는 size는 타입으로 막음. 기본값은 라이브 사용처 기준 brand `brand-small`, neutral `neutral-md`. FE 9절 `medium-primary`는 3절 크기 행이 없어 넣지 않음
+  - 모바일 크기 전환은 `responsive` prop(기본 꺼짐)을 켠 버튼만. 라이브 트랙 카드 "지원하기"는 켬, 히어로 "지원하기"·카카오 문의는 끔(frontend `src/entities/track/ui/track-card/track-card.tsx`)
+  - "brand-small + 아이콘"은 size가 아니라 `iconStart`가 있을 때의 brand-small 변형으로 처리함
+  - 비활성 이동 버튼은 `<button disabled>` + `onClick` 이동으로 씀(라이브 "지원하기"와 같음). `href` 링크는 disabled·pending을 받지 않음
+  - 크기는 `height` + 가운데 정렬로 정함. 위아래 padding 변수는 두지 않음(3절 높이와 padding 합이 맞지 않는 행이 있어 높이를 기준으로 함). text-link는 크기 변수를 읽지 않음(관리자 높이 덮어쓰기에서 제외)
+  - brand·destructive 외 variant의 pending 색은 명세에 없어 hover 값 고정으로 맞춤(추정)
 
 ## COMPONENT-20 TextField 구현
 
