@@ -116,7 +116,7 @@ Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 �
 
 ---
 
-## 진행 현황 (2026-10-30 기준)
+## 진행 현황 (2026-10-31 기준)
 
 | 구분 | 내용 | 근거 | 상태 |
 | --- | --- | --- | --- |
@@ -131,6 +131,7 @@ Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 �
 | Phase 2 인수인계 준비 | 온보딩 규칙(CONTRIBUTING.md), 명세 작업 절차(AGENTS.md), `components/_template.md`, 티켓 정정 | #48 | 완료 |
 | Phase 2·3 명세 | 컴포넌트 16종·패턴 4종 명세 `review`, `radius.xs` 토큰 추가, 라이브·Figma 기준 정정, `v0.1.1` 릴리스 | #50·#71·#73·#75·#76 | 완료 |
 | 컴포넌트 구현 범위 추가 | 명세를 토대로 React 컴포넌트를 이 저장소에서 구현하기로 결정. 구현 티켓(COMPONENT-17~33) 추가, Phase 2·3 재구성, ADOPT-03·04·07을 컴포넌트 교체로 정정 | #79 | 완료 |
+| Phase 2 구현 기반 | 패키지 빌드(TypeScript·Vite, 빌드 실패 시 `dist/` 유지), Storybook(홈페이지·관리자 바탕 전환, 접근성 패널), Button 구현으로 구현 양식 확정 | #83~#85, PR #94~#96 | 완료 |
 
 ---
 
@@ -172,9 +173,9 @@ Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 �
 | COMPONENT-14 | progress-bar | 컴포넌트 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
 | COMPONENT-15 | selection-card(사용처 없음, 2026-10-23 결정) | 컴포넌트 | 3 | 몇 시간 | COMPONENT-05 | 완료(#50) |
 | COMPONENT-16 | form-add-button | 컴포넌트 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
-| COMPONENT-17 | 패키지 빌드 구성 | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 대기(#83) |
-| COMPONENT-18 | Storybook | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17 | 대기(#84) |
-| COMPONENT-19 | Button | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-01 | 대기(#85) |
+| COMPONENT-17 | 패키지 빌드 구성 | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 완료(#83, PR #94) |
+| COMPONENT-18 | Storybook | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17 | 완료(#84, PR #95) |
+| COMPONENT-19 | Button | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-01 | 완료(#85, PR #96) |
 | COMPONENT-20 | TextField | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-02 | 대기(#86) |
 | COMPONENT-21 | Select | 컴포넌트 | 2 | 한 주 | COMPONENT-17, COMPONENT-18, COMPONENT-03 | 대기(#87) |
 | COMPONENT-22 | Checkbox | 컴포넌트 | 2 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-04 | 대기(#88) |
