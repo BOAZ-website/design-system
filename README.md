@@ -21,7 +21,7 @@ tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/ (build artifacts)
 
 - [`components/`](./components) — 컴포넌트 명세 16종(`components/<id>.md`). 양식은 [`components/_template.md`](./components/_template.md)입니다.
 - [`patterns/`](./patterns) — 패턴·가이드라인: feedback, form, accessibility, voice & tone
-- `src/` — 명세를 구현한 React 컴포넌트. Phase 2(UI-01~10)에서 추가하며 첫 배포는 `v0.2.0`입니다. 할 일은 [`docs/wbs/45-ui.md`](./docs/wbs/45-ui.md)에 있습니다.
+- `src/` — 명세를 구현한 React 컴포넌트. Phase 2(COMPONENT-17~26)에서 추가하며 첫 배포는 `v0.2.0`입니다. 할 일은 [`docs/wbs/30-component.md`](./docs/wbs/30-component.md) "구현" 절에 있습니다.
 
 ## Installation
 

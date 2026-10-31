@@ -9,10 +9,10 @@ BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세
 1. 디자인 시스템 리드에게 아래 "합류 체크리스트"의 권한과 맡을 티켓의 GitHub 이슈 번호를 요청합니다.
 2. [`README.md`](./README.md)로 저장소 구성(`tokens/` → `dist/`, `components/`·`patterns/` 명세, `src/` 컴포넌트 코드)을 봅니다.
 3. [`AGENTS.md`](./AGENTS.md)의 원칙, 토큰 이름 규칙, 컴포넌트 구현 절차, 문서 작성 규칙을 읽습니다.
-4. [`docs/wbs/00-wbs.md`](./docs/wbs/00-wbs.md)의 "읽는 법"·"Phase"·"인수인계"를 읽습니다. 이어서 맡은 티켓이 있는 작업 정의서(구현은 `docs/wbs/45-ui.md`)와 그 티켓의 명세(`components/<id>.md`)를 읽습니다.
+4. [`docs/wbs/00-wbs.md`](./docs/wbs/00-wbs.md)의 "읽는 법"·"Phase"·"인수인계"를 읽습니다. 이어서 맡은 티켓이 있는 작업 정의서(명세·구현 모두 `docs/wbs/30-component.md`)와 그 티켓의 명세(`components/<id>.md`)를 읽습니다.
 5. 값의 근거는 [`docs/design-reference.md`](./docs/design-reference.md)와 `docs/wbs/20-token.md`의 대비표에서 찾습니다.
 6. 아래 "개발 환경"의 커밋 훅을 켜고 `npm ci`를 실행합니다.
-7. `dev`에서 브랜치를 만들고 맡은 티켓을 구현합니다. Phase 2 구현은 UI-01(패키지 빌드 구성) → UI-02(Storybook) → UI-03(button, 구현 양식 확정) 순서로 시작합니다.
+7. `dev`에서 브랜치를 만들고 맡은 티켓을 구현합니다. Phase 2 구현은 COMPONENT-17(패키지 빌드 구성) → COMPONENT-18(Storybook) → COMPONENT-19(button, 구현 양식 확정) 순서로 시작합니다.
 8. "컴포넌트 PR 점검"(명세를 고쳤으면 "명세 PR 점검")을 확인한 뒤 base를 `dev`로 PR을 내고 리뷰어를 지정합니다.
 9. 리뷰어 승인 후 머지하고 "머지 후"의 세 가지를 처리합니다.
 
@@ -21,7 +21,7 @@ BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세
 | 역할 | 하는 일 |
 | --- | --- |
 | 디자인 시스템 리드(현재 인프라 담당) | Phase 시작 승인, 이슈·Milestone 생성, 릴리스 태그, 서버 설정(권한·ruleset), 노션 WBS 반영, 결정 충돌 판정 |
-| 구현 담당 | 맡은 UI 티켓의 컴포넌트 구현과 PR. 명세와 다른 점을 발견하면 명세 수정 이슈를 냄 |
+| 구현 담당 | 맡은 구현 티켓(COMPONENT-17~33)의 컴포넌트 구현과 PR. 명세와 다른 점을 발견하면 명세 수정 이슈를 냄 |
 | 명세 담당 | 명세 수정 이슈의 명세 작성과 PR(현재 디자인 시스템 리드) |
 | 리뷰어 | 구현·명세 PR 검토·승인(작성자와 다른 사람) |
 
@@ -50,7 +50,7 @@ npm ci
 npm run build                          # tokens/ → dist/
 ```
 
-명세(`components/`, `patterns/`)만 고치는 작업은 `npm ci`·빌드가 필요 없습니다. 컴포넌트 테스트(`npm test`)와 Storybook(`npm run storybook`) 명령은 UI-01·02에서 추가합니다.
+명세(`components/`, `patterns/`)만 고치는 작업은 `npm ci`·빌드가 필요 없습니다. 컴포넌트 테스트(`npm test`)와 Storybook(`npm run storybook`) 명령은 COMPONENT-17·18에서 추가합니다.
 
 ## 토큰 변경
 

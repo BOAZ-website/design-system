@@ -5,7 +5,7 @@
 ## 작업 정의서 목적
 
 - 두 앱이 `v0.1.1` 토큰(2026-10-22 `radius.xs` 추가)을 git 태그로 설치해 쓰게 함
-- 두 앱 화면의 직접 마크업을 이 저장소의 React 컴포넌트(UI 작업 정의서 `docs/wbs/45-ui.md`)로 교체함(ADOPT-03·04·07, 2026-10-30 결정)
+- 두 앱 화면의 직접 마크업을 이 저장소의 React 컴포넌트(COMPONENT 작업 정의서 `docs/wbs/30-component.md` 구현 티켓)로 교체함(ADOPT-03·04·07, 2026-10-30 결정)
 - 관리자 콘솔의 화면별 값(색·모서리·그림자·글자 크기)과 공용 컴포넌트를 통일함(ADOPT-05~07)
   - 디자인팀 Figma는 공개 홈페이지(검정 바탕) 전용이라 관리자 콘솔 디자인이 없음
   - 색은 Figma 정식 색(팔레트 토큰과 같은 값)을 씀. Figma에 없는 값 7개만 관리자 `theme.css`에 임시로 정함(ADOPT-05-03)
@@ -47,11 +47,11 @@
 
 ## ADOPT-03 frontend 값 불일치 정리
 
-**목적:** 조사에서 찾은 Figma와 다른 값과 접근성 결함을 고침. 각 컴포넌트 값의 기준은 `components/<id>.md`(COMPONENT-01~08)이며, 아래 표의 값은 명세 머지 후 같은지 확인하고 다르면 명세를 따름(2026-10-22 명세 작성으로 확장). 03-09~21은 직접 마크업을 패키지 컴포넌트(UI-03~17)로 교체해 처리함. 표에 적은 접근성 결함은 컴포넌트가 해결하므로 교체 후 화면에서 같은지 확인함. 03-09부터는 컴포넌트별로 이슈·PR을 나눔(2026-10-30 정정). 03-16부터는 P1 명세(COMPONENT-09~16)의 9절 frontend 차이를 반영함(2026-10-22 P1 명세 작성으로 확장). 모달은 ADOPT-04, 전역 `outline: none`은 ADOPT-01-03에서 다룸
+**목적:** 조사에서 찾은 Figma와 다른 값과 접근성 결함을 고침. 각 컴포넌트 값의 기준은 `components/<id>.md`(COMPONENT-01~08)이며, 아래 표의 값은 명세 머지 후 같은지 확인하고 다르면 명세를 따름(2026-10-22 명세 작성으로 확장). 03-09~21은 직접 마크업을 패키지 컴포넌트(COMPONENT-19~33)로 교체해 처리함. 표에 적은 접근성 결함은 컴포넌트가 해결하므로 교체 후 화면에서 같은지 확인함. 03-09부터는 컴포넌트별로 이슈·PR을 나눔(2026-10-30 정정). 03-16부터는 P1 명세(COMPONENT-09~16)의 9절 frontend 차이를 반영함(2026-10-22 P1 명세 작성으로 확장). 모달은 ADOPT-04, 전역 `outline: none`은 ADOPT-01-03에서 다룸
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 두 주 | ADOPT-01, UI-03~17(03-09~15는 UI-03~10이 들어간 `v0.2.0`, 03-16~21은 UI-11~17이 들어간 버전), 03-22·23은 PATTERN-02·04 | 4 | `BOAZ-website/frontend` |
+| 두 주 | ADOPT-01, COMPONENT-19~33(03-09~15는 COMPONENT-19~26이 들어간 `v0.2.0`, 03-16~21은 COMPONENT-27~33이 들어간 버전), 03-22·23은 PATTERN-02·04 | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -80,11 +80,11 @@
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 하루이틀 | UI-09(`v0.2.0`), PATTERN-01 | 4 | `BOAZ-website/frontend` |
+| 하루이틀 | COMPONENT-25(`v0.2.0`), PATTERN-01 | 4 | `BOAZ-website/frontend` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-04-01 | 패키지 `Modal`(UI-09)을 씀. 앱 안에 모달 컴포넌트를 새로 만들지 않음(2026-10-30 정정) | `import { Modal } from '@boaz/design-system'` 사용처 존재 |
+| ADOPT-04-01 | 패키지 `Modal`(COMPONENT-25)을 씀. 앱 안에 모달 컴포넌트를 새로 만들지 않음(2026-10-30 정정) | `import { Modal } from '@boaz/design-system'` 사용처 존재 |
 | ADOPT-04-02 | `alert()` 10곳을 PATTERN-01-03 대응표대로 교체. Figma에 모달이 없는 알림(A3·A4 일부·A5·A6·A10)은 모달을 추가하지 않고 대응표 수단(상태 알림 영역·로그인 오버레이)을 씀(2026-10-23 결정) | `rg "alert\(" src` 0건 |
 | ADOPT-04-03 | `alert()`가 아닌 모달 사용처 3건 적용: 지원서 제출 중 loading 모달, 지원 진입 시 지원 기간 아님·모집 마감 안내 모달(현재 `Navigate`로 홈 이동). 2026-10-22 PATTERN-01 작성으로 추가 | `patterns/feedback.md` 2.3 "alert가 아닌 모달 사용처" 표 3건 적용 |
 
@@ -129,9 +129,9 @@
 
 ## ADOPT-07 frontend_admin 공용 컴포넌트
 
-**목적:** 화면마다 직접 마크업한 버튼·입력·모달·표를 공용 컴포넌트로 바꿈. 명세가 있는 종류(버튼, 입력·셀렉트, 모달, 카드·태그, 탭, 페이지 이동)는 패키지 컴포넌트(UI-03~10·14)를 쓰고, 명세가 없는 관리자 전용 종류(표, 빈 상태·불러오기 실패 안내, 날짜 입력)만 `frontend_admin`의 `src/shared/ui`에 만듦(2026-10-30 정정). 컴포넌트별로 이슈·PR을 나눔
+**목적:** 화면마다 직접 마크업한 버튼·입력·모달·표를 공용 컴포넌트로 바꿈. 명세가 있는 종류(버튼, 입력·셀렉트, 모달, 카드·태그, 탭, 페이지 이동)는 패키지 컴포넌트(COMPONENT-19~26·30)를 쓰고, 명세가 없는 관리자 전용 종류(표, 빈 상태·불러오기 실패 안내, 날짜 입력)만 `frontend_admin`의 `src/shared/ui`에 만듦(2026-10-30 정정). 컴포넌트별로 이슈·PR을 나눔
 
-- 색·크기: ADOPT-05 기준을 따르며 COMPONENT 명세를 따르지 않음. 패키지 컴포넌트에는 `theme.css`에서 시맨틱 색 변수와 컴포넌트 크기 변수를 덮어써 적용함(`docs/wbs/45-ui.md` "관리자 콘솔 적용 방식", 2026-10-30 결정)
+- 색·크기: ADOPT-05 기준을 따르며 COMPONENT 명세를 따르지 않음. 패키지 컴포넌트에는 `theme.css`에서 시맨틱 색 변수와 컴포넌트 크기 변수를 덮어써 적용함(`docs/wbs/30-component.md` "관리자 콘솔 적용 방식", 2026-10-30 결정)
 - 크기 단계: 관리자 루트 글자 크기가 14px라 Tailwind rem 값이 16px 기준보다 작게 그려짐(`h-9` 31.5px, `h-10` 35px, 입력에 가장 많은 `px-3 py-2`는 약 37px). 버튼은 `h-9`(31.5px)·`h-8`(28px), 입력은 약 35~37px가 실측값임. 기본값은 `:root`, 다른 크기는 그 자리 클래스로 지정함. 최종 단계 수는 ADOPT-06에서 정함
 - 동작·접근성(키보드, 포커스, role): 같은 종류의 COMPONENT 명세가 `review` 이상이면 그 Accessibility 절을 따름
 - 해당 COMPONENT 명세가 아직 없으면: ADOPT-07 이슈에 정한 동작을 그 COMPONENT 명세 작성 때 입력으로 씀
@@ -140,16 +140,16 @@
 
 | 규모 | 선행 | Phase | 대상 저장소 |
 | --- | --- | --- | --- |
-| 한 주 | ADOPT-06, UI-03~10·14(해당 컴포넌트가 들어간 버전) | 4 | `BOAZ-website/frontend_admin` |
+| 한 주 | ADOPT-06, COMPONENT-19~26·30(해당 컴포넌트가 들어간 버전) | 4 | `BOAZ-website/frontend_admin` |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | ADOPT-07-01 | `src/shared/ui` 전체를 다시 쓸지·고칠지·지울지 결정. 2026-10-22 기준 import 0곳 4개(`Btn`, `SectionCard`, `Tag`, `CardHeader`)와 사용 중 7개(`CreateButton`, `DataLoadFailedNotice`, `DateTextInput`, `SelectDropdown`, `Tooltip`, `PdfPreviewModal`, `modalStyles`) | 결정이 이슈에 기록됨 |
-| ADOPT-07-02 | 버튼: 화면의 `<button>`을 패키지 `Button`(UI-03)으로 교체 | 화면 파일의 주 버튼 직접 마크업 0건 |
-| ADOPT-07-03 | 입력·셀렉트는 패키지 `TextField`·`Select`(UI-04·05), 날짜 입력은 `src/shared/ui`(현재 직접 `<input>` 약 90, `<select>` 약 32) | 화면 파일의 직접 `<input>`·`<select>` 0건 |
-| ADOPT-07-04 | 모달: 패키지 `Modal`(UI-09)을 `role="dialog"`로 씀 | 화면 파일의 모달 마크업이 공용 컴포넌트 호출로 바뀜 |
+| ADOPT-07-02 | 버튼: 화면의 `<button>`을 패키지 `Button`(COMPONENT-19)으로 교체 | 화면 파일의 주 버튼 직접 마크업 0건 |
+| ADOPT-07-03 | 입력·셀렉트는 패키지 `TextField`·`Select`(COMPONENT-20·21), 날짜 입력은 `src/shared/ui`(현재 직접 `<input>` 약 90, `<select>` 약 32) | 화면 파일의 직접 `<input>`·`<select>` 0건 |
+| ADOPT-07-04 | 모달: 패키지 `Modal`(COMPONENT-25)을 `role="dialog"`로 씀 | 화면 파일의 모달 마크업이 공용 컴포넌트 호출로 바뀜 |
 | ADOPT-07-05 | 표(현재 11개 화면이 직접 `<table>`) | 화면 파일의 직접 `<table>` 0건 |
-| ADOPT-07-06 | 카드·태그는 패키지 `Card`·`Tag`(UI-10·15), 배지는 `src/shared/ui` | 화면 파일의 배지 직접 마크업 0건 |
+| ADOPT-07-06 | 카드·태그는 패키지 `Card`·`Tag`(COMPONENT-26·31), 배지는 `src/shared/ui` | 화면 파일의 배지 직접 마크업 0건 |
 | ADOPT-07-07 | 빈 상태·불러오기 실패 안내(현재 약 13개 파일이 각자 문구·모양을 씀) | 대상 파일이 공용 컴포넌트를 씀 |
-| ADOPT-07-08 | 탭: 패키지 `Tab`(UI-08)(현재 1개 화면) | 해당 화면이 공용 컴포넌트를 씀 |
-| ADOPT-07-09 | 페이지 이동: 패키지 `Pagination`(UI-14)(현재 아카이빙 관리 1개 화면 `src/pages/content-archive/ui/ArchivingSection.tsx`). 동작·접근성은 `components/pagination.md`(번호형이면 `<nav aria-label>`, 현재 페이지 `aria-current="page"`, 처음·끝 화살표 `aria-disabled`)를 따르고 값은 ADOPT-05 기준. 2026-10-22 COMPONENT-12 작성으로 추가 | 해당 화면이 공용 컴포넌트를 씀 |
+| ADOPT-07-08 | 탭: 패키지 `Tab`(COMPONENT-24)(현재 1개 화면) | 해당 화면이 공용 컴포넌트를 씀 |
+| ADOPT-07-09 | 페이지 이동: 패키지 `Pagination`(COMPONENT-30)(현재 아카이빙 관리 1개 화면 `src/pages/content-archive/ui/ArchivingSection.tsx`). 동작·접근성은 `components/pagination.md`(번호형이면 `<nav aria-label>`, 현재 페이지 `aria-current="page"`, 처음·끝 화살표 `aria-disabled`)를 따르고 값은 ADOPT-05 기준. 2026-10-22 COMPONENT-12 작성으로 추가 | 해당 화면이 공용 컴포넌트를 씀 |

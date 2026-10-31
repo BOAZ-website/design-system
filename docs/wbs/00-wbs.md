@@ -4,9 +4,9 @@
 | --- | --- | --- |
 | 2026-10-11, 2026-10-22 인수인계 준비, 2026-10-30 컴포넌트 구현 추가로 현행화 | Figma 원본(TF팀 디자인 파일, Components·FE 회의용 페이지) MCP 조회, `frontend`·`frontend_admin` 코드 조사(관리자 콘솔 화면별 값 조사 2026-10-11), daangn/seed-design 참고 | 실행 계획. 일정은 다른 우선순위보다 낮아 적지 않음(관리자 콘솔 2026-12 오픈만 제약). 담당자는 노션에서 배정 |
 
-> BOAZ 공개 홈페이지(`frontend`)와 관리자 콘솔(`frontend_admin`)이 함께 쓰는 디자인 토큰, 컴포넌트·패턴 명세, React 컴포넌트를 이 저장소 하나에 모으는 작업 전체를 작업 정의서(Epic) 6개, 티켓 60개로 나눈 문서.
+> BOAZ 공개 홈페이지(`frontend`)와 관리자 콘솔(`frontend_admin`)이 함께 쓰는 디자인 토큰, 컴포넌트·패턴 명세, React 컴포넌트를 이 저장소 하나에 모으는 작업 전체를 작업 정의서(Epic) 5개, 티켓 60개로 나눈 문서.
 > 목표는 **기준(토큰·명세)과 두 앱이 함께 쓰는 컴포넌트를 만드는 것**이며 앱 코드 수정은 ADOPT 작업 정의서에서 각 앱 저장소 이슈로 따로 진행함
-> 명세(COMPONENT·PATTERN)는 구현(UI)의 입력으로 먼저 작성함. 컴포넌트 코드 구현은 2026-10-30 결정으로 범위에 들어옴
+> 명세(COMPONENT·PATTERN)는 구현(COMPONENT-17~33)의 입력으로 먼저 작성함. 컴포넌트 코드 구현은 2026-10-30 결정으로 범위에 들어옴
 > 작업 정의서는 할 일과 완료 조건을 정함. 결과물의 정의는 `components/`·`patterns/`의 명세서에 있음
 
 ---
@@ -34,7 +34,7 @@
 - 기능 ID마다 "완료 확인 방법"이 있음. 명령 결과나 파일로 확인할 수 있어야 완료로 봄
 - Milestone과 이슈는 Phase를 시작할 때 디자인 시스템 리드(현재 인프라 담당)가 승인 후 그 Phase 것만 만듦. 구현 담당은 만들지 않음
 - 선행 티켓이 COMPONENT·PATTERN이면 해당 명세가 `status: review` 이상일 때 선행이 풀린 것으로 봄
-- 선행 티켓이 UI면 해당 컴포넌트가 `dev`에 머지되고 그 컴포넌트가 들어간 버전 태그가 있을 때 앱에서 쓸 수 있음
+- 선행 티켓이 구현 티켓(COMPONENT-17~33)이면 해당 컴포넌트가 `dev`에 머지되고 그 컴포넌트가 들어간 버전 태그가 있을 때 앱에서 쓸 수 있음
 
 ### 문서 역할
 
@@ -45,7 +45,7 @@
 | `AGENTS.md` | 토큰 작업 절차·명세 작업 절차·컴포넌트 구현 절차·이름 규칙·breaking 규칙 |
 | `CONTRIBUTING.md` | 처음 합류했을 때 읽는 순서, 권한 체크리스트, 브랜치·리뷰·머지 규칙 |
 | `components/_template.md` | 컴포넌트 명세 양식 |
-| `docs/wbs/45-ui.md` "구현 규칙" | 컴포넌트 코드의 파일 구성·스타일·접근성 규칙 |
+| `docs/wbs/30-component.md` "구현 규칙" | 컴포넌트 코드의 파일 구성·스타일·접근성 규칙 |
 
 ### 작업 정의서(Epic) 목록
 
@@ -53,13 +53,12 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | REPO | 저장소·규칙 | 저장소 생성, 협업 규칙, CI, 릴리스 | 0, 1, 2, 3 | 10 | 약 1일(릴리스 2개) | 10-repo.md |
 | TOKEN | 파운데이션 | 색(팔레트·시맨틱), 타이포, radius, spacing, 빌드 | 1 | 6 | 완료 | 20-token.md |
-| COMPONENT | 컴포넌트 명세 | P0 8종, P1 8종 | 2, 3 | 16 | 완료(#50) | 30-component.md |
+| COMPONENT | 컴포넌트 명세·구현 | P0 8종·P1 8종 명세, 패키지 빌드 구성, Storybook, P0 8종·P1 7종 React 컴포넌트 | 2, 3 | 33 | 약 17~25일(명세 16개 완료, #50) | 30-component.md |
 | PATTERN | 패턴·가이드라인 | 피드백, 폼, 접근성, 보이스 앤 톤 | 3 | 4 | 완료(#71) | 40-pattern.md |
-| UI | 컴포넌트 구현 | 패키지 빌드 구성, Storybook, P0 8종, P1 7종 React 컴포넌트 | 2, 3 | 17 | 약 17~25일 | 45-ui.md |
 | ADOPT | 앱 적용 | frontend·frontend_admin 토큰 연결, 불일치 정리, 관리자 콘솔 값·공용 컴포넌트 통일 | 4 | 7 | 약 23.5~26.5일(ADOPT-03이 명세 작성으로 두 주로 늘어남) | 50-adopt.md |
 
-- 티켓 60개 중 Phase 0·1의 14개, COMPONENT 16개, PATTERN 4개는 완료. 남은 26개 규모 합계 약 42~53일(1인 기준, 2026-10-30 재산정). UI 17~25일, REPO 1일, ADOPT 23.5~26.5일
-- ADOPT-03·07은 UI 컴포넌트로 교체하는 방식으로 바뀌어 규모가 줄 수 있음. UI-10(card) 머지 후 다시 셈
+- 티켓 60개 중 Phase 0·1의 14개, COMPONENT 명세 16개, PATTERN 4개는 완료. 남은 26개 규모 합계 약 42~53일(1인 기준, 2026-10-30 재산정). COMPONENT 구현 17~25일, REPO 1일, ADOPT 23.5~26.5일
+- ADOPT-03·07은 패키지 컴포넌트로 교체하는 방식으로 바뀌어 규모가 줄 수 있음. COMPONENT-26(card) 머지 후 다시 셈
 - 남은 규모 환산: 몇 시간 = 0.5일, 하루이틀 = 1~2일, 한 주 = 5일, 두 주 = 10일. 작업량이며 일정이 아님
 - 이 저장소를 처음 보는 담당자는 첫 티켓에 읽기·권한 준비 1~2일을 더함
 - ADOPT-06·07의 "한 주"는 앱 저장소에서 화면·컴포넌트 단위 이슈로 나눈 뒤 다시 셈
@@ -84,35 +83,35 @@
 | --- | --- | --- | --- |
 | Phase 0 저장소·규칙 | 공개 저장소와 협업 규칙 | CI `Tokens Build` 통과, 이슈 #1·#4·#17~#21 종료 | REPO-00~05, REPO-08 (완료) |
 | Phase 1 파운데이션 | 토큰 v0.1 | 팔레트·시맨틱·타이포·radius·spacing 토큰과 dist 4종, `v0.1.0` 태그 | TOKEN-01~06, REPO-06 |
-| Phase 2 핵심 컴포넌트 | P0 명세 8종과 구현, v0.2 | `components/*.md` 8개 `status: review` 이상(완료, #50). 패키지 빌드·Storybook, P0 8종 컴포넌트 `dev` 머지, `v0.2.0` 태그 | COMPONENT-01~08(완료), UI-01~10, REPO-07 |
-| Phase 3 패턴·확장 | 패턴 4종, P1 명세 8종과 구현 7종 | `patterns/*.md` 4개, P1 8개 `review`(완료, #50·#71). P1 7종 컴포넌트 `dev` 머지, `v0.2.x` patch 태그 | PATTERN-01~04, COMPONENT-09~16(완료), UI-11~17, REPO-09 |
+| Phase 2 핵심 컴포넌트 | P0 명세 8종과 구현, v0.2 | `components/*.md` 8개 `status: review` 이상(완료, #50). 패키지 빌드·Storybook, P0 8종 컴포넌트 `dev` 머지, `v0.2.0` 태그 | COMPONENT-01~08(완료), COMPONENT-17~26, REPO-07 |
+| Phase 3 패턴·확장 | 패턴 4종, P1 명세 8종과 구현 7종 | `patterns/*.md` 4개, P1 8개 `review`(완료, #50·#71). P1 7종 컴포넌트 `dev` 머지, `v0.2.x` patch 태그 | PATTERN-01~04, COMPONENT-09~16(완료), COMPONENT-27~33, REPO-09 |
 | Phase 4 앱 적용 | 두 앱이 토큰·컴포넌트 사용, 관리자 콘솔 화면 통일 | 각 앱 저장소 PR 머지 | ADOPT-01~07 |
 
-- Phase 2·3의 명세(COMPONENT·PATTERN)는 디자인 시스템 리드가 2026-10-22에 먼저 작성함. 남은 Phase 2·3 작업은 이 명세를 입력으로 한 컴포넌트 구현(UI)이고 새로 합류한 프론트엔드 담당(구현 담당)이 맡음(2026-10-30 결정)
-- Phase 4 중 토큰·값 작업(ADOPT-01·02·05·06)은 Phase 1(v0.1)만 끝나면 시작할 수 있음. 컴포넌트 교체 작업(ADOPT-03-09~21·04·07)은 해당 UI 티켓이 들어간 버전 태그를 기다림
+- Phase 2·3의 명세(COMPONENT·PATTERN)는 디자인 시스템 리드가 2026-10-22에 먼저 작성함. 남은 Phase 2·3 작업은 이 명세를 입력으로 한 컴포넌트 구현(COMPONENT-17~33)이고 새로 합류한 프론트엔드 담당(구현 담당)이 맡음(2026-10-30 결정)
+- Phase 4 중 토큰·값 작업(ADOPT-01·02·05·06)은 Phase 1(v0.1)만 끝나면 시작할 수 있음. 컴포넌트 교체 작업(ADOPT-03-09~21·04·07)은 해당 구현 티켓이 들어간 버전 태그를 기다림
 - 관리자 콘솔 티켓은 ADOPT-02 → 05 → 06 → 07 순서로 컴포넌트 명세(Phase 2)를 기다리지 않고 바로 시작함. 관리자 콘솔이 개발 중이라 화면이 늘기 전에 기준을 맞추기 위함(2026-10-11 결정)
 - `v0.1.0` 발행 후 ADOPT-05는 토큰 설치(ADOPT-02)를 선행으로 두게 됨(2026-10-21 정정)
 - 관리자 콘솔은 2026년 12월 오픈이 목표이고 오픈일은 미정. 그래서 ADOPT-02·05는 오픈 전에 끝냄. ADOPT-06·07은 오픈 전 완료를 목표로 하되 오픈 뒤로 넘길 수 있음
 - Phase 4(ADOPT-01~07)는 FE 팀이 맡음(2026-10-23 결정). frontend(ADOPT-01·03·04)와 frontend_admin(ADOPT-02·05~07) 모두 해당 앱 저장소에서 진행함
-- UI-03(button)을 먼저 끝내 구현 양식을 확정하고 나머지는 그 양식으로 씀(`docs/wbs/45-ui.md` 구현 규칙)
+- COMPONENT-19(button)을 먼저 끝내 구현 양식을 확정하고 나머지는 그 양식으로 씀(`docs/wbs/30-component.md` 구현 규칙)
 
 ### 인수인계(Phase 2 구현부터)
 
-Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 디자인 시스템 리드(현재 인프라 담당)가 끝냄. 명세는 모두 `status: review`이고 미확인 절에 남은 질문 없음(검색 결과 패널 보류 한 줄만 있음, 2026-10-23). Phase 2·3의 컴포넌트 구현(UI)은 구현 담당, Phase 4 앱 적용은 FE 팀이 맡음(2026-10-30 결정)
+Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 디자인 시스템 리드(현재 인프라 담당)가 끝냄. 명세는 모두 `status: review`이고 미확인 절에 남은 질문 없음(검색 결과 패널 보류 한 줄만 있음, 2026-10-23). Phase 2·3의 컴포넌트 구현(COMPONENT-17~33)은 구현 담당, Phase 4 앱 적용은 FE 팀이 맡음(2026-10-30 결정)
 
-- 준비돼 있는 것: 토큰 `v0.1.1`, 명세 `components/`·`patterns/`, 구현 할 일 `docs/wbs/45-ui.md`, 앱별 할 일 `docs/wbs/50-adopt.md`, 작업 절차(`AGENTS.md`), 협업 규칙(`CONTRIBUTING.md`)
-- 리드가 시작 전에 처리하는 것: Phase 2 Milestone과 UI 티켓 이슈 생성·담당자 배정, `45-ui.md` 미결(관리자 콘솔 적용 방식) 결정, Figma 열람·노션 편집 권한
-- 구현 담당이 하는 것: UI 티켓별 브랜치·PR. 명세와 다른 점을 발견하면 명세 수정 이슈를 먼저 냄
+- 준비돼 있는 것: 토큰 `v0.1.1`, 명세 `components/`·`patterns/`, 명세·구현 할 일 `docs/wbs/30-component.md`, 앱별 할 일 `docs/wbs/50-adopt.md`, 작업 절차(`AGENTS.md`), 협업 규칙(`CONTRIBUTING.md`)
+- 리드가 시작 전에 처리하는 것: Phase 2 Milestone과 구현 티켓 이슈 생성·담당자 배정, Figma 열람·노션 편집 권한
+- 구현 담당이 하는 것: 구현 티켓별 브랜치·PR. 명세와 다른 점을 발견하면 명세 수정 이슈를 먼저 냄
 - FE 팀이 하는 것: 앱 저장소에서 ADOPT 티켓별 이슈·PR
 - 리드가 하는 것: 명세 질문 응답, 명세 수정, 릴리스 태그, 앱 적용 후 해당 명세 `status: stable` 전환, `docs/wbs` 변경의 노션 반영
 
 | 구분 | 할 일 | 담당 |
 | --- | --- | --- |
-| 시작 전 | Phase 2 Milestone과 UI-01~10·REPO-07 이슈 생성, 담당자 배정, 권한 부여, 관리자 콘솔 적용 방식 결정 | 디자인 시스템 리드 |
-| 진행 | UI-01 → UI-02 → UI-03(양식 확정) → UI-04~10 | 구현 담당 |
+| 시작 전 | Phase 2 Milestone과 COMPONENT-17~26·REPO-07 이슈 생성, 담당자 배정, 권한 부여 | 디자인 시스템 리드 |
+| 진행 | COMPONENT-17 → COMPONENT-18 → COMPONENT-19(양식 확정) → COMPONENT-20~26 | 구현 담당 |
 | 진행 | 관리자 콘솔 토큰·값(ADOPT-02 → 05 → 06)은 2026-12 오픈 전 ADOPT-02·05 완료 | FE 팀 |
 | 진행 | frontend 토큰 연결(ADOPT-01) | FE 팀 |
-| UI 릴리스 후 | 컴포넌트 교체(ADOPT-03·04·07), ADOPT-03·07 규모 재산정 | FE 팀 |
+| 컴포넌트 릴리스 후 | 컴포넌트 교체(ADOPT-03·04·07), ADOPT-03·07 규모 재산정 | FE 팀 |
 | 완료 후 | 적용된 명세 `status: stable` 전환 | 디자인 시스템 리드 |
 
 ---
@@ -131,7 +130,7 @@ Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 �
 | ADOPT 명세 정정 | 앱 코드 대조 후 ADOPT-01·02·05·06 정정 | #45 | 완료 |
 | Phase 2 인수인계 준비 | 온보딩 규칙(CONTRIBUTING.md), 명세 작업 절차(AGENTS.md), `components/_template.md`, 티켓 정정 | #48 | 완료 |
 | Phase 2·3 명세 | 컴포넌트 16종·패턴 4종 명세 `review`, `radius.xs` 토큰 추가, 라이브·Figma 기준 정정, `v0.1.1` 릴리스 | #50·#71·#73·#75·#76 | 완료 |
-| 컴포넌트 구현 범위 추가 | 명세를 토대로 React 컴포넌트를 이 저장소에서 구현하기로 결정. UI 작업 정의서 추가, Phase 2·3 재구성, ADOPT-03·04·07을 컴포넌트 교체로 정정 | #79 | 완료 |
+| 컴포넌트 구현 범위 추가 | 명세를 토대로 React 컴포넌트를 이 저장소에서 구현하기로 결정. 구현 티켓(COMPONENT-17~33) 추가, Phase 2·3 재구성, ADOPT-03·04·07을 컴포넌트 교체로 정정 | #79 | 완료 |
 
 ---
 
@@ -153,52 +152,52 @@ Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 �
 | TOKEN-05 | 시맨틱 색 토큰 | 파운데이션 | 1 | 하루이틀 | TOKEN-01 | 완료(#33) |
 | TOKEN-06 | 빌드 보강(타이포·spacing 출력) | 파운데이션 | 1 | 하루이틀 | TOKEN-02, TOKEN-04 | 완료(#34) |
 | REPO-06 | `v0.1.0` 릴리스 | 저장소·규칙 | 1 | 몇 시간 | TOKEN-01~06 | 완료(#16, 2026-10-11 `v0.1.0` 태그·Release) |
-| COMPONENT-01 | button | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 완료(#50) |
-| COMPONENT-02 | text-field | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 완료(#50) |
-| COMPONENT-03 | select(dropdown) | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 완료(#50) |
-| COMPONENT-04 | checkbox | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 완료(#50) |
-| COMPONENT-05 | radio | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 완료(#50) |
-| COMPONENT-06 | tab | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 완료(#50) |
-| COMPONENT-07 | modal | 컴포넌트 명세 | 2 | 몇 시간 | REPO-06 | 완료(#50) |
-| COMPONENT-08 | card | 컴포넌트 명세 | 2 | 하루이틀 | REPO-06 | 완료(#50) |
+| COMPONENT-01 | button | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 완료(#50) |
+| COMPONENT-02 | text-field | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 완료(#50) |
+| COMPONENT-03 | select(dropdown) | 컴포넌트 | 2 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-04 | checkbox | 컴포넌트 | 2 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-05 | radio | 컴포넌트 | 2 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-06 | tab | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 완료(#50) |
+| COMPONENT-07 | modal | 컴포넌트 | 2 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-08 | card | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 완료(#50) |
 | PATTERN-01 | feedback | 패턴·가이드라인 | 3 | 몇 시간 | COMPONENT-07 | 완료(#71) |
 | PATTERN-02 | form | 패턴·가이드라인 | 3 | 하루이틀 | COMPONENT-02 | 완료(#71) |
 | PATTERN-03 | accessibility | 패턴·가이드라인 | 3 | 하루이틀 | TOKEN-05 | 완료(#71) |
 | PATTERN-04 | voice & tone | 패턴·가이드라인 | 3 | 몇 시간 | 없음 | 완료(#71) |
-| COMPONENT-09 | filter-chip | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-06 | 완료(#50) |
-| COMPONENT-10 | tag-chip | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-09 | 완료(#50) |
-| COMPONENT-11 | search-autocomplete | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
-| COMPONENT-12 | pagination | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
-| COMPONENT-13 | tag | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
-| COMPONENT-14 | progress-bar | 컴포넌트 명세 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
-| COMPONENT-15 | selection-card(사용처 없음, 2026-10-23 결정) | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-05 | 완료(#50) |
-| COMPONENT-16 | form-add-button | 컴포넌트 명세 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
-| UI-01 | 패키지 빌드 구성 | 컴포넌트 구현 | 2 | 하루이틀 | REPO-06 | 대기 |
-| UI-02 | Storybook | 컴포넌트 구현 | 2 | 하루이틀 | UI-01 | 대기 |
-| UI-03 | Button | 컴포넌트 구현 | 2 | 하루이틀 | UI-01, UI-02, COMPONENT-01 | 대기 |
-| UI-04 | TextField | 컴포넌트 구현 | 2 | 하루이틀 | UI-01, UI-02, COMPONENT-02 | 대기 |
-| UI-05 | Select | 컴포넌트 구현 | 2 | 한 주 | UI-01, UI-02, COMPONENT-03 | 대기 |
-| UI-06 | Checkbox | 컴포넌트 구현 | 2 | 몇 시간 | UI-01, UI-02, COMPONENT-04 | 대기 |
-| UI-07 | Radio | 컴포넌트 구현 | 2 | 몇 시간 | UI-01, UI-02, COMPONENT-05 | 대기 |
-| UI-08 | Tab | 컴포넌트 구현 | 2 | 하루이틀 | UI-01, UI-02, COMPONENT-06 | 대기 |
-| UI-09 | Modal | 컴포넌트 구현 | 2 | 하루이틀 | UI-01, UI-02, UI-03, COMPONENT-07 | 대기 |
-| UI-10 | Card | 컴포넌트 구현 | 2 | 하루이틀 | UI-01, UI-02, COMPONENT-08 | 대기 |
-| REPO-07 | `v0.2.0` 릴리스 | 저장소·규칙 | 2 | 몇 시간 | UI-01~10 | 대기 |
-| UI-11 | FilterChip | 컴포넌트 구현 | 3 | 몇 시간 | UI-03, COMPONENT-09 | 대기 |
-| UI-12 | TagChip | 컴포넌트 구현 | 3 | 몇 시간 | UI-11, COMPONENT-10 | 대기 |
-| UI-13 | SearchAutocomplete | 컴포넌트 구현 | 3 | 몇 시간 | UI-04, COMPONENT-11 | 대기 |
-| UI-14 | Pagination | 컴포넌트 구현 | 3 | 하루이틀 | UI-03, COMPONENT-12 | 대기 |
-| UI-15 | Tag | 컴포넌트 구현 | 3 | 몇 시간 | UI-01, UI-02, COMPONENT-13 | 대기 |
-| UI-16 | ProgressBar | 컴포넌트 구현 | 3 | 몇 시간 | UI-01, UI-02, COMPONENT-14 | 대기 |
-| UI-17 | FormAddButton | 컴포넌트 구현 | 3 | 몇 시간 | UI-03, UI-04, COMPONENT-16 | 대기 |
-| REPO-09 | Phase 3 릴리스(`v0.2.x`) | 저장소·규칙 | 3 | 몇 시간 | UI-11~17 | 대기 |
+| COMPONENT-09 | filter-chip | 컴포넌트 | 3 | 몇 시간 | COMPONENT-06 | 완료(#50) |
+| COMPONENT-10 | tag-chip | 컴포넌트 | 3 | 몇 시간 | COMPONENT-09 | 완료(#50) |
+| COMPONENT-11 | search-autocomplete | 컴포넌트 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
+| COMPONENT-12 | pagination | 컴포넌트 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-13 | tag | 컴포넌트 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-14 | progress-bar | 컴포넌트 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
+| COMPONENT-15 | selection-card(사용처 없음, 2026-10-23 결정) | 컴포넌트 | 3 | 몇 시간 | COMPONENT-05 | 완료(#50) |
+| COMPONENT-16 | form-add-button | 컴포넌트 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
+| COMPONENT-17 | 패키지 빌드 구성 | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 대기 |
+| COMPONENT-18 | Storybook | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17 | 대기 |
+| COMPONENT-19 | Button | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-01 | 대기 |
+| COMPONENT-20 | TextField | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-02 | 대기 |
+| COMPONENT-21 | Select | 컴포넌트 | 2 | 한 주 | COMPONENT-17, COMPONENT-18, COMPONENT-03 | 대기 |
+| COMPONENT-22 | Checkbox | 컴포넌트 | 2 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-04 | 대기 |
+| COMPONENT-23 | Radio | 컴포넌트 | 2 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-05 | 대기 |
+| COMPONENT-24 | Tab | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-06 | 대기 |
+| COMPONENT-25 | Modal | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-19, COMPONENT-07 | 대기 |
+| COMPONENT-26 | Card | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-08 | 대기 |
+| REPO-07 | `v0.2.0` 릴리스 | 저장소·규칙 | 2 | 몇 시간 | COMPONENT-17~26 | 대기 |
+| COMPONENT-27 | FilterChip | 컴포넌트 | 3 | 몇 시간 | COMPONENT-19, COMPONENT-09 | 대기 |
+| COMPONENT-28 | TagChip | 컴포넌트 | 3 | 몇 시간 | COMPONENT-27, COMPONENT-10 | 대기 |
+| COMPONENT-29 | SearchAutocomplete | 컴포넌트 | 3 | 몇 시간 | COMPONENT-20, COMPONENT-11 | 대기 |
+| COMPONENT-30 | Pagination | 컴포넌트 | 3 | 하루이틀 | COMPONENT-19, COMPONENT-12 | 대기 |
+| COMPONENT-31 | Tag | 컴포넌트 | 3 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-13 | 대기 |
+| COMPONENT-32 | ProgressBar | 컴포넌트 | 3 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-14 | 대기 |
+| COMPONENT-33 | FormAddButton | 컴포넌트 | 3 | 몇 시간 | COMPONENT-19, COMPONENT-20, COMPONENT-16 | 대기 |
+| REPO-09 | Phase 3 릴리스(`v0.2.x`) | 저장소·규칙 | 3 | 몇 시간 | COMPONENT-27~33 | 대기 |
 | ADOPT-01 | frontend 토큰 연결 | 앱 적용 | 4 | 하루이틀 | REPO-06 | 대기 |
 | ADOPT-02 | frontend_admin 토큰 연결 | 앱 적용 | 4 | 몇 시간 | REPO-06 | 대기 |
-| ADOPT-03 | frontend 값 불일치 정리·컴포넌트 교체 | 앱 적용 | 4 | 두 주 | ADOPT-01, UI-03~17(03-09~21) | 대기 |
-| ADOPT-04 | frontend `alert()` → 모달 교체 | 앱 적용 | 4 | 하루이틀 | UI-09, PATTERN-01 | 대기 |
+| ADOPT-03 | frontend 값 불일치 정리·컴포넌트 교체 | 앱 적용 | 4 | 두 주 | ADOPT-01, COMPONENT-19~33(03-09~21) | 대기 |
+| ADOPT-04 | frontend `alert()` → 모달 교체 | 앱 적용 | 4 | 하루이틀 | COMPONENT-25, PATTERN-01 | 대기 |
 | ADOPT-05 | frontend_admin 값 기준 확정 | 앱 적용 | 4 | 하루이틀 | ADOPT-02 | 대기 |
 | ADOPT-06 | frontend_admin 화면 값 통일 | 앱 적용 | 4 | 한 주 | ADOPT-05 | 대기 |
-| ADOPT-07 | frontend_admin 공용 컴포넌트 | 앱 적용 | 4 | 한 주 | ADOPT-06, UI-03~10·14 | 대기 |
+| ADOPT-07 | frontend_admin 공용 컴포넌트 | 앱 적용 | 4 | 한 주 | ADOPT-06, COMPONENT-19~26·30 | 대기 |
 
 ---
 

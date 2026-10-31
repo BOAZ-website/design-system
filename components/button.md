@@ -59,7 +59,7 @@ last_updated: 2026-10-30
 
 - outlined: Figma 버튼 세트에는 없고 login&save 페이지의 임시저장 버튼 프레임(컴포넌트 아님)에 있음. 시안 프레임 Figma 8103:17027, Figma 8103:17028
 - destructive(2026-10-30 결정, #82)
-  - Figma(홈페이지 전용)에 위험 버튼이 없음. 관리자 콘솔이 쓰는 모양을 variant로 둠. 크기가 아니라 모양이 달라 컴포넌트 CSS 변수가 아니라 variant로 추가함(`docs/wbs/45-ui.md` "관리자 콘솔 적용 방식")
+  - Figma(홈페이지 전용)에 위험 버튼이 없음. 관리자 콘솔이 쓰는 모양을 variant로 둠. 크기가 아니라 모양이 달라 컴포넌트 CSS 변수가 아니라 variant로 추가함(`docs/wbs/30-component.md` "관리자 콘솔 적용 방식")
   - 모양은 채움형(빨간 바탕 + 대비 글자)으로 정함. 근거: 관리자 위험 동작 버튼 실측에서 확인 모달의 확인 버튼이 채움형(코드 `src/pages/content-faq/ui/FaqSection.tsx` `ConfirmModal`의 `danger`)이고, ADOPT-06-03이 위험 버튼을 `bg-destructive`(채움)로 바꾸기로 정함
   - 외곽선형(코드 `src/pages/content-archive/ui/ArchivingSection.tsx` 편집 모달 "삭제" 1곳)과 옅은 바탕형(코드 `src/shared/ui/Btn.tsx` `danger`, import 0곳)은 variant로 두지 않음. 외곽선형 1곳은 ADOPT-07-02에서 destructive로 바꿈
   - 아이콘만 있는 삭제 버튼(평소 회색, hover 때 빨간 글자. 관리자 9곳)은 이 variant 대상이 아님. 11절 미확인

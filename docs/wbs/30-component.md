@@ -1,16 +1,16 @@
-# COMPONENT 컴포넌트 작업 정의서
+# COMPONENT 컴포넌트 명세·구현 작업 정의서
 
-기준일 2026-09-28, 2026-10-22 인수인계 준비로 양식·티켓 정정, 2026-10-30 구현 범위 추가로 정정 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
+기준일 2026-09-28, 2026-10-22 인수인계 준비로 양식·티켓 정정, 2026-10-30 구현 범위 추가·구현 티켓 통합으로 정정 · → 전체 구성은 `docs/wbs/00-wbs.md` 참조
 
 ## 작업 정의서 목적
 
 - Figma Components 페이지의 컴포넌트를 `components/<id>.md` 명세로 옮김
 - 값 우선순위: 라이브에 있는 UI는 라이브 값, 없는 UI는 Figma 값. 토큰과 다르면 토큰 이름이 아니라 raw 값으로 적고 토큰 추가는 별도 이슈(2026-10-22 결정). 라이브에서 볼 수 없는 지원서 화면은 frontend 코드 값을 라이브 값으로 봄
 - 상태를 한 가지 방식으로 정의함: **기본 상태**(default · disabled · selected · invalid · completed 중 하나) × **상호작용**(rest · hover · press · focus-visible). `hover-selected`처럼 두 상태를 합친 이름을 만들지 않고 selected 행의 hover 칸에 적음
-- 이 작업 정의서는 명세만 만듦. 명세는 컴포넌트 구현(UI 작업 정의서 `docs/wbs/45-ui.md`)의 입력임(2026-10-30 결정). 명세마다 frontend 현재 구현 위치와 대응하는 ADOPT 티켓을 적음
+- 명세(COMPONENT-01~16)를 먼저 만들고, 명세를 입력으로 React 컴포넌트를 구현함(COMPONENT-17~33, 아래 "구현" 절. 2026-10-30 결정). 명세마다 frontend 현재 구현 위치와 대응하는 ADOPT 티켓을 적음
 
-**범위:** 공개 홈페이지 컴포넌트(라이브·Figma 기준). 명세의 값(색·크기)은 홈페이지 기준이고, 관리자 콘솔은 같은 컴포넌트를 쓰되 색·크기를 관리자 값으로 바꿔 씀(방식은 `docs/wbs/45-ui.md` 미결). 동작·접근성은 두 앱 모두 명세를 따름
-**범위 밖:** 페이지 전용 조각(커리큘럼 주차 행, 리크루팅 섹션, 탭바·푸터 레이아웃), 컴포넌트 코드(UI 작업 정의서에서 함)
+**범위:** 공개 홈페이지 컴포넌트(라이브·Figma 기준). 명세의 값(색·크기)은 홈페이지 기준이고, 관리자 콘솔은 같은 컴포넌트를 쓰되 색·크기를 관리자 값으로 바꿔 씀(방식은 아래 "관리자 콘솔 적용 방식"). 동작·접근성은 두 앱 모두 명세를 따름
+**범위 밖:** 페이지 전용 조각(커리큘럼 주차 행, 리크루팅 섹션, 탭바·푸터 레이아웃), 관리자 전용 컴포넌트(ADOPT-07)
 
 ### 명세 파일 양식
 
@@ -44,10 +44,10 @@
 | --- | --- | --- |
 | draft | 파일 생성. 빈 칸은 "미확인" 절에 둠 | 작성자 |
 | review | 템플릿의 절이 모두 채워짐(해당 없는 절은 "해당 없음"과 이유). 참조 토큰이 모두 `tokens/`에 있음. frontmatter의 `figma_verified`가 `true`. 티켓의 "완료 확인 방법"을 전부 충족 | 작성자가 PR에서 올림. 작성자가 아닌 리뷰어가 승인한 뒤 머지함. 리뷰어가 없을 때의 절차는 CONTRIBUTING.md "리뷰와 머지" |
-| stable | `review` 상태로 `dev`에 머지된 뒤, 이 명세의 컴포넌트(UI 티켓)가 구현되고 앱 PR(ADOPT-03·04·07)에서 명세대로 확인됨 | 작성자가 아닌 리뷰어가 별도 PR로 올림 |
+| stable | `review` 상태로 `dev`에 머지된 뒤, 이 명세의 컴포넌트(COMPONENT-17~33)가 구현되고 앱 PR(ADOPT-03·04·07)에서 명세대로 확인됨 | 작성자가 아닌 리뷰어가 별도 PR로 올림 |
 
 - 명세의 완료 기준은 `review`까지. `stable`은 컴포넌트 구현과 앱 적용이 끝난 뒤 올림
-- 선행 티켓이 COMPONENT·PATTERN이면 해당 명세가 `review` 이상일 때 선행이 풀린 것으로 봄. `stable` 전에 값이 바뀌면 명세 PR 본문에 영향 UI·ADOPT 티켓을 적음
+- 선행 티켓이 COMPONENT·PATTERN이면 해당 명세가 `review` 이상일 때 선행이 풀린 것으로 봄. `stable` 전에 값이 바뀌면 명세 PR 본문에 영향 구현·ADOPT 티켓을 적음
 
 ---
 
@@ -236,3 +236,249 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | COMPONENT-16-01 | "+ 항목 추가"·"− 삭제(빼기 아이콘 버튼)" 행, 기본 상태 default의 상호작용 rest·hover·press·focus-visible(Figma 이름 Active_Focus는 focus-visible 칸에 적음), 삭제 hover 빨강 | `components/form-add-button.md`(인터랙션 세트 5188:454 중 Active_Focus 5775:9707, close 5755:10062, 모바일 7578:14703. 2009:4216은 이전 판)(2026-10-22 Figma 재확인으로 정정) |
+
+---
+
+## 구현(COMPONENT-17~33)
+
+- `components/<id>.md` 명세(COMPONENT-01~16)를 React 컴포넌트로 구현해 이 저장소 패키지(`@boaz/design-system`)로 배포함(2026-10-30 결정)
+- 공개 홈페이지(`frontend`)와 관리자 콘솔(`frontend_admin`)이 같은 컴포넌트를 씀. 앱은 git 태그로 설치하고 화면의 직접 마크업을 패키지 컴포넌트로 바꿈(ADOPT-03·04·07)
+- 명세가 결과물의 정의임. 값·상태·동작·접근성은 명세를 따르고, 구현 중 명세와 다른 점을 발견하면 명세 수정 이슈를 먼저 냄
+
+**범위:** 패키지 빌드 구성, Storybook, P0 8종(button, text-field, select, checkbox, radio, tab, modal, card), P1 7종(filter-chip, tag-chip, search-autocomplete, pagination, tag, progress-bar, form-add-button)
+**범위 밖:** selection-card(사용처 없음, 2026-10-23 결정), search-autocomplete 결과 패널(2026-10-23 보류), 관리자 전용 컴포넌트(표, 빈 상태·불러오기 실패 안내, 날짜 입력. ADOPT-07에서 `frontend_admin`에 만듦), npm 레지스트리 배포, Storybook 사이트 배포
+
+### 구현 규칙
+
+| 항목 | 규칙 |
+| --- | --- |
+| 위치 | `src/components/<id>/`에 `<Name>.tsx`, `<Name>.module.css`, `<Name>.stories.tsx`, `<Name>.test.tsx`. `<id>`는 명세 파일 이름과 같음 |
+| 스타일 | 컴포넌트별 CSS Modules 파일. 값은 `var(--boaz-*)` 토큰 변수로만 씀. 명세의 `raw:` 값만 CSS에 직접 적고 "비토큰 값" 절을 주석으로 가리킴 |
+| 색 참조 | 시맨틱 색 변수(`--boaz-color-bg-*`·`--boaz-color-fg-*`·`--boaz-color-stroke-*`)를 씀. 팔레트 변수 직접 참조는 명세가 팔레트 경로로 적은 칸만 씀. 관리자 콘솔이 시맨틱 변수를 덮어써 색을 바꿀 수 있게 하기 위함 |
+| 스타일 방식 | 앱의 스타일 도구(Vanilla Extract·Tailwind)에 의존하지 않음. 앱은 `tokens.css`와 패키지 CSS를 import만 하면 됨 |
+| React | `react`·`react-dom`은 peer 의존성(두 앱 모두 19). 패키지에 React를 넣지 않음 |
+| 상태 | 명세 4절 States의 기본 상태(default · disabled · selected · invalid · completed) × 상호작용(rest · hover · press · focus-visible)을 모두 구현함. 상태 이름은 명세 그대로 prop·data 속성 이름에 씀 |
+| 접근성 | 명세 7절 Accessibility의 role·키보드·aria·포커스 링·터치 영역을 모두 구현함. 키보드 동작은 테스트로 확인함 |
+| 이름 | 컴포넌트 이름은 PascalCase(`Button`, `TextField`). variant·size 값은 명세 3절 이름 그대로 씀. FE 합의 이름(`large-round` 등)은 명세 9절 대응표로만 찾음 |
+| 크기 | 높이·패딩·글자 크기·행간·모서리는 컴포넌트 CSS 변수 `--boaz-<id>-<속성>`(예: `--boaz-button-height`)으로 읽고 명세 3절 값을 fallback으로 둠(`height: var(--boaz-button-height, 42px)`). 패키지는 이 변수를 선언하지 않음. 관리자 콘솔이 `theme.css`에서 덮어써 ADOPT-05 크기를 적용함. 패키지는 관리자 크기 값을 갖지 않음(2026-10-30 결정) |
+| 확인 | 티켓마다 story(상태 조합별)와 테스트(키보드·aria). `npm run build`·`npm test`·Storybook 빌드가 CI에서 통과해야 머지함 |
+
+- COMPONENT-19(button)을 먼저 끝내 구현 양식(파일 구성, prop 이름 방식, story·테스트 구성)을 확정하고 나머지는 그 양식으로 씀. 첫 PR 리뷰가 양식 확정 리뷰를 겸함
+- COMPONENT-19~26은 COMPONENT-17·18 뒤에 서로 선행 없이 진행할 수 있음. 단, text-field를 쓰는 컴포넌트(search-autocomplete, form-add-button)는 COMPONENT-20 뒤에 함
+
+### 관리자 콘솔 적용 방식 (2026-10-30 결정)
+
+- 색: 관리자 `theme.css`에서 시맨틱 색 변수(`--boaz-color-bg-*` 등)를 덮어씀
+- 크기: 위 "크기" 행의 컴포넌트 CSS 변수를 관리자 `theme.css`의 `:root`에서 덮어씀. 한 컴포넌트에 크기가 두 가지 이상 필요하면(예: 표 행·툴바 버튼 32px) 그 자리에만 클래스로 변수 값을 지정함
+- 접근성 값(포커스 링 굵기·간격, 누르는 영역 24×24 이상)은 변수로 열지 않고 컴포넌트 CSS에 고정함. 포커스 링 색은 시맨틱 색 덮어쓰기로 바꿀 수 있음
+- 근거: 관리자 크기는 관리자 콘솔이 정함(ADOPT-05). 관리자 값이 패키지에 있으면 값을 바꿀 때마다 릴리스가 필요해 2026-12 오픈 일정에 병목이 됨. 밀도 모드(`data-density`)·관리자용 size 값은 같은 이유로 채택하지 않음
+- 크기가 아니라 모양이 다른 경우는 변수로 처리하지 않고 명세에 variant를 추가함: text-field 상자형(#81, COMPONENT-20 착수 전), button destructive(#82, COMPONENT-19 착수 전)
+- 컴포넌트 CSS 변수 규칙
+  - `tokens/` JSON과 `dist/tokens.css`에 넣지 않음. `AGENTS.md` "토큰 이름 규칙"의 컴포넌트 전용 토큰 계층에 해당하지 않음
+  - 컴포넌트 루트·size 클래스에서 변수에 값을 선언하지 않음. 선언하면 앱이 덮어쓴 값이 적용되지 않음
+  - 컴포넌트마다 변수 목록을 story 문서 설명에 적음. 변수 이름 삭제·변경은 prop 이름 삭제·변경과 같은 breaking 변경으로 봄
+  - Storybook 관리자 배경(COMPONENT-18-02)에 관리자 크기 덮어쓰기 예시를 함께 넣어 관리자 크기에서 화면이 깨지지 않는지 확인함
+
+---
+
+## COMPONENT-17 패키지 빌드 구성
+
+**목적:** 토큰만 배포하던 패키지에 React 컴포넌트 빌드를 추가함
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 하루이틀 | REPO-06 | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-17-01 | TypeScript·Vite 라이브러리 빌드 구성. `react`·`react-dom`을 peer 의존성과 빌드 제외(external)로 둠 | `npm run build` 후 `dist/`에 컴포넌트 JS·타입·CSS 생성, 번들에 React 코드 없음 |
+| COMPONENT-17-02 | `npm run build` 하나로 토큰 빌드(Style Dictionary)와 컴포넌트 빌드를 함께 실행. 기존 `dist/` 토큰 파일 4종의 경로·내용은 바꾸지 않음 | 빌드 전후 `git diff -- dist/tokens.css dist/tokens.js dist/tokens.d.ts dist/tailwind-theme.css` 변경 없음 |
+| COMPONENT-17-03 | `package.json` `exports`에 컴포넌트 진입점(`.`)과 컴포넌트 CSS(`./styles.css`) 추가. 기존 `./tokens.css`·`./tokens`·`./tailwind-theme.css` 유지 | 빈 Vite + React 19 프로젝트에서 git 태그 설치 후 `import { Button } from '@boaz/design-system'` 타입 검사·빌드 통과 |
+| COMPONENT-17-04 | 키보드·aria 동작 테스트 환경(Vitest, Testing Library, jsdom). `npm test` 스크립트 | 예시 테스트 1개 통과 |
+| COMPONENT-17-05 | CI에 타입 검사·테스트 추가. `dist/` 일치 검사 대상에 컴포넌트 빌드 결과 포함 | 일부러 `dist/`를 빼고 push한 PR에서 CI 실패 |
+| COMPONENT-17-06 | `AGENTS.md`에 컴포넌트 구현 절차, `CONTRIBUTING.md`에 개발 명령(`npm test`, Storybook) 반영 | 두 문서의 해당 절 |
+
+## COMPONENT-18 Storybook
+
+**목적:** 컴포넌트를 앱 없이 상태별로 확인하고 리뷰할 수 있게 함
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 하루이틀 | COMPONENT-17 | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-18-01 | Storybook(React + Vite) 설치, `npm run storybook`·`npm run build-storybook` 스크립트. `tokens.css`를 전역으로 불러옴 | 로컬에서 Storybook 실행, story 화면에 `--boaz-*` 변수 적용 |
+| COMPONENT-18-02 | 배경 전환: 홈페이지(검정 바탕 `color.bg.canvas`)와 관리자 콘솔(흰 바탕, 시맨틱 색·크기 변수 덮어쓰기 예시 포함) 두 가지 | 툴바에서 전환 시 관리자 색·크기로 바뀜 |
+| COMPONENT-18-03 | 접근성 검사 애드온(a11y) 추가 | story마다 접근성 패널 표시 |
+| COMPONENT-18-04 | CI에서 Storybook 빌드 실행 | Storybook 빌드 실패 시 CI 실패 |
+
+## COMPONENT-19 Button 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-01(#82 반영) | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-19-01 | variant(brand, neutral, glass, text-link, outlined, #82에서 추가하는 destructive)와 size를 `components/button.md` 3절대로 구현 | variant·size별 story |
+| COMPONENT-19-02 | 4절 States 전부(disabled, hover·press·focus-visible). focus-visible은 `stroke.focus` 2px, offset 2px. 흰 표면 위는 `stroke.focus-inverse` | 상태별 story, 접근성 패널 위반 0건 |
+| COMPONENT-19-03 | 5절 Behavior의 pending(비동기 중) 표시와 중복 클릭 방지 | pending story, 테스트 |
+| COMPONENT-19-04 | 7절 Accessibility: `<button>` 요소, `type` 기본값 `button`, 아이콘만 있는 버튼의 `aria-label` | 테스트(Enter·Space 동작, 이름) |
+
+## COMPONENT-20 TextField 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-02(#81 반영) | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-20-01 | 한 줄 입력(`<input>`)과 여러 줄 입력(`<textarea>`), #81에서 추가하는 상자형 variant를 `components/text-field.md` 3절대로 구현 | variant별 story |
+| COMPONENT-20-02 | 라벨 요소와 입력칸 연결, 라벨 축소 동작 | 테스트(라벨로 입력칸 찾기) |
+| COMPONENT-20-03 | 4절 States(hover, focus-visible, invalid, disabled). 오류 문구를 `aria-invalid`·`aria-describedby`로 연결 | 상태별 story, 테스트 |
+
+## COMPONENT-21 Select 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 한 주 | COMPONENT-17, COMPONENT-18, COMPONENT-03 | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-21-01 | field와 목록을 `components/select.md` 3·4절대로 구현(check 아이콘, field hover·focus·열림 상태) | 상태별 story |
+| COMPONENT-21-02 | `role="combobox"`·`listbox`·`option`, `aria-expanded`·`aria-activedescendant`·`aria-selected` | 테스트(role·aria 값) |
+| COMPONENT-21-03 | 키보드: 방향키·Home/End·Esc·타이핑 검색. 목록 항목은 Tab 대상이 아님 | 테스트(키 입력별 선택 항목) |
+| COMPONENT-21-04 | 다중 선택일 때 선택값 칩 표시는 COMPONENT-27(filter-chip)이 생기면 연결함. 그 전에는 명세 기본 표시를 씀 | story |
+
+## COMPONENT-22 Checkbox 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-04 | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-22-01 | `components/checkbox.md`의 상자(radius 5, 1px 보더, checked `color.bg.brand-solid`)와 표 문항용 원 모양 | variant·상태별 story |
+| COMPONENT-22-02 | 숨긴 `<input type="checkbox">`의 포커스를 보이는 상자에 표시, 라벨 연결 | 테스트(Space로 체크, 라벨 클릭) |
+
+## COMPONENT-23 Radio 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-05 | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-23-01 | `components/radio.md`의 원과 상태(hover 흰 테두리, disabled) | 상태별 story |
+| COMPONENT-23-02 | 묶음 컴포넌트: `<fieldset>`·`<legend>` 또는 `role="radiogroup"` + 제목 연결. 방향키 이동 | 테스트(방향키 이동, 묶음 이름) |
+
+## COMPONENT-24 Tab 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-06 | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-24-01 | `components/tab.md` 3절의 variant(category 등)와 4절 상태 | variant·상태별 story |
+| COMPONENT-24-02 | `role="tablist"`·`tab`·`tabpanel`, `aria-selected`, 방향키 이동 | 테스트(방향키 이동, 선택 시 패널 전환) |
+
+## COMPONENT-25 Modal 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-19, COMPONENT-07 | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-25-01 | `components/modal.md`의 오버레이·본문·버튼 영역(모달 안 버튼은 COMPONENT-19 Button 사용) | 종류별 story |
+| COMPONENT-25-02 | role은 명세대로 `alertdialog`. 관리자 콘솔용 확인·입력 모달을 위해 `dialog`도 고를 수 있게 함(ADOPT-07 관리자 모달 규칙) | 테스트(role 값) |
+| COMPONENT-25-03 | 열 때 포커스 이동, 포커스 가두기, Esc 닫기, 닫은 뒤 연 요소로 포커스 복귀, 뒤 화면 스크롤 막기 | 테스트(Tab 순환, Esc, 포커스 복귀) |
+| COMPONENT-25-04 | `patterns/feedback.md`의 모달 사용처(확인, loading, 안내)를 story로 둠 | 사용처별 story |
+
+## COMPONENT-26 Card 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-08 | 2 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-26-01 | `components/card.md` 3절의 variant(project, photo, blog 등)와 hover | variant별 story |
+| COMPONENT-26-02 | 링크 카드: 제목 링크 + 클릭 영역 확장(stretched-link). 카드 전체를 `<a>`로 감싸지 않음 | 테스트(링크 이름이 제목) |
+
+## COMPONENT-27 FilterChip 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | COMPONENT-19, COMPONENT-09 | 3 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-27-01 | `components/filter-chip.md`의 칩과 상태 | 상태별 story |
+| COMPONENT-27-02 | ✕ 버튼에 `aria-label="{값} 선택 해제"` | 테스트(버튼 이름) |
+
+## COMPONENT-28 TagChip 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | COMPONENT-27, COMPONENT-10 | 3 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-28-01 | `components/tag-chip.md`의 칩과 상태, ✕ 버튼 이름 | 상태별 story, 테스트 |
+
+## COMPONENT-29 SearchAutocomplete 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | COMPONENT-20, COMPONENT-11 | 3 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-29-01 | `components/search-autocomplete.md`의 검색 입력(`<input type="search">`, `aria-label`). 결과 패널은 보류 범위라 구현하지 않음 | story |
+| COMPONENT-29-02 | 결과 수 안내 영역(`role="status"`): 앱이 넘긴 결과 수로 "검색 결과 N건"·"검색 결과가 없습니다." | 테스트(안내 문구) |
+
+## COMPONENT-30 Pagination 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 하루이틀 | COMPONENT-19, COMPONENT-12 | 3 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-30-01 | `components/pagination.md`의 점·번호형, 화살표, 데스크톱·모바일 크기 | 형태·폭별 story |
+| COMPONENT-30-02 | `<nav aria-label>`, 현재 페이지 `aria-current="page"`, 처음·끝 화살표 `aria-disabled`, 누르는 영역 24×24 이상 | 테스트(aria 값) |
+
+## COMPONENT-31 Tag 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-13 | 3 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-31-01 | `components/tag.md`의 variant. 누를 수 없는 표시용이라 `<span>`으로 만듦 | variant별 story |
+
+## COMPONENT-32 ProgressBar 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-14 | 3 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-32-01 | `components/progress-bar.md`의 segment(`<span aria-hidden="true">`)와 단계 표시 | 단계별 story |
+| COMPONENT-32-02 | root에 `role="progressbar"`·`aria-valuenow`·`aria-valuemin`·`aria-valuemax`·`aria-valuetext` | 테스트(aria 값) |
+
+## COMPONENT-33 FormAddButton 구현
+
+| 규모 | 선행 | Phase | GitHub 이슈 |
+| --- | --- | --- | --- |
+| 몇 시간 | COMPONENT-19, COMPONENT-20, COMPONENT-16 | 3 | 없음 |
+
+| 기능 ID | 기능 | 완료 확인 방법 |
+| --- | --- | --- |
+| COMPONENT-33-01 | `components/form-add-button.md`의 add 행(`<button type="button">`, "+"는 `aria-hidden="true"`)과 삭제 버튼(`aria-label="{항목 이름} {번호} 삭제"`) | story, 테스트(버튼 이름) |
+| COMPONENT-33-02 | 추가 후 새 입력칸, 삭제 후 이웃 행으로 포커스 이동 | 테스트(포커스 위치) |
