@@ -35,9 +35,10 @@
 1. 배정받은 구현 티켓 이슈 번호를 확인합니다. 없으면 커밋하지 않습니다.
 2. `components/<id>.md` 명세를 먼저 읽습니다. 값·상태·동작·접근성은 명세가 기준입니다. 명세와 다르게 구현해야 할 이유가 생기면 구현 PR에서 바꾸지 말고 명세 수정 이슈를 먼저 냅니다.
 3. 값은 `var(--boaz-*)` 토큰 변수로만 씁니다. 명세의 `raw:` 값만 CSS에 직접 적습니다.
-4. 상태 조합별 story와 키보드·aria 테스트를 함께 씁니다.
-5. `npm run build`로 만든 `dist/`를 같은 커밋에 넣습니다. `npm test`와 Storybook 빌드가 통과해야 합니다.
-6. `docs/wbs/30-component.md`의 해당 티켓 "완료 확인 방법"을 하나씩 대조합니다. PR 제목은 `[Feat] COMPONENT-19 Button` 꼴, 커밋 type은 `feat`입니다.
+4. 상태 조합별 story와 키보드·aria 테스트(`src/components/<id>/<Name>.test.tsx`, Vitest·Testing Library)를 함께 씁니다.
+5. 공개할 컴포넌트는 `src/index.ts`에서 export합니다. 컴포넌트 CSS는 `dist/styles.css` 하나로 묶여 나옵니다.
+6. `npm run typecheck`, `npm test`, `npm run build`가 통과해야 합니다(Storybook 빌드는 COMPONENT-18 이후 추가). `npm run build`는 토큰(`dist/tokens.*`)과 컴포넌트(`dist/index.js`·`index.d.ts`·`styles.css`)를 함께 만들며, 이 `dist/`를 같은 커밋에 넣습니다. CI `Tokens Build`가 `dist/`가 다르면 실패시킵니다.
+7. `docs/wbs/30-component.md`의 해당 티켓 "완료 확인 방법"을 하나씩 대조합니다. PR 제목은 `[Feat] COMPONENT-19 Button` 꼴, 커밋 type은 `feat`입니다.
 
 ## 토큰 이름 규칙
 
