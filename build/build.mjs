@@ -3,9 +3,11 @@
 //   tokens.js           var() 참조를 담은 중첩 객체(Vanilla Extract 등에서 사용, ESM)
 //   tokens.d.ts         tokens.js 타입
 //   tailwind-theme.css  Tailwind v4 @theme inline 별칭(--color-boaz-* 등)
+import { execFileSync } from 'node:child_process';
 import { globSync } from 'node:fs';
 import { rename, rm } from 'node:fs/promises';
 import StyleDictionary from 'style-dictionary';
+import { build as viteBuild } from 'vite';
 
 const PREFIX = 'boaz';
 const BUILD_DIR = 'dist.tmp';
@@ -117,9 +119,11 @@ const sd = new StyleDictionary({
   },
 });
 
-// 임시 폴더에 먼저 만들고 성공했을 때만 dist/ 와 바꾼다. 빌드가 실패해도 커밋된 dist/ 는 남는다.
-// 이름이 바뀐 생성물(예: 예전 tokens.ts)이 남지 않게 통째로 교체한다.
+// 토큰·컴포넌트·타입을 모두 임시 폴더에 만들고, 세 단계가 다 성공했을 때만 dist/ 와 바꾼다.
+// 빌드가 실패해도 커밋된 dist/ 는 남는다. 이름이 바뀐 생성물(예: 예전 tokens.ts)이 남지 않게 통째로 교체한다.
 await rm(BUILD_DIR, { recursive: true, force: true });
 await sd.buildAllPlatforms();
+await viteBuild({ logLevel: 'warn', build: { outDir: BUILD_DIR } });
+execFileSync('node_modules/.bin/tsc', ['-p', 'tsconfig.build.json', '--outDir', BUILD_DIR], { stdio: 'inherit' });
 await rm('dist', { recursive: true, force: true });
 await rename(BUILD_DIR, 'dist');

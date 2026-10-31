@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: { entry: 'src/index.ts', formats: ['es'], fileName: 'index', cssFileName: 'styles' },
-    // dist/ 의 토큰 생성물(build/build.mjs)을 지우지 않는다. 토큰 빌드가 먼저 돈다.
+    // build/build.mjs 가 outDir 을 임시 폴더로 바꿔 호출한다. 그 폴더의 토큰 생성물을 지우지 않는다.
     emptyOutDir: false,
     rollupOptions: { external: ['react', 'react-dom', 'react/jsx-runtime'] },
   },
