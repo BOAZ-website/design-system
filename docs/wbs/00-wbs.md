@@ -172,17 +172,17 @@ Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 �
 | COMPONENT-14 | progress-bar | 컴포넌트 | 3 | 몇 시간 | REPO-06 | 완료(#50) |
 | COMPONENT-15 | selection-card(사용처 없음, 2026-10-23 결정) | 컴포넌트 | 3 | 몇 시간 | COMPONENT-05 | 완료(#50) |
 | COMPONENT-16 | form-add-button | 컴포넌트 | 3 | 몇 시간 | COMPONENT-02 | 완료(#50) |
-| COMPONENT-17 | 패키지 빌드 구성 | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 대기 |
-| COMPONENT-18 | Storybook | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17 | 대기 |
-| COMPONENT-19 | Button | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-01 | 대기 |
-| COMPONENT-20 | TextField | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-02 | 대기 |
-| COMPONENT-21 | Select | 컴포넌트 | 2 | 한 주 | COMPONENT-17, COMPONENT-18, COMPONENT-03 | 대기 |
-| COMPONENT-22 | Checkbox | 컴포넌트 | 2 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-04 | 대기 |
-| COMPONENT-23 | Radio | 컴포넌트 | 2 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-05 | 대기 |
-| COMPONENT-24 | Tab | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-06 | 대기 |
-| COMPONENT-25 | Modal | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-19, COMPONENT-07 | 대기 |
-| COMPONENT-26 | Card | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-08 | 대기 |
-| REPO-07 | `v0.2.0` 릴리스 | 저장소·규칙 | 2 | 몇 시간 | COMPONENT-17~26 | 대기 |
+| COMPONENT-17 | 패키지 빌드 구성 | 컴포넌트 | 2 | 하루이틀 | REPO-06 | 대기(#83) |
+| COMPONENT-18 | Storybook | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17 | 대기(#84) |
+| COMPONENT-19 | Button | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-01 | 대기(#85) |
+| COMPONENT-20 | TextField | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-02 | 대기(#86) |
+| COMPONENT-21 | Select | 컴포넌트 | 2 | 한 주 | COMPONENT-17, COMPONENT-18, COMPONENT-03 | 대기(#87) |
+| COMPONENT-22 | Checkbox | 컴포넌트 | 2 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-04 | 대기(#88) |
+| COMPONENT-23 | Radio | 컴포넌트 | 2 | 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-05 | 대기(#89) |
+| COMPONENT-24 | Tab | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-06 | 대기(#90) |
+| COMPONENT-25 | Modal | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-19, COMPONENT-07 | 대기(#91) |
+| COMPONENT-26 | Card | 컴포넌트 | 2 | 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-08 | 대기(#92) |
+| REPO-07 | `v0.2.0` 릴리스 | 저장소·규칙 | 2 | 몇 시간 | COMPONENT-17~26 | 대기(#93) |
 | COMPONENT-27 | FilterChip | 컴포넌트 | 3 | 몇 시간 | COMPONENT-19, COMPONENT-09 | 대기 |
 | COMPONENT-28 | TagChip | 컴포넌트 | 3 | 몇 시간 | COMPONENT-27, COMPONENT-10 | 대기 |
 | COMPONENT-29 | SearchAutocomplete | 컴포넌트 | 3 | 몇 시간 | COMPONENT-20, COMPONENT-11 | 대기 |

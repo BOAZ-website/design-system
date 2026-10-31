@@ -287,7 +287,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | REPO-06 | 2 | 없음 |
+| 하루이틀 | REPO-06 | 2 | #83 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -304,7 +304,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | COMPONENT-17 | 2 | 없음 |
+| 하루이틀 | COMPONENT-17 | 2 | #84 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -317,7 +317,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-01(#82 반영) | 2 | 없음 |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-01(#82 반영) | 2 | #85 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -330,7 +330,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-02(#81 반영) | 2 | 없음 |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-02(#81 반영) | 2 | #86 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -342,7 +342,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 한 주 | COMPONENT-17, COMPONENT-18, COMPONENT-03 | 2 | 없음 |
+| 한 주 | COMPONENT-17, COMPONENT-18, COMPONENT-03 | 2 | #87 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -355,7 +355,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-04 | 2 | 없음 |
+| 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-04 | 2 | #88 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -366,7 +366,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-05 | 2 | 없음 |
+| 몇 시간 | COMPONENT-17, COMPONENT-18, COMPONENT-05 | 2 | #89 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -377,7 +377,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-06 | 2 | 없음 |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-06 | 2 | #90 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -388,7 +388,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-19, COMPONENT-07 | 2 | 없음 |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-19, COMPONENT-07 | 2 | #91 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
@@ -401,7 +401,7 @@
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
-| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-08 | 2 | 없음 |
+| 하루이틀 | COMPONENT-17, COMPONENT-18, COMPONENT-08 | 2 | #92 |
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
