@@ -2,7 +2,7 @@ name: Release Check
 
 # vX.Y.Z 태그가 push 되면 그 커밋이 릴리스 조건을 만족하는지 검사한다.
 # 브랜치 규칙이 없어 CI 실패가 머지를 막지 못하므로, 태그 시점에 마지막으로 막는다.
-#   1. 토큰 빌드가 성공한다
+#   1. 토큰·컴포넌트 빌드가 성공한다
 #   2. 커밋된 dist/ 가 빌드 결과와 같다
 #   3. package.json 의 version 이 태그 이름과 같다
 # 실패해도 이 태그는 삭제·이동할 수 없다(v* 태그 보호 규칙). 고친 뒤 patch 버전을 올려 새 태그를 건다.
@@ -33,7 +33,7 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Build tokens
+      - name: Build tokens and components
         run: npm run build
 
       - name: dist 최신 여부 확인

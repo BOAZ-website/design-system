@@ -47,10 +47,12 @@ Node 24(`.nvmrc`)와 npm을 씁니다.
 ```bash
 git config core.hooksPath .githooks   # 커밋 메시지 훅 활성화 (클론 후 1회)
 npm ci
-npm run build                          # tokens/ → dist/
+npm run build                          # tokens/ + src/ → dist/ (토큰, 컴포넌트 JS·타입·CSS)
+npm run typecheck                      # tsc --noEmit
+npm test                               # Vitest (한 번 실행)
 ```
 
-명세(`components/`, `patterns/`)만 고치는 작업은 `npm ci`·빌드가 필요 없습니다. 컴포넌트 테스트(`npm test`)와 Storybook(`npm run storybook`) 명령은 COMPONENT-17·18에서 추가합니다.
+명세(`components/`, `patterns/`)만 고치는 작업은 `npm ci`·빌드가 필요 없습니다. Storybook(`npm run storybook`) 명령은 COMPONENT-18에서 추가합니다.
 
 ## 토큰 변경
 
