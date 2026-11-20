@@ -58,7 +58,7 @@ jobs:
         run: |
           shopt -s nullglob
           files=()
-          for f in components/*.md patterns/*.md; do
+          for f in home/components/*.md home/patterns/*.md; do
             [ "${f##*/}" = _template.md ] || files+=("$f")
           done
           [ ${#files[@]} -eq 0 ] && exit 0
@@ -77,7 +77,7 @@ jobs:
               typography.*) re="^[[:space:]]*$v-(size|weight|line-height):";;
               *) re="^[[:space:]]*$v:";;
             esac
-            grep -qE -- "$re" dist/tokens.css || { echo "::error::없는 토큰: $ref"; fail=1; }
+            grep -qE -- "$re" dist/home/tokens.css || { echo "::error::없는 토큰: $ref"; fail=1; }
           done
           if grep -nE 'figma\.com' "${files[@]}"; then
             echo "::error::Figma 링크는 공개 저장소에 적지 않습니다."; fail=1

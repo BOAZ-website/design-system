@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
 import { useEffect } from 'react';
-import '../dist/tokens.css';
+import '../dist/home/tokens.css';
 import './preview-base.css';
 import './admin-preset.css';
 

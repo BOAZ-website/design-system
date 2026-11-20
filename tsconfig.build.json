@@ -5,9 +5,9 @@
     "noEmitOnError": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "rootDir": "src",
-    "outDir": "dist"
+    "rootDir": "home/src",
+    "outDir": "dist/home"
   },
-  "include": ["src"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.stories.tsx", "src/test"]
+  "include": ["home/src"],
+  "exclude": ["home/src/**/*.test.ts", "home/src/**/*.test.tsx", "home/src/**/*.stories.tsx", "home/src/test"]
 }

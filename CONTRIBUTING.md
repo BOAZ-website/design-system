@@ -7,10 +7,10 @@ BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세
 첫 PR까지 아래 순서로 진행합니다. 권한 부여에 시간이 걸릴 수 있어 요청을 가장 먼저 합니다.
 
 1. 디자인 시스템 리드에게 아래 "합류 체크리스트"의 권한과 맡을 티켓의 GitHub 이슈 번호를 요청합니다.
-2. [`README.md`](./README.md)로 저장소 구성(`tokens/` → `dist/`, `components/`·`patterns/` 명세, `src/` 컴포넌트 코드)을 봅니다.
+2. [`README.md`](./README.md)로 저장소 구성(`core/tokens/`와 `home/tokens/` → `dist/home/`, `home/components/`와 `home/patterns/` 명세, `home/src/` 컴포넌트 코드)을 봅니다.
 3. [`AGENTS.md`](./AGENTS.md)의 원칙, 토큰 이름 규칙, 컴포넌트 구현 절차, 문서 작성 규칙을 읽습니다.
-4. [`docs/wbs/00-wbs.md`](./docs/wbs/00-wbs.md)의 "읽는 법"·"Phase"·"인수인계"를 읽습니다. 이어서 맡은 티켓이 있는 작업 정의서(명세·구현 모두 `docs/wbs/30-component.md`)와 그 티켓의 명세(`components/<id>.md`)를 읽습니다.
-5. 값의 근거는 [`docs/design-reference.md`](./docs/design-reference.md)와 `docs/wbs/20-token.md`의 대비표에서 찾습니다.
+4. [`docs/wbs/00-wbs.md`](./docs/wbs/00-wbs.md)의 "읽는 법"·"Phase"·"인수인계"를 읽습니다. 이어서 맡은 티켓이 있는 작업 정의서(명세·구현 모두 `docs/wbs/30-component.md`)와 그 티켓의 명세(`home/components/<id>.md`)를 읽습니다.
+5. 값의 근거는 [`home/docs/design-reference.md`](./home/docs/design-reference.md)와 `docs/wbs/20-token.md`의 대비표에서 찾습니다.
 6. 아래 "개발 환경"의 커밋 훅을 켜고 `npm ci`를 실행합니다.
 7. `dev`에서 브랜치를 만들고 맡은 티켓을 구현합니다. Phase 2 구현은 COMPONENT-17(패키지 빌드 구성) → COMPONENT-18(Storybook) → COMPONENT-19(button, 구현 양식 확정) 순서로 시작합니다.
 8. "컴포넌트 PR 점검"(명세를 고쳤으면 "명세 PR 점검")을 확인한 뒤 base를 `dev`로 PR을 내고 리뷰어를 지정합니다.
@@ -38,7 +38,7 @@ BOAZ Design System에 기여하는 방법입니다. 토큰 이름 규칙, 명세
 | Node 24와 npm | 컴포넌트를 구현하거나 토큰을 고칠 때(명세만 고치면 불필요) | 본인 | `node -v`가 24, `npm run build` 성공 |
 
 - 라벨은 이슈·PR 제목의 `[Type]`으로 자동 붙으므로 라벨·Milestone을 만들 권한은 필요하지 않습니다.
-- Figma 접근이 늦어지면 `docs/design-reference.md`와 `docs/wbs/20-token.md`만으로 `status: draft`까지 쓸 수 있습니다. Figma 확인이 필요한 칸은 "미확인" 절에 남기고, Figma를 본 뒤 `review`로 올립니다.
+- Figma 접근이 늦어지면 `home/docs/design-reference.md`와 `docs/wbs/20-token.md`만으로 `status: draft`까지 쓸 수 있습니다. Figma 확인이 필요한 칸은 "미확인" 절에 남기고, Figma를 본 뒤 `review`로 올립니다.
 
 ## 개발 환경
 
@@ -47,20 +47,20 @@ Node 24(`.nvmrc`)와 npm을 씁니다.
 ```bash
 git config core.hooksPath .githooks   # 커밋 메시지 훅 활성화 (클론 후 1회)
 npm ci
-npm run build                          # tokens/ + src/ → dist/ (토큰, 컴포넌트 JS·타입·CSS)
+npm run build                          # core/tokens/ + home/tokens/ + home/src/ → dist/home/ (토큰, 컴포넌트 JS, 타입, CSS)
 npm run typecheck                      # tsc --noEmit
 npm test                               # Vitest (한 번 실행)
 npm run storybook                      # Storybook 개발 서버 (6006)
 npm run build-storybook                # Storybook 정적 빌드 → storybook-static/ (커밋하지 않음)
 ```
 
-명세(`components/`, `patterns/`)만 고치는 작업은 `npm ci`·빌드가 필요 없습니다.
+명세(`home/components/`, `home/patterns/`)만 고치는 작업은 `npm ci`·빌드가 필요 없습니다.
 
 ## 토큰 변경
 
-1. `tokens/**/*.json`을 수정합니다.
+1. `core/tokens/**/*.json` 또는 `home/tokens/**/*.json`을 수정합니다.
 2. `npm run build`로 `dist/`를 다시 만듭니다.
-3. `tokens/`와 `dist/`를 같은 커밋에 넣습니다.
+3. 토큰 원본과 `dist/`를 같은 커밋에 넣습니다.
 
 CI `Tokens Build`는 커밋된 `dist/`가 빌드 결과와 다르면 실패합니다. `dist/`는 직접 고치지 않습니다.
 
@@ -80,7 +80,7 @@ CI `Tokens Build`는 커밋된 `dist/`가 빌드 결과와 다르면 실패합�
 - 작업 기준은 노션 WBS([`docs/wbs/`](./docs/wbs)는 사본)이고, GitHub 이슈는 노션 티켓과 1:1입니다.
 - 이슈·Milestone은 디자인 시스템 리드가 Phase를 시작할 때 그 Phase 것만 만들고 담당자를 배정합니다. 명세 담당과 AI 도구는 이슈·Milestone·라벨을 만들지 않습니다.
 - 배정받은 이슈 번호를 커밋 메시지 `(#번호)`, PR 본문 `Issue Number`, 브랜치 이름에 씁니다. 번호가 없으면 커밋하지 말고 디자인 시스템 리드에게 요청합니다.
-- `components/`·`patterns/` 명세 추가·수정은 `docs`(제목 `[Docs]`)입니다. 토큰 이름·값이 함께 바뀌면 그 부분은 `feat`/`fix`로 따로 커밋합니다.
+- `home/components/`, `home/patterns/` 명세 추가·수정은 `docs`(제목 `[Docs]`)입니다. 토큰 이름·값이 함께 바뀌면 그 부분은 `feat`/`fix`로 따로 커밋합니다.
 
 ### 리뷰와 머지
 
@@ -94,7 +94,7 @@ CI `Tokens Build`는 커밋된 `dist/`가 빌드 결과와 다르면 실패합�
 
 PR 본문 "상세 내용"에 아래를 확인했다고 적습니다.
 
-- [ ] 명세 `components/<id>.md`의 Variants·States·Behavior·Accessibility 절을 모두 구현했다(구현하지 않은 항목은 이유).
+- [ ] 명세 `home/components/<id>.md`의 Variants·States·Behavior·Accessibility 절을 모두 구현했다(구현하지 않은 항목은 이유).
 - [ ] 값은 `var(--boaz-*)` 토큰 변수로만 썼다(명세의 `raw:` 값 제외).
 - [ ] 상태 조합별 story가 있고 Storybook 접근성 패널 위반이 없다.
 - [ ] 키보드·aria 동작 테스트가 있고 `npm test`가 통과했다.
@@ -106,8 +106,8 @@ PR 본문 "상세 내용"에 아래를 확인했다고 적습니다.
 
 PR 본문 "상세 내용"에 아래를 확인했다고 적습니다.
 
-- [ ] `components/_template.md`의 절이 모두 있다(해당 없는 절은 "해당 없음"과 이유).
-- [ ] 쓴 토큰 이름이 모두 `tokens/`에 있다(`dist/tokens.d.ts`와 대조). CI `Tokens Build`가 통과했다.
+- [ ] `home/components/_template.md`의 절이 모두 있다(해당 없는 절은 "해당 없음"과 이유).
+- [ ] 쓴 토큰 이름이 모두 토큰 원본에 있다(`dist/home/tokens.d.ts`와 대조). CI `Tokens Build`가 통과했다.
 - [ ] Figma에 없는 상태·값에 `Figma 없음(추정)`을 표시했다.
 - [ ] 글자·배경 조합의 대비를 계산해 근거를 적었다(본문 4.5:1, 큰 글자·UI 3:1).
 - [ ] 티켓의 "완료 확인 방법" 항목을 하나씩 대조했다.
