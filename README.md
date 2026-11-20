@@ -7,21 +7,35 @@ BOAZ 공개 홈페이지와 관리자 콘솔이 함께 쓰는 디자인 언어�
 ## Architecture
 
 ```text
-tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/ (build artifacts)
-                                              ├── tokens.css          CSS 변수 --boaz-*
-                                              ├── tokens.js·.d.ts     CSS 변수 참조 객체와 타입
-                                              └── tailwind-theme.css  Tailwind v4 @theme
+core/tokens/ + home/tokens/ (DTCG JSON)  ──  npm run build  ──▶  dist/home/ (build artifacts)
+home/src/ (React 컴포넌트)                                          ├── tokens.css          CSS 변수 --boaz-*
+                                                                    ├── tokens.js, .d.ts    CSS 변수 참조 객체와 타입
+                                                                    ├── tailwind-theme.css  Tailwind v4 @theme
+                                                                    └── index.js, styles.css  컴포넌트
+```
+
+저장소는 공통 `core/`(글꼴)와 앱별 폴더 `home/`, `admin/`으로 나뉩니다. `admin/`은 지금 폴더만 있고, 내용은 이슈 #97에 따라 채웁니다([`admin/README.md`](./admin/README.md)).
+
+```text
+core/tokens/font.json     공통 글꼴 (글꼴 스택, 굵기)
+home/tokens/              홈페이지 토큰
+home/components/          홈페이지 컴포넌트 명세
+home/patterns/            홈페이지 패턴과 가이드라인
+home/docs/                홈페이지 디자인 참조
+home/src/                 홈페이지 React 컴포넌트
+admin/                    관리자 (tokens, components, patterns, src. 지금은 폴더만 있음)
 ```
 
 ## Foundations
 
-- [`tokens/`](./tokens) — Primitive(팔레트)·Semantic 토큰. 색, 타이포그래피, radius, spacing
+- [`core/tokens/`](./core/tokens) — 두 앱 공통 글꼴 토큰 (글꼴 스택, 굵기)
+- [`home/tokens/`](./home/tokens) — 홈페이지 Primitive(팔레트)·Semantic 토큰. 색, 타이포그래피, radius, spacing
 
 ## Components & Patterns
 
-- [`components/`](./components) — 컴포넌트 명세 16종(`components/<id>.md`). 양식은 [`components/_template.md`](./components/_template.md)입니다.
-- [`patterns/`](./patterns) — 패턴·가이드라인: feedback, form, accessibility, voice & tone
-- `src/` — 명세를 구현한 React 컴포넌트. Phase 2(COMPONENT-17~26)에서 추가하며 첫 배포는 `v0.2.0`입니다. 할 일은 [`docs/wbs/30-component.md`](./docs/wbs/30-component.md) "구현" 절에 있습니다.
+- [`home/components/`](./home/components) — 컴포넌트 명세 16종(`home/components/<id>.md`). 양식은 [`home/components/_template.md`](./home/components/_template.md)입니다.
+- [`home/patterns/`](./home/patterns) — 패턴·가이드라인: feedback, form, accessibility, voice & tone
+- `home/src/` — 명세를 구현한 React 컴포넌트. Phase 2(COMPONENT-17~26)에서 추가하며 첫 배포는 `v0.2.0`입니다. 할 일은 [`docs/wbs/30-component.md`](./docs/wbs/30-component.md) "구현" 절에 있습니다.
 
 ## Installation
 
@@ -33,13 +47,17 @@ npm install github:BOAZ-website/design-system#v0.1.1
 
 ## Usage
 
+아래 이름은 `v0.2.0`부터 씁니다. `v0.1.x`는 앱 이름 없이 `@boaz/design-system/tokens.css`, `@boaz/design-system/tailwind-theme.css`, `@boaz/design-system/tokens`를 씁니다.
+
 ```css
-@import "@boaz/design-system/tokens.css";          /* CSS 변수 */
-@import "@boaz/design-system/tailwind-theme.css";  /* Tailwind v4 (tokens.css 포함) */
+@import "@boaz/design-system/home/tokens.css";          /* CSS 변수 */
+@import "@boaz/design-system/home/tailwind-theme.css";  /* Tailwind v4 (tokens.css 포함) */
+@import "@boaz/design-system/home/styles.css";          /* 컴포넌트 CSS */
 ```
 
 ```ts
-import { vars } from '@boaz/design-system/tokens';
+import { Button } from '@boaz/design-system/home';
+import { vars } from '@boaz/design-system/home/tokens';
 
 vars.color.palette.purple[100]; // "var(--boaz-color-palette-purple-100)"
 ```
@@ -50,8 +68,8 @@ vars.color.palette.purple[100]; // "var(--boaz-color-palette-purple-100)"
 
 처음 합류했다면 [`CONTRIBUTING.md`의 "처음 합류했다면"](./CONTRIBUTING.md#처음-합류했다면)부터 읽습니다.
 
-- [`docs/design-reference.md`](./docs/design-reference.md) — 디자인 참조: Figma 원본 색·타이포·컴포넌트·에셋 기록
-- [`docs/wbs/`](./docs/wbs) — 구축 로드맵 (WBS·작업 정의서). 작업 정의서는 할 일과 완료 조건을 정하고, 결과물의 정의는 `components/`·`patterns/`의 명세서에 있습니다.
+- [`home/docs/design-reference.md`](./home/docs/design-reference.md) — 디자인 참조: Figma 원본 색·타이포·컴포넌트·에셋 기록
+- [`docs/wbs/`](./docs/wbs) — 구축 로드맵 (WBS·작업 정의서). 작업 정의서는 할 일과 완료 조건을 정하고, 결과물의 정의는 `home/components/`, `home/patterns/`의 명세서에 있습니다.
 - [`AGENTS.md`](./AGENTS.md) — 토큰 명명 규칙, 토큰·명세 작업 절차, 컴포넌트 구현 절차, breaking change 정책, 문서 작성 규칙
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — 처음 합류했을 때의 순서, 권한 체크리스트, 개발 환경, 브랜치·리뷰·커밋 규약
 
