@@ -84,7 +84,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| ADOPT-04-01 | 패키지 `Modal`(COMPONENT-25)을 씀. 앱 안에 모달 컴포넌트를 새로 만들지 않음(2026-10-30 정정) | `import { Modal } from '@boaz/design-system'` 사용처 존재 |
+| ADOPT-04-01 | 패키지 `Modal`(COMPONENT-25)을 씀. 앱 안에 모달 컴포넌트를 새로 만들지 않음(2026-10-30 정정) | `import { Modal } from '@boaz/design-system/home'` 사용처 존재 |
 | ADOPT-04-02 | `alert()` 10곳을 PATTERN-01-03 대응표대로 교체. Figma에 모달이 없는 알림(A3·A4 일부·A5·A6·A10)은 모달을 추가하지 않고 대응표 수단(상태 알림 영역·로그인 오버레이)을 씀(2026-10-23 결정) | `rg "alert\(" src` 0건 |
 | ADOPT-04-03 | `alert()`가 아닌 모달 사용처 3건 적용: 지원서 제출 중 loading 모달, 지원 진입 시 지원 기간 아님·모집 마감 안내 모달(현재 `Navigate`로 홈 이동). 2026-10-22 PATTERN-01 작성으로 추가 | `home/patterns/feedback.md` 2.3 "alert가 아닌 모달 사용처" 표 3건 적용 |
 
