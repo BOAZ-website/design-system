@@ -4,7 +4,7 @@
 
 ## 작업 정의서 목적
 
-- Figma Components 페이지의 컴포넌트를 `components/<id>.md` 명세로 옮김
+- Figma Components 페이지의 컴포넌트를 `home/components/<id>.md` 명세로 옮김
 - 값 우선순위: 라이브에 있는 UI는 라이브 값, 없는 UI는 Figma 값. 토큰과 다르면 토큰 이름이 아니라 raw 값으로 적고 토큰 추가는 별도 이슈(2026-10-22 결정). 라이브에서 볼 수 없는 지원서 화면은 frontend 코드 값을 라이브 값으로 봄
 - 상태를 한 가지 방식으로 정의함: **기본 상태**(default · disabled · selected · invalid · completed 중 하나) × **상호작용**(rest · hover · press · focus-visible). `hover-selected`처럼 두 상태를 합친 이름을 만들지 않고 selected 행의 hover 칸에 적음
 - 명세(COMPONENT-01~16)를 먼저 만들고, 명세를 입력으로 React 컴포넌트를 구현함(COMPONENT-17~33, 아래 "구현" 절. 2026-10-30 결정). 명세마다 frontend 현재 구현 위치와 대응하는 ADOPT 티켓을 적음
@@ -29,7 +29,7 @@
 | 비토큰 값 | `raw:` 값과 토큰 범위 밖 값(모션·z-index·아이콘 크기) 모음 |
 | 미확인 | Figma 확인이 필요해 비워 둔 칸 |
 
-- 복사 원본은 `components/_template.md`. 절 구성·표 열·표기 규칙은 템플릿을 그대로 따름
+- 복사 원본은 `home/components/_template.md`. 절 구성·표 열·표기 규칙은 템플릿을 그대로 따름
 - 표기 규칙: 토큰은 전체 경로를 백틱으로 적음. "근거" 열은 `Figma <노드ID>`·`Figma 없음(추정)`·`코드 <경로>`·`design-reference <절>` 네 가지만 씀(7절 "대비" 행만 `docs/wbs/20-token.md` 대비표 행 또는 계산값)
 - 시맨틱이 없는 색은 팔레트 경로(`color.palette.gray.100`)로 적음
 - 팔레트에도 없는 값(glass rgba, radius 10·8 등)은 `raw:` 값으로 적고 "비토큰 값" 절에 근거를 둠. 두 번째 사용처가 생기면 토큰 추가를 별도 이슈로 제안함
@@ -59,7 +59,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-01-01 | variant: brand(보라), neutral(흰색), glass(탭바 `rgba(208,207,249,0.1)`), text-link(이전·다음 페이지 + 화살표), outlined(지원서 임시저장, 회색 1px 보더)(2026-10-22 Figma 재확인으로 정정) | `components/button.md` Variants 표 |
+| COMPONENT-01-01 | variant: brand(보라), neutral(흰색), glass(탭바 `rgba(208,207,249,0.1)`), text-link(이전·다음 페이지 + 화살표), outlined(지원서 임시저장, 회색 1px 보더)(2026-10-22 Figma 재확인으로 정정) | `home/components/button.md` Variants 표 |
 | COMPONENT-01-02 | size: 800×68(폼 제출), 250×68·200×68(사각), 250×56(pill), 180×56(pill, Figma에 예외로 표시된 사전 알림 신청 전용), 130×44(소형, radius 20 `radius.md`), 154×44(glass, radius 40 `radius.full`). 검색 Tag mini 97×43은 옛 시안 요소라 두지 않음(2026-10-22 Figma 재확인으로 정정). 모바일 112×36·342×52·132×40·160×52·160×44는 Sizes 표 모바일 열에 적음. Figma radius 10(250×68·160×52)은 `radius.sm`(12) 설명의 결정대로 12로 통일하고, radius 8은 토큰이 없어 `raw:` 값으로 적음(TOKEN-03, 2026-10-22 정정) | Sizes 표(`docs/design-reference.md` 5.1·3.1) |
 | COMPONENT-01-03 | **상태값 색**<br>brand: `bg.brand-solid` #7A64F9 → `bg.brand-solid-hover` #493C95 → `bg.brand-solid-press` #2C2459. 글자는 `fg.on-brand` → `fg.on-brand` → `fg.muted` #999999(press 글자 대비 4.9:1).<br>neutral: `bg.neutral-solid` #FFFFFF → `-hover` #999999 → `-press` #666666. 글자는 `fg.on-inverse`.<br>disabled: `bg.disabled` #666666, `fg.disabled` #999999.<br>glass: hover는 Figma에 있음(그라데이션 오버레이, `raw:` 값). press·disabled는 Figma에 없어 `Figma 없음(추정)`으로 새로 정의함.<br>text-link: hover #999999·press #666666은 Figma에 있음. disabled만 `Figma 없음(추정)`(2026-10-22 Figma 재확인으로 정정).<br>모달 안 버튼(닫기 #E6E6E6, 신청 검정): COMPONENT-07에서 정의함.<br>**brand 버튼 글자 크기(대비 근거)**<br>brand 위 흰 글자는 4.18:1이라 큰 글자 기준(Bold 18.67px 이상 또는 Regular 24px 이상)으로만 통과함.<br>데스크톱 brand 버튼 글자는 `typography.body-2`(20 Bold) 이상(`body-2`·`headline-*`·`body-1`)을 씀.<br>`body-2-regular`(20/400)는 쓰지 않음.<br>`body-3`(18 Bold)은 기준보다 0.67px 작아 쓰지 않음.<br>모바일 `typography.body-2-mobile`(16, 600)은 큰 글자가 아니라 AA 미달이지만 Figma 값이라 유지함(2026-10-22 결정, TOKEN-05 대비표) | States 표(Figma 5875:9829·9831·9833, 5152:9047·9049, 5164:8774, 5188:8718) |
 | COMPONENT-01-04 | focus-visible: `stroke.focus` 2px outline, offset 2px(Figma에 버튼 Focus 없음, TOKEN-05-03 근거). offset 없이 버튼 안쪽에 그리면 보라 위 2.26:1로 미달. 흰 표면(모달) 위 버튼은 `stroke.focus-inverse` | States 표 |
@@ -159,7 +159,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-09-01 | 부문·기수 필터 칩, 상태 default·hover·press·selected, selected의 hover(selected 행의 hover 칸)<br>토글이 아니라 select chip 트리거와 같은 노드. 목록·키보드는 COMPONENT-03(2026-10-22 Figma 재확인으로 정정) | `components/filter-chip.md`(아카이빙 부문·기수 필터 3723:9261~9270) |
+| COMPONENT-09-01 | 부문·기수 필터 칩, 상태 default·hover·press·selected, selected의 hover(selected 행의 hover 칸)<br>토글이 아니라 select chip 트리거와 같은 노드. 목록·키보드는 COMPONENT-03(2026-10-22 Figma 재확인으로 정정) | `home/components/filter-chip.md`(아카이빙 부문·기수 필터 3723:9261~9270) |
 
 ## COMPONENT-10 tag-chip (P1)
 
@@ -169,7 +169,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-10-01 | 선택한 값을 ✕로 지우는 칩, ✕ hover·press 빨강 | `components/tag-chip.md` |
+| COMPONENT-10-01 | 선택한 값을 ✕로 지우는 칩, ✕ hover·press 빨강 | `home/components/tag-chip.md` |
 | COMPONENT-10-02 | ✕ 버튼 `aria-label="{값} 선택 해제"` | Accessibility 절 |
 
 ## COMPONENT-11 search-autocomplete (P1)
@@ -180,7 +180,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-11-01 | 검색 입력 + 결과 목록(일치 글자 강조), 빈 결과·로딩 상태 새로 정의 | `components/search-autocomplete.md`(검색 Dropdown 3613:7592) |
+| COMPONENT-11-01 | 검색 입력 + 결과 목록(일치 글자 강조), 빈 결과·로딩 상태 새로 정의 | `home/components/search-autocomplete.md`(검색 Dropdown 3613:7592) |
 | COMPONENT-11-02 | `role="combobox"`, `aria-activedescendant` | Accessibility 절 |
 
 ## COMPONENT-12 pagination (P1)
@@ -191,7 +191,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-12-01 | 도트형(화살표 + 점 5개), 화살표 default·hover·press, 점 default·selected | `components/pagination.md` |
+| COMPONENT-12-01 | 도트형(화살표 + 점 5개), 화살표 default·hover·press, 점 default·selected | `home/components/pagination.md` |
 
 ## COMPONENT-13 tag (P1)
 
@@ -201,7 +201,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-13-01 | 읽기 전용 라벨(부문·기수 태그): 1px #999999 보더, radius 20, Text 1 14 Light #E6E6E6, 패딩 세로 4·가로 12(모바일 4·8)(2026-10-22 Figma 재확인으로 정정) | `components/tag.md`(3723:9271·9272) |
+| COMPONENT-13-01 | 읽기 전용 라벨(부문·기수 태그): 1px #999999 보더, radius 20, Text 1 14 Light #E6E6E6, 패딩 세로 4·가로 12(모바일 4·8)(2026-10-22 Figma 재확인으로 정정) | `home/components/tag.md`(3723:9271·9272) |
 | COMPONENT-13-02 | 검색 Tag 버튼(mini·small)과 구분 | Do / Don't 절 |
 
 ## COMPONENT-14 progress-bar (P1)
@@ -212,11 +212,11 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-14-01 | 지원 폼 단계 표시 800×10, `role="progressbar"`·`aria-valuenow` | `components/progress-bar.md`(2009:3442) |
+| COMPONENT-14-01 | 지원 폼 단계 표시 800×10, `role="progressbar"`·`aria-valuenow` | `home/components/progress-bar.md`(2009:3442) |
 
 ## COMPONENT-15 selection-card (P1)
 
-- 사용처 없음(2026-10-23 결정). 지원 부문 선택은 라이브·최신 Figma 모두 라디오 목록이라 `components/radio.md`를 씀. 명세는 이전 Figma 기록용으로 남김
+- 사용처 없음(2026-10-23 결정). 지원 부문 선택은 라이브·최신 Figma 모두 라디오 목록이라 `home/components/radio.md`를 씀. 명세는 이전 Figma 기록용으로 남김
 
 | 규모 | 선행 | Phase | GitHub 이슈 |
 | --- | --- | --- | --- |
@@ -224,8 +224,8 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-15-01 | 부문 선택 버튼 253×80, radius 8, 1px #666666, selected 보라 배경. 라디오 그룹 의미 | `components/selection-card.md`(4266:7628·7629) |
-| COMPONENT-15-02 | radius 8은 `radius.xs` 토큰으로 씀(2026-10-22 사용처 4곳 확인으로 토큰 추가, #73. 이전 결정은 수치 기재) | `components/selection-card.md` |
+| COMPONENT-15-01 | 부문 선택 버튼 253×80, radius 8, 1px #666666, selected 보라 배경. 라디오 그룹 의미 | `home/components/selection-card.md`(4266:7628·7629) |
+| COMPONENT-15-02 | radius 8은 `radius.xs` 토큰으로 씀(2026-10-22 사용처 4곳 확인으로 토큰 추가, #73. 이전 결정은 수치 기재) | `home/components/selection-card.md` |
 
 ## COMPONENT-16 form-add-button (P1)
 
@@ -235,13 +235,13 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-16-01 | "+ 항목 추가"·"− 삭제(빼기 아이콘 버튼)" 행, 기본 상태 default의 상호작용 rest·hover·press·focus-visible(Figma 이름 Active_Focus는 focus-visible 칸에 적음), 삭제 hover 빨강 | `components/form-add-button.md`(인터랙션 세트 5188:454 중 Active_Focus 5775:9707, close 5755:10062, 모바일 7578:14703. 2009:4216은 이전 판)(2026-10-22 Figma 재확인으로 정정) |
+| COMPONENT-16-01 | "+ 항목 추가"·"− 삭제(빼기 아이콘 버튼)" 행, 기본 상태 default의 상호작용 rest·hover·press·focus-visible(Figma 이름 Active_Focus는 focus-visible 칸에 적음), 삭제 hover 빨강 | `home/components/form-add-button.md`(인터랙션 세트 5188:454 중 Active_Focus 5775:9707, close 5755:10062, 모바일 7578:14703. 2009:4216은 이전 판)(2026-10-22 Figma 재확인으로 정정) |
 
 ---
 
 ## 구현(COMPONENT-17~33)
 
-- `components/<id>.md` 명세(COMPONENT-01~16)를 React 컴포넌트로 구현해 이 저장소 패키지(`@boaz/design-system`)로 배포함(2026-10-30 결정)
+- `home/components/<id>.md` 명세(COMPONENT-01~16)를 React 컴포넌트로 구현해 이 저장소 패키지(`@boaz/design-system`)로 배포함(2026-10-30 결정)
 - 공개 홈페이지(`frontend`)와 관리자 콘솔(`frontend_admin`)이 같은 컴포넌트를 씀. 앱은 git 태그로 설치하고 화면의 직접 마크업을 패키지 컴포넌트로 바꿈(ADOPT-03·04·07)
 - 명세가 결과물의 정의임. 값·상태·동작·접근성은 명세를 따르고, 구현 중 명세와 다른 점을 발견하면 명세 수정 이슈를 먼저 냄
 
@@ -252,7 +252,7 @@
 
 | 항목 | 규칙 |
 | --- | --- |
-| 위치 | `src/components/<id>/`에 `<Name>.tsx`, `<Name>.module.css`, `<Name>.stories.tsx`, `<Name>.test.tsx`. `<id>`는 명세 파일 이름과 같음 |
+| 위치 | `home/src/components/<id>/`에 `<Name>.tsx`, `<Name>.module.css`, `<Name>.stories.tsx`, `<Name>.test.tsx`. `<id>`는 명세 파일 이름과 같음 |
 | 스타일 | 컴포넌트별 CSS Modules 파일. 값은 `var(--boaz-*)` 토큰 변수로만 씀. 명세의 `raw:` 값만 CSS에 직접 적고 "비토큰 값" 절을 주석으로 가리킴 |
 | 색 참조 | 시맨틱 색 변수(`--boaz-color-bg-*`·`--boaz-color-fg-*`·`--boaz-color-stroke-*`)를 씀. 팔레트 변수 직접 참조는 명세가 팔레트 경로로 적은 칸만 씀. 관리자 콘솔이 시맨틱 변수를 덮어써 색을 바꿀 수 있게 하기 위함 |
 | 스타일 방식 | 앱의 스타일 도구(Vanilla Extract·Tailwind)에 의존하지 않음. 앱은 `tokens.css`와 패키지 CSS를 import만 하면 됨 |
@@ -323,7 +323,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-19-01 | variant(brand, neutral, glass, text-link, outlined, #82에서 추가하는 destructive)와 size를 `components/button.md` 3절대로 구현 | variant·size별 story |
+| COMPONENT-19-01 | variant(brand, neutral, glass, text-link, outlined, #82에서 추가하는 destructive)와 size를 `home/components/button.md` 3절대로 구현 | variant·size별 story |
 | COMPONENT-19-02 | 4절 States 전부(disabled, hover·press·focus-visible). focus-visible은 `stroke.focus` 2px, offset 2px. 흰 표면 위는 `stroke.focus-inverse` | 상태별 story, 접근성 패널 위반 0건 |
 | COMPONENT-19-03 | 5절 Behavior의 pending(비동기 중) 표시와 중복 클릭 방지 | pending story, 테스트 |
 | COMPONENT-19-04 | 7절 Accessibility: `<button>` 요소, `type` 기본값 `button`, 아이콘만 있는 버튼의 `aria-label` | 테스트(Enter·Space 동작, 이름) |
@@ -345,7 +345,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-20-01 | 한 줄 입력(`<input>`)과 여러 줄 입력(`<textarea>`), #81에서 추가하는 상자형 variant를 `components/text-field.md` 3절대로 구현 | variant별 story |
+| COMPONENT-20-01 | 한 줄 입력(`<input>`)과 여러 줄 입력(`<textarea>`), #81에서 추가하는 상자형 variant를 `home/components/text-field.md` 3절대로 구현 | variant별 story |
 | COMPONENT-20-02 | 라벨 요소와 입력칸 연결, 라벨 축소 동작 | 테스트(라벨로 입력칸 찾기) |
 | COMPONENT-20-03 | 4절 States(hover, focus-visible, invalid, disabled). 오류 문구를 `aria-invalid`·`aria-describedby`로 연결 | 상태별 story, 테스트 |
 
@@ -357,7 +357,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-21-01 | field와 목록을 `components/select.md` 3·4절대로 구현(check 아이콘, field hover·focus·열림 상태) | 상태별 story |
+| COMPONENT-21-01 | field와 목록을 `home/components/select.md` 3·4절대로 구현(check 아이콘, field hover·focus·열림 상태) | 상태별 story |
 | COMPONENT-21-02 | `role="combobox"`·`listbox`·`option`, `aria-expanded`·`aria-activedescendant`·`aria-selected` | 테스트(role·aria 값) |
 | COMPONENT-21-03 | 키보드: 방향키·Home/End·Esc·타이핑 검색. 목록 항목은 Tab 대상이 아님 | 테스트(키 입력별 선택 항목) |
 | COMPONENT-21-04 | 다중 선택일 때 선택값 칩 표시는 COMPONENT-27(filter-chip)이 생기면 연결함. 그 전에는 명세 기본 표시를 씀 | story |
@@ -370,7 +370,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-22-01 | `components/checkbox.md`의 상자(radius 5, 1px 보더, checked `color.bg.brand-solid`)와 표 문항용 원 모양 | variant·상태별 story |
+| COMPONENT-22-01 | `home/components/checkbox.md`의 상자(radius 5, 1px 보더, checked `color.bg.brand-solid`)와 표 문항용 원 모양 | variant·상태별 story |
 | COMPONENT-22-02 | 숨긴 `<input type="checkbox">`의 포커스를 보이는 상자에 표시, 라벨 연결 | 테스트(Space로 체크, 라벨 클릭) |
 
 ## COMPONENT-23 Radio 구현
@@ -381,7 +381,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-23-01 | `components/radio.md`의 원과 상태(hover 흰 테두리, disabled) | 상태별 story |
+| COMPONENT-23-01 | `home/components/radio.md`의 원과 상태(hover 흰 테두리, disabled) | 상태별 story |
 | COMPONENT-23-02 | 묶음 컴포넌트: `<fieldset>`·`<legend>` 또는 `role="radiogroup"` + 제목 연결. 방향키 이동 | 테스트(방향키 이동, 묶음 이름) |
 
 ## COMPONENT-24 Tab 구현
@@ -392,7 +392,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-24-01 | `components/tab.md` 3절의 variant(category 등)와 4절 상태 | variant·상태별 story |
+| COMPONENT-24-01 | `home/components/tab.md` 3절의 variant(category 등)와 4절 상태 | variant·상태별 story |
 | COMPONENT-24-02 | `role="tablist"`·`tab`·`tabpanel`, `aria-selected`, 방향키 이동 | 테스트(방향키 이동, 선택 시 패널 전환) |
 
 ## COMPONENT-25 Modal 구현
@@ -403,10 +403,10 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-25-01 | `components/modal.md`의 오버레이·본문·버튼 영역(모달 안 버튼은 COMPONENT-19 Button 사용) | 종류별 story |
+| COMPONENT-25-01 | `home/components/modal.md`의 오버레이·본문·버튼 영역(모달 안 버튼은 COMPONENT-19 Button 사용) | 종류별 story |
 | COMPONENT-25-02 | role은 명세대로 `alertdialog`. 관리자 콘솔용 확인·입력 모달을 위해 `dialog`도 고를 수 있게 함(ADOPT-07 관리자 모달 규칙) | 테스트(role 값) |
 | COMPONENT-25-03 | 열 때 포커스 이동, 포커스 가두기, Esc 닫기, 닫은 뒤 연 요소로 포커스 복귀, 뒤 화면 스크롤 막기 | 테스트(Tab 순환, Esc, 포커스 복귀) |
-| COMPONENT-25-04 | `patterns/feedback.md`의 모달 사용처(확인, loading, 안내)를 story로 둠 | 사용처별 story |
+| COMPONENT-25-04 | `home/patterns/feedback.md`의 모달 사용처(확인, loading, 안내)를 story로 둠 | 사용처별 story |
 
 ## COMPONENT-26 Card 구현
 
@@ -416,7 +416,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-26-01 | `components/card.md` 3절의 variant(project, photo, blog 등)와 hover | variant별 story |
+| COMPONENT-26-01 | `home/components/card.md` 3절의 variant(project, photo, blog 등)와 hover | variant별 story |
 | COMPONENT-26-02 | 링크 카드: 제목 링크 + 클릭 영역 확장(stretched-link). 카드 전체를 `<a>`로 감싸지 않음 | 테스트(링크 이름이 제목) |
 
 ## COMPONENT-27 FilterChip 구현
@@ -427,7 +427,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-27-01 | `components/filter-chip.md`의 칩과 상태 | 상태별 story |
+| COMPONENT-27-01 | `home/components/filter-chip.md`의 칩과 상태 | 상태별 story |
 | COMPONENT-27-02 | ✕ 버튼에 `aria-label="{값} 선택 해제"` | 테스트(버튼 이름) |
 
 ## COMPONENT-28 TagChip 구현
@@ -438,7 +438,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-28-01 | `components/tag-chip.md`의 칩과 상태, ✕ 버튼 이름 | 상태별 story, 테스트 |
+| COMPONENT-28-01 | `home/components/tag-chip.md`의 칩과 상태, ✕ 버튼 이름 | 상태별 story, 테스트 |
 
 ## COMPONENT-29 SearchAutocomplete 구현
 
@@ -448,7 +448,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-29-01 | `components/search-autocomplete.md`의 검색 입력(`<input type="search">`, `aria-label`). 결과 패널은 보류 범위라 구현하지 않음 | story |
+| COMPONENT-29-01 | `home/components/search-autocomplete.md`의 검색 입력(`<input type="search">`, `aria-label`). 결과 패널은 보류 범위라 구현하지 않음 | story |
 | COMPONENT-29-02 | 결과 수 안내 영역(`role="status"`): 앱이 넘긴 결과 수로 "검색 결과 N건"·"검색 결과가 없습니다." | 테스트(안내 문구) |
 
 ## COMPONENT-30 Pagination 구현
@@ -459,7 +459,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-30-01 | `components/pagination.md`의 점·번호형, 화살표, 데스크톱·모바일 크기 | 형태·폭별 story |
+| COMPONENT-30-01 | `home/components/pagination.md`의 점·번호형, 화살표, 데스크톱·모바일 크기 | 형태·폭별 story |
 | COMPONENT-30-02 | `<nav aria-label>`, 현재 페이지 `aria-current="page"`, 처음·끝 화살표 `aria-disabled`, 누르는 영역 24×24 이상 | 테스트(aria 값) |
 
 ## COMPONENT-31 Tag 구현
@@ -470,7 +470,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-31-01 | `components/tag.md`의 variant. 누를 수 없는 표시용이라 `<span>`으로 만듦 | variant별 story |
+| COMPONENT-31-01 | `home/components/tag.md`의 variant. 누를 수 없는 표시용이라 `<span>`으로 만듦 | variant별 story |
 
 ## COMPONENT-32 ProgressBar 구현
 
@@ -480,7 +480,7 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-32-01 | `components/progress-bar.md`의 segment(`<span aria-hidden="true">`)와 단계 표시 | 단계별 story |
+| COMPONENT-32-01 | `home/components/progress-bar.md`의 segment(`<span aria-hidden="true">`)와 단계 표시 | 단계별 story |
 | COMPONENT-32-02 | root에 `role="progressbar"`·`aria-valuenow`·`aria-valuemin`·`aria-valuemax`·`aria-valuetext` | 테스트(aria 값) |
 
 ## COMPONENT-33 FormAddButton 구현
@@ -491,5 +491,5 @@
 
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
-| COMPONENT-33-01 | `components/form-add-button.md`의 add 행(`<button type="button">`, "+"는 `aria-hidden="true"`)과 삭제 버튼(`aria-label="{항목 이름} {번호} 삭제"`) | story, 테스트(버튼 이름) |
+| COMPONENT-33-01 | `home/components/form-add-button.md`의 add 행(`<button type="button">`, "+"는 `aria-hidden="true"`)과 삭제 버튼(`aria-label="{항목 이름} {번호} 삭제"`) | story, 테스트(버튼 이름) |
 | COMPONENT-33-02 | 추가 후 새 입력칸, 삭제 후 이웃 행으로 포커스 이동 | 테스트(포커스 위치) |
