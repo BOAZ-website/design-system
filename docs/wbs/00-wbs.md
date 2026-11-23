@@ -7,7 +7,7 @@
 > BOAZ 공개 홈페이지(`frontend`)와 관리자 콘솔(`frontend_admin`)이 함께 쓰는 디자인 토큰, 컴포넌트·패턴 명세, React 컴포넌트를 이 저장소 하나에 모으는 작업 전체를 작업 정의서(Epic) 5개, 티켓 60개로 나눈 문서.
 > 목표는 **기준(토큰·명세)과 두 앱이 함께 쓰는 컴포넌트를 만드는 것**이며 앱 코드 수정은 ADOPT 작업 정의서에서 각 앱 저장소 이슈로 따로 진행함
 > 명세(COMPONENT·PATTERN)는 구현(COMPONENT-17~33)의 입력으로 먼저 작성함. 컴포넌트 코드 구현은 2026-10-30 결정으로 범위에 들어옴
-> 작업 정의서는 할 일과 완료 조건을 정함. 결과물의 정의는 `components/`·`patterns/`의 명세서에 있음
+> 작업 정의서는 할 일과 완료 조건을 정함. 결과물의 정의는 `home/components/`·`home/patterns/`의 명세서에 있음
 
 ---
 
@@ -44,7 +44,7 @@
 | `docs/wbs/*.md`(이 폴더) | 노션 원본 마크다운 사본. 노션과 다르면 노션 기준으로 맞춤. 티켓 상태·완료 기록은 노션에서 먼저 고치고 같은 내용을 사본에 옮겨 같은 PR에 넣음. 노션 반영은 디자인 시스템 리드가 함 |
 | `AGENTS.md` | 토큰 작업 절차·명세 작업 절차·컴포넌트 구현 절차·이름 규칙·breaking 규칙 |
 | `CONTRIBUTING.md` | 처음 합류했을 때 읽는 순서, 권한 체크리스트, 브랜치·리뷰·머지 규칙 |
-| `components/_template.md` | 컴포넌트 명세 양식 |
+| `home/components/_template.md` | 컴포넌트 명세 양식 |
 | `docs/wbs/30-component.md` "구현 규칙" | 컴포넌트 코드의 파일 구성·스타일·접근성 규칙 |
 
 ### 작업 정의서(Epic) 목록
@@ -83,8 +83,8 @@
 | --- | --- | --- | --- |
 | Phase 0 저장소·규칙 | 공개 저장소와 협업 규칙 | CI `Tokens Build` 통과, 이슈 #1·#4·#17~#21 종료 | REPO-00~05, REPO-08 (완료) |
 | Phase 1 파운데이션 | 토큰 v0.1 | 팔레트·시맨틱·타이포·radius·spacing 토큰과 dist 4종, `v0.1.0` 태그 | TOKEN-01~06, REPO-06 |
-| Phase 2 핵심 컴포넌트 | P0 명세 8종과 구현, v0.2 | `components/*.md` 8개 `status: review` 이상(완료, #50). 패키지 빌드·Storybook, P0 8종 컴포넌트 `dev` 머지, `v0.2.0` 태그 | COMPONENT-01~08(완료), COMPONENT-17~26, REPO-07 |
-| Phase 3 패턴·확장 | 패턴 4종, P1 명세 8종과 구현 7종 | `patterns/*.md` 4개, P1 8개 `review`(완료, #50·#71). P1 7종 컴포넌트 `dev` 머지, `v0.2.x` patch 태그 | PATTERN-01~04, COMPONENT-09~16(완료), COMPONENT-27~33, REPO-09 |
+| Phase 2 핵심 컴포넌트 | P0 명세 8종과 구현, v0.2 | `home/components/*.md` 8개 `status: review` 이상(완료, #50). 패키지 빌드·Storybook, P0 8종 컴포넌트 `dev` 머지, `v0.2.0` 태그 | COMPONENT-01~08(완료), COMPONENT-17~26, REPO-07 |
+| Phase 3 패턴·확장 | 패턴 4종, P1 명세 8종과 구현 7종 | `home/patterns/*.md` 4개, P1 8개 `review`(완료, #50·#71). P1 7종 컴포넌트 `dev` 머지, `v0.2.x` patch 태그 | PATTERN-01~04, COMPONENT-09~16(완료), COMPONENT-27~33, REPO-09 |
 | Phase 4 앱 적용 | 두 앱이 토큰·컴포넌트 사용, 관리자 콘솔 화면 통일 | 각 앱 저장소 PR 머지 | ADOPT-01~07 |
 
 - Phase 2·3의 명세(COMPONENT·PATTERN)는 디자인 시스템 리드가 2026-10-22에 먼저 작성함. 남은 Phase 2·3 작업은 이 명세를 입력으로 한 컴포넌트 구현(COMPONENT-17~33)이고 새로 합류한 프론트엔드 담당(구현 담당)이 맡음(2026-10-30 결정)
@@ -99,7 +99,7 @@
 
 Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 디자인 시스템 리드(현재 인프라 담당)가 끝냄. 명세는 모두 `status: review`이고 미확인 절에 남은 질문 없음(검색 결과 패널 보류 한 줄만 있음, 2026-10-23). Phase 2·3의 컴포넌트 구현(COMPONENT-17~33)은 구현 담당, Phase 4 앱 적용은 FE 팀이 맡음(2026-10-30 결정)
 
-- 준비돼 있는 것: 토큰 `v0.1.1`, 명세 `components/`·`patterns/`, 명세·구현 할 일 `docs/wbs/30-component.md`, 앱별 할 일 `docs/wbs/50-adopt.md`, 작업 절차(`AGENTS.md`), 협업 규칙(`CONTRIBUTING.md`)
+- 준비돼 있는 것: 토큰 `v0.1.1`, 명세 `home/components/`·`home/patterns/`, 명세·구현 할 일 `docs/wbs/30-component.md`, 앱별 할 일 `docs/wbs/50-adopt.md`, 작업 절차(`AGENTS.md`), 협업 규칙(`CONTRIBUTING.md`)
 - 리드가 시작 전에 처리하는 것: Phase 2 Milestone과 구현 티켓 이슈 생성·담당자 배정, Figma 열람·노션 편집 권한
 - 구현 담당이 하는 것: 구현 티켓별 브랜치·PR. 명세와 다른 점을 발견하면 명세 수정 이슈를 먼저 냄
 - FE 팀이 하는 것: 앱 저장소에서 ADOPT 티켓별 이슈·PR
@@ -128,7 +128,7 @@ Phase 0·1(토큰)과 Phase 2·3의 명세(컴포넌트 16종·패턴 4종)는 �
 | Phase 1 파운데이션 | 팔레트·시맨틱·타이포·radius·spacing 토큰, dist 4종, `v0.1.0` 태그·Release(2026-10-11) | #29~#34, #16 | 완료 |
 | 릴리스 안전장치·빌드 보강 | 태그 push 때 `Release Check`, `v*` 태그 보호 규칙, 빌드 실패 시 `dist/` 유지, README·WBS 현행화 | #44 | 완료 |
 | ADOPT 명세 정정 | 앱 코드 대조 후 ADOPT-01·02·05·06 정정 | #45 | 완료 |
-| Phase 2 인수인계 준비 | 온보딩 규칙(CONTRIBUTING.md), 명세 작업 절차(AGENTS.md), `components/_template.md`, 티켓 정정 | #48 | 완료 |
+| Phase 2 인수인계 준비 | 온보딩 규칙(CONTRIBUTING.md), 명세 작업 절차(AGENTS.md), `home/components/_template.md`, 티켓 정정 | #48 | 완료 |
 | Phase 2·3 명세 | 컴포넌트 16종·패턴 4종 명세 `review`, `radius.xs` 토큰 추가, 라이브·Figma 기준 정정, `v0.1.1` 릴리스 | #50·#71·#73·#75·#76 | 완료 |
 | 컴포넌트 구현 범위 추가 | 명세를 토대로 React 컴포넌트를 이 저장소에서 구현하기로 결정. 구현 티켓(COMPONENT-17~33) 추가, Phase 2·3 재구성, ADOPT-03·04·07을 컴포넌트 교체로 정정 | #79 | 완료 |
 | Phase 2 구현 기반 | 패키지 빌드(TypeScript·Vite, 빌드 실패 시 `dist/` 유지), Storybook(홈페이지·관리자 바탕 전환, 접근성 패널), Button 구현으로 구현 양식 확정 | #83~#85, PR #94~#96 | 완료 |

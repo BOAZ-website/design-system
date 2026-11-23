@@ -116,7 +116,7 @@
 | 기능 ID | 기능 | 완료 확인 방법 |
 | --- | --- | --- |
 | REPO-07-01 | `dev` → `main` 머지, version `0.2.0`, `v0.2.0` 태그·Release(추가한 컴포넌트 목록, peer 의존성 안내) | `gh release view v0.2.0` |
-| REPO-07-02 | 빈 Vite + React 19 프로젝트에서 git 태그 설치 후 컴포넌트 import 확인 | `import { Button } from '@boaz/design-system'` 빌드 성공 |
+| REPO-07-02 | 빈 Vite + React 19 프로젝트에서 git 태그 설치 후 컴포넌트 import 확인 | `import { Button } from '@boaz/design-system/home'` 빌드 성공 |
 | REPO-07-03 | README "Installation"·"Usage"에 컴포넌트 설치·import 방법 추가 | README 해당 절 |
 
 ## REPO-09 Phase 3 릴리스(`v0.2.x`)

@@ -5,37 +5,37 @@
 ## 원칙
 
 - 이 저장소는 **기준(토큰·명세)과 두 앱이 함께 쓰는 React 컴포넌트**를 만듭니다. 소비 앱(`frontend`, `frontend_admin`) 코드는 여기서 고치지 않고, 각 앱 저장소에 이슈를 따로 냅니다.
-- 원천은 `tokens/`, `components/`·`patterns/`(명세), `src/`(컴포넌트 코드)입니다. `dist/`는 생성물이므로 직접 고치지 않습니다.
+- 원천은 `core/tokens/`(공통 글꼴), `home/tokens/`, `home/components/`와 `home/patterns/`(명세), `home/src/`(컴포넌트 코드)입니다. 관리자 디자인 시스템은 `admin/`에 같은 구성으로 둡니다. 지금은 폴더만 있고 내용은 이슈 #97에 따라 채웁니다. `home/`과 `admin/`은 `core/`만 참조하고 서로 참조하지 않습니다. `dist/`는 생성물이므로 직접 고치지 않습니다.
 - 공개 저장소입니다. 개인 정보(지원자 이름·이메일 등)·시크릿을 문서나 이미지에 넣지 않습니다. 외부 자료는 출처와 라이선스를 적습니다.
 
 ## 토큰 작업 절차
 
-1. `tokens/**/*.json`을 DTCG 형식(`$value`, `$type`)으로 수정합니다.
+1. `core/tokens/**/*.json`(글꼴 스택, 굵기) 또는 `home/tokens/**/*.json`을 DTCG 형식(`$value`, `$type`)으로 수정합니다.
 2. `npm run build`로 `dist/`를 다시 만듭니다.
-3. `tokens/`와 `dist/`를 같은 커밋에 넣습니다. CI `Tokens Build`가 둘이 다르면 실패시킵니다.
-4. 토큰을 참조하는 명세(`components/`, `patterns/`)가 있으면 함께 고칩니다.
+3. 토큰 원본과 `dist/`를 같은 커밋에 넣습니다. CI `Tokens Build`가 둘이 다르면 실패시킵니다.
+4. 토큰을 참조하는 명세(`home/components/`, `home/patterns/`)가 있으면 함께 고칩니다.
 5. 컴포넌트 명세 작업 중 토큰에 없는 값이 나오면 명세에는 `raw:` 값으로 적고, 토큰 추가는 별도 이슈로 냅니다. 이름 삭제·변경도 별도 이슈로 디자인 시스템 리드 승인을 받습니다.
 
 ## 명세 작업 절차
 
-`components/<id>.md` 컴포넌트 명세를 새로 쓸 때의 절차입니다.
+`home/components/<id>.md` 컴포넌트 명세를 새로 쓸 때의 절차입니다.
 
 값의 우선순위: 라이브 사이트(`www.bigdataboaz.com`)에 있는 UI는 라이브 값, 라이브에 없는 UI는 Figma 값을 씁니다. 토큰과 다르면 토큰 이름이 아니라 `raw:` 값으로 적고 토큰 추가는 별도 이슈로 냅니다. 라이브에서 볼 수 없는 화면(모집 기간 밖 지원서 등)은 frontend 코드 값을 라이브 값으로 봅니다.
 
 1. 배정받은 이슈 번호를 확인합니다. 없으면 커밋하지 않습니다(CONTRIBUTING.md "이슈 / PR").
-2. `components/_template.md`를 `components/<id>.md`로 복사해 채웁니다. 절 구성·표 열·표기 규칙은 템플릿을 그대로 둡니다.
-3. 쓰는 토큰 이름이 모두 `tokens/`에 있는지 `dist/tokens.d.ts`와 대조합니다. CI `Tokens Build`도 백틱 안 토큰 이름을 `dist/tokens.css`와 대조해, 없는 이름·짧은 표기(`bg.layer`)·Figma 링크가 있으면 실패시킵니다. 같은 PR에서 토큰을 추가했다면 `npm run build`로 만든 `dist/`도 함께 커밋해야 통과합니다. 토큰에 없는 값은 `radius.8`처럼 지어 쓰지 않고 `raw:8px`로 적습니다. "이런 토큰은 없음"을 설명할 때도 이름을 백틱에 넣지 않습니다.
+2. `home/components/_template.md`를 `home/components/<id>.md`로 복사해 채웁니다. 절 구성·표 열·표기 규칙은 템플릿을 그대로 둡니다.
+3. 쓰는 토큰 이름이 모두 토큰 원본에 있는지 `dist/home/tokens.d.ts`와 대조합니다. CI `Tokens Build`도 백틱 안 토큰 이름을 `dist/home/tokens.css`와 대조해, 없는 이름·짧은 표기(`bg.layer`)·Figma 링크가 있으면 실패시킵니다. 같은 PR에서 토큰을 추가했다면 `npm run build`로 만든 `dist/`도 함께 커밋해야 통과합니다. 토큰에 없는 값은 `radius.8`처럼 지어 쓰지 않고 `raw:8px`로 적습니다. "이런 토큰은 없음"을 설명할 때도 이름을 백틱에 넣지 않습니다.
 4. `docs/wbs/30-component.md`의 해당 티켓 "완료 확인 방법"을 하나씩 대조합니다.
 5. PR 제목은 `[Docs] COMPONENT-01 button 명세` 꼴, 커밋 type은 `docs`입니다. 머지 전 status 전이 조건은 `docs/wbs/30-component.md` "status 전이"입니다.
 
 ## 컴포넌트 구현 절차
 
-`src/components/<id>/` 컴포넌트를 구현할 때의 절차입니다. 파일 구성·스타일·접근성 규칙은 `docs/wbs/30-component.md` "구현 규칙"을 따릅니다.
+`home/src/components/<id>/` 컴포넌트를 구현할 때의 절차입니다. 파일 구성·스타일·접근성 규칙은 `docs/wbs/30-component.md` "구현 규칙"을 따릅니다.
 
 1. 배정받은 구현 티켓 이슈 번호를 확인합니다. 없으면 커밋하지 않습니다.
-2. `components/<id>.md` 명세를 먼저 읽습니다. 값·상태·동작·접근성은 명세가 기준입니다. 명세와 다르게 구현해야 할 이유가 생기면 구현 PR에서 바꾸지 말고 명세 수정 이슈를 먼저 냅니다.
+2. `home/components/<id>.md` 명세를 먼저 읽습니다. 값·상태·동작·접근성은 명세가 기준입니다. 명세와 다르게 구현해야 할 이유가 생기면 구현 PR에서 바꾸지 말고 명세 수정 이슈를 먼저 냅니다.
 3. 값은 `var(--boaz-*)` 토큰 변수로만 씁니다. 명세의 `raw:` 값만 CSS에 직접 적습니다.
-4. 상태 조합별 story와 키보드·aria 테스트(`src/components/<id>/<Name>.test.tsx`, Vitest·Testing Library)를 함께 씁니다. story 규칙은 아래와 같습니다.
+4. 상태 조합별 story와 키보드·aria 테스트(`home/src/components/<id>/<Name>.test.tsx`, Vitest·Testing Library)를 함께 씁니다. story 규칙은 아래와 같습니다.
    - title은 `Components/<PascalName>`입니다. variant별 story와 모든 상태를 한 화면에 모은 `AllStates` story를 하나 둡니다.
    - `AllStates`에서 hover·press·focus-visible을 고정해 보일 때는 CSS에 별도 선택자나 `data-*` 속성을 만들지 않고 `storybook-addon-pseudo-states`의 `parameters.pseudo`(`hover`·`active`·`focusVisible`에 셀 id 선택자 배열)를 씁니다. 컴포넌트 CSS에는 실제 의사 클래스(`:hover`·`:active`·`:focus-visible`)만 둡니다.
    - 참·거짓 상태를 나타내는 `data-*` 속성은 켜져 있으면 `''`(속성만 있음), 꺼져 있으면 속성을 빼서 렌더링하고, CSS는 `[data-x]`로 고릅니다. `data-x="false"`는 쓰지 않습니다.
@@ -43,8 +43,8 @@
    - 툴바 "바탕"에서 홈페이지(검정)와 관리자(흰색)를 전환해 두 바탕에서 모두 확인합니다. 관리자 색·크기 덮어쓰기 값은 `.storybook/admin-preset.css`에 있고, 컴포넌트를 구현하면 명세 9절의 크기 변수를 컴포넌트별 주석 소절로 묶어 추가합니다. 이 값은 Storybook 전용이며 패키지에 넣지 않습니다.
    - 바탕 전환은 `html`에도 `data-boaz-theme`을 붙이므로 Modal처럼 포털로 그리는 컴포넌트도 따로 설정하지 않아도 관리자 덮어쓰기가 적용됩니다.
    - 접근성 패널은 위반을 표시만 합니다(`a11y.test: 'todo'`). COMPONENT-33까지 구현한 뒤 알려진 대비 미달 story만 예외로 두고 `'error'`로 바꿉니다.
-5. 공개할 컴포넌트는 `src/index.ts`에서 export합니다. 컴포넌트 CSS는 `dist/styles.css` 하나로 묶여 나옵니다.
-6. `npm run typecheck`, `npm test`, `npm run build`, `npm run build-storybook`이 통과해야 합니다(`storybook-static/`은 커밋하지 않음). `npm run build`는 토큰(`dist/tokens.*`)과 컴포넌트(`dist/index.js`·`index.d.ts`·`styles.css`)를 함께 만들며, 이 `dist/`를 같은 커밋에 넣습니다. CI `Tokens Build`가 `dist/`가 다르면 실패시킵니다.
+5. 공개할 컴포넌트는 `home/src/index.ts`에서 export합니다. 컴포넌트 CSS는 `dist/home/styles.css` 하나로 묶여 나옵니다.
+6. `npm run typecheck`, `npm test`, `npm run build`, `npm run build-storybook`이 통과해야 합니다(`storybook-static/`은 커밋하지 않음). `npm run build`는 토큰(`dist/home/tokens.*`)과 컴포넌트(`dist/home/index.js`, `index.d.ts`, `styles.css`)를 함께 만들며, 이 `dist/`를 같은 커밋에 넣습니다. CI `Tokens Build`가 `dist/`가 다르면 실패시킵니다.
 7. `docs/wbs/30-component.md`의 해당 티켓 "완료 확인 방법"을 하나씩 대조합니다. PR 제목은 `[Feat] COMPONENT-19 Button` 꼴, 커밋 type은 `feat`입니다.
 
 ## 토큰 이름 규칙
@@ -70,7 +70,7 @@
 - 토큰 이름 삭제·변경, 컴포넌트 export 이름·prop 이름 삭제·변경은 소비 앱을 깨뜨립니다. PR 본문에 대체 이름과 영향 앱을 적고, 버전의 minor(0.x) 또는 major를 올립니다.
 - 값만 바뀌는 변경은 patch입니다.
 - 토큰 추가는 breaking이 아니며 patch입니다(0.x에서 minor는 breaking 전용). 추가한 토큰을 앱이 쓰려면 릴리스가 필요하므로 PR 본문에 쓸 앱과 티켓을 적습니다.
-- 이름 삭제·변경 여부는 `git diff dev -- dist/tokens.d.ts`로 확인합니다. 소비 앱에서는 새 버전 설치 후 타입 검사(frontend `pnpm check-types`, frontend_admin `npm run check-types`)로 깨지는 곳을 찾습니다.
+- 이름 삭제·변경 여부는 `git diff dev -- dist/home/tokens.d.ts`로 확인합니다. 소비 앱에서는 새 버전 설치 후 타입 검사(frontend `pnpm check-types`, frontend_admin `npm run check-types`)로 깨지는 곳을 찾습니다.
 
 ## 릴리스
 
@@ -84,7 +84,7 @@
 
 ## 문서 작성 규칙
 
-Notion 문서, PR·이슈 본문, 저장소 안 문서(`docs/`, `components/`, `patterns/` 명세 포함)를 쓰거나 고칠 때 적용합니다. AI 도구에 문서 작성을 맡길 때도 이 절을 따르게 합니다.
+Notion 문서, PR·이슈 본문, 저장소 안 문서(`docs/`, `home/components/`, `home/patterns/` 명세 포함)를 쓰거나 고칠 때 적용합니다. AI 도구에 문서 작성을 맡길 때도 이 절을 따르게 합니다.
 
 - 문서만 읽고 이해할 수 있게 씁니다. 작성 당시 맥락(회의, 대화)을 모르는 팀원이 처음 읽어도 뜻이 통해야 합니다.
 - 비유 표현을 쓰지 않습니다. 뜻 그대로의 말로 씁니다.
@@ -97,4 +97,4 @@ Notion 문서, PR·이슈 본문, 저장소 안 문서(`docs/`, `components/`, `
 - PR·이슈 본문은 저장소 템플릿(`.github/PULL_REQUEST_TEMPLATE.md`, `.github/ISSUE_TEMPLATE/`)의 섹션 이름과 순서를 그대로 지킵니다. 템플릿이 내용이 없으면 삭제하라고 안내한 섹션만 지울 수 있습니다. 템플릿에 없는 섹션을 만들지 않고, 문서 작업 중에 템플릿 파일 자체를 고치지 않습니다.
 - 이 저장소는 공개이므로 Notion·Figma 링크는 적지 않습니다. 템플릿의 티켓 키 칸에 티켓 키(예: `COMPONENT-01`)만 적고, Figma는 노드 ID만 적습니다. 명세 PR의 "스크린샷 / 근거" 절에는 Figma 노드 ID와 대비 계산 결과만 적고 캡처는 넣지 않습니다.
 - 고치지 않는 것: 회의 발언 기록 원문, 외부 자료 인용, 코드 블록, 다른 문서가 링크하는 파일·폴더 이름
-- `docs/wbs/` 문서와 `components/`·`patterns/` 명세는 개조식 명사형 종결(`~함`, `~됨`)을 씁니다.
+- `docs/wbs/` 문서와 `home/components/`, `home/patterns/` 명세는 개조식 명사형 종결(`~함`, `~됨`)을 씁니다.

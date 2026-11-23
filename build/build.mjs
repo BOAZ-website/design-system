@@ -1,4 +1,4 @@
-// 토큰(tokens/**/*.json, DTCG) → dist/ 생성물 4종
+// 홈페이지 토큰(core/tokens + home/tokens, DTCG) → dist/home/ 생성물 4종
 //   tokens.css          :root { --boaz-* }
 //   tokens.js           var() 참조를 담은 중첩 객체(Vanilla Extract 등에서 사용, ESM)
 //   tokens.d.ts         tokens.js 타입
@@ -11,6 +11,7 @@ import { build as viteBuild } from 'vite';
 
 const PREFIX = 'boaz';
 const BUILD_DIR = 'dist.tmp';
+const HOME_OUT = `${BUILD_DIR}/home`;
 const HEADER = '// 이 파일은 npm run build 로 생성됩니다. 직접 수정하지 마세요.';
 
 // 토큰 → Tailwind v4 테마 변수 이름. null 이면 tailwind-theme.css 에 넣지 않는다.
@@ -97,14 +98,15 @@ StyleDictionary.registerFormat({
 
 const sd = new StyleDictionary({
   // 파일 순서가 출력 순서다. glob 결과 순서는 환경마다 다를 수 있어 정렬해 고정한다.
-  source: globSync('tokens/**/*.json').sort(),
+  // 공통 글꼴(core)을 먼저, 홈페이지 토큰을 다음에 읽는다.
+  source: [...globSync('core/tokens/**/*.json').sort(), ...globSync('home/tokens/**/*.json').sort()],
   // 참조 깨짐·중복 이름은 기본값이 경고라 빌드가 통과한다. 오류로 올려 빌드를 멈춘다.
   log: { warnings: 'error' },
   platforms: {
     css: {
       transformGroup: 'css',
       prefix: PREFIX,
-      buildPath: `${BUILD_DIR}/`,
+      buildPath: `${HOME_OUT}/`,
       files: [
         {
           destination: 'tokens.css',
@@ -123,7 +125,7 @@ const sd = new StyleDictionary({
 // 빌드가 실패해도 커밋된 dist/ 는 남는다. 이름이 바뀐 생성물(예: 예전 tokens.ts)이 남지 않게 통째로 교체한다.
 await rm(BUILD_DIR, { recursive: true, force: true });
 await sd.buildAllPlatforms();
-await viteBuild({ logLevel: 'warn', build: { outDir: BUILD_DIR } });
-execFileSync('node_modules/.bin/tsc', ['-p', 'tsconfig.build.json', '--outDir', BUILD_DIR], { stdio: 'inherit' });
+await viteBuild({ logLevel: 'warn', build: { outDir: HOME_OUT } });
+execFileSync('node_modules/.bin/tsc', ['-p', 'tsconfig.build.json', '--outDir', HOME_OUT], { stdio: 'inherit' });
 await rm('dist', { recursive: true, force: true });
 await rename(BUILD_DIR, 'dist');

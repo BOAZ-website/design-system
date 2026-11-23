@@ -1,0 +1,30 @@
+{
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "base": {
+        "$value": [
+          "Pretendard",
+          "sans-serif"
+        ],
+        "$description": "홈페이지와 관리자가 함께 쓰는 기본 글꼴"
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "300": {
+        "$value": 300
+      },
+      "400": {
+        "$value": 400
+      },
+      "600": {
+        "$value": 600,
+        "$description": "Headline1-Semibold, 모바일 버튼(TOKEN-02-06)"
+      },
+      "700": {
+        "$value": 700
+      }
+    }
+  }
+}
