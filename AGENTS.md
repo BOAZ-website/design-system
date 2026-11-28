@@ -98,3 +98,9 @@ Notion 문서, PR·이슈 본문, 저장소 안 문서(`docs/`, `home/components
 - 이 저장소는 공개이므로 Notion·Figma 링크는 적지 않습니다. 템플릿의 티켓 키 칸에 티켓 키(예: `COMPONENT-01`)만 적고, Figma는 노드 ID만 적습니다. 명세 PR의 "스크린샷 / 근거" 절에는 Figma 노드 ID와 대비 계산 결과만 적고 캡처는 넣지 않습니다.
 - 고치지 않는 것: 회의 발언 기록 원문, 외부 자료 인용, 코드 블록, 다른 문서가 링크하는 파일·폴더 이름
 - `docs/wbs/` 문서와 `home/components/`, `home/patterns/` 명세는 개조식 명사형 종결(`~함`, `~됨`)을 씁니다.
+
+## 이슈와 PR 생성(engineering-playbook `conventions/issue-pr.md`)
+
+- 개발 작업은 GitHub 이슈를 먼저 만들고 Notion 티켓을 만든다. 이슈는 engineering-playbook `tools/new-issue.sh`로 만든다. Assignee, 작업 종류 라벨, Type, Priority, 보드("BOAZ-website project") 편입, Project 6개가 필수이며 스크립트가 한 번에 지정한다
+- PR 하나 = 이슈 하나. PR 본문에 `Closes #번호`를 적는다. 작업이 PR 여러 개로 나뉘면 `tools/new-issue.sh -p 상위번호`로 하위 이슈를 만들고 PR마다 하위 이슈 하나를 닫는다
+- PR은 Assignee(작성자)와 Reviewer(작성자가 아닌 사람 1명 이상)를 반드시 지정한다
